@@ -62,12 +62,13 @@
             "subject_custom": {"order": 7, "sdWidth": "full", "required": true},
             "place_custom": {"order": 8, "sdWidth": "full", "required": true},
             "ednote": {"order": 9, "sdWidth": "full"},
-            "headline": {"order": 10},
+            "headline": {"order": 10, "editor3" : true},
             "dateline": {"order": 11, "hideDate": true},
-            "byline": {"order": 12},
-            "abstract": {"order": 13},
+            "byline": {"order": 12, "editor3" : true},
+            "abstract": {"order": 13, "editor3" : true},
             "body_html": {
                 "order": 14,
+                "editor3" : true,
                 "formatOptions":["h1", "h2", "bold", "italic", "underline", "quote", "anchor", "embed", "picture", "table", "removeFormat"]
             },
             "sign_off": {"order": 15},
