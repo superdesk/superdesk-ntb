@@ -32,6 +32,7 @@ def env(variable, fallback_value=None):
         else:
             return env_value
 
+
 ABS_PATH = os.path.abspath(os.path.dirname(__file__))
 INIT_DATA_PATH = os.path.join(ABS_PATH, 'data')
 LOCATORS_DATA_FILE = os.path.join(ABS_PATH, 'data', 'locators.json')
@@ -235,6 +236,7 @@ def build_body_html(xml):
             continue
         elements.append(ET.tostring(elem, encoding='unicode'))
     return ''.join(elements)
+
 
 NITF_MAPPING = {
     'anpa_category': {'xpath': "head/meta/[@name='NTBTjeneste']",
