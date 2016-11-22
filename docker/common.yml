@@ -58,7 +58,6 @@ superdesk:
    - SUPERDESK_WS_URL=ws://127.0.0.1/ws
    - PUBLICAPI_URL=http://127.0.0.1/pubapi
    - SUPERDESK_CLIENT_URL=http://127.0.0.1
-   - SUPERDESK_TESTING=True
    - IFRAMELY_KEY
   volumes:
    - ../results/server/unit:/opt/superdesk/results-unit/
@@ -94,7 +93,6 @@ pubapi:
    - SUPERDESK_URL=http://127.0.0.1/api
    - PUBLICAPI_URL=http://127.0.0.1/pubapi
    - SUPERDESK_CLIENT_URL=http://127.0.0.1
-   - SUPERDESK_TESTING=True
   volumes:
    - ../superdesk-content-api/results/unit:/opt/superdesk-content-api/results-unit/
    - ../superdesk-content-api/results/behave:/opt/superdesk-content-api/results-behave/
