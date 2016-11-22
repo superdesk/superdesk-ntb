@@ -241,6 +241,8 @@ class ScanpixDatalayer(DataLayer):
         main_group = doc['mainGroup']
         if main_group == 'video':
             new_doc[ITEM_TYPE] = CONTENT_TYPE.VIDEO
+        elif main_group == 'graphic':
+            new_doc[ITEM_TYPE] = CONTENT_TYPE.GRAPHIC
         else:
             new_doc[ITEM_TYPE] = CONTENT_TYPE.PICTURE
 
