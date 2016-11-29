@@ -68,7 +68,7 @@
             "abstract": {"order": 13},
             "body_html": {
                 "order": 14,
-                "formatOptions":["h1", "h2", "bold", "italic", "underline", "quote", "anchor", "embed", "picture", "table", "removeFormat"]
+                "formatOptions":["h1", "h2", "bold", "italic", "underline", "quote", "anchor", "embed", "picture", "unorderedlist", "table", "removeFormat"]
             },
             "sign_off": {"order": 15},
             "feature_media": {"order": 16},
@@ -130,7 +130,7 @@
             "abstract": {"order": 13},
             "body_html": {
                 "order": 14,
-                "formatOptions":["h1", "h2", "bold", "italic", "underline", "quote", "anchor", "embed", "picture", "table", "removeFormat"]
+                "formatOptions":["h1", "h2", "bold", "italic", "underline", "quote", "anchor", "embed", "picture", "unorderedlist", "table", "removeFormat"]
             },
             "sign_off": {"order": 15},
             "feature_media": {"order": 16}
@@ -191,7 +191,7 @@
             "abstract": {"order": 13},
             "body_html": {
                 "order": 14,
-                "formatOptions":["h1", "h2", "bold", "italic", "underline", "quote", "anchor", "embed", "picture", "table", "removeFormat"]
+                "formatOptions":["h1", "h2", "bold", "italic", "underline", "quote", "anchor", "embed", "picture", "unorderedlist", "table", "removeFormat"]
             },
             "sign_off": {"order": 15},
             "feature_media": {"order": 16}
