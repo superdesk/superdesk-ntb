@@ -297,7 +297,7 @@ class NTBNITFFormatter(NITFFormatter):
         try:
             associations = article['associations']
         except KeyError:
-            self._add_meta_media_counter(head, 0)
+            pass
         else:
             try:
                 media_data.append(associations['featureimage'])
