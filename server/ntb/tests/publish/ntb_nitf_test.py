@@ -328,6 +328,21 @@ class NTBNITFFormatterTest(TestCase):
         body_content = nitf_xml.find("body/body.content")
         self.assertEqual(etree.tostring(body_content), expected)
 
+    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    def test_single_counter(self):
+        """SDNTB-338 regression test"""
+        # media counter should appear once and only once when no image is present
+        article = copy.deepcopy(self.article)
+        article['body_html'] = "<p/>"
+        del article['associations']
+        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
+        doc = formatter_output[0]['formatted_item']
+        nitf_xml = etree.fromstring(doc)
+        head = nitf_xml.find('head')
+        media_counters = head.findall('meta[@name="NTBBilderAntall"]')
+        self.assertEqual(len(media_counters), 1)
+        self.assertEqual(media_counters[0].get('content'), '0')
+
     def test_filename(self):
         filename = self.nitf_xml.find('head/meta[@name="filename"]')
         datetime = NOW.astimezone(self.tz).strftime("%Y-%m-%d_%H-%M-%S")
