@@ -57,7 +57,7 @@ module.exports = function(grunt) {
         },
 
         search_cvs: [
-            {id: 'category', name:'Category', field: 'subject', list: 'category'},
+            {id: 'category', name:'Category', field: 'category', list: 'category'},
             {id: 'subject', name:'Subject', field: 'subject', list: 'subject_custom'}
         ],
 
