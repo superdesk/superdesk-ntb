@@ -297,7 +297,7 @@ class NTBNITFFormatter(NITFFormatter):
         try:
             associations = article['associations']
         except KeyError:
-            self._add_meta_media_counter(head, 0)
+            pass
         else:
             try:
                 media_data.append(associations['featureimage'])
@@ -391,8 +391,10 @@ class NTBNITFFormatter(NITFFormatter):
                         logger.warning("Can't find source for media {}".format(data.get('guid', '')))
                         continue
 
-            if data['type'] in (CONTENT_TYPE.PICTURE, CONTENT_TYPE.GRAPHIC):
+            if data['type'] == CONTENT_TYPE.PICTURE:
                 type_ = 'image'
+            elif data['type'] == CONTENT_TYPE.GRAPHIC:
+                type_ = 'grafikk'
             elif data['type'] == CONTENT_TYPE.VIDEO:
                 type_ = 'video'
             else:
@@ -401,7 +403,7 @@ class NTBNITFFormatter(NITFFormatter):
             mime_type = data.get('mimetype')
             if mime_type is None:
                 # these default values need to be used if mime_type is not found
-                mime_type = 'image/jpeg' if type_ == 'image' else 'video/mpeg'
+                mime_type = 'image/jpeg' if type_ == 'image' or type_ == 'grafikk' else 'video/mpeg'
             caption = data.get('description_text', '')
             self._add_media(body_content, type_, mime_type, source, caption)
         self._add_meta_media_counter(head, len(media_data))

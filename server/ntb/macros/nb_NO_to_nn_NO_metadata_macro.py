@@ -14,7 +14,7 @@ def nb_NO_to_nn_NO_metadata_macro(item, **kwargs):
         {
             'qcode': 's',
             'single_value': True,
-            'name': 'NPKSisteNytt',
+            'name': 'NPKTema',
             'language': 'nn-NO',
             'scheme': None
         }
