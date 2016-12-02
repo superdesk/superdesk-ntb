@@ -12,9 +12,11 @@
     <meta name="NTBID" content="RED_20160512_RTZ_8883_0" />
     <meta name="NTBKilde" content="Ritzau" />
     <meta name="NTBBeskrivelse" content="*En 41-årig mand, der onsdag blev anholdt og sat i forbindel" />
-    <tobject tobject.type="Utenriks">
-      <tobject.property tobject.property.type="Nyheter" />
-      <tobject.subject tobject.subject.code="KRE" tobject.subject.refnum="02000000" tobject.subject.type="Kriminalitet og rettsvesen" />
+    <tobject tobject.type="Sport">
+        <tobject.property tobject.property.type="Tabeller og resultater" />
+        <tobject.subject tobject.subject.code="SPO" tobject.subject.refnum="15000000" tobject.subject.type="Sport" />
+        <tobject.subject tobject.subject.code="SPO" tobject.subject.refnum="15073031" tobject.subject.matter="Nasjonal toppliga" />
+        <tobject.subject tobject.subject.code="SPO" tobject.subject.refnum="15054000" tobject.subject.matter="Fotball" />
     </tobject>
     <docdata>
       <doc-id regsrc="ritzau.dk" id-string="20160512:RTZ:8883:0" />
