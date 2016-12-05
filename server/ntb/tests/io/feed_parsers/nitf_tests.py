@@ -49,19 +49,29 @@ class NTBTestCase(NITFTestCase):
     filename = 'nitf_test.xml'
 
     def test_subject_update(self):
-        self.assertEqual(len(self.item.get('subject')), 2)
+        self.assertEqual(len(self.item.get('subject')), 4)
 
     def test_category(self):
-        self.assertIn({'qcode': 'Utenriks', 'name': 'Utenriks', 'scheme': 'category'}, self.item.get('subject'))
+        self.assertIn({'qcode': 'Sport', 'name': 'Sport', 'scheme': 'category'}, self.item.get('subject'))
 
     def test_genre(self):
-        self.assertEqual(self.item.get('genre'), [{'qcode': 'Nyheter', 'name': 'Nyheter', 'scheme': 'genre_custom'}])
+        self.assertEqual(self.item.get('genre'),
+                         [{'qcode': 'Tabeller og resultater',
+                           'name': 'Tabeller og resultater',
+                           'scheme': 'genre_custom'}])
 
     def test_slugline(self):
         self.assertEqual(self.item.get('slugline'), "NU-FLASH-K")
 
     def test_subject(self):
-        self.assertIn({'qcode': '02000000', 'name': 'Kriminalitet og rettsvesen', 'scheme': 'subject_custom'},
+        self.assertIn({'qcode': '15000000', 'name': 'Sport', 'scheme': 'subject_custom'},
+                      self.item.get('subject'))
+        self.assertIn({'qcode': '15073031',
+                       'name': 'Nasjonal toppliga',
+                       'scheme': 'subject_custom',
+                       'parent': '01500000'},
+                      self.item.get('subject'))
+        self.assertIn({'qcode': '15054000', 'name': 'Fotball', 'scheme': 'subject_custom', 'parent': '01500000'},
                       self.item.get('subject'))
 
     def test_abstract(self):
