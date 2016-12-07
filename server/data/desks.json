@@ -102,6 +102,7 @@
         "description": "NPK Desk",
         "source": "NPK",
         "desk_type": "production",
+        "desk_language": "nn-NO",
         "members": [{
             "user": "5640a5eef40235008465242b"
         }, {
