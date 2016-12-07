@@ -12,8 +12,7 @@
 
 import os
 import json
-import superdesk
-from xml.etree import ElementTree as ET
+from ntb.io.feed_parsers import ntb_nitf
 
 
 try:
@@ -198,73 +197,14 @@ LANGUAGES = [
     {'language': 'de', 'label': 'German', 'source': False, 'destination': False}
 ]
 
-
 # NTB NITF specific behaviour
-# TODO: move this to a module once SD-4650 is fixed
-
-def add_subjects_scheme(subjects):
-    for subject in subjects:
-        subject['scheme'] = 'subject_custom'
-    return subjects
-
-
-def build_service(elem):
-    """Fill service (anpa_category for NTB) according to vocabularies"""
-    category = elem.get('content')
-    voc_categories = superdesk.get_resource_service('vocabularies').find_one(req=None, _id='categories')['items']
-    service = [{'name': elem.get('content')}]
-    update = None
-    for voc_category in voc_categories:
-        if category == voc_category['name']:
-            try:
-                update = {'qcode': voc_category['qcode'], 'language': voc_category['language']}
-            except KeyError:
-                continue
-            else:
-                break
-    if update is not None:
-        service[0].update(update)
-    else:
-        service[0]['qcode'] = elem.get('content')
-    return service
-
-
-def build_body_html(xml):
-    elements = []
-    for elem in xml.find('body/body.content'):
-        if elem.tag == 'p' and elem.get('class') == 'lead':
-            continue
-        elements.append(ET.tostring(elem, encoding='unicode'))
-    return ''.join(elements)
-
-
-NITF_MAPPING = {
-    'anpa_category': {'xpath': "head/meta/[@name='NTBTjeneste']",
-                      'filter': build_service,
-                      },
-    'priority': {'update': True,
-                 'xpath': "head/meta/[@name='NTBPrioritet']"},
-    'ntb_category': {'xpath': 'head/tobject[@tobject.type]',
-                     'filter': lambda e: [{'qcode': e.get('tobject.type'),
-                                           'name': e.get('tobject.type'),
-                                           'scheme': 'category'}],
-                     # category is stored in subject for NITF, so we need a key_hook
-                     'key_hook': lambda item, value: item.setdefault('subject', []).extend(value)},
-    'genre': {'xpath': 'head/tobject[@tobject.type]/tobject.property[@tobject.property.type]',
-                       'filter': lambda e: [{'qcode': e.get('tobject.property.type'),
-                                             'name': e.get('tobject.property.type'),
-                                             'scheme': 'genre_custom'}]},
-    'subject': {'update': True,  # we use default subjects parsing
-                'filter_value': add_subjects_scheme,  # and add NTB scheme
-                'key_hook': lambda item, value: item.setdefault('subject', []).extend(value)},
-    'body_html': build_body_html,
-    'slugline': 'head/docdata/du-key/@key',
-    'abstract': "body/body.content/p[@class='lead']",
-    'keywords': '',  # keywords are ignored on purpose
-}
+NITF_MAPPING = ntb_nitf.NITF_MAPPING
 
 ENABLE_PROFILING = False
 
 NO_TAKES = True
 
 FTP_TIMEOUT = 30
+
+# FIXME: temporary fix for SDNTB-344, need to be removed once SDESK-439 is implemented
+INGEST_SKIP_IPTC_CODES = True
