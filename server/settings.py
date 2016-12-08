@@ -203,5 +203,8 @@ NITF_MAPPING = ntb_nitf.NITF_MAPPING
 ENABLE_PROFILING = False
 
 NO_TAKES = True
+
+FTP_TIMEOUT = 30
+
 # FIXME: temporary fix for SDNTB-344, need to be removed once SDESK-439 is implemented
 INGEST_SKIP_IPTC_CODES = True
