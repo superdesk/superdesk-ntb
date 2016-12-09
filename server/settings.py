@@ -206,5 +206,7 @@ NO_TAKES = True
 
 FTP_TIMEOUT = 30
 
+DEFAULT_TIMEZONE = "Europe/Oslo"
+
 # FIXME: temporary fix for SDNTB-344, need to be removed once SDESK-439 is implemented
 INGEST_SKIP_IPTC_CODES = True
