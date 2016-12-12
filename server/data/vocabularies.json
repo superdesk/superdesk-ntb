@@ -82,7 +82,7 @@
         "dependent": 1,
         "items": [
             {"is_active": true, "name": "Nyheter", "qcode": "Nyheter", "service": {"n": 1, "j": 1, "e": 1, "t": 1, "m": 1, "s": 1, "d": 1, "o": 1, "p": 1, "k": 1}},
-            {"is_active": true, "name": "Faktaboks", "qcode": "Faktaboks", "service": {"n": 1}},
+            {"is_active": true, "name": "Faktaboks", "qcode": "Faktaboks", "service": {"n": 1, "f": 1}},
             {"is_active": true, "name": "Bakgrunn", "qcode": "Bakgrunn", "service": {"n": 1, "j": 1}},
             {"is_active": true, "name": "Analyse", "qcode": "Analyse", "service": {"n": 1}},
             {"is_active": true, "name": "Notiser", "qcode": "Notiser", "service": {"n": 1, "j": 1, "b": 1, "k": 1}},
