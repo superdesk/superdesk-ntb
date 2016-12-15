@@ -210,3 +210,5 @@ DEFAULT_TIMEZONE = "Europe/Oslo"
 
 # FIXME: temporary fix for SDNTB-344, need to be removed once SDESK-439 is implemented
 INGEST_SKIP_IPTC_CODES = True
+
+SESSION_EXPIRY_MINUTES = 12 * 60
