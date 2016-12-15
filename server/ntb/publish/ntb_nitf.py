@@ -22,6 +22,8 @@ import copy
 import pytz
 import logging
 from copy import deepcopy
+from flask import current_app as app
+
 logger = logging.getLogger(__name__)
 tz = None
 
@@ -74,6 +76,7 @@ class NTBNITFFormatter(NITFFormatter):
                      'formatted_item': self.XML_DECLARATION + ET.tostring(nitf, "unicode"),
                      'encoded_item': self.XML_DECLARATION.encode(ENCODING) + encoded}]
         except Exception as ex:
+            app.sentry.captureException()
             raise FormatterError.nitfFormatterError(ex, subscriber)
 
     def _populate_metadata(self, article):
