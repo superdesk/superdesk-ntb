@@ -69,9 +69,9 @@ class NTBTestCase(NITFTestCase):
         self.assertIn({'qcode': '15073031',
                        'name': 'Nasjonal toppliga',
                        'scheme': 'subject_custom',
-                       'parent': '01500000'},
+                       'parent': '15000000'},
                       self.item.get('subject'))
-        self.assertIn({'qcode': '15054000', 'name': 'Fotball', 'scheme': 'subject_custom', 'parent': '01500000'},
+        self.assertIn({'qcode': '15054000', 'name': 'Fotball', 'scheme': 'subject_custom', 'parent': '15000000'},
                       self.item.get('subject'))
 
     def test_abstract(self):
