@@ -145,8 +145,8 @@ class NTBNITFFormatter(NITFFormatter):
             attrib={'norm': article['versioncreated'].astimezone(tz).strftime("%Y-%m-%dT%H:%M:%S")})
 
     def _format_docdata_doc_id(self, article, docdata):
-        doc_id = "NTB{item_id}_{version:02}".format(
-            item_id=article['item_id'],
+        doc_id = "NTB{family_id}_{version:02}".format(
+            family_id=article['family_id'],
             version=article.get('rewrite_sequence', 0))
         ET.SubElement(docdata, 'doc-id', attrib={'regsrc': 'NTB', 'id-string': doc_id})
 
@@ -231,7 +231,7 @@ class NTBNITFFormatter(NITFFormatter):
             ET.SubElement(head, 'meta', {'name': 'NTBStikkord', 'content': article['slugline']})
         ET.SubElement(head, 'meta', {'name': 'subject', 'content': self._get_ntb_subject(article)})
 
-        ET.SubElement(head, 'meta', {'name': 'NTBID', 'content': 'NTB{}'.format(article['item_id'])})
+        ET.SubElement(head, 'meta', {'name': 'NTBID', 'content': 'NTB{}'.format(article['family_id'])})
 
         # these static values never change
         ET.SubElement(head, 'meta', {'name': 'NTBDistribusjonsKode', 'content': 'ALL'})

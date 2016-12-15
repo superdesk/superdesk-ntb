@@ -53,6 +53,7 @@ ARTICLE = {
     'priority': '2',
     '_id': 'urn:localhost.abc',
     'item_id': ITEM_ID,
+    'family_id': ITEM_ID,
     # we use non latin1 chars in slugline to test encoding
     "slugline": "this is the slugline œ:?–",
     'urgency': 2,
@@ -227,6 +228,11 @@ class NTBNITFFormatterTest(TestCase):
         du_key = self.nitf_xml.find('head/docdata/du-key')
         self.assertEqual(du_key.get('key'), 'this is the slugline œ:?–')
 
+    def test_doc_id(self):
+        doc_id = self.nitf_xml.find('head/docdata/doc-id')
+        self.assertEqual(doc_id.get('regsrc'), 'NTB')
+        self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(ITEM_ID, 1))
+
     def test_pubdata(self):
         pubdata = self.nitf_xml.find('head/pubdata')
         expected = NOW.astimezone(self.tz).strftime("%Y%m%dT%H%M%S")
@@ -373,3 +379,24 @@ class NTBNITFFormatterTest(TestCase):
         self.assertEqual(kanal.get('content'), 'A')
         ntb_id = head.find('meta[@name="NTBID"]')
         self.assertEqual(ntb_id.get('content'), 'NTB' + ITEM_ID)
+
+    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    def test_update_id(self):
+        """check use of family_id on update
+
+        when family id is different from item_id (i.e. on updated item),
+        family_id should be used for doc-id and ntbid
+        """
+        article = copy.deepcopy(self.article)
+        family_id = "test_family_id"
+        article['family_id'] = family_id
+        article['rewrite_sequence'] = 3
+        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
+        doc = formatter_output[0]['formatted_item']
+        nitf_xml = etree.fromstring(doc)
+        head = nitf_xml.find('head')
+        ntb_id = head.find('meta[@name="NTBID"]')
+        self.assertEqual(ntb_id.get('content'), 'NTB' + family_id)
+        doc_id = nitf_xml.find('head/docdata/doc-id')
+        self.assertEqual(doc_id.get('regsrc'), 'NTB')
+        self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(family_id, 3))
