@@ -343,6 +343,31 @@ class NTBNITFFormatterTest(TestCase):
         self.assertEqual(len(media_counters), 1)
         self.assertEqual(media_counters[0].get('content'), '0')
 
+    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    def test_351(self):
+        """SDNTB-351 regression test
+
+        unbound namespaces must be removed from attributes
+        """
+        article = copy.deepcopy(self.article)
+        article['abstract'] = ""
+        article['body_html'] = """\
+            <p class="BrdtekstInnrykk">Målet i kortbane-VM som nylig ble avsluttet
+            i den canadiske byen Windsor var personlig rekord på <st1:metricconverter productid="1500 meter"
+            w:st="on">1500 meter</st1:metricconverter><br></p>
+            """
+        expected = b"""\
+            <body.content><p class="lead" lede="true" /><p class="txt-ind">M&#229;let i
+            kortbane-VM som nylig ble avsluttet i den canadiske byen Windsor var personlig rekord p&#229; 1500
+            meter</p><p class="txt">footer text</p><media media-type="image"><media-reference mime-type="image/jpeg"
+            source="test_id" /><media-caption>test feature media</media-caption></media></body.content>
+            """.replace(b'\n', b'').replace(b' ', b'')
+        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
+        doc = formatter_output[0]['formatted_item']
+        nitf_xml = etree.fromstring(doc)
+        body_content = nitf_xml.find("body/body.content")
+        self.assertEqual(etree.tostring(body_content).replace(b'\n', b'').replace(b' ', b''), expected)
+
     def test_filename(self):
         filename = self.nitf_xml.find('head/meta[@name="filename"]')
         datetime = NOW.astimezone(self.tz).strftime("%Y-%m-%d_%H-%M-%S")
