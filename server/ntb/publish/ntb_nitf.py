@@ -309,13 +309,13 @@ class NTBNITFFormatter(NITFFormatter):
         except KeyError:
             pass
         else:
-            try:
-                media_data.append(associations['featureimage'])
-            except KeyError:
-                try:
-                    media_data.append(associations['featuremedia'])
-                except KeyError:
-                    pass
+            feature_image = associations.get('featureimage')
+            if feature_image is not None:
+                media_data.append(feature_image)
+            else:
+                feature_media = associations.get('featuremedia')
+                if feature_media is not None:
+                    media_data.append(feature_media)
 
         def repl_embedded(match):
             """embedded in body_html handling"""
