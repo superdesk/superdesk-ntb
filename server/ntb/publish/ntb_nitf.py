@@ -29,7 +29,8 @@ tz = None
 
 EMBED_RE = re.compile(r"<!-- EMBED START ([a-zA-Z]+ {id: \"(?P<id>.+?)\"}) -->.*"
                       r"<!-- EMBED END \1 -->", re.DOTALL)
-STRIP_UNBOUND_RE = re.compile(r"<(/?)[a-zA-Z0-9._-]+:([a-zA-Z0-9._-]+)(/?)>")
+ELEMENT_RE = re.compile(r"(</?)(.+?)(/?>)")
+STRIP_UNBOUND_RE = re.compile(r"[a-zA-Z0-9._-]+:([^ ]+)")
 FILENAME_FORBIDDEN_RE = re.compile(r"[^a-zA-Z0-9._-]")
 ENCODING = 'iso-8859-1'
 assert ENCODING is not 'unicode'  # use e.g. utf-8 for unicode
@@ -286,6 +287,12 @@ class NTBNITFFormatter(NITFFormatter):
         elem = ET.Element('meta', {'name': 'NTBBilderAntall', 'content': str(counter)})
         head.insert(index, elem)
 
+    def _strip_unbound(self, match_obj):
+        """remove unbount namespaces from element name and attributes"""
+        # TODO: use lxml to recoved broken XML when SDESK-505 is done
+        stripped = STRIP_UNBOUND_RE.sub(r"\1", match_obj.group(2))
+        return match_obj.group(1) + stripped + match_obj.group(3)
+
     def _format_body_content(self, article, body_content):
         head = article.pop('head')
 
@@ -343,7 +350,7 @@ class NTBNITFFormatter(NITFFormatter):
                 # in case of copy/paste, some prefixed elements can appear, making the whole
                 # formatting failing. This workaround remove prefixes, html2nitf will then
                 # remove unknown elements
-                html_cleaned = STRIP_UNBOUND_RE.sub(r"<\1\2\3>", soup.decode(formatter='xml'))
+                html_cleaned = ELEMENT_RE.sub(self._strip_unbound, soup.decode(formatter='xml'))
                 html_elts = ET.fromstring('<div>{}</div>'.format(html_cleaned))
             else:
                 raise ValueError(u"Can't parse body_html content: {}".format(e))
