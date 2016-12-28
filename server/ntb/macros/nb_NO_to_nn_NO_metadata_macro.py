@@ -1,18 +1,17 @@
 """
     nb-NO to nn-NO Metadata Macro will perform the following changes to current content item:
-    - change the byline to "(NPK-NTB)"
+    - change the language to nn-NO
     - change the body footer to "(©NPK)" - NB: copyrightsign, not @
-    - change the service to "NPKSisteNytt"
+    - change the service (ANPA category) to "NPKTema"
 """
 
 
 def nb_NO_to_nn_NO_metadata_macro(item, **kwargs):
-    item['byline'] = '(NPK-NTB)'
     item['body_footer'] = '(©NPK)'
     item['language'] = 'nn-NO'
     item['anpa_category'] = [
         {
-            'qcode': 's',
+            'qcode': 'a',
             'single_value': True,
             'name': 'NPKTema',
             'language': 'nn-NO',
