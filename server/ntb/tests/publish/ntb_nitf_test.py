@@ -374,6 +374,22 @@ class NTBNITFFormatterTest(TestCase):
         body_content = nitf_xml.find("body/body.content")
         self.assertEqual(etree.tostring(body_content).replace(b'\n', b'').replace(b' ', b''), expected)
 
+    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    def test_355(self):
+        """SDNTB-355 regression test
+
+        formatter should not crash when featuremedia is None
+        """
+        article = copy.deepcopy(self.article)
+        article['associations']['featuremedia'] = None
+        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
+        doc = formatter_output[0]['formatted_item']
+        nitf_xml = etree.fromstring(doc)
+        # the test will raise an exception during self.formatter.format if SDNTB-355 bug is still present
+        # but we check in addition that media counter is as expected
+        media_counter = nitf_xml.find('head').find('meta[@name="NTBBilderAntall"]')
+        self.assertEqual(media_counter.get('content'), '2')
+
     def test_filename(self):
         filename = self.nitf_xml.find('head/meta[@name="filename"]')
         datetime = NOW.astimezone(self.tz).strftime("%Y-%m-%d_%H-%M-%S")
