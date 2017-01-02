@@ -23,8 +23,9 @@ class NTBPublishService(PublishService):
         # this way we are sure that we have the exact same filename
         try:
             xml = ET.fromstring(item['formatted_item'])
-        except (KeyError, ET.ParseError):
+        except (KeyError, ET.ParseError) as e:
             filename = None
+            logger.error("Error on parsing, can't get filename: {}".format(e))
         else:
             filename = xml.find('head/meta[@name="filename"]').attrib['content']
         if not filename:
