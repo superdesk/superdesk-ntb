@@ -32,6 +32,7 @@ EMBED_RE = re.compile(r"<!-- EMBED START ([a-zA-Z]+ {id: \"(?P<id>.+?)\"}) -->.*
 ELEMENT_RE = re.compile(r"(</?)(.+?)(/?>)")
 STRIP_UNBOUND_RE = re.compile(r"[a-zA-Z0-9._-]+:([^ ]+)")
 FILENAME_FORBIDDEN_RE = re.compile(r"[^a-zA-Z0-9._-]")
+STRIP_INVALID_CHARS_RE = re.compile('[\x00-\x08\x0B-\x0C\x0E-\x1F\x7F]')
 ENCODING = 'iso-8859-1'
 assert ENCODING is not 'unicode'  # use e.g. utf-8 for unicode
 
@@ -49,6 +50,9 @@ class NTBNITFFormatter(NITFFormatter):
         :return: True if article can formatted else False
         """
         return format_type == 'ntbnitf' and article[ITEM_TYPE] == CONTENT_TYPE.TEXT
+
+    def strip_invalid_chars(self, string):
+        return STRIP_INVALID_CHARS_RE.sub('', string)
 
     def format(self, original_article, subscriber, codes=None, encoding="us-ascii"):
         article = deepcopy(original_article)
@@ -331,7 +335,7 @@ class NTBNITFFormatter(NITFFormatter):
                 media_data.append(data)
             return ''
 
-        html = EMBED_RE.sub(repl_embedded, article.get('body_html', ''))
+        html = self.strip_invalid_chars(EMBED_RE.sub(repl_embedded, article.get('body_html', '')))
 
         # at this point we have media data filled in right order
         # and no more embedded in html
@@ -414,7 +418,7 @@ class NTBNITFFormatter(NITFFormatter):
             if mime_type is None:
                 # these default values need to be used if mime_type is not found
                 mime_type = 'image/jpeg' if type_ == 'image' or type_ == 'grafikk' else 'video/mpeg'
-            caption = data.get('description_text', '')
+            caption = self.strip_invalid_chars(data.get('description_text', ''))
             self._add_media(body_content, type_, mime_type, source, caption)
         self._add_meta_media_counter(head, len(media_data))
 
