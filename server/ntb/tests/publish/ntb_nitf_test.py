@@ -390,6 +390,22 @@ class NTBNITFFormatterTest(TestCase):
         media_counter = nitf_xml.find('head').find('meta[@name="NTBBilderAntall"]')
         self.assertEqual(media_counter.get('content'), '2')
 
+    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    def test_358(self):
+        """SDNTB-358 regression test
+
+        invalid characters should be stripped
+        """
+        article = copy.deepcopy(self.article)
+        bad_char_txt = "SKJÆ\x12R I SJØEN: Kirken Gospa od Skrpjela"
+        article['associations']['embedded10005446043']["description_text"] = bad_char_txt
+        article['body_html'] += bad_char_txt
+        # formatting in next line will fail with body_html if invalid chars are not stripped
+        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
+        doc = formatter_output[0]['formatted_item']
+        # next line will fail if SDNTB-358 is still present
+        etree.fromstring(doc)
+
     def test_filename(self):
         filename = self.nitf_xml.find('head/meta[@name="filename"]')
         datetime = NOW.astimezone(self.tz).strftime("%Y-%m-%d_%H-%M-%S")
