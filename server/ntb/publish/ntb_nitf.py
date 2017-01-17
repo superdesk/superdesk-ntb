@@ -11,7 +11,6 @@
 from superdesk.metadata.item import ITEM_TYPE, CONTENT_TYPE
 from superdesk.publish.formatters.nitf_formatter import NITFFormatter
 import re
-import io
 from bs4 import BeautifulSoup
 from lxml import etree
 from superdesk.publish.publish_service import PublishService
@@ -69,15 +68,12 @@ class NTBNITFFormatter(NITFFormatter):
             except KeyError:
                 pass
 
-            # we don't use tostring as we want to set xml_declaration=False
-            stream = io.BytesIO()
-            etree.ElementTree(nitf).write(stream, encoding=ENCODING, xml_declaration=False)
-            encoded = stream.getvalue()
+            encoded = etree.tostring(nitf, encoding=ENCODING, xml_declaration=False, pretty_print=True)
 
             return [{'published_seq_num': pub_seq_num,
                      # formatted_item can be used for preview, so we keep unicode version there
-                     'formatted_item': self.XML_DECLARATION + etree.tostring(nitf, encoding="unicode"),
-                     'encoded_item': self.XML_DECLARATION.encode(ENCODING) + encoded}]
+                     'formatted_item': self.XML_DECLARATION + '\n' + etree.tostring(nitf, encoding="unicode"),
+                     'encoded_item': (self.XML_DECLARATION + '\n').encode(ENCODING) + encoded}]
         except Exception as ex:
             app.sentry.captureException()
             raise FormatterError.nitfFormatterError(ex, subscriber)
