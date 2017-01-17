@@ -415,7 +415,7 @@ class NTBNITFFormatterTest(TestCase):
         encoded = self.formatter_output[0]['encoded_item']
         formatted = self.formatter_output[0]['formatted_item']
         manually_encoded = formatted.encode(ENCODING, 'xmlcharrefreplace')
-        self.assertEqual(encoded, manually_encoded)
+        self.assertEqual(b''.join(encoded.split()), b''.join(manually_encoded.split()))
         header = formatted[:formatted.find('>') + 1]
         self.assertIn('encoding="{}"'.format(ENCODING), header)
 
