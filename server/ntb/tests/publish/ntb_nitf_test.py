@@ -15,7 +15,7 @@ from ntb.publish.ntb_nitf import ENCODING
 from superdesk.publish.formatters import Formatter
 from superdesk.publish.subscribers import SubscribersService
 from superdesk.publish import init_app
-import xml.etree.ElementTree as etree
+from lxml import etree
 import datetime
 import uuid
 import pytz
@@ -214,7 +214,7 @@ class NTBNITFFormatterTest(TestCase):
             # as long as used attributes are not modified, it's fine
             self.article = ARTICLE
             self.formatter_output = self.formatter.format(self.article, {'name': 'Test NTBNITF'})
-            self.doc = self.formatter_output[0]['formatted_item']
+            self.doc = self.formatter_output[0]['encoded_item']
             self.nitf_xml = etree.fromstring(self.doc)
 
     def test_subject_and_category(self):
@@ -237,7 +237,7 @@ class NTBNITFFormatterTest(TestCase):
         pubdata = self.nitf_xml.find('head/pubdata')
         expected = NOW.astimezone(self.tz).strftime("%Y%m%dT%H%M%S")
         self.assertEqual(pubdata.get('date.publication'), expected)
-        self.assertEqual(pubdata.get('item-length'), '129')
+        self.assertEqual(pubdata.get('item-length'), '131')
         self.assertEqual(pubdata.get('unit-of-measure'), "character")
 
     def test_dateline(self):
@@ -315,7 +315,7 @@ class NTBNITFFormatterTest(TestCase):
         article = copy.deepcopy(self.article)
         article['dateline'] = {'located': None}
         formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
-        doc = formatter_output[0]['formatted_item']
+        doc = formatter_output[0]['encoded_item']
         nitf_xml = etree.fromstring(doc)
         self.assertEqual(nitf_xml.find('body/body.head/dateline'), None)
 
@@ -326,13 +326,13 @@ class NTBNITFFormatterTest(TestCase):
         article['abstract'] = ''
         del article['associations']
         article['body_html'] = "<pref:h1><other_pref:body.content><t:t/>toto</other_pref:body.content></pref:h1>"
-        expected = (b'<body.content><p class="lead" lede="true" /><hl2>toto</hl2><p class="txt">'
+        expected = (b'<body.content><p class="lead" lede="true" />toto<p class="txt">'
                     b'footer text</p></body.content>')
         formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
-        doc = formatter_output[0]['formatted_item']
+        doc = formatter_output[0]['encoded_item']
         nitf_xml = etree.fromstring(doc)
         body_content = nitf_xml.find("body/body.content")
-        self.assertEqual(etree.tostring(body_content), expected)
+        self.assertEqual(b''.join(etree.tostring(body_content).split()), b''.join(expected.split()))
 
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
     def test_single_counter(self):
@@ -342,7 +342,7 @@ class NTBNITFFormatterTest(TestCase):
         article['body_html'] = "<p/>"
         del article['associations']
         formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
-        doc = formatter_output[0]['formatted_item']
+        doc = formatter_output[0]['encoded_item']
         nitf_xml = etree.fromstring(doc)
         head = nitf_xml.find('head')
         media_counters = head.findall('meta[@name="NTBBilderAntall"]')
@@ -369,7 +369,7 @@ class NTBNITFFormatterTest(TestCase):
             source="test_id" /><media-caption>test feature media</media-caption></media></body.content>
             """.replace(b'\n', b'').replace(b' ', b'')
         formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
-        doc = formatter_output[0]['formatted_item']
+        doc = formatter_output[0]['encoded_item']
         nitf_xml = etree.fromstring(doc)
         body_content = nitf_xml.find("body/body.content")
         self.assertEqual(etree.tostring(body_content).replace(b'\n', b'').replace(b' ', b''), expected)
@@ -383,7 +383,7 @@ class NTBNITFFormatterTest(TestCase):
         article = copy.deepcopy(self.article)
         article['associations']['featuremedia'] = None
         formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
-        doc = formatter_output[0]['formatted_item']
+        doc = formatter_output[0]['encoded_item']
         nitf_xml = etree.fromstring(doc)
         # the test will raise an exception during self.formatter.format if SDNTB-355 bug is still present
         # but we check in addition that media counter is as expected
@@ -402,7 +402,7 @@ class NTBNITFFormatterTest(TestCase):
         article['body_html'] += bad_char_txt
         # formatting in next line will fail with body_html if invalid chars are not stripped
         formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
-        doc = formatter_output[0]['formatted_item']
+        doc = formatter_output[0]['encoded_item']
         # next line will fail if SDNTB-358 is still present
         etree.fromstring(doc)
 
@@ -413,9 +413,9 @@ class NTBNITFFormatterTest(TestCase):
 
     def test_encoding(self):
         encoded = self.formatter_output[0]['encoded_item']
-        manually_encoded = self.doc.encode(ENCODING, 'xmlcharrefreplace')
-        self.assertEqual(encoded, manually_encoded)
-        formatted = self.doc
+        formatted = self.formatter_output[0]['formatted_item']
+        manually_encoded = formatted.encode(ENCODING, 'xmlcharrefreplace')
+        self.assertEqual(b''.join(encoded.split()), b''.join(manually_encoded.split()))
         header = formatted[:formatted.find('>') + 1]
         self.assertIn('encoding="{}"'.format(ENCODING), header)
 
@@ -449,7 +449,7 @@ class NTBNITFFormatterTest(TestCase):
         article['family_id'] = family_id
         article['rewrite_sequence'] = 3
         formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
-        doc = formatter_output[0]['formatted_item']
+        doc = formatter_output[0]['encoded_item']
         nitf_xml = etree.fromstring(doc)
         head = nitf_xml.find('head')
         ntb_id = head.find('meta[@name="NTBID"]')
