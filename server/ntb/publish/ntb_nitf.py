@@ -329,7 +329,7 @@ class NTBNITFFormatter(NITFFormatter):
         # and no more embedded in html
 
         # regular content
-        parser = etree.XMLParser(recover=True)
+        parser = etree.XMLParser(recover=True, remove_blank_text=True)
         try:
             html_elts = etree.fromstring(''.join(('<div>', html, '</div>')), parser)
         except Exception as e:

@@ -237,7 +237,7 @@ class NTBNITFFormatterTest(TestCase):
         pubdata = self.nitf_xml.find('head/pubdata')
         expected = NOW.astimezone(self.tz).strftime("%Y%m%dT%H%M%S")
         self.assertEqual(pubdata.get('date.publication'), expected)
-        self.assertEqual(pubdata.get('item-length'), '131')
+        self.assertEqual(pubdata.get('item-length'), '121')
         self.assertEqual(pubdata.get('unit-of-measure'), "character")
 
     def test_dateline(self):
@@ -405,6 +405,43 @@ class NTBNITFFormatterTest(TestCase):
         doc = formatter_output[0]['encoded_item']
         # next line will fail if SDNTB-358 is still present
         etree.fromstring(doc)
+
+    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    def test_pretty_formatting(self):
+        """check that content is pretty formatted
+
+        we use here a body_html with spaces added on purpose, and check that resulting
+        body.content is formatted as expected
+        """
+        article = copy.deepcopy(self.article)
+        article['abstract'] = ""
+        article['body_html'] = """\
+            <div><div class="outer"> <h1>test title</h1>
+        <p>test <strong>strong</strong>  </p> <div><p>
+
+        <ul> <li> item 1</li>     <li>item 2</li>   <li>item 3</li>  </p>
+
+        </div></div>  </div>
+            """
+        article['associations'] = {}
+        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
+        doc = formatter_output[0]['encoded_item']
+        body_content = doc[doc.find(b'<body.content>') - 4:doc.find(b'</body.content>') + 15]
+        expected = b"""\
+    <body.content>
+      <p class="lead" lede="true"></p>
+      <hl2>test title</hl2>
+      <p class="txt">test <em class="bold">strong</em>  </p>
+      <p class="txt-ind">
+        <ul>
+          <li> item 1</li>
+          <li>item 2</li>
+          <li>item 3</li>
+        </ul>
+      </p>
+      <p class="txt">footer text</p>
+    </body.content>"""
+        self.assertEqual(body_content, expected)
 
     def test_filename(self):
         filename = self.nitf_xml.find('head/meta[@name="filename"]')
