@@ -45,9 +45,10 @@ module.exports = function(grunt) {
         },
 
         workspace: {
-            ingest: 0,
-            content: 0,
-            tasks: 0
+            ingest: false,
+            content: false,
+            tasks: false,
+            analytics: false
         },
 
         ui: {
