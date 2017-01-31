@@ -43,7 +43,7 @@ def generate_row(currency, name, multiplication, euro_currency, today_currency, 
 def get_currency(today):
 
     try:
-        yesterday = today - datetime.timedelta(days=1)
+        # yesterday = today - datetime.timedelta(days=1)
 
         # Getting data from The European Central Bank
         urlXml = "http://www.ecb.int/stats/eurofxref/eurofxref-hist-90d.xml"
@@ -62,12 +62,17 @@ def get_currency(today):
             return ['Dagens valutakurser ikke klare ennå']
 
         euro = euroQuery.attrib["rate"]
-        allCurrencies = ".//eurofxref:Cube[@time='{date}']/eurofxref:Cube"
 
-        nodesToday = doc.findall(allCurrencies.format(date=today.date()), namespaces)
+        # This is the currencies for today
+        allCurrencies = ".//eurofxref:Cube[1]/eurofxref:Cube"
+
+        # This is yesterday, or the last day of the last week.
+        allLastDayCurrencies = ".//eurofxref:Cube[2]/eurofxref:Cube"
+
+        nodesToday = doc. doc.findall(allCurrencies, namespaces)
         todayDictionary = {cube.attrib["currency"]: cube.attrib["rate"] for cube in nodesToday}
 
-        nodesYesterday = doc.findall(allCurrencies.format(date=yesterday.date()), namespaces)
+        nodesYesterday = doc.findall(allLastDayCurrencies, namespaces)
         yesterdayDictionary = {cube.attrib["currency"]: cube.attrib["rate"] for cube in nodesYesterday}
 
         arrayStoreString = [generate_row(currency['currency'], currency['name'], currency['multiplication'], euro,
