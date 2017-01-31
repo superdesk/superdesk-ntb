@@ -43,7 +43,7 @@ def generate_row(currency, name, multiplication, euro_currency, today_currency, 
 def get_currency(today):
 
     try:
-        yesterday = today - datetime.timedelta(days=1)
+        # yesterday = today - datetime.timedelta(days=1)
 
         # Getting data from The European Central Bank
         urlXml = "http://www.ecb.int/stats/eurofxref/eurofxref-hist-90d.xml"
