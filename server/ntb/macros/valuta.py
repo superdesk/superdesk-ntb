@@ -69,7 +69,7 @@ def get_currency(today):
         # This is yesterday, or the last day of the last week.
         allLastDayCurrencies = ".//eurofxref:Cube[2]/eurofxref:Cube"
 
-        nodesToday = doc. doc.findall(allCurrencies, namespaces)
+        nodesToday = doc.findall(allCurrencies, namespaces)
         todayDictionary = {cube.attrib["currency"]: cube.attrib["rate"] for cube in nodesToday}
 
         nodesYesterday = doc.findall(allLastDayCurrencies, namespaces)
