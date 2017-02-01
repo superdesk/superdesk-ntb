@@ -37,7 +37,7 @@
     },
     {
         "_id": "category",
-        "display_name": "Category",
+        "display_name": "NTB Category",
         "type": "manageable",
         "service": {"all": 1},
         "single_value": true,
