@@ -95,6 +95,7 @@ def ntb_currency_macro(item, **kwargs):
     # this one is the correct one, just that the clock is past 00:00 datetime.datetime.now().date()
     today_date = datetime.datetime.today() - datetime.timedelta(2)
 
+    # Setting days to go backwards to one, unless it is Monday. Then we go three days back (Friday)
     days = 1
     if today_date.weekday() == 0:
         days = 3
