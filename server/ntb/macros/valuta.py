@@ -110,6 +110,7 @@ def ntb_currency_macro(item, **kwargs):
 
     return item
 
+
 # Set the name to be NTB Currency Macro
 name = 'NTB Currency Macro'
 
