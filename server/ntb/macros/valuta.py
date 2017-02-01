@@ -93,15 +93,15 @@ def get_currency(today):
 def ntb_currency_macro(item, **kwargs):
     # headline
     # this one is the correct one, just that the clock is past 00:00 datetime.datetime.now().date()
-    today_date = datetime.datetime.today() - datetime.timedelta(1)
+    today_date = datetime.datetime.today() - datetime.timedelta(2)
 
     days = 1
-    if today_date.today().weekday() == 0:
+    if today_date.weekday() == 0:
         days = 3
 
     yesterday_date = datetime.datetime.now() - datetime.timedelta(days)
     headline = "Valutakurser {} ({})"
-    headline = headline.format(today_date.strftime("%d.%m"), yesterday_date.date().strftime("%d.%m"))
+    headline = headline.format(today_date.strftime("%d.%m"), yesterday_date.strftime("%d.%m"))
     abstract = "Representative markedskurser for valuta fra Norges Bank"
 
     item['headline'] = headline
