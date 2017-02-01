@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*
 """
     Getting currency exchange rates for today and yesterday. The source is an XML file
     Source of data is http://www.ecb.int/stats/eurofxref/eurofxref-hist-90d.xml
@@ -44,6 +45,7 @@ def get_currency(today):
 
     try:
         # yesterday = today - datetime.timedelta(days=1)
+
 
         # Getting data from The European Central Bank
         urlXml = "http://www.ecb.int/stats/eurofxref/eurofxref-hist-90d.xml"
@@ -102,8 +104,13 @@ def ntb_currency_macro(item, **kwargs):
     return item
 
 
+
+
 name = 'NTB Currency Macro'
 label = 'NTB Currency Macro'
-callback = ntb_currency_macro
+# callback = ntb_currency_macro
+callback = get_currency(datetime.date)
 access_type = 'frontend'
 action_type = 'direct'
+
+print callback
