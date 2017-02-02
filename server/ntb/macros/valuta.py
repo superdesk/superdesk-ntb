@@ -16,7 +16,7 @@ import datetime
 currencies = [
     {'currency': 'USD', 'name': 'US dollar', 'multiplication': 1},
     {'currency': 'NOK', 'name': 'EURO', 'multiplication': 0},
-    {'currency': 'CHF', 'name': 'Sveitiske franc', 'multiplication': 100},
+    {'currency': 'CHF', 'name': 'Sveitsiske franc', 'multiplication': 100},
     {'currency': 'DKK', 'name': 'Danske kroner', 'multiplication': 100},
     {'currency': 'GBP', 'name': 'Britiske pund ', 'multiplication': 1},
     {'currency': 'SEK', 'name': 'Svenske kroner', 'multiplication': 100},
@@ -64,7 +64,7 @@ def get_currency(today_date):
 
         xpath_euro_string = ".//eurofxref:Cube[@time='{date}']/eurofxref:Cube[@currency='NOK']"
 
-        euro_query = doc.find(xpath_euro_string.format(date=today_date.date()), namespaces)
+        euro_query = doc.find(xpath_euro_string.format(date=today_date), namespaces)
         if euro_query is None:
             return ['Dagens valutakurser ikke klare ennå']
 
@@ -73,7 +73,7 @@ def get_currency(today_date):
         # This is the currencies for today
         all_currencies = ".//eurofxref:Cube[@time='{date}']/eurofxref:Cube"
 
-        nodes_today = doc.findall(all_currencies.format(date=today_date.date()), namespaces)
+        nodes_today = doc.findall(all_currencies.format(date=today_date), namespaces)
 
         today_dictionary = {cube.attrib["currency"]: cube.attrib["rate"] for cube in nodes_today}
 
