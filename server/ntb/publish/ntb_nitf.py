@@ -12,7 +12,7 @@ from superdesk.metadata.item import ITEM_TYPE, CONTENT_TYPE
 from superdesk.publish.formatters.nitf_formatter import NITFFormatter
 import re
 from bs4 import BeautifulSoup
-from lxml import etree
+from xml.etree import ElementTree as ET
 from superdesk.publish.publish_service import PublishService
 from superdesk.errors import FormatterError
 import superdesk
@@ -28,6 +28,8 @@ tz = None
 
 EMBED_RE = re.compile(r"<!-- EMBED START ([a-zA-Z]+ {id: \"(?P<id>.+?)\"}) -->.*"
                       r"<!-- EMBED END \1 -->", re.DOTALL)
+ELEMENT_RE = re.compile(r"(</?)(.+?)(/?>)")
+STRIP_UNBOUND_RE = re.compile(r"[a-zA-Z0-9._-]+:([^ ]+)")
 FILENAME_FORBIDDEN_RE = re.compile(r"[^a-zA-Z0-9._-]")
 STRIP_INVALID_CHARS_RE = re.compile('[\x00-\x08\x0B-\x0C\x0E-\x1F\x7F]')
 ENCODING = 'iso-8859-1'
@@ -68,12 +70,15 @@ class NTBNITFFormatter(NITFFormatter):
             except KeyError:
                 pass
 
-            encoded = etree.tostring(nitf, encoding=ENCODING, xml_declaration=False, pretty_print=True)
+            # we don't use tostring as we want to set xml_declaration=False
+            stream = io.BytesIO()
+            ET.ElementTree(nitf).write(stream, ENCODING, xml_declaration=False)
+            encoded = stream.getvalue()
 
             return [{'published_seq_num': pub_seq_num,
                      # formatted_item can be used for preview, so we keep unicode version there
-                     'formatted_item': self.XML_DECLARATION + '\n' + etree.tostring(nitf, encoding="unicode"),
-                     'encoded_item': (self.XML_DECLARATION + '\n').encode(ENCODING) + encoded}]
+                     'formatted_item': self.XML_DECLARATION + ET.tostring(nitf, "unicode"),
+                     'encoded_item': self.XML_DECLARATION.encode(ENCODING) + encoded}]
         except Exception as ex:
             app.sentry.captureException()
             raise FormatterError.nitfFormatterError(ex, subscriber)
@@ -135,10 +140,10 @@ class NTBNITFFormatter(NITFFormatter):
         return subject_prefix + article.get('slugline', '')
 
     def _format_tobject(self, article, head):
-        return etree.SubElement(head, 'tobject', {'tobject.type': self._get_ntb_category(article)})
+        return ET.SubElement(head, 'tobject', {'tobject.type': self._get_ntb_category(article)})
 
     def _format_docdata_dateissue(self, article, docdata):
-        etree.SubElement(
+        ET.SubElement(
             docdata,
             'date.issue',
             attrib={'norm': article['versioncreated'].astimezone(tz).strftime("%Y-%m-%dT%H:%M:%S")})
@@ -147,7 +152,7 @@ class NTBNITFFormatter(NITFFormatter):
         doc_id = "NTB{family_id}_{version:02}".format(
             family_id=article['family_id'],
             version=article.get('rewrite_sequence', 0))
-        etree.SubElement(docdata, 'doc-id', attrib={'regsrc': 'NTB', 'id-string': doc_id})
+        ET.SubElement(docdata, 'doc-id', attrib={'regsrc': 'NTB', 'id-string': doc_id})
 
     def _format_date_expire(self, article, docdata):
         pass
@@ -156,14 +161,14 @@ class NTBNITFFormatter(NITFFormatter):
         super()._format_docdata(article, docdata)
 
         if 'slugline' in article:
-            key_list = etree.SubElement(docdata, 'key-list')
-            etree.SubElement(key_list, 'keyword', attrib={'key': article['slugline']})
-            etree.SubElement(
+            key_list = ET.SubElement(docdata, 'key-list')
+            ET.SubElement(key_list, 'keyword', attrib={'key': article['slugline']})
+            ET.SubElement(
                 docdata,
                 'du-key',
                 attrib={'version': str(article.get('rewrite_sequence', 0) + 1), 'key': article['slugline']})
         for place in article.get('place', []):
-            evloc = etree.SubElement(docdata, 'evloc')
+            evloc = ET.SubElement(docdata, 'evloc')
             for key, att in (('parent', 'state-prov'), ('qcode', 'county-dist')):
                 try:
                     value = place[key]
@@ -175,14 +180,14 @@ class NTBNITFFormatter(NITFFormatter):
 
     def _format_pubdata(self, article, head):
         pub_date = article['versioncreated'].astimezone(tz).strftime("%Y%m%dT%H%M%S")
-        pubdata = etree.SubElement(head, 'pubdata', attrib={'date.publication': pub_date})
+        pubdata = ET.SubElement(head, 'pubdata', attrib={'date.publication': pub_date})
         article['pubdata'] = pubdata  # needed to access pubdata when formatting body content
 
     def _format_subjects(self, article, tobject):
         subjects = [s for s in article.get('subject', []) if s.get("scheme") == "subject_custom"]
         for subject in subjects:
             name_key = 'tobject.subject.matter' if subject.get('parent', None) else 'tobject.subject.type'
-            etree.SubElement(
+            ET.SubElement(
                 tobject,
                 'tobject.subject',
                 {'tobject.subject.refnum': subject.get('qcode', ''),
@@ -190,9 +195,9 @@ class NTBNITFFormatter(NITFFormatter):
 
     def _format_datetimes(self, article, head):
             created = article['versioncreated'].astimezone(tz)
-            etree.SubElement(head, 'meta', {'name': 'timestamp', 'content': created.strftime("%Y.%m.%d %H:%M:%S")})
-            etree.SubElement(head, 'meta', {'name': 'ntb-dato', 'content': created.strftime("%d.%m.%Y %H:%M")})
-            etree.SubElement(head, 'meta', {'name': 'NTBUtDato', 'content': created.strftime("%d.%m.%Y")})
+            ET.SubElement(head, 'meta', {'name': 'timestamp', 'content': created.strftime("%Y.%m.%d %H:%M:%S")})
+            ET.SubElement(head, 'meta', {'name': 'ntb-dato', 'content': created.strftime("%d.%m.%Y %H:%M")})
+            ET.SubElement(head, 'meta', {'name': 'NTBUtDato', 'content': created.strftime("%d.%m.%Y")})
 
     def _get_filename(self, article):
         """return filename as specified by NTB
@@ -216,31 +221,31 @@ class NTBNITFFormatter(NITFFormatter):
     def _format_meta(self, article, head, destination, pub_seq_num):
         super()._format_meta(article, head, destination, pub_seq_num)
         article['head'] = head  # needed to access head when formatting body content
-        etree.SubElement(head, 'meta', {'name': 'NTBEditor', 'content': 'Superdesk'})
+        ET.SubElement(head, 'meta', {'name': 'NTBEditor', 'content': 'Superdesk'})
         try:
             service = article['anpa_category'][0]
         except (KeyError, IndexError):
             pass
         else:
-            etree.SubElement(head, 'meta', {'name': 'NTBTjeneste', 'content': service.get("name", "")})
-        etree.SubElement(head, 'meta', {'name': 'filename', 'content': self._get_filename(article)})
+            ET.SubElement(head, 'meta', {'name': 'NTBTjeneste', 'content': service.get("name", "")})
+        ET.SubElement(head, 'meta', {'name': 'filename', 'content': self._get_filename(article)})
 
         self._format_datetimes(article, head)
         if 'slugline' in article:
-            etree.SubElement(head, 'meta', {'name': 'NTBStikkord', 'content': article['slugline']})
-        etree.SubElement(head, 'meta', {'name': 'subject', 'content': self._get_ntb_subject(article)})
+            ET.SubElement(head, 'meta', {'name': 'NTBStikkord', 'content': article['slugline']})
+        ET.SubElement(head, 'meta', {'name': 'subject', 'content': self._get_ntb_subject(article)})
 
-        etree.SubElement(head, 'meta', {'name': 'NTBID', 'content': 'NTB{}'.format(article['family_id'])})
+        ET.SubElement(head, 'meta', {'name': 'NTBID', 'content': 'NTB{}'.format(article['family_id'])})
 
         # these static values never change
-        etree.SubElement(head, 'meta', {'name': 'NTBDistribusjonsKode', 'content': 'ALL'})
-        etree.SubElement(head, 'meta', {'name': 'NTBKanal', 'content': 'A'})
+        ET.SubElement(head, 'meta', {'name': 'NTBDistribusjonsKode', 'content': 'ALL'})
+        ET.SubElement(head, 'meta', {'name': 'NTBKanal', 'content': 'A'})
 
         # daily counter
         day_start = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
         pub_queue = superdesk.get_resource_service("publish_queue")
         daily_count = pub_queue.find({'transmit_started_at': {'$gte': day_start}}).count() + 1
-        etree.SubElement(head, 'meta', {'name': 'NTBIPTCSequence', 'content': str(daily_count)})
+        ET.SubElement(head, 'meta', {'name': 'NTBIPTCSequence', 'content': str(daily_count)})
 
     def _format_body_head_abstract(self, article, body_head):
         # abstract is added in body_content for NTB NITF
@@ -252,12 +257,12 @@ class NTBNITFFormatter(NITFFormatter):
         except (KeyError, TypeError):
             pass
         else:
-            dateline = etree.SubElement(body_head, 'dateline')
+            dateline = ET.SubElement(body_head, 'dateline')
             dateline.text = dateline_content
 
     def _format_body_head_distributor(self, article, body_head):
-        distrib = etree.SubElement(body_head, 'distributor')
-        org = etree.SubElement(distrib, 'org')
+        distrib = ET.SubElement(body_head, 'distributor')
+        org = ET.SubElement(distrib, 'org')
         language = article['language']
         if language == 'nb-NO':
             org.text = 'NTB'
@@ -265,13 +270,13 @@ class NTBNITFFormatter(NITFFormatter):
             org.text = 'NPK'
 
     def _add_media(self, body_content, type_, mime_type, source, caption):
-        media = etree.SubElement(body_content, 'media')
+        media = ET.SubElement(body_content, 'media')
         media.attrib['media-type'] = type_
-        media_reference = etree.SubElement(media, 'media-reference')
+        media_reference = ET.SubElement(media, 'media-reference')
         if mime_type is not None:
             media_reference.attrib['mime-type'] = mime_type
         media_reference.attrib['source'] = source
-        media_caption = etree.SubElement(media, 'media-caption')
+        media_caption = ET.SubElement(media, 'media-caption')
         media_caption.text = caption
 
     def _add_meta_media_counter(self, head, counter):
@@ -282,15 +287,21 @@ class NTBNITFFormatter(NITFFormatter):
             index = list(head).index(first_meta)
         else:
             index = 1
-        elem = etree.Element('meta', {'name': 'NTBBilderAntall', 'content': str(counter)})
+        elem = ET.Element('meta', {'name': 'NTBBilderAntall', 'content': str(counter)})
         head.insert(index, elem)
+
+    def _strip_unbound(self, match_obj):
+        """remove unbount namespaces from element name and attributes"""
+        # TODO: use lxml to recoved broken XML when SDESK-505 is done
+        stripped = STRIP_UNBOUND_RE.sub(r"\1", match_obj.group(2))
+        return match_obj.group(1) + stripped + match_obj.group(3)
 
     def _format_body_content(self, article, body_content):
         head = article.pop('head')
 
         # abstract
         if 'abstract' in article:
-            p = etree.SubElement(body_content, 'p', {'lede': "true", 'class': "lead"})
+            p = ET.SubElement(body_content, 'p', {'lede': "true", 'class': "lead"})
             abstract_txt = BeautifulSoup(article.get('abstract'), 'html.parser').getText()
             p.text = abstract_txt
 
@@ -329,11 +340,23 @@ class NTBNITFFormatter(NITFFormatter):
         # and no more embedded in html
 
         # regular content
-        parser = etree.XMLParser(recover=True, remove_blank_text=True)
+
+        # we first convert the HTML to XML with BeautifulSoup
+        # then parse it again with ElementTree
+        # this is not optimal, but Beautiful Soup and etree are used
+        # and etree from stdlib doesn't have a proper HTML parser
+        soup = BeautifulSoup(html, 'html.parser')
         try:
-            html_elts = etree.fromstring(''.join(('<div>', html, '</div>')), parser)
-        except Exception as e:
-            raise ValueError(u"Can't parse body_html content: {}".format(e))
+            html_elts = ET.fromstring('<div>{}</div>'.format(soup.decode(formatter='xml')))
+        except ET.ParseError as e:
+            if 'unbound' in str(e):
+                # in case of copy/paste, some prefixed elements can appear, making the whole
+                # formatting failing. This workaround remove prefixes, html2nitf will then
+                # remove unknown elements
+                html_cleaned = ELEMENT_RE.sub(self._strip_unbound, soup.decode(formatter='xml'))
+                html_elts = ET.fromstring('<div>{}</div>'.format(html_cleaned))
+            else:
+                raise ValueError(u"Can't parse body_html content: {}".format(e))
 
         # <p class="lead" lede="true"> is used by NTB for abstract
         # and it may be existing in body_html (from ingested items ?)
@@ -351,24 +374,15 @@ class NTBNITFFormatter(NITFFormatter):
         except KeyError:
             pass
         else:
-            body_footer = etree.SubElement(html_elts, 'p', {'class': 'footer-txt'})
+            body_footer = ET.SubElement(html_elts, 'p', {'class': 'footer-txt'})
             body_footer.text = footer_txt
 
         # count is done here as superdesk.etree.get_char_count expect a text
         # which would imply a useless serialisation/reparsing
         body_nitf = self.html2nitf(html_elts, attr_remove=["style"])
-        body_nitf_text = etree.tostring(body_nitf, encoding='unicode', method='text')
+        body_nitf_text = ET.tostring(body_nitf, encoding='unicode', method='text')
         char_count = len(body_nitf_text)
 
-        if body_nitf.text:
-            # if body_nitf has text, we need to include it in body_content or it will be lost
-            # we know that html2nitf always return a <div> without tail, so we don't need to handle tail
-            children = body_content.getchildren()
-            if children:
-                last_child = children[-1]
-                last_child.tail = (last_child.tail or '') + body_nitf.text
-            else:
-                body_content.text = (body_content.text or '') + body_nitf.text
         body_content.extend(body_nitf)
         pubdata = article.pop('pubdata')
         pubdata.set('item-length', str(char_count))
@@ -413,12 +427,12 @@ class NTBNITFFormatter(NITFFormatter):
         except KeyError:
             return
         if emails:
-            tagline = etree.SubElement(body_end, 'tagline')
+            tagline = ET.SubElement(body_end, 'tagline')
             previous = None
             for email in emails:
                 if not email:
                     continue
-                a = etree.SubElement(tagline, 'a', {'href': 'mailto:{}'.format(email)})
+                a = ET.SubElement(tagline, 'a', {'href': 'mailto:{}'.format(email)})
                 a.text = email
                 if previous is not None:
                     previous.tail = '/'
