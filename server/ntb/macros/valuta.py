@@ -64,7 +64,7 @@ def get_currency(today_date):
 
         xpath_euro_string = ".//eurofxref:Cube[@time='{date}']/eurofxref:Cube[@currency='NOK']"
 
-        euro_query = doc.find(xpath_euro_string.format(date=today_date), namespaces)
+        euro_query = doc.find(xpath_euro_string.format(date=today_date.date()), namespaces)
         if euro_query is None:
             return ['Dagens valutakurser ikke klare ennå']
 
@@ -73,7 +73,7 @@ def get_currency(today_date):
         # This is the currencies for today
         all_currencies = ".//eurofxref:Cube[@time='{date}']/eurofxref:Cube"
 
-        nodes_today = doc.findall(all_currencies.format(date=today_date), namespaces)
+        nodes_today = doc.findall(all_currencies.format(date=today_date.date()), namespaces)
 
         today_dictionary = {cube.attrib["currency"]: cube.attrib["rate"] for cube in nodes_today}
 
@@ -98,7 +98,7 @@ def ntb_currency_macro(item, **kwargs):
     # This date is created just because we want to test monday error
     # comment the line below out if you want to test against a specific day
     # today_date = datetime.datetime.today() - datetime.timedelta(3)
-    today_date = datetime.datetime.now().date()
+    today_date = datetime.datetime.now()
 
     # Setting days to go backwards to one, unless it is Monday. Then we go three days back (Friday)
     number_of_days_to_yesterday = 1
