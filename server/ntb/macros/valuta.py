@@ -43,11 +43,13 @@ def generate_row(currency, currency_name, multiplication, euro_currency, today_c
 def get_currency(today_date):
     try:
 
-        days = 1
-        if today_date.today().weekday() == 0:
-            days = 3
+        number_of_days_to_yesterday = 1
 
-        yesterday = today_date - datetime.timedelta(days)
+        # removed the today() call on today_date date. Otherwise we are just setting a new date (today)
+        if today_date.weekday() == 0:
+            number_of_days_to_yesterday = 3
+
+        yesterday_date = today_date - datetime.timedelta(number_of_days_to_yesterday)
 
         # Getting data from The European Central Bank
         url_xml = "http://www.ecb.int/stats/eurofxref/eurofxref-hist-90d.xml"
@@ -75,7 +77,7 @@ def get_currency(today_date):
 
         today_dictionary = {cube.attrib["currency"]: cube.attrib["rate"] for cube in nodes_today}
 
-        nodes_yesterday = doc.findall(all_currencies.format(date=yesterday.date()), namespaces)
+        nodes_yesterday = doc.findall(all_currencies.format(date=yesterday_date.date()), namespaces)
 
         yesterday_dictionary = {cube.attrib["currency"]: cube.attrib["rate"] for cube in nodes_yesterday}
 
@@ -97,20 +99,20 @@ def ntb_currency_macro(item, **kwargs):
     today_date = datetime.datetime.today() - datetime.timedelta(3)
 
     # Setting days to go backwards to one, unless it is Monday. Then we go three days back (Friday)
-    days = 1
+    number_of_days_to_yesterday = 1
     if today_date.weekday() == 0:
         # Monday
-        days = 3
+        number_of_days_to_yesterday = 3
     elif today_date.weekday() == 6:
         # Sunday - just in case someone decides to run this macro on a Sunday
         today_date = datetime.datetime.today() - datetime.timedelta(2)
-        days = 3
+        number_of_days_to_yesterday = 3
     elif today_date.weekday() == 5:
         # Saturday - just in case someone decides to run this macro on a Saturday
         today_date = datetime.datetime.today() - datetime.timedelta(1)
-        days = 2
+        number_of_days_to_yesterday = 2
 
-    yesterday_date = today_date - datetime.timedelta(days)
+    yesterday_date = today_date - datetime.timedelta(number_of_days_to_yesterday)
     headline = "Valutakurser {} ({})"
     headline = headline.format(today_date.strftime("%d.%m"), yesterday_date.strftime("%d.%m"))
     abstract = "Representative markedskurser for valuta fra Norges Bank"
