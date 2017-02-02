@@ -96,7 +96,9 @@ def ntb_currency_macro(item, **kwargs):
     # headline
     # this one is the correct one, just that the clock is past 00:00 datetime.datetime.now().date()
     # This date is created just because we want to test monday error
-    today_date = datetime.datetime.today() - datetime.timedelta(3)
+    # comment the line below out if you want to test against a specific day
+    # today_date = datetime.datetime.today() - datetime.timedelta(3)
+    today_date = datetime.datetime.now().date()
 
     # Setting days to go backwards to one, unless it is Monday. Then we go three days back (Friday)
     number_of_days_to_yesterday = 1
