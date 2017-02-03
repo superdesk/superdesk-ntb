@@ -102,7 +102,9 @@ module.exports = function(grunt) {
         langOverride: {
             'en': {
                 'Category': 'Service',
-                'CATEGORY': 'SERVICE'
+                'CATEGORY': 'SERVICE',
+                'NTB Category': 'Category',
+                'NTB CATEGORY': 'CATEGORY'
             },
             'de': {'My Profile': 'DE - My profile'}
         },
