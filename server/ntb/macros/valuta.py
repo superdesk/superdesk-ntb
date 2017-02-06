@@ -15,7 +15,7 @@ import datetime
 
 currencies = [
     {'currency': 'USD', 'name': 'US dollar', 'multiplication': 1},
-    {'currency': 'NOK', 'name': 'EURO', 'multiplication': 0},
+    {'currency': 'NOK', 'name': 'Euro', 'multiplication': 0},
     {'currency': 'CHF', 'name': 'Sveitsiske franc', 'multiplication': 100},
     {'currency': 'DKK', 'name': 'Danske kroner', 'multiplication': 100},
     {'currency': 'GBP', 'name': 'Britiske pund ', 'multiplication': 1},
