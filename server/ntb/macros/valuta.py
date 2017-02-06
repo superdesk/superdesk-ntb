@@ -37,6 +37,11 @@ def generate_row(currency, currency_name, multiplication, euro_currency, today_c
     if yesterday_currency and multiplication:
         yesterday_rate = "{0:.4f}".format(float(euro_currency) * multiplication / float(yesterday_currency))
 
+    if currency == "NOK":
+        currency = "EUR"
+
+    yesterday_rate = yesterday_rate.replace('.', ',')
+    today_rate = today_rate.replace('.', ',')
     return template.format(currency=currency, name=currency_name, today=today_rate, yesterday=yesterday_rate)
 
 
