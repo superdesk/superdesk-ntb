@@ -101,12 +101,9 @@ module.exports = function(grunt) {
 
         langOverride: {
             'en': {
-                'Category': 'Service',
-                'CATEGORY': 'SERVICE',
-                'NTB Category': 'Category',
-                'NTB CATEGORY': 'CATEGORY'
-            },
-            'de': {'My Profile': 'DE - My profile'}
+                'ANPA Category': 'Service',
+                'ANPA CATEGORY': 'SERVICE'
+            }
         },
 
         requiredMediaMetadata: ['headline', 'description_text', 'alt_text']
