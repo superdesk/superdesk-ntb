@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'apps.auth',
     'superdesk.roles',
     'ntb.scanpix',
+    'ntb.io',
     'ntb.publish',
 ]
 
