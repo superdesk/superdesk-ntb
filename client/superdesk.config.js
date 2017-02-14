@@ -99,6 +99,30 @@ module.exports = function(grunt) {
 
         defaultRoute: '/workspace/monitoring',
 
+        validatorMediaMetadata: {
+            headline: {
+                required: true
+            },
+            alt_text: {
+                required: true
+            },
+            description_text: {
+                required: true
+            },
+            copyrightholder: {
+                required: false
+            },
+            byline: {
+                required: false
+            },
+            usageterms: {
+                required: false
+            },
+            copyrightnotice: {
+                required: false
+            }
+        },
+
         langOverride: {
             'en': {
                 'ANPA Category': 'Service',
