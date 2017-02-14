@@ -58,7 +58,7 @@ module.exports = function(grunt) {
         },
 
         search_cvs: [
-            {id: 'category', name:'Category', field: 'category', list: 'category'},
+            {id: 'ntb_category', name:'Category', field: 'subject', list: 'category'},
             {id: 'subject', name:'Subject', field: 'subject', list: 'subject_custom'}
         ],
 
