@@ -27,7 +27,8 @@ currencies = [
 template = '<tr><td>{name}&nbsp;({currency})</td><td>{today}</td><td>({yesterday})</td></tr>'
 
 
-def generate_row(currency, currency_name, multiplication, euro_currency, today_currency, yesterday_currency):
+def generate_row(currency, currency_name, multiplication, euro_currency, yesterday_euro,
+                 today_currency, yesterday_currency):
     today_rate = today_currency if multiplication == 0 else ''
     yesterday_rate = yesterday_currency if multiplication == 0 else ''
 
@@ -35,7 +36,7 @@ def generate_row(currency, currency_name, multiplication, euro_currency, today_c
         today_rate = "{0:.4f}".format(float(euro_currency) * multiplication / float(today_currency))
 
     if yesterday_currency and multiplication:
-        yesterday_rate = "{0:.4f}".format(float(euro_currency) * multiplication / float(yesterday_currency))
+        yesterday_rate = "{0:.4f}".format(float(yesterday_euro) * multiplication / float(yesterday_currency))
 
     if currency == "NOK":
         currency = "EUR"
@@ -75,6 +76,10 @@ def get_currency(today_date):
 
         euro = euro_query.attrib["rate"]
 
+        yesterday_euro_query = doc.find(xpath_euro_string.format(date=yesterday_date.date()), namespaces)
+
+        yesterday_euro = yesterday_euro_query.attrib["rate"]
+
         # This is the currencies for today
         all_currencies = ".//eurofxref:Cube[@time='{date}']/eurofxref:Cube"
 
@@ -87,6 +92,7 @@ def get_currency(today_date):
         yesterday_dictionary = {cube.attrib["currency"]: cube.attrib["rate"] for cube in nodes_yesterday}
 
         array_store_string = [generate_row(currency['currency'], currency['name'], currency['multiplication'], euro,
+                                           yesterday_euro,
                                            today_dictionary.get(currency['currency'], ''),
                                            yesterday_dictionary.get(currency['currency'], ''))
                               for currency in currencies]
