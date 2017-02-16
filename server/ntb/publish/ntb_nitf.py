@@ -61,6 +61,8 @@ class NTBNITFFormatter(NITFFormatter):
             tz = pytz.timezone(superdesk.app.config['DEFAULT_TIMEZONE'])
             self.HTML2NITF['p']['filter'] = self.p_filter
         try:
+            if article.get('body_html'):
+                article['body_html'] = article['body_html'].replace('<br>', '<br />')
             pub_seq_num = superdesk.get_resource_service('subscribers').generate_sequence_number(subscriber)
             nitf = self.get_nitf(article, subscriber, pub_seq_num)
             try:
