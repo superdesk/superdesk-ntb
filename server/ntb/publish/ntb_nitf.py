@@ -324,11 +324,17 @@ class NTBNITFFormatter(NITFFormatter):
             return ''
 
         html = self.strip_invalid_chars(EMBED_RE.sub(repl_embedded, article.get('body_html', '')))
+        # it is a request from SDNTB-388 to use normal space instead of non breaking spaces
+        # so we do this replace
+        html = html.replace('&nbsp;', ' ')
 
         # at this point we have media data filled in right order
         # and no more embedded in html
 
         # regular content
+        # we use XMLParser instead of HTMLParser here because HTMLParser will not remove all whitespace
+        # resulting in trouble when pretty printing
+        # (cf. http://lxml.de/FAQ.html#why-doesn-t-the-pretty-print-option-reformat-my-xml-output)
         parser = etree.XMLParser(recover=True, remove_blank_text=True)
         try:
             html_elts = etree.fromstring(''.join(('<div>', html, '</div>')), parser)
@@ -358,7 +364,8 @@ class NTBNITFFormatter(NITFFormatter):
         # which would imply a useless serialisation/reparsing
         body_nitf = self.html2nitf(html_elts, attr_remove=["style"])
         body_nitf_text = etree.tostring(body_nitf, encoding='unicode', method='text')
-        char_count = len(body_nitf_text)
+        # we don't want to count line feeds
+        char_count = len(body_nitf_text.replace('\n', ''))
 
         if body_nitf.text:
             # if body_nitf has text, we need to include it in body_content or it will be lost
