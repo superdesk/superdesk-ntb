@@ -422,6 +422,8 @@ class NTBNITFFormatterTest(TestCase):
         <ul> <li> item 1</li>     <li>item 2</li>   <li>item 3</li>  </p>
 
         </div></div>  </div>
+        <p>foo<br></p>
+        <p>bar</p>
             """
         article['associations'] = {}
         formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
@@ -439,9 +441,11 @@ class NTBNITFFormatterTest(TestCase):
           <li>item 3</li>
         </ul>
       </p>
+      <p class="txt-ind">foo</p>
+      <p class="txt-ind">bar</p>
       <p class="txt">footer text</p>
     </body.content>"""
-        self.assertEqual(body_content, expected)
+        self.assertEqual(body_content, expected, body_content.decode('utf-8'))
 
     def test_filename(self):
         filename = self.nitf_xml.find('head/meta[@name="filename"]')
