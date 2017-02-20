@@ -11,8 +11,8 @@
 from superdesk.metadata.item import ITEM_TYPE, CONTENT_TYPE
 from superdesk.publish.formatters.nitf_formatter import NITFFormatter
 import re
-from bs4 import BeautifulSoup
 from lxml import etree
+from superdesk import etree as sd_etree
 from superdesk.publish.publish_service import PublishService
 from superdesk.errors import FormatterError
 import superdesk
@@ -293,7 +293,7 @@ class NTBNITFFormatter(NITFFormatter):
         # abstract
         if 'abstract' in article:
             p = etree.SubElement(body_content, 'p', {'lede': "true", 'class': "lead"})
-            abstract_txt = BeautifulSoup(article.get('abstract'), 'html.parser').getText()
+            abstract_txt = sd_etree.get_text(article['abstract'], content='html')
             p.text = abstract_txt
 
         # media
