@@ -425,6 +425,22 @@ class NTBNITFFormatterTest(TestCase):
         self.assertEqual(p_content, "word1 word2")
 
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    def test_390(self):
+        """SDNTB-390 regression test
+
+        formatter should not crash when an embedded is None
+        """
+        article = copy.deepcopy(self.article)
+        article['associations']['embedded18237840351'] = None
+        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
+        doc = formatter_output[0]['encoded_item']
+        nitf_xml = etree.fromstring(doc)
+        media_counter = nitf_xml.find('head').find('meta[@name="NTBBilderAntall"]')
+        # the test will raise an exception during self.formatter.format if SDNTB-390 bug is still present
+        # but we check in addition that media counter is as expected (same as for test_355)
+        self.assertEqual(media_counter.get('content'), '2')
+
+    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
     def test_pretty_formatting(self):
         """check that content is pretty formatted
 

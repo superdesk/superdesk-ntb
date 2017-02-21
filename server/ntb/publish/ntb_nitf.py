@@ -320,7 +320,10 @@ class NTBNITFFormatter(NITFFormatter):
             except KeyError:
                 logger.warning("Expected association {} not found!".format(id_))
             else:
-                media_data.append(data)
+                if data is None:
+                    logger.warning("media data for association {} is empty, ignoring!".format(id_))
+                else:
+                    media_data.append(data)
             return ''
 
         html = self.strip_invalid_chars(EMBED_RE.sub(repl_embedded, article.get('body_html', '')))
