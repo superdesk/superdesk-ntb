@@ -33,7 +33,8 @@ module.exports = function(grunt) {
             hideCreatePackage: true,
             customMonitoringWidget: true,
             scanpixSearchShortcut: true,
-            noTakes: true
+            noTakes: true,
+            editor3: true
         },
 
         user: {
