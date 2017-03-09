@@ -48,13 +48,13 @@ class Wufoo(TestCase):
         self.expected = {
             'guid': 'wufoo_norsktelegram_q1hpdwg91h6ubl1_10',
             'byline': 'NTB',
-            'headline': '45 år 02. Januar: title_test name_test, address_test\naddress_line_2_test, 123456 city_test',
+            'headline': '45 år 02. januar: title_test name_test, address_test\naddress_line_2_test 123456 city_test',
             'slugline': 'FØDSELSDAG-180102',
             'anpa_category': [{'name': 'Omtaletjenesten', 'qcode': 'o', 'language': 'nb-NO'}],
             'subject': [{'qcode': 'Jubilantomtaler', 'name': 'Jubilantomtaler', 'scheme': 'category'}],
             'genre': [{'qcode': 'Nyheter', 'name': 'Nyheter', 'scheme': 'genre_custom'}],
-            'body_html': 'biography_test\n<br/>\n<a href="https://norsktelegram.wufoo.com/cabinet/'
-                         'cTFocGR3ZzkxaDZ1Ymwx/SIioTwuslashL4koY%3D/photo_test.jpg">photo</a>',
+            'body_html': '<p>biography_test\n<br/>\n<a href="https://norsktelegram.wufoo.com/cabinet/'
+                         'cTFocGR3ZzkxaDZ1Ymwx/SIioTwuslashL4koY%3D/photo_test.jpg">photo</a></p>',
             'ednote': 'Kilder: \nfurther_sources_test\n\nFødested: birth_place_test\nSendt inn av: author_test'
                       '\nGodkjent: Ja\nEpost: email_test@example.net\nTlf: 123456789',
             'versioncreated': datetime.datetime(2017, 2, 20, 12, 55, 57)}
@@ -69,6 +69,6 @@ class Wufoo(TestCase):
         article = copy.deepcopy(self.article)
         expected = copy.deepcopy(self.expected)
         article['Field118'] = country
-        expected['headline'] += " (" + country + ")"
+        expected['headline'] += ", " + country
         item = self.parser.parse_article(article)
         self.assertEqual(item, expected)
