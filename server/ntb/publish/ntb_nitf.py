@@ -49,6 +49,8 @@ class NTBNITFFormatter(NITFFormatter):
         return format_type == 'ntbnitf' and article[ITEM_TYPE] == CONTENT_TYPE.TEXT
 
     def strip_invalid_chars(self, string):
+        if string is None:
+            string = ''
         return STRIP_INVALID_CHARS_RE.sub('', string)
 
     def format(self, original_article, subscriber, codes=None, encoding="us-ascii"):
@@ -328,7 +330,7 @@ class NTBNITFFormatter(NITFFormatter):
                     media_data.append(data)
             return ''
 
-        html = self.strip_invalid_chars(EMBED_RE.sub(repl_embedded, article.get('body_html', '')))
+        html = self.strip_invalid_chars(EMBED_RE.sub(repl_embedded, article.get('body_html')))
         # it is a request from SDNTB-388 to use normal space instead of non breaking spaces
         # so we do this replace
         html = html.replace('&nbsp;', ' ')
@@ -415,7 +417,7 @@ class NTBNITFFormatter(NITFFormatter):
             if mime_type is None:
                 # these default values need to be used if mime_type is not found
                 mime_type = 'image/jpeg' if type_ == 'image' or type_ == 'grafikk' else 'video/mpeg'
-            caption = self.strip_invalid_chars(data.get('description_text', ''))
+            caption = self.strip_invalid_chars(data.get('description_text'))
             self._add_media(body_content, type_, mime_type, source, caption)
         self._add_meta_media_counter(head, len(media_data))
 

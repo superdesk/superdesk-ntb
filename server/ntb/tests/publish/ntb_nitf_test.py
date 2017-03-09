@@ -514,7 +514,7 @@ class NTBNITFFormatterTest(TestCase):
 
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
     def test_update_id(self):
-        """check use of family_id on update
+        """Check use of family_id on update
 
         when family id is different from item_id (i.e. on updated item),
         family_id should be used for doc-id and ntbid
@@ -532,3 +532,19 @@ class NTBNITFFormatterTest(TestCase):
         doc_id = nitf_xml.find('head/docdata/doc-id')
         self.assertEqual(doc_id.get('regsrc'), 'NTB')
         self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(family_id, 3))
+
+    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    def test_description_text_none(self):
+        """Check that parsing is not failing when description_text of an association exists and is None
+
+        SDNTB-396 regression test
+        """
+        article = copy.deepcopy(self.article)
+        article['associations']['featuremedia']['description_text'] = None
+        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
+        doc = formatter_output[0]['encoded_item']
+        nitf_xml = etree.fromstring(doc)
+        # the test will raise an exception during self.formatter.format if SDNTB-396 bug is still present
+        # but we check in addition that media counter is as expected (same as for test_355)
+        media_counter = nitf_xml.find('head').find('meta[@name="NTBBilderAntall"]')
+        self.assertEqual(media_counter.get('content'), '3')
