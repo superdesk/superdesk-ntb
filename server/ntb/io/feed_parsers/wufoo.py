@@ -46,18 +46,18 @@ FIELDS_MAP = {
     "biography": "Field119",
     "photo": "Field121"}
 
-NO_MONTHS = ["Januar",
-             "Februar",
-             "Mars",
-             "April",
-             "Mai",
-             "Juni",
-             "Juli",
-             "August",
-             "September",
-             "Oktober",
-             "November",
-             "Desember"]
+NO_MONTHS = ["januar",
+             "februar",
+             "mars",
+             "april",
+             "mai",
+             "juni",
+             "juli",
+             "august",
+             "september",
+             "oktober",
+             "november",
+             "desember"]
 
 
 class WufooArticle(dict):
@@ -137,7 +137,7 @@ class WufooFeedParser(FeedParser):
         except (IndexError, ValueError):
             photo_url = None
 
-        item['headline'] = "{age} år {jubilee_date}: {title} {name}, {address}, {zip} {city}{country}".format(
+        item['headline'] = "{age} år {jubilee_date}: {title} {name}, {address} {zip} {city}{country}".format(
                            age=age + 1,
                            jubilee_date=self.strftime(jubilee_date, "%d. " + NO_MONTHS[jubilee_date.month - 1]),
                            title=article['title'],
@@ -145,20 +145,20 @@ class WufooFeedParser(FeedParser):
                            address=address,
                            zip=article['zip'],
                            city=article['city'],
-                           country=' ({})'.format(article['country']) if article['country'] != 'Norge' else '')
+                           country=', {}'.format(article['country']) if article['country'] != 'Norge' else '')
         item['slugline'] = "FØDSELSDAG-" + self.strftime(jubilee_date, "%y%m%d")
         item['anpa_category'] = [{"name": "Omtaletjenesten", "qcode": "o", "language": "nb-NO"}]
         category = "Jubilantomtaler"
         item['subject'] = [{'qcode': category, 'name': category, 'scheme': 'category'}]
         genre = "Nyheter"
         item['genre'] = [{'qcode': genre, 'name': genre, 'scheme': 'genre_custom'}]
-        xhtml = [html.escape(article['biography'])]
+        xhtml = [html.escape(article['biography'].replace('\n', '<br/>\n'))]
         if photo_url is not None:
             label = "photo"
             xhtml.append('<a href="{url}">{label}</a>'.format(
                 url=html.escape(photo_url),
                 label=label))
-        item['body_html'] = '\n<br/>\n'.join(xhtml)
+        item['body_html'] = '<p>{}</p>'.format('\n<br/>\n'.join(xhtml))
         item['ednote'] = ("Kilder: \n" +
                           article['further sources'] + '\n\n' +
                           "Fødested: {}\n".format(article['birth place']) +
