@@ -17,7 +17,6 @@ from superdesk.publish.publish_service import PublishService
 from superdesk.errors import FormatterError
 import superdesk
 from datetime import datetime
-import copy
 import pytz
 import logging
 from copy import deepcopy
@@ -37,7 +36,9 @@ assert ENCODING is not 'unicode'  # use e.g. utf-8 for unicode
 class NTBNITFFormatter(NITFFormatter):
     XML_DECLARATION = '<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>'
 
-    HTML2NITF = copy.deepcopy(NITFFormatter.HTML2NITF)
+    def __init__(self):
+        NITFFormatter.__init__(self)
+        self.HTML2NITF['p']['filter'] = self.p_filter
 
     def can_format(self, format_type, article):
         """
@@ -61,7 +62,6 @@ class NTBNITFFormatter(NITFFormatter):
             # first time this method is launched
             # we set timezone and NTB specific filter
             tz = pytz.timezone(superdesk.app.config['DEFAULT_TIMEZONE'])
-            self.HTML2NITF['p']['filter'] = self.p_filter
         try:
             if article.get('body_html'):
                 article['body_html'] = article['body_html'].replace('<br>', '<br />')
@@ -112,13 +112,12 @@ class NTBNITFFormatter(NITFFormatter):
                 return item
         return None
 
-    @staticmethod
-    def p_filter(root_elem, p_elem):
+    def p_filter(self, root_elem, p_elem):
         """modify p element to have 'txt' or 'txt-ind' attribute
 
         'txt' is only used immediatly after "hl2" elem, txt-ind in all other cases
         """
-        parent = next((p for p in root_elem.iter() if p_elem in p))
+        parent = p_elem.find('..')
         children = list(parent)
         idx = children.index(p_elem)
         if idx > 0 and children[idx - 1].tag == "hl2" or p_elem.attrib.get('class', None) == 'footer-txt':
