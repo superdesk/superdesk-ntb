@@ -116,15 +116,6 @@ class ScanpixDatalayer(DataLayer):
                 if clear_edge:
                     data['clearEdge'] = True
 
-            # subscription
-            data['subscription'] = 'subscription'  # this is requested as a default value
-
-            # data['subscription'] is always equal to 'subscription', but we keep the test in case
-            # of the behaviour is changed again in the future.
-            if 'ntbtema' in resource and data['subscription'] == 'subscription':
-                # small hack for SDNTB-250
-                data['subscription'] = 'punchcard'
-
             text_params = extract_params(query, ('headline', 'keywords', 'caption', 'text'))
             # combine all possible text params to use the q field.
             data['searchString'] = ' '.join(text_params.values())
@@ -135,6 +126,15 @@ class ScanpixDatalayer(DataLayer):
                 pass
             else:
                 data['refPtrs'] = ids
+
+        # subscription
+        data['subscription'] = 'subscription'  # this is requested as a default value
+
+        # data['subscription'] is always equal to 'subscription', but we keep the test in case
+        # of the behaviour is changed again in the future.
+        if 'ntbtema' in resource and data['subscription'] == 'subscription':
+            # small hack for SDNTB-250
+            data['subscription'] = 'punchcard'
 
         for criterion in req.get('post_filter', {}).get('and', {}):
             if 'range' in criterion:
