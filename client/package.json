@@ -1,5 +1,5 @@
 {
     "dependencies": {
-        "superdesk-core": "superdesk/superdesk-client-core#b8721ec"
+        "superdesk-core": "1.7.0-rc.2"
     }
 }
