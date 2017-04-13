@@ -11,13 +11,12 @@
 from superdesk.metadata.item import ITEM_TYPE, CONTENT_TYPE
 from superdesk.publish.formatters.nitf_formatter import NITFFormatter
 import re
-from bs4 import BeautifulSoup
 from lxml import etree
+from superdesk import etree as sd_etree
 from superdesk.publish.publish_service import PublishService
 from superdesk.errors import FormatterError
 import superdesk
 from datetime import datetime
-import copy
 import pytz
 import logging
 from copy import deepcopy
@@ -37,7 +36,9 @@ assert ENCODING is not 'unicode'  # use e.g. utf-8 for unicode
 class NTBNITFFormatter(NITFFormatter):
     XML_DECLARATION = '<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>'
 
-    HTML2NITF = copy.deepcopy(NITFFormatter.HTML2NITF)
+    def __init__(self):
+        NITFFormatter.__init__(self)
+        self.HTML2NITF['p']['filter'] = self.p_filter
 
     def can_format(self, format_type, article):
         """
@@ -49,6 +50,8 @@ class NTBNITFFormatter(NITFFormatter):
         return format_type == 'ntbnitf' and article[ITEM_TYPE] == CONTENT_TYPE.TEXT
 
     def strip_invalid_chars(self, string):
+        if string is None:
+            string = ''
         return STRIP_INVALID_CHARS_RE.sub('', string)
 
     def format(self, original_article, subscriber, codes=None, encoding="us-ascii"):
@@ -59,7 +62,6 @@ class NTBNITFFormatter(NITFFormatter):
             # first time this method is launched
             # we set timezone and NTB specific filter
             tz = pytz.timezone(superdesk.app.config['DEFAULT_TIMEZONE'])
-            self.HTML2NITF['p']['filter'] = self.p_filter
         try:
             if article.get('body_html'):
                 article['body_html'] = article['body_html'].replace('<br>', '<br />')
@@ -110,13 +112,12 @@ class NTBNITFFormatter(NITFFormatter):
                 return item
         return None
 
-    @staticmethod
-    def p_filter(root_elem, p_elem):
+    def p_filter(self, root_elem, p_elem):
         """modify p element to have 'txt' or 'txt-ind' attribute
 
         'txt' is only used immediatly after "hl2" elem, txt-ind in all other cases
         """
-        parent = next((p for p in root_elem.iter() if p_elem in p))
+        parent = p_elem.find('..')
         children = list(parent)
         idx = children.index(p_elem)
         if idx > 0 and children[idx - 1].tag == "hl2" or p_elem.attrib.get('class', None) == 'footer-txt':
@@ -293,7 +294,7 @@ class NTBNITFFormatter(NITFFormatter):
         # abstract
         if 'abstract' in article:
             p = etree.SubElement(body_content, 'p', {'lede': "true", 'class': "lead"})
-            abstract_txt = BeautifulSoup(article.get('abstract'), 'html.parser').getText()
+            abstract_txt = sd_etree.get_text(article['abstract'], content='html')
             p.text = abstract_txt
 
         # media
@@ -328,7 +329,7 @@ class NTBNITFFormatter(NITFFormatter):
                     media_data.append(data)
             return ''
 
-        html = self.strip_invalid_chars(EMBED_RE.sub(repl_embedded, article.get('body_html', '')))
+        html = self.strip_invalid_chars(EMBED_RE.sub(repl_embedded, article.get('body_html')))
         # it is a request from SDNTB-388 to use normal space instead of non breaking spaces
         # so we do this replace
         html = html.replace('&nbsp;', ' ')
@@ -415,7 +416,7 @@ class NTBNITFFormatter(NITFFormatter):
             if mime_type is None:
                 # these default values need to be used if mime_type is not found
                 mime_type = 'image/jpeg' if type_ == 'image' or type_ == 'grafikk' else 'video/mpeg'
-            caption = self.strip_invalid_chars(data.get('description_text', ''))
+            caption = self.strip_invalid_chars(data.get('description_text'))
             self._add_media(body_content, type_, mime_type, source, caption)
         self._add_meta_media_counter(head, len(media_data))
 

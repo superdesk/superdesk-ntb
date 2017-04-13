@@ -8,7 +8,8 @@
 # AUTHORS and LICENSE files distributed with this source code, or
 # at https://www.sourcefabric.org/superdesk/license
 
-from bs4 import BeautifulSoup
+from superdesk import etree as sd_etree
+from lxml import etree
 
 
 def extract_html_macro(item, **kwargs):
@@ -18,31 +19,31 @@ def extract_html_macro(item, **kwargs):
     if 'body_html' not in item:
         return None
 
-    soup = BeautifulSoup(item['body_html'], "html.parser")
+    root = sd_etree.parse_html(item['body_html'], content='html')
 
     links = {}
     count = 0
     # extract all links and add them to a dictionary with a unique
     # generated key for every link
-    for a in soup.findAll('a'):
-        links['__##link' + str(count) + '##__'] = str(a)
+    for a in root.findall('.//a'):
+        links['__##link' + str(count) + '##__'] = etree.tostring(a, encoding="unicode")
         count = count + 1
 
     # replace all text links with the generated keys
-    # regenerate html back from soup in order to avoid issues
-    # on link replacements where are used text links generated from soup
-    body_html = str(soup)
+    # regenerate html back from root in order to avoid issues
+    # on link replacements where are used text links generated from root
+    body_html = etree.tostring(root, encoding="unicode")
     for link in links:
         body_html = body_html.replace(links[link], link)
     body_html = body_html.replace('<p>', '__##br##__')
     body_html = body_html.replace('</p>', '__##br##__')
-    body_html = body_html.replace('<br>', '__##br##__')
+    body_html = body_html.replace('<br/>', '__##br##__')
 
     # extract text from the html that don't contains any link,
     # it just contains link keys that are not affected by text extraction
     # because they are already text
-    soup = BeautifulSoup(body_html, "html.parser")
-    body_html = soup.text
+    root = sd_etree.parse_html(body_html, content='html')
+    body_html = etree.tostring(root, encoding="unicode", method="text")
 
     # in extracted text replace the link keys with links
     for link in links:

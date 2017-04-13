@@ -39,7 +39,7 @@ class NITFTestCase(TestCase):
         dirname = os.path.dirname(os.path.realpath(__file__))
         fixture = os.path.normpath(os.path.join(dirname, '../fixtures', self.filename))
         provider = {'name': 'Test'}
-        with open(fixture) as f:
+        with open(fixture, 'rb') as f:
             self.nitf = f.read()
             self.item = NITFFeedParser().parse(etree.fromstring(self.nitf), provider)
 
