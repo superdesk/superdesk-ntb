@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'apps.auth',
     'superdesk.roles',
     'ntb.scanpix',
+    'ntb.io',
     'ntb.publish',
 ]
 
@@ -108,7 +109,6 @@ INSTALLED_APPS.extend([
     'apps.tasks',
     'apps.preferences',
     'apps.spikes',
-    'apps.groups',
     'apps.prepopulate',
     'apps.legal_archive',
     'apps.search',
@@ -169,7 +169,7 @@ ODBC_TEST_CONNECTION_STRING = env('ODBC_TEST_CONNECTION_STRING',
 
 DEFAULT_SOURCE_VALUE_FOR_MANUAL_ARTICLES = 'NTB'
 DEFAULT_URGENCY_VALUE_FOR_MANUAL_ARTICLES = 3
-DEFAULT_GENRE_VALUE_FOR_MANUAL_ARTICLES = None
+DEFAULT_GENRE_VALUE_FOR_MANUAL_ARTICLES = []
 
 # This value gets injected into NewsML 1.2 and G2 output documents.
 NEWSML_PROVIDER_ID = 'ntb.no'

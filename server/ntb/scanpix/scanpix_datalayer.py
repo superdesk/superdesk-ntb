@@ -42,14 +42,14 @@ SCANPIX_TZ = 'Europe/Oslo'
 def extract_params(query, names):
     if isinstance(names, str):
         names = [names]
-    findall = re.findall('([\w]+):\(([-\w\s*]+)\)', query)
+    findall = re.findall(r'([\w]+):\(([-\w\s*]+)\)', query)
     params = {name: value for (name, value) in findall if name in names}
     for name, value in findall:
         query = query.replace('%s:(%s)' % (name, value), '')
     query = query.strip()
     # escape dashes
     for name, value in params.items():
-        params[name] = value.replace('-', '\-')
+        params[name] = value.replace('-', r'\-')
     if query:
         params['q'] = query
     return params
@@ -116,19 +116,6 @@ class ScanpixDatalayer(DataLayer):
                 if clear_edge:
                     data['clearEdge'] = True
 
-            # subscription
-            try:
-                data['subscription'] = extract_params(query, 'subscription')['subscription']
-            except KeyError:
-                data['subscription'] = 'subscription'  # this is requested as a default value
-
-            if 'ntbtema' in resource and data['subscription'] == 'subscription':
-                # small hack for SDNTB-250
-                data['subscription'] = 'punchcard'
-
-            if data['subscription'] == 'all':
-                del data['subscription']
-
             text_params = extract_params(query, ('headline', 'keywords', 'caption', 'text'))
             # combine all possible text params to use the q field.
             data['searchString'] = ' '.join(text_params.values())
@@ -139,6 +126,15 @@ class ScanpixDatalayer(DataLayer):
                 pass
             else:
                 data['refPtrs'] = ids
+
+        # subscription
+        data['subscription'] = 'subscription'  # this is requested as a default value
+
+        # data['subscription'] is always equal to 'subscription', but we keep the test in case
+        # of the behaviour is changed again in the future.
+        if 'ntbtema' in resource and data['subscription'] == 'subscription':
+            # small hack for SDNTB-250
+            data['subscription'] = 'punchcard'
 
         for criterion in req.get('post_filter', {}).get('and', {}):
             if 'range' in criterion:

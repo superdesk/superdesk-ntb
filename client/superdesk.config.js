@@ -33,7 +33,9 @@ module.exports = function(grunt) {
             hideCreatePackage: true,
             customMonitoringWidget: true,
             scanpixSearchShortcut: true,
-            noTakes: true
+            searchShortcut: true,
+            noTakes: true,
+            editor3: true
         },
 
         user: {
@@ -45,9 +47,10 @@ module.exports = function(grunt) {
         },
 
         workspace: {
-            ingest: 0,
-            content: 0,
-            tasks: 0
+            ingest: false,
+            content: false,
+            tasks: false,
+            analytics: false
         },
 
         ui: {
@@ -57,7 +60,7 @@ module.exports = function(grunt) {
         },
 
         search_cvs: [
-            {id: 'category', name:'Category', field: 'category', list: 'category'},
+            {id: 'ntb_category', name:'Category', field: 'subject', list: 'category'},
             {id: 'subject', name:'Subject', field: 'subject', list: 'subject_custom'}
         ],
 
@@ -98,12 +101,35 @@ module.exports = function(grunt) {
 
         defaultRoute: '/workspace/monitoring',
 
+        validatorMediaMetadata: {
+            headline: {
+                required: true
+            },
+            alt_text: {
+                required: true
+            },
+            description_text: {
+                required: true
+            },
+            copyrightholder: {
+                required: false
+            },
+            byline: {
+                required: false
+            },
+            usageterms: {
+                required: false
+            },
+            copyrightnotice: {
+                required: false
+            }
+        },
+
         langOverride: {
             'en': {
-                'Category': 'Service',
-                'CATEGORY': 'SERVICE'
-            },
-            'de': {'My Profile': 'DE - My profile'}
+                'ANPA Category': 'Service',
+                'ANPA CATEGORY': 'SERVICE'
+            }
         },
 
         requiredMediaMetadata: ['headline', 'description_text', 'alt_text']
