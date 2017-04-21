@@ -35,6 +35,7 @@ module.exports = function(grunt) {
             scanpixSearchShortcut: true,
             searchShortcut: true,
             noTakes: true,
+            noMissingLink: true,
             editor3: true,
             swimlane: {columnsLimit: 4}
         },
