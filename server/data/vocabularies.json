@@ -3002,5 +3002,15 @@
             {"is_active": true, "name": "ZIPTEL LIMITED", "qcode": "ZIP", "security_exchange": "ASX"},
             {"is_active": true, "name": "ZYL LIMITED", "qcode": "ZYL", "security_exchange": "ASX"}
         ]
+    },
+    {
+        "_id": "product_types",
+        "display_name": "Product Types",
+        "type": "unmanageable",
+        "items": [
+            {"is_active": true, "name": "API", "qcode": "api"},
+            {"is_active": true, "name": "Direct", "qcode": "direct"},
+            {"is_active": true, "name": "Both", "qcode": "both"}
+        ]
     }
 ]
