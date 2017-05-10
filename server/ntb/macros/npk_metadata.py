@@ -8,7 +8,7 @@
 
 
 def npk_metadata_macro(item, **kwargs):
-    item['byline'] = '(NPK-NTB)'
+    item['byline'] = 'NPK-' + item.get('byline', '')
     item['sign_off'] = 'npk@npk.no'
     item['body_footer'] = '(©NPK)'
     item['language'] = 'nn-NO'
