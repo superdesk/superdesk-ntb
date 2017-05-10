@@ -329,7 +329,7 @@ class NTBNITFFormatter(NITFFormatter):
                     media_data.append(data)
             return ''
 
-        html = self.strip_invalid_chars(EMBED_RE.sub(repl_embedded, article.get('body_html')))
+        html = self.strip_invalid_chars(EMBED_RE.sub(repl_embedded, article.get('body_html') or ''))
         # it is a request from SDNTB-388 to use normal space instead of non breaking spaces
         # so we do this replace
         html = html.replace('&nbsp;', ' ')
