@@ -70,9 +70,6 @@ class WufooArticle(dict):
 
 
 class WufooFeedParser(FeedParser):
-    """
-    NITF Parser extension for Press Association, it maps the category meta tag to an anpa category
-    """
 
     NAME = 'wufoo'
 
