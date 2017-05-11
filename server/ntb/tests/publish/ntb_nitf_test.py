@@ -548,3 +548,19 @@ class NTBNITFFormatterTest(TestCase):
         # but we check in addition that media counter is as expected (same as for test_355)
         media_counter = nitf_xml.find('head').find('meta[@name="NTBBilderAntall"]')
         self.assertEqual(media_counter.get('content'), '3')
+
+    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    def test_body_none(self):
+        article = copy.deepcopy(self.article)
+        article['body_html'] = None
+        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
+        # the test will raise an exception during self.formatter.format if SDNTB-420 bug is still present
+        # but we also check that body.content is there
+        doc = formatter_output[0]['encoded_item']
+        nitf_xml = etree.fromstring(doc)
+        expected = ('<body.content><pclass="lead"lede="true">Thisistheabstract</p><pclass="txt">footertext</p><mediame'
+                    'dia-type="image"><media-referencemime-type="image/jpeg"source="test_id"/><media-caption>testfeatu'
+                    'remedia</media-caption></media></body.content>')
+        content = etree.tostring(nitf_xml.find('body/body.content'),
+                                 encoding="unicode").replace('\n', '').replace(' ', '')
+        self.assertEqual(content, expected)
