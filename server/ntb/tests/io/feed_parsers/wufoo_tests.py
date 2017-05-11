@@ -48,7 +48,7 @@ class Wufoo(TestCase):
         self.expected = {
             'guid': 'wufoo_norsktelegram_q1hpdwg91h6ubl1_10',
             'byline': 'NTB',
-            'headline': '45 år 02. januar: title_test name_test, address_test\naddress_line_2_test 123456 city_test',
+            'headline': '45 år 02. januar: title_test name_test, address_test\naddress_line_2_test, 123456 city_test',
             'slugline': 'FØDSELSDAG-180102',
             'anpa_category': [{'name': 'Omtaletjenesten', 'qcode': 'o', 'language': 'nb-NO'}],
             'subject': [{'qcode': 'Jubilantomtaler', 'name': 'Jubilantomtaler', 'scheme': 'category'}],
