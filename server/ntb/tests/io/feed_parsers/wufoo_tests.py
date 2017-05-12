@@ -72,3 +72,14 @@ class Wufoo(TestCase):
         expected['headline'] += ", " + country
         item = self.parser.parse_article(article)
         self.assertEqual(item, expected)
+
+    def test_br(self):
+        """SDNTB-418 regression test"""
+        article = copy.deepcopy(self.article)
+        # we use a biography with Line Feeds
+        article['Field119'] = "line1\nline2\nline3"
+        # if SDNTB-418 is still present, <br/> will be escaped
+        expected = ('<p>line1<br/>\nline2<br/>\nline3\n<br/>\n<a href="https://norsktelegram.wufoo.com/cabinet/'
+                    'cTFocGR3ZzkxaDZ1Ymwx/SIioTwuslashL4koY%3D/photo_test.jpg">photo</a></p>')
+        item = self.parser.parse_article(article)
+        self.assertEqual(item['body_html'], expected)

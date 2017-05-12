@@ -149,7 +149,7 @@ class WufooFeedParser(FeedParser):
         item['subject'] = [{'qcode': category, 'name': category, 'scheme': 'category'}]
         genre = "Nyheter"
         item['genre'] = [{'qcode': genre, 'name': genre, 'scheme': 'genre_custom'}]
-        xhtml = [html.escape(article['biography'].replace('\n', '<br/>\n'))]
+        xhtml = [html.escape(article['biography']).replace('\n', '<br/>\n')]
         if photo_url is not None:
             label = "photo"
             xhtml.append('<a href="{url}">{label}</a>'.format(
