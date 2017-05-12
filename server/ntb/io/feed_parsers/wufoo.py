@@ -134,7 +134,7 @@ class WufooFeedParser(FeedParser):
         except (IndexError, ValueError):
             photo_url = None
 
-        item['headline'] = "{age} år {jubilee_date}: {title} {name}, {address} {zip} {city}{country}".format(
+        item['headline'] = "{age} år {jubilee_date}: {title} {name}, {address}, {zip} {city}{country}".format(
                            age=age + 1,
                            jubilee_date=self.strftime(jubilee_date, "%d. " + NO_MONTHS[jubilee_date.month - 1]),
                            title=article['title'],
