@@ -134,7 +134,7 @@ class WufooFeedParser(FeedParser):
         except (IndexError, ValueError):
             photo_url = None
 
-        item['headline'] = "{age} år {jubilee_date}: {title} {name}, {address} {zip} {city}{country}".format(
+        item['headline'] = "{age} år {jubilee_date}: {title} {name}, {address}, {zip} {city}{country}".format(
                            age=age + 1,
                            jubilee_date=self.strftime(jubilee_date, "%d. " + NO_MONTHS[jubilee_date.month - 1]),
                            title=article['title'],
@@ -149,7 +149,7 @@ class WufooFeedParser(FeedParser):
         item['subject'] = [{'qcode': category, 'name': category, 'scheme': 'category'}]
         genre = "Nyheter"
         item['genre'] = [{'qcode': genre, 'name': genre, 'scheme': 'genre_custom'}]
-        xhtml = [html.escape(article['biography'].replace('\n', '<br/>\n'))]
+        xhtml = [html.escape(article['biography']).replace('\n', '<br/>\n')]
         if photo_url is not None:
             label = "photo"
             xhtml.append('<a href="{url}">{label}</a>'.format(

@@ -48,7 +48,7 @@ class Wufoo(TestCase):
         self.expected = {
             'guid': 'wufoo_norsktelegram_q1hpdwg91h6ubl1_10',
             'byline': 'NTB',
-            'headline': '45 år 02. januar: title_test name_test, address_test\naddress_line_2_test 123456 city_test',
+            'headline': '45 år 02. januar: title_test name_test, address_test\naddress_line_2_test, 123456 city_test',
             'slugline': 'FØDSELSDAG-180102',
             'anpa_category': [{'name': 'Omtaletjenesten', 'qcode': 'o', 'language': 'nb-NO'}],
             'subject': [{'qcode': 'Jubilantomtaler', 'name': 'Jubilantomtaler', 'scheme': 'category'}],
@@ -72,3 +72,14 @@ class Wufoo(TestCase):
         expected['headline'] += ", " + country
         item = self.parser.parse_article(article)
         self.assertEqual(item, expected)
+
+    def test_br(self):
+        """SDNTB-418 regression test"""
+        article = copy.deepcopy(self.article)
+        # we use a biography with Line Feeds
+        article['Field119'] = "line1\nline2\nline3"
+        # if SDNTB-418 is still present, <br/> will be escaped
+        expected = ('<p>line1<br/>\nline2<br/>\nline3\n<br/>\n<a href="https://norsktelegram.wufoo.com/cabinet/'
+                    'cTFocGR3ZzkxaDZ1Ymwx/SIioTwuslashL4koY%3D/photo_test.jpg">photo</a></p>')
+        item = self.parser.parse_article(article)
+        self.assertEqual(item['body_html'], expected)
