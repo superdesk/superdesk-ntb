@@ -97,7 +97,8 @@
             {"is_active": true, "name": "Rettelser", "qcode": "Rettelser", "service": {"n": 1}},
             {"is_active": true, "name": "Featureartikkel", "qcode": "Featureartikkel",  "service": {"j": 1, "b": 1, "f": 1, "a": 1}},
             {"is_active": true, "name": "Profiler og intervjuer", "qcode": "Profiler og intervjuer", "service": {"j": 1, "k": 1}},
-            {"is_active": true, "name": "Logger", "qcode": "Logger", "service": {"i": 1}}
+            {"is_active": true, "name": "Logger", "qcode": "Logger", "service": {"i": 1}},
+            {"is_active": true, "name": "Robottekst", "qcode": "Robottekst", "service": {"n": 1}}
         ]
     },
     {
