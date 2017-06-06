@@ -164,6 +164,7 @@ class WufooFeedParser(FeedParser):
                           "Epost: {}\n".format(article['email']) +
                           "Tlf: {}").format(article['phone'])
         item['versioncreated'] = datetime.strptime(article['DateCreated'], DATETIME_FORMAT)
+        item['sign_off'] = 'personalia@ntb.no'
         return item
 
 
