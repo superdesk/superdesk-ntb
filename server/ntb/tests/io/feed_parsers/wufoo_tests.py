@@ -57,7 +57,8 @@ class Wufoo(TestCase):
                          'cTFocGR3ZzkxaDZ1Ymwx/SIioTwuslashL4koY%3D/photo_test.jpg">photo</a></p>',
             'ednote': 'Kilder: \nfurther_sources_test\n\nFødested: birth_place_test\nSendt inn av: author_test'
                       '\nGodkjent: Ja\nEpost: email_test@example.net\nTlf: 123456789',
-            'versioncreated': datetime.datetime(2017, 2, 20, 12, 55, 57)}
+            'versioncreated': datetime.datetime(2017, 2, 20, 12, 55, 57),
+            'sign_off': 'personalia@ntb.no'}
 
     def test_parsing(self):
         item = self.parser.parse_article(self.article)
