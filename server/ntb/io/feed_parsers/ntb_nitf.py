@@ -84,11 +84,11 @@ def build_body_html(xml):
 
 
 NITF_MAPPING = {
-    'anpa_category': {'xpath': "head/meta/[@name='NTBTjeneste']",
+    'anpa_category': {'xpath': "head/meta[@name='NTBTjeneste']",
                       'filter': build_service,
                       },
     'priority': {'update': True,
-                 'xpath': "head/meta/[@name='NTBPrioritet']"},
+                 'xpath': "head/meta[@name='NTBPrioritet']"},
     'ntb_category': {'xpath': 'head/tobject[@tobject.type]',
                      'filter': lambda e: [{'qcode': e.get('tobject.type'),
                                            'name': e.get('tobject.type'),
