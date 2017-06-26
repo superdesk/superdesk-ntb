@@ -75,7 +75,11 @@ module.exports = function(grunt) {
             'keywords': 0,
             'creator': 1,
             'from_desk': 1,
-            'to_desk': 1
+            'to_desk': 1,
+            'spike': 1,
+            'ingest_provider': 1,
+            'marked_desks': 1,
+            'scheduled': 1
         },
 
         list: {
