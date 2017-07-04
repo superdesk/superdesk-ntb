@@ -70,7 +70,12 @@
             {"is_active": true, "name": "Forskning", "qcode": "Forskning", "service": {"f": 1, "i": 1}},
             {"is_active": true, "name": "PRM-NTB", "qcode": "PRM-NTB", "service": {"r": 1, "i": 1}},
             {"is_active": true, "name": "Showbiz", "qcode": "Showbiz", "service": {"k": 1}}
-        ]
+        ],
+        "schema": {
+            "name": {},
+            "qcode": {},
+            "service": {"type": "object"}
+        }
     },
     {
         "_id": "genre_custom",
@@ -97,8 +102,14 @@
             {"is_active": true, "name": "Rettelser", "qcode": "Rettelser", "service": {"n": 1}},
             {"is_active": true, "name": "Featureartikkel", "qcode": "Featureartikkel",  "service": {"j": 1, "b": 1, "f": 1, "a": 1}},
             {"is_active": true, "name": "Profiler og intervjuer", "qcode": "Profiler og intervjuer", "service": {"j": 1, "k": 1}},
-            {"is_active": true, "name": "Logger", "qcode": "Logger", "service": {"i": 1}}
-        ]
+            {"is_active": true, "name": "Logger", "qcode": "Logger", "service": {"i": 1}},
+            {"is_active": true, "name": "Robottekst", "qcode": "Robottekst", "service": {"n": 1}}
+        ],
+        "schema": {
+            "name": {},
+            "qcode": {},
+            "service": {"type": "object"}
+        }
     },
     {
         "_id": "urgency",
