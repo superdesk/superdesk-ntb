@@ -138,6 +138,13 @@ module.exports = function(grunt) {
             }
         },
 
-        requiredMediaMetadata: ['headline', 'description_text', 'alt_text']
+        requiredMediaMetadata: ['headline', 'description_text', 'alt_text'],
+
+        tansa: {
+            profile: {
+                nb: 18,
+                nn: 108
+            }
+        },
     };
 };
