@@ -267,9 +267,11 @@ class NTBNITFFormatter(NITFFormatter):
         elif language == 'nn-NO':
             org.text = 'NPK'
 
-    def _add_media(self, body_content, type_, mime_type, source, caption):
+    def _add_media(self, body_content, type_, mime_type, source, caption, featured):
         media = etree.SubElement(body_content, 'media')
         media.attrib['media-type'] = type_
+        if featured is not None:
+            media.attrib['class'] = 'illustrasjonsbilde'
         media_reference = etree.SubElement(media, 'media-reference')
         if mime_type is not None:
             media_reference.attrib['mime-type'] = mime_type
@@ -306,10 +308,12 @@ class NTBNITFFormatter(NITFFormatter):
         else:
             feature_image = associations.get('featureimage')
             if feature_image is not None:
+                feature_image['_featured'] = 'image'
                 media_data.append(feature_image)
             else:
                 feature_media = associations.get('featuremedia')
                 if feature_media is not None:
+                    feature_media['_featured'] = 'media'
                     media_data.append(feature_media)
 
         def repl_embedded(match):
@@ -413,11 +417,14 @@ class NTBNITFFormatter(NITFFormatter):
                 logger.warning("unhandled content type: {}".format(data['type']))
                 continue
             mime_type = data.get('mimetype')
+            # featured is not None if we have a feature image/media
+            # the value of image/media is not used yet but may be in the future
+            featured = data.get('_featured')
             if mime_type is None:
                 # these default values need to be used if mime_type is not found
                 mime_type = 'image/jpeg' if type_ == 'image' or type_ == 'grafikk' else 'video/mpeg'
             caption = self.strip_invalid_chars(data.get('description_text'))
-            self._add_media(body_content, type_, mime_type, source, caption)
+            self._add_media(body_content, type_, mime_type, source, caption, featured)
         self._add_meta_media_counter(head, len(media_data))
 
     def _format_body_end(self, article, body_end):

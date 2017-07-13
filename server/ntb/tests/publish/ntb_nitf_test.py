@@ -365,8 +365,9 @@ class NTBNITFFormatterTest(TestCase):
         expected = b"""\
             <body.content><p class="lead" lede="true" /><p class="txt-ind">M&#229;let i
             kortbane-VM som nylig ble avsluttet i den canadiske byen Windsor var personlig rekord p&#229; 1500
-            meter</p><p class="txt">footer text</p><media media-type="image"><media-reference mime-type="image/jpeg"
-            source="test_id" /><media-caption>test feature media</media-caption></media></body.content>
+            meter</p><p class="txt">footer text</p><media media-type="image" class="illustrasjonsbilde"><media-referenc
+            e mime-type="image/jpeg" source="test_id" /><media-caption>test feature media</media-caption></media>
+            </body.content>
             """.replace(b'\n', b'').replace(b' ', b'')
         formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
         doc = formatter_output[0]['encoded_item']
@@ -558,9 +559,15 @@ class NTBNITFFormatterTest(TestCase):
         # but we also check that body.content is there
         doc = formatter_output[0]['encoded_item']
         nitf_xml = etree.fromstring(doc)
-        expected = ('<body.content><pclass="lead"lede="true">Thisistheabstract</p><pclass="txt">footertext</p><mediame'
-                    'dia-type="image"><media-referencemime-type="image/jpeg"source="test_id"/><media-caption>testfeatu'
-                    'remedia</media-caption></media></body.content>')
+        expected = ("""
+        <body.content>
+            <p class="lead" lede="true">This is the abstract</p>
+            <p class="txt">footer text</p>
+            <media media-type="image" class="illustrasjonsbilde">
+                <media-reference mime-type="image/jpeg" source="test_id"/>
+                <media-caption>test feature media</media-caption>
+            </media>
+        </body.content>""").replace('\n', '').replace(' ', '')
         content = etree.tostring(nitf_xml.find('body/body.content'),
                                  encoding="unicode").replace('\n', '').replace(' ', '')
         self.assertEqual(content, expected)
