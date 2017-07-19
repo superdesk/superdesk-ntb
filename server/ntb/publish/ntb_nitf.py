@@ -33,6 +33,10 @@ ENCODING = 'iso-8859-1'
 assert ENCODING is not 'unicode'  # use e.g. utf-8 for unicode
 
 
+def _get_rewrite_sequence(article):
+    return int(article.get('rewrite_sequence') or 0)
+
+
 class NTBNITFFormatter(NITFFormatter):
     XML_DECLARATION = '<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>'
 
@@ -133,7 +137,7 @@ class NTBNITFFormatter(NITFFormatter):
         return category
 
     def _get_ntb_subject(self, article):
-        update = article.get('rewrite_sequence', 0)
+        update = _get_rewrite_sequence(article)
         subject_prefix = "ny{}-".format(update) if update else ""
         return subject_prefix + article.get('slugline', '')
 
@@ -149,7 +153,7 @@ class NTBNITFFormatter(NITFFormatter):
     def _format_docdata_doc_id(self, article, docdata):
         doc_id = "NTB{family_id}_{version:02}".format(
             family_id=article['family_id'],
-            version=article.get('rewrite_sequence', 0))
+            version=_get_rewrite_sequence(article))
         etree.SubElement(docdata, 'doc-id', attrib={'regsrc': 'NTB', 'id-string': doc_id})
 
     def _format_date_expire(self, article, docdata):
@@ -164,7 +168,7 @@ class NTBNITFFormatter(NITFFormatter):
             etree.SubElement(
                 docdata,
                 'du-key',
-                attrib={'version': str(article.get('rewrite_sequence', 0) + 1), 'key': article['slugline']})
+                attrib={'version': str(_get_rewrite_sequence(article) + 1), 'key': article['slugline']})
         for place in article.get('place', []):
             evloc = etree.SubElement(docdata, 'evloc')
             for key, att in (('parent', 'state-prov'), ('qcode', 'county-dist')):
