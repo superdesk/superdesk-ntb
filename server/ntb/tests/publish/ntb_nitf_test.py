@@ -564,3 +564,13 @@ class NTBNITFFormatterTest(TestCase):
         content = etree.tostring(nitf_xml.find('body/body.content'),
                                  encoding="unicode").replace('\n', '').replace(' ', '')
         self.assertEqual(content, expected)
+
+    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    def test_rewrite_sequence_none(self):
+        article = copy.deepcopy(self.article)
+        article['rewrite_sequence'] = None
+        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
+        doc = formatter_output[0]['encoded_item']
+        nitf_xml = etree.fromstring(doc)
+        doc_id = nitf_xml.find('head/docdata/doc-id')
+        self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(article['family_id'], 0))
