@@ -581,3 +581,9 @@ class NTBNITFFormatterTest(TestCase):
         nitf_xml = etree.fromstring(doc)
         doc_id = nitf_xml.find('head/docdata/doc-id')
         self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(article['family_id'], 0))
+
+    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    def test_language_empty(self):
+        article = copy.deepcopy(self.article)
+        article.pop('language')
+        self.formatter.format(article, {'name': 'Test NTBNITF'})
