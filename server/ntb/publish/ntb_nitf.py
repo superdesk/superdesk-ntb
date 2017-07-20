@@ -30,11 +30,16 @@ EMBED_RE = re.compile(r"<!-- EMBED START ([a-zA-Z]+ {id: \"(?P<id>.+?)\"}) -->.*
 FILENAME_FORBIDDEN_RE = re.compile(r"[^a-zA-Z0-9._-]")
 STRIP_INVALID_CHARS_RE = re.compile('[\x00-\x08\x0B-\x0C\x0E-\x1F\x7F]')
 ENCODING = 'iso-8859-1'
+LANGUAGE = 'nb-NO'  # default language for ntb
 assert ENCODING is not 'unicode'  # use e.g. utf-8 for unicode
 
 
 def _get_rewrite_sequence(article):
     return int(article.get('rewrite_sequence') or 0)
+
+
+def _get_language(article):
+    return article.get('language') or LANGUAGE
 
 
 class NTBNITFFormatter(NITFFormatter):
@@ -72,7 +77,7 @@ class NTBNITFFormatter(NITFFormatter):
             pub_seq_num = superdesk.get_resource_service('subscribers').generate_sequence_number(subscriber)
             nitf = self.get_nitf(article, subscriber, pub_seq_num)
             try:
-                nitf.attrib['baselang'] = article['language']
+                nitf.attrib['baselang'] = _get_language(article)
             except KeyError:
                 pass
 
@@ -265,7 +270,7 @@ class NTBNITFFormatter(NITFFormatter):
     def _format_body_head_distributor(self, article, body_head):
         distrib = etree.SubElement(body_head, 'distributor')
         org = etree.SubElement(distrib, 'org')
-        language = article['language']
+        language = _get_language(article)
         if language == 'nb-NO':
             org.text = 'NTB'
         elif language == 'nn-NO':
