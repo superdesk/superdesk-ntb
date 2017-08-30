@@ -144,7 +144,12 @@ class NTBNITFFormatter(NITFFormatter):
     def _get_ntb_subject(self, article):
         update = _get_rewrite_sequence(article)
         subject_prefix = "ny{}-".format(update) if update else ""
-        return subject_prefix + article.get('slugline', '')
+        return subject_prefix + self._get_ntb_slugline(article)
+
+    def _get_ntb_slugline(self, article):
+        slugline = article.get('slugline', '')
+        slugline = re.sub(r'[^a-zA-Z0-9ÆØÅæøå\.\- ]', "-", slugline)
+        return slugline
 
     def _format_tobject(self, article, head):
         return etree.SubElement(head, 'tobject', {'tobject.type': self._get_ntb_category(article)})
@@ -169,11 +174,11 @@ class NTBNITFFormatter(NITFFormatter):
 
         if 'slugline' in article:
             key_list = etree.SubElement(docdata, 'key-list')
-            etree.SubElement(key_list, 'keyword', attrib={'key': article['slugline']})
+            etree.SubElement(key_list, 'keyword', attrib={'key': self._get_ntb_slugline(article)})
             etree.SubElement(
                 docdata,
                 'du-key',
-                attrib={'version': str(_get_rewrite_sequence(article) + 1), 'key': article['slugline']})
+                attrib={'version': str(_get_rewrite_sequence(article) + 1), 'key': self._get_ntb_slugline(article)})
         for place in article.get('place', []):
             evloc = etree.SubElement(docdata, 'evloc')
             for key, att in (('parent', 'state-prov'), ('qcode', 'county-dist')):
@@ -239,7 +244,7 @@ class NTBNITFFormatter(NITFFormatter):
 
         self._format_datetimes(article, head)
         if 'slugline' in article:
-            etree.SubElement(head, 'meta', {'name': 'NTBStikkord', 'content': article['slugline']})
+            etree.SubElement(head, 'meta', {'name': 'NTBStikkord', 'content': self._get_ntb_slugline(article)})
         etree.SubElement(head, 'meta', {'name': 'subject', 'content': self._get_ntb_subject(article)})
 
         etree.SubElement(head, 'meta', {'name': 'NTBID', 'content': 'NTB{}'.format(article['family_id'])})

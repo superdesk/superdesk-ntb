@@ -226,7 +226,7 @@ class NTBNITFFormatterTest(TestCase):
 
     def test_slugline(self):
         du_key = self.nitf_xml.find('head/docdata/du-key')
-        self.assertEqual(du_key.get('key'), 'this is the slugline œ:?–')
+        self.assertEqual(du_key.get('key'), 'this is the slugline ----')
 
     def test_doc_id(self):
         doc_id = self.nitf_xml.find('head/docdata/doc-id')
