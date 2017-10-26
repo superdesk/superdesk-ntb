@@ -234,12 +234,14 @@ class NTBNITFFormatter(NITFFormatter):
         super()._format_meta(article, head, destination, pub_seq_num)
         article['head'] = head  # needed to access head when formatting body content
         etree.SubElement(head, 'meta', {'name': 'NTBEditor', 'content': 'Superdesk'})
+
         try:
-            service = article['anpa_category'][0]
-        except (KeyError, IndexError):
+            service_names = ", ".join(service.get("name", "") for service in article['anpa_category'])
+        except (KeyError):
             pass
         else:
-            etree.SubElement(head, 'meta', {'name': 'NTBTjeneste', 'content': service.get("name", "")})
+            etree.SubElement(head, 'meta', {'name': 'NTBTjeneste', 'content': service_names})
+
         etree.SubElement(head, 'meta', {'name': 'filename', 'content': self._get_filename(article)})
 
         self._format_datetimes(article, head)
