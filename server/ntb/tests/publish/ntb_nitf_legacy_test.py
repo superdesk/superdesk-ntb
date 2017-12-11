@@ -9,7 +9,7 @@
 # at https://www.sourcefabric.org/superdesk/license
 
 from unittest import mock
-from ntb.publish.ntb_nitf_legacy import NTBNITFLegacyFormatter
+from ntb.publish.ntb_nitf_multifile import NTBNITFMultiFileFormatter
 from superdesk.publish.formatters import Formatter
 from superdesk.publish.subscribers import SubscribersService
 from superdesk.publish import init_app
@@ -19,10 +19,10 @@ from lxml import etree
 import pytz
 
 
-class NTBNITFLegacyFormatterTest(NTBNITFFormatterTest):
+class NTBNITFMultiFileFormatterTest(NTBNITFFormatterTest):
 
     def __init__(self, *args, **kwargs):
-        super(NTBNITFLegacyFormatterTest, self).__init__(*args, **kwargs)
+        super(NTBNITFMultiFileFormatterTest, self).__init__(*args, **kwargs)
         self.article = None
 
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
@@ -30,7 +30,7 @@ class NTBNITFLegacyFormatterTest(NTBNITFFormatterTest):
         super(TestCase, self).setUp()
         article_legacy = ARTICLE.copy()
         article_legacy['anpa_category'] = [{'name': 'service1'}, {'name': 'service2'}, {'name': 'service3'}]
-        self.formatter = NTBNITFLegacyFormatter()
+        self.formatter = NTBNITFMultiFileFormatter()
         self.base_formatter = Formatter()
         init_app(self.app)
         self.tz = pytz.timezone(self.app.config['DEFAULT_TIMEZONE'])

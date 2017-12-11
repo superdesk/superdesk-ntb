@@ -8,21 +8,14 @@
 # AUTHORS and LICENSE files distributed with this source code, or
 # at https://www.sourcefabric.org/superdesk/license
 
-from ntb.publish.ntb_nitf import NTBNITFFormatter
-from superdesk.metadata.item import ITEM_TYPE, CONTENT_TYPE
+from .ntb_nitf import NTBNITFFormatter
 from superdesk.publish.publish_service import PublishService
 
 
-class NTBNITFLegacyFormatter(NTBNITFFormatter):
-    def can_format(self, format_type, article):
-        """
-        Method check if the article can be formatted to NTB NIT Legacy.
+class NTBNITFMultiFileFormatter(NTBNITFFormatter):
+    """This formatter version generates 1 file for each service."""
 
-        :param str format_type:
-        :param dict article:
-        :return: True if article can formatted else False
-        """
-        return format_type == 'ntbnitflegacy' and article[ITEM_TYPE] == CONTENT_TYPE.TEXT
+    FORMAT_TYPE = 'ntbnitfmultifile'
 
     def format(self, original_article, subscriber, codes=None, encoding="us-ascii"):
         """For every service create a article nitf format."""
@@ -39,4 +32,4 @@ class NTBNITFLegacyFormatter(NTBNITFFormatter):
         return articles
 
 
-PublishService.register_file_extension('ntbnitflegacy', 'xml')
+PublishService.register_file_extension(NTBNITFMultiFileFormatter.FORMAT_TYPE, 'xml')
