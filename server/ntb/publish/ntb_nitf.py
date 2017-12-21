@@ -8,19 +8,21 @@
 # AUTHORS and LICENSE files distributed with this source code, or
 # at https://www.sourcefabric.org/superdesk/license
 
-from superdesk.metadata.item import ITEM_TYPE, CONTENT_TYPE
-from superdesk.publish.formatters.nitf_formatter import NITFFormatter
 import re
-from lxml import etree
-from superdesk import etree as sd_etree
-from superdesk.publish.publish_service import PublishService
-from superdesk.errors import FormatterError
-import superdesk
-from datetime import datetime
 import pytz
 import logging
+import superdesk
+
+from lxml import etree
 from copy import deepcopy
+from datetime import datetime
 from flask import current_app as app
+
+from superdesk import etree as sd_etree
+from superdesk.metadata.item import ITEM_TYPE, CONTENT_TYPE
+from superdesk.publish.formatters.nitf_formatter import NITFFormatter
+from superdesk.publish.publish_service import PublishService
+from superdesk.errors import FormatterError
 
 logger = logging.getLogger(__name__)
 tz = None
@@ -43,7 +45,10 @@ def _get_language(article):
 
 
 class NTBNITFFormatter(NITFFormatter):
+    """This is NITF formatter 1.0 generating single file with first service only."""
+
     XML_DECLARATION = '<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>'
+    FORMAT_TYPE = 'ntbnitf10'
 
     def __init__(self):
         NITFFormatter.__init__(self)
@@ -56,7 +61,7 @@ class NTBNITFFormatter(NITFFormatter):
         :param dict article:
         :return: True if article can formatted else False
         """
-        return format_type == 'ntbnitf' and article[ITEM_TYPE] == CONTENT_TYPE.TEXT
+        return format_type == self.FORMAT_TYPE and article[ITEM_TYPE] == CONTENT_TYPE.TEXT
 
     def strip_invalid_chars(self, string):
         if string is None:
@@ -235,12 +240,9 @@ class NTBNITFFormatter(NITFFormatter):
         article['head'] = head  # needed to access head when formatting body content
         etree.SubElement(head, 'meta', {'name': 'NTBEditor', 'content': 'Superdesk'})
 
-        try:
-            service_names = ", ".join(service.get("name", "") for service in article['anpa_category'])
-        except (KeyError):
-            pass
-        else:
-            etree.SubElement(head, 'meta', {'name': 'NTBTjeneste', 'content': service_names})
+        service = self._format_service(article)
+        if service:
+            etree.SubElement(head, 'meta', {'name': 'NTBTjeneste', 'content': service})
 
         etree.SubElement(head, 'meta', {'name': 'filename', 'content': self._get_filename(article)})
 
@@ -260,6 +262,12 @@ class NTBNITFFormatter(NITFFormatter):
         pub_queue = superdesk.get_resource_service("publish_queue")
         daily_count = pub_queue.find({'transmit_started_at': {'$gte': day_start}}).count() + 1
         etree.SubElement(head, 'meta', {'name': 'NTBIPTCSequence', 'content': str(daily_count)})
+
+    def _format_service(self, article):
+        try:
+            return article['anpa_category'][0].get('name')
+        except (KeyError, IndexError):
+            pass
 
     def _format_body_head_abstract(self, article, body_head):
         # abstract is added in body_content for NTB NITF
@@ -461,4 +469,4 @@ class NTBNITFFormatter(NITFFormatter):
                 previous = a
 
 
-PublishService.register_file_extension('ntbnitf', 'xml')
+PublishService.register_file_extension(NTBNITFFormatter.FORMAT_TYPE, 'xml')
