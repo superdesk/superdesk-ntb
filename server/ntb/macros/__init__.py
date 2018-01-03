@@ -24,5 +24,5 @@ for macro in macros:
             imp.reload(m)
         else:
             importlib.import_module(module)
-    except:
+    except Exception:
         pass
