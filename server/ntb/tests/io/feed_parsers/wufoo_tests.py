@@ -9,13 +9,18 @@
 # at https://www.sourcefabric.org/superdesk/license
 
 
+import copy
 import datetime
+from unittest.mock import patch
 from superdesk.tests import TestCase
 from ntb.io.feed_parsers.wufoo import WufooFeedParser
-import copy
+
+TODAY = datetime.date(2017, 2, 20)
 
 
 class Wufoo(TestCase):
+
+    maxDiff = None
 
     def setUp(self):
         super().setUp()
@@ -61,7 +66,9 @@ class Wufoo(TestCase):
             'sign_off': 'personalia@ntb.no'}
 
     def test_parsing(self):
-        item = self.parser.parse_article(self.article)
+        with patch('ntb.io.feed_parsers.wufoo.date') as mock_date:
+            mock_date.today.return_value = TODAY
+            item = self.parser.parse_article(self.article)
         self.assertEqual(item, self.expected)
 
     def test_country(self):
@@ -71,8 +78,10 @@ class Wufoo(TestCase):
         expected = copy.deepcopy(self.expected)
         article['Field118'] = country
         expected['headline'] += ", " + country
-        item = self.parser.parse_article(article)
-        self.assertEqual(item, expected)
+        with patch('ntb.io.feed_parsers.wufoo.date') as mock_date:
+            mock_date.today.return_value = TODAY
+            item = self.parser.parse_article(article)
+        self.assertEqual(item['headline'], expected['headline'])
 
     def test_br(self):
         """SDNTB-418 regression test"""
