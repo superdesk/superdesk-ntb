@@ -1,0 +1,36 @@
+
+import superdesk
+
+IPTC_SPORT_PREFIX = '15'
+SPORT_CATEGORY = 'Sport'
+DEFAULT_CATEGORY = 'Utenriks'
+SUBJECT_CV = 'subject_custom'
+
+
+def ingest_category_from_subject(subjects):
+    """Get default or sport category based on given subjects."""
+    if not subjects:
+        subjects = []
+    if any([True for subject in subjects if subject.get('qcode', '').startswith(IPTC_SPORT_PREFIX)]):
+        cat = SPORT_CATEGORY
+    else:
+        cat = DEFAULT_CATEGORY
+    return {'qcode': cat, 'name': cat, 'scheme': 'category'}
+
+
+def filter_missing_subjects(subjects):
+    """Use labels from subject_custom cv and ignore missing qcodes."""
+    if not subjects:
+        subjects = []
+    next_subjects = []
+    cv = superdesk.get_resource_service('vocabularies').find_one(req=None, _id=SUBJECT_CV)
+    for item in cv['items']:
+        if item.get('is_active'):
+            for subject in subjects:
+                if item.get('qcode') == subject.get('qcode'):
+                    next_subjects.append({
+                        'name': item['name'],
+                        'qcode': item['qcode'],
+                        'scheme': SUBJECT_CV,
+                    })
+    return next_subjects

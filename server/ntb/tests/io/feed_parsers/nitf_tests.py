@@ -8,15 +8,9 @@
 # AUTHORS and LICENSE files distributed with this source code, or
 # at https://www.sourcefabric.org/superdesk/license
 
-
-import os
-import settings
-from superdesk import config
-from superdesk.tests import TestCase
-
-from superdesk.etree import etree
 from superdesk.io.feed_parsers.nitf import NITFFeedParser
-from superdesk.vocabularies.command import VocabulariesPopulateCommand
+
+from . import XMLParserTestCase
 
 ABSTRACT = ("København /ritzau/: "
             "En 41-årig mand, der onsdag blev anholdt og sat i forbindelse "
@@ -24,29 +18,10 @@ ABSTRACT = ("København /ritzau/: "
             "er blevet løsladt.")
 
 
-class NITFTestCase(TestCase):
-
-    def setUp(self):
-        super().setUp()
-        # we need to prepopulate vocabularies to get qcodes
-        voc_file = os.path.join(os.path.abspath(os.path.dirname(settings.__file__)), "data/vocabularies.json")
-        VocabulariesPopulateCommand().run(voc_file)
-
-        # settings are needed in order to get into account NITF_MAPPING
-        for key in dir(settings):
-            if key.isupper():
-                setattr(config, key, getattr(settings, key))
-        dirname = os.path.dirname(os.path.realpath(__file__))
-        fixture = os.path.normpath(os.path.join(dirname, '../fixtures', self.filename))
-        provider = {'name': 'Test'}
-        with open(fixture, 'rb') as f:
-            self.nitf = f.read()
-            self.item = NITFFeedParser().parse(etree.fromstring(self.nitf), provider)
-
-
-class NTBTestCase(NITFTestCase):
+class NTBTestCase(XMLParserTestCase):
 
     filename = 'nitf_test.xml'
+    parser = NITFFeedParser()
 
     def test_subject_update(self):
         self.assertEqual(len(self.item.get('subject')), 4)
