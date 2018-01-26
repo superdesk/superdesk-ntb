@@ -320,7 +320,8 @@ class NTBNITFFormatter(NITFFormatter):
         # abstract
         if 'abstract' in article:
             p = etree.SubElement(body_content, 'p', {'lede': "true", 'class': "lead"})
-            abstract_txt = sd_etree.get_text(article['abstract'], content='html')
+            abstract = sd_etree.parse_html(article['abstract'], content='html')
+            abstract_txt = etree.tostring(abstract, encoding='unicode', method='text')
             p.text = abstract_txt
 
         # media
