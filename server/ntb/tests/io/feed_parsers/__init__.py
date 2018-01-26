@@ -4,7 +4,7 @@ import settings
 from superdesk import config
 from superdesk.tests import TestCase
 from superdesk.etree import etree
-from superdesk.vocabularies.command import VocabulariesPopulateCommand
+from superdesk.vocabularies.commands import VocabulariesPopulateCommand
 
 
 class XMLParserTestCase(TestCase):
