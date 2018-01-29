@@ -27,4 +27,5 @@ class XMLParserTestCase(TestCase):
         provider = {'name': 'Test'}
         with open(fixture, 'rb') as f:
             self.xml = f.read()
-            self.item = self.parser.parse(etree.fromstring(self.xml), provider)
+            self.xml_root = etree.fromstring(self.xml)
+            self.item = self.parser.parse(self.xml_root, provider)
