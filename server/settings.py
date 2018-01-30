@@ -13,6 +13,7 @@
 import os
 import json
 from ntb.io.feed_parsers import ntb_nitf
+from ntb.io.feed_parsers import stt_newsml  # NOQA
 
 
 try:
