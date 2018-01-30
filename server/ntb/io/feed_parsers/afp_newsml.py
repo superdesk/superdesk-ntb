@@ -10,7 +10,7 @@
 
 from superdesk.io.registry import register_feed_parser
 from superdesk.io.feed_parsers.afp_newsml_1_2 import AFPNewsMLOneFeedParser
-from .utils import ingest_category_from_subject, filter_missing_subjects
+from .utils import ingest_category_from_subject, filter_missing_subjects, set_default_service
 
 
 class NTBAFPNewsMLParser(AFPNewsMLOneFeedParser):
@@ -24,6 +24,7 @@ class NTBAFPNewsMLParser(AFPNewsMLOneFeedParser):
         category = ingest_category_from_subject(item.get('subject'))  # check for sports using all ingested subjects
         item['subject'] = filter_missing_subjects(item.get('subject'))
         item['subject'].append(category)
+        set_default_service(item)
         return item
 
 

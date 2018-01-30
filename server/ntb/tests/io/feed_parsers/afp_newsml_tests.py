@@ -25,3 +25,5 @@ class NTBAFPNewsMLTestCase(XMLParserTestCase):
                       self.item['subject'])
         self.assertIn({'name': 'Økonomi og næringsliv', 'qcode': '04000000', 'scheme': 'subject_custom'},
                       self.item['subject'])
+
+        self.assertIn({'name': 'Nyhetstjenesten', 'qcode': 'n'}, self.item['anpa_category'])
