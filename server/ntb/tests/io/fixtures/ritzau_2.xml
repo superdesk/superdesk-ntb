@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<RBNews xmlns="" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+  <NewsID>b5342fc2-b3e1-4331-ab2b-5e93e0d59427</NewsID>
+  <PublishDate>2018-01-31T18:45:36.73</PublishDate>
+  <Topstory>0</Topstory>
+  <strapline>NET/FORSVAR/SATELLIT</strapline>
+  <headline>Forsvaret sender satellit ud i rummet for f&#xF8;rste gang</headline>
+  <subtitle>En ny, danskudviklet satellit skal udf&#xF8;re overv&#xE5;gningsopgaver i Arktis for det danske Forsvar.&lt;br /&gt;</subtitle>
+  <town>K&#xF8;benhavn</town>
+  <origin>/ritzau/</origin>
+  <sectionID>6</sectionID>
+  <section>Erhverv</section>
+  <sectionShort>E</sectionShort>
+  <version>1</version>
+  <Replaces i:nil="true"/>
+  <format>Net</format>
+  <content>&lt;p&gt;En danskudviklet minisatellit &#x2013; en s&#xE5;kaldt cubesat - bliver sendt ud i rummet fredag, hvis alt g&#xE5;r efter planen. Det skriver Videnskab.dk.&lt;br /&gt;&lt;/p&gt;&lt;p&gt;Satellitten er ejet og betalt af Forsvarsministeriet, og den skal udf&#xF8;re overv&#xE5;gningsopgaver for Forsvaret i Arktis.&lt;/p&gt; &lt;p&gt;- Det er f&#xF8;rste gang, at Forsvaret sender sin egen satellit ud i rummet.&lt;/p&gt;&lt;p&gt;- Hvis det bliver en succes, kan det blive et skridt imod, at Forsvaret engagerer sig mere i at bruge rummet, siger Charlotte Wiin Havsteen, ansvarlig for projektet ved Forsvarsministeriets Materiel- og Indk&#xF8;bsstyrelse, til Videnskab.dk.&lt;/p&gt; &lt;p&gt;Satellitten er udviklet i et samarbejde mellem Danmarks Tekniske Universitet (DTU) og rumvirksomheden GomSpace i Aalborg.&lt;/p&gt; &lt;p&gt;Den m&#xE5;ler blot 30x20x10 centimeter og indeholder radiomodtagere, der kan opfange positionssignaler fra skibe og fly.&lt;/p&gt;&lt;p&gt;Herudover sidder der ogs&#xE5; et kamera p&#xE5; satellitten, som kan tage billeder af Arktis, n&#xE5;r vejret er klart.&lt;/p&gt; &lt;p&gt;- Den vejer kun otte kilo, og den er s&#xE5; lille, at den kan v&#xE6;re i en almindelig Fj&#xE4;llr&#xE4;ven-rygs&#xE6;k, fort&#xE6;ller Charlotte Wiin Havsteen.&lt;/p&gt; &lt;p&gt;- Satellitten skal hj&#xE6;lpe med at l&#xF8;se forsvarets opgave med overv&#xE5;gningen i Arktis. Den kan give et overblik over, hvem der er i omr&#xE5;det, og hvad de laver.&lt;/p&gt; &lt;p&gt;Forsvaret har betalt 11,7 millioner kroner for satellitten. Prisen d&#xE6;kker b&#xE5;de det videnskabelige udviklingsarbejde og opsendelse af satellitten.&lt;/p&gt; &lt;p&gt;- Det er et helt nyt spring for forsvaret at g&#xE5; ind i rumalderen. Tidligere har de selvf&#xF8;lgelig brugt udenlandske satellitdata ligesom alle os andre, men det er f&#xF8;rste gang, at de f&#xE5;r deres egen satellit.&lt;/p&gt;&lt;p&gt;- Det er selvf&#xF8;lgelig rigtig interessant for os, der er i rumbranchen, siger astrofysiker og direkt&#xF8;r for DTU Space Kristian Pedersen til Videnskab.dk.&lt;/p&gt;&lt;p&gt;Satellitten b&#xE6;rer navnet Ulloriaq, som betyder "stjerne" p&#xE5; gr&#xF8;nlandsk. Den vil blive sendt afsted fra Kina fredag om bord p&#xE5; en kinesisk "Long March"-l&#xF8;fteraket, hvis vejret tillader det.&lt;/p&gt;&lt;p&gt;Hvis Ulloriaqs bidrag til overv&#xE5;gningen af Arktis er en succes, kan den m&#xE5;ske blive den f&#xF8;rste i en r&#xE6;kke af nanosatellitter, som kan blive sendt ud i rummet af det danske forsvar, skriver Videnskab.dk.&lt;br /&gt;&lt;/p&gt;&lt;p&gt;I forbindelse med opsendelsen af Forsvarets nye satellit vil en anden danskbygget satellit ogs&#xE5; blive sendt ud i rummet.&lt;/p&gt; &lt;p&gt;Denne satellit, som kaldes GomX-4B, er ligeledes bygget af den nordjyske virksomhed GomSpace. Den er finansieret af den europ&#xE6;iske rumfartsorganisation ESA og har helt andre opgaver end forsvarets Ulloriaq-satellit.&lt;/p&gt;&lt;p&gt;/ritzau/&lt;/p&gt;</content>
+  <formatID>2</formatID>
+  <HistID>CKR-1835600</HistID>
+  <Priority>4</Priority>
+  <IPTCList xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+    <a:int>4000000</a:int>
+    <a:int>11000000</a:int>
+    <a:int>11001000</a:int>
+    <a:int>13000000</a:int>
+    <a:int>14000000</a:int>
+  </IPTCList>
+  <MultimedieList/>
+  <ISIN xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+  <Related i:nil="true"/>
+  <replacedID i:nil="true"/>
+  <Annuleret>false</Annuleret>
+  <NyVersion>false</NyVersion>
+  <Korrektion>false</Korrektion>
+  <InfoFlash>false</InfoFlash>
+  <byLine>Cecilie Krabbe</byLine>
+  <byLineEmail>erhverv@ritzau.dk</byLineEmail>
+  <byLinePhone>33300497</byLinePhone>
+  <SubjectKeyword xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+  <TopWeb>false</TopWeb>
+  <TilRedaktionen i:nil="true"/>
+  <Companies/>
+  <Status>New news</Status>
+  <ContentShort>Forsvaret sender satellit ud i rummet for f&#xF8;rste gang</ContentShort>
+</RBNews>
