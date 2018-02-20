@@ -50,7 +50,7 @@ class STTNewsMLFeedParser(NewsMLTwoFeedParser):
         except Exception as ex:
             raise ParserError.newsmlTwoParserError(ex, provider)
 
-    def parse_inline_content(self, tree):
+    def parse_inline_content(self, tree, item):
         html_elt = tree.find(self.qname('html'))
         body_elt = html_elt.find(self.qname('body'))
         # we need HtmlElement to use the cleaner, and it seems that
