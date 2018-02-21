@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<newsItem xmlns="http://iptc.org/std/nar/2006-10-01/" standard="NewsML-G2" standardversion="2.11" xml:lang="swe" guid="urn:newsml:tt.se:20171220:TT:585167:0">
+  <catalogRef href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_13.xml"/>
+  <rightsInfo>
+    <copyrightHolder literal="TT"/>
+  </rightsInfo>
+  <itemMeta>
+    <itemClass qcode="ninat:text"/>
+    <provider literal="TT"/>
+    <versionCreated>2017-12-20T14:46:21+01:00</versionCreated>
+    <pubStatus qcode="stat:usable"/>
+    <role qcode="tt_type:01:PUBL"/>
+    <service qcode="tt_prodid:UTR"/>
+    <edNote>Med Ann Linde samt ytterligare kommentar från polska regeringspartiet. Ny rubrik, delvis omskriven ingress.</edNote>
+    <signal qcode="tt_sig:replace">
+      <name>Ersätt refererade objekt</name>
+    </signal>
+  </itemMeta>
+  <contentMeta>
+    <urgency>4</urgency>
+    <contentCreated>2017-12-20T14:46:21+01:00</contentCreated>
+    <located literal="EU"/>
+    <creator literal=""/>
+    <altId type="tt:number">585167</altId>
+    <altId type="tt:uno">20171220:TT:585167:0</altId>
+    <altId type="tt:refuno">20171220:TT:585152:0</altId>
+    <language tag="sv"/>
+    <subject literal="TT:02000000:LAG"/>
+    <subject literal="TT:11000000:POL"/>
+    <slugline>eu-polenUV4</slugline>
+    <headline>Polen: EU hämnas för flyktingmotstånd</headline>
+    <description role="drol:caption">För första gången sedan EU:s Lissabonfördrag trädde i kraft tar EU-kommissionen i med sin storslägga mot ett medlemsland. Polen riskerar nu formellt indragen rösträtt - även om vägen dit fortfarande är lång. I Warszawa tror man att åtgärden är en hämnd f</description>
+  </contentMeta>
+  <contentSet>
+    <inlineXML contenttype="application/ttnitf+xml">
+      <BODY xmlns="" ID="8:10">
+        <TEXT>
+          <RUBRIK>Polen: EU hämnas för flyktingmotstånd</RUBRIK>
+          <DAT>
+            <ORT>EU</ORT>
+            <SOURCE>Bryssel, TT:s korrespondent</SOURCE>
+          </DAT>
+          <INGRESS>
+            <P>För första gången sedan EU:s Lissabonfördrag trädde i kraft tar EU-kommissionen i med sin storslägga mot ett medlemsland. Polen riskerar nu formellt indragen rösträtt - även om vägen dit fortfarande är lång.</P>
+            <P>I Warszawa tror man att åtgärden är en hämnd för landets ovilja att ta emot flyktingar.</P>
+          </INGRESS>
+          <BRODTEXT>
+            <CITAT>Tyvärr har vår oro fördjupats, konstaterar EU-kommissionens förste viceordförande Frans Timmermans om Polen efter dagens kommissionsmöte i Bryssel.</CITAT>
+            <CITAT>Vi har gett tre rekommendationer och hela tiden varit redo för en dialog. Men någon dialog har aldrig ägt rum, säger Timmermans.</CITAT>
+            <P>Som väntat konstaterar därmed kommissionen att det finns risk för att Polen bryter mot EU:s grundläggande rättigheter, vilket i slutändan kan leda till att landet blir av med sin rösträtt i EU-sammanhang.</P>
+            <MELLIS>"Politiskt beslut"</MELLIS>
+            <P>Från polsk sida avfärdas dock även dagens agerande i Bryssel.</P>
+            <CITAT>Det här beslutet har inget värde. Det är enligt vår mening bara ett rent politiskt beslut, säger Beata Mazurek, taleskvinna för regeringspartiet PIS, enligt nyhetsbyrån PAP.</CITAT>
+            <P>Mazurek tror att EU-kommissionens agerande kan vara ett sätt att hämnas på Polen för landets ovilja att ta emot flyktingar.</P>
+            <CITAT>Det här kan vara en följd inte bara av oppositionens uppgifter (om Polen till EU), utan också av att vi inte vill ta emot invandrare, vi vill inte ta emot muslimska migranter, eftersom vi bryr oss om säkerheten för polackerna.</CITAT>
+            <P>Tvisten gäller ändringar i tillsättningar, pensionsålder och befogenheter inom det polska rättsväsendet som Polens regering genomfört under de senaste åren. Eftersom Polen inte ansett sig behöva reagera på kommissionens oro kommer sanktionsbollen nu att skickas vidare till EU:s medlemsländer.</P>
+            <MELLIS>"Jättesorgligt"</MELLIS>
+            <P>Den svenska ledamoten i EU-kommissionen, Cecilia Malmström, konstaterar att kommissionen försökt och försökt, men inte kommer längre.</P>
+            <CITAT>Två år av förhandlingar, samtal, meddelanden, utsträckta händer, hot och löften har inte lett till något resultat i Polen, säger Malmström till TT.</CITAT>
+            <CITAT>Det är jättesorgligt att Polen, som är ett land som vi alla har vänner i och som vi beundrar och som spelar en enorm roll i den europeiska unionen, har en regering som tyvärr bryter så flagrant mot de grundläggande värderingarna i EU att det bara blir sämre. Det här är tyvärr den enda utvägen, säger Malmström.</CITAT>
+            <MELLIS>Jämförs med Sovjet</MELLIS>
+            <P>EU-kommissionen hänvisar bland annat till kritik från Europarådets Venedigkommission.</P>
+            <CITAT>De jämför ju det polska systemet med det gamla Sovjetsystemet, med totalt statligt inflytande över rättsväsendet. Och det är mycket allvarligt. Det strider mot Polens egen författning och mot alla värderingar i den Europeiska unionen. Polen hade inte fått bli medlem i dag, säger Malmström.</CITAT>
+            <P>EU-minister Ann Linde kallar åtgärden "en mycket allvarlig påtryckning". Hon ser det som troligt att en majoritet av länderna fastställer att Polen riskerar att bryta mot unionens grundläggande värderingar. Att enhälligt slå fast att de faktiskt gör det ser Linde som "betydligt svårare".</P>
+            <MELLIS>Upptrappad diskussion</MELLIS>
+            <P>Samtidigt har diskussionen trappats upp om att kunna villkora Polens EU-bidrag om de inte följer rättsstatens principer, säger Linde.</P>
+            <CITAT>Förhoppningen är att när man nu kommer med så entydiga rekommendationer från flera olika håll, att Polen då ska lyssna på detta och förstå att det är seriöst. Dessutom är det så att alla länder, även Sverige, vill ha en bra relation med Polen.</CITAT>
+            <P>Närmast blir det nu upp till EU:s medlemsländer att avgöra om det finns en "klar risk" för att Polen "åsidosätter" grundläggande värderingar. Det beslutet behöver i så fall tas med fyra femtedelars majoritet - minst 22 medlemsländer.</P>
+            <CITAT>Nu måste detta upp på högsta nivå bland medlemsländerna och så hoppas vi att de kan ha en allvarlig diskussion om detta och att de kan påverka Polen, säger Malmström.</CITAT>
+            <MELLIS>Stöd från Ungern?</MELLIS>
+            <P>För att verkligen införa sanktioner mot Polen krävs sedan i nästföljande läge total enighet bland de övriga EU-länderna. Det anses dock osannolikt, bland annat med tanke på tidigare uttalat stöd till Polen från exempelvis Ungern.</P>
+            <P>Cecilia Malmström hoppas dock att själva processen leder till att eventuella stödländer verkligen tänker till på förhand.</P>
+            <CITAT>Då måste också de länderna som motarbetar detta säga varför de försvarar att Polen har infört ett sådant här rättssystem. Då måste de medlemsländerna komma fram och säga varför de inte tycker att det här kräver någon form av åtgärder, säger Cecilia Malmström till TT.</CITAT>
+          </BRODTEXT>
+          <BYLINE EPOST="wiktor.nummelin@tt.se">Wiktor Nummelin/TT</BYLINE>
+          <BILD>
+            <BILDFIL>http://tt.se/media/image/4AF3FE0E977548548B1F6EAE63141581</BILDFIL>
+            <BILDTEXT>
+              <P>EU-kommissionens förste viceordförande Frans Timmermans väntas ge besked om fortsatta åtgärder mot Polen. Arkivfoto.</P>
+            </BILDTEXT>
+            <BILDSKAPARE>Olivier Matthys/AP/TT</BILDSKAPARE>
+          </BILD>
+        </TEXT>
+        <TEXT>
+          <RUBRIK>Fakta: EU:s storslägga</RUBRIK>
+          <BRODTEXT>
+            <P>I artikel 7 i EU:s Lissabonfördrag fastställs att en majoritet i EU-kommissionen, EU-parlamentet eller bland medlemsländerna kan dra igång ett särskilt förfarande när det finns "en klar risk för att en medlemsstat allvarligt åsidosätter värdena i artikel 2".</P>
+            <P>Det som nämns i artikel 2 är bland annat "respekt för människans värdighet, frihet, demokrati, jämlikhet, rättsstaten och respekt för de mänskliga rättigheterna, inklusive rättigheter för personer som tillhör minoriteter".</P>
+            <P>I artikel 7 stipuleras fyra steg:</P>
+            <UL>
+              <LI>1) fastställande att det finns "en klar risk" för att ett land åsidosätter värdena. Behöver göras av minst fyra femtedelar av övriga EU-länder.</LI>
+              <LI>2) fastställande att ett land verkligen åsidosätter värdena. Ska göras enhälligt av samtliga övriga EU-länder utom det utpekade landet.</LI>
+              <LI>3) beslut att tillfälligt upphäva exempelvis landets rösträtt. Måste också göras enhälligt.</LI>
+              <LI>4) beslut att ändra eller återkalla tidigare åtgärder.</LI>
+            </UL>
+            <P>Källa: Lissabonfördraget.</P>
+            <P/>
+            <P/>
+          </BRODTEXT>
+        </TEXT>
+      </BODY>
+    </inlineXML>
+  </contentSet>
+</newsItem>
