@@ -213,3 +213,8 @@ DEFAULT_TIMEZONE = "Europe/Oslo"
 INGEST_SKIP_IPTC_CODES = True
 
 SESSION_EXPIRY_MINUTES = 12 * 60
+
+NIFS_STAGE_MAP = {6: 'Eliteserien menn',
+                  676155: 'Eliteserien menn'}
+NIFS_SPORT_MAP = {1: 'Fotball',
+                  3: 'Håndball'}
