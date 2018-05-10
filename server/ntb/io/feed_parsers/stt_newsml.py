@@ -30,9 +30,8 @@ class NTBSTTNewsMLFeedParser(STTNewsMLFeedParser):
         return xml.tag.endswith('newsItem')
 
     def parse(self, xml, provider=None):
-        self.root = xml
         try:
-            item = self.parse_item(xml)
+            item = super().parse(xml, provider)[0]
             # SDNTB-462 requires that slugline is removed
             del item['slugline']
             sport = bool(self.root.xpath('//iptc:subject[@type="cpnat:abstract" and @qcode="sttsubj:15000000"]',
