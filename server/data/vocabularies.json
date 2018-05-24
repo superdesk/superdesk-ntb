@@ -226,7 +226,8 @@
                     {"name": "NINJS", "qcode": "ninjs"},
                     {"name": "AAP NewsML 1.2", "qcode": "newsml12"},
                     {"name": "NewsML G2", "qcode": "newsmlg2"},
-                    {"name": "AAP Bulletin Builder", "qcode": "AAP BULLETIN BUILDER"}
+                    {"name": "AAP Bulletin Builder", "qcode": "AAP BULLETIN BUILDER"},
+                    {"name": "NTB Event", "qcode": "ntb_event"}
                 ]
             },
             {"is_active": true, "name": "Wire/Paper", "qcode": "wire",
