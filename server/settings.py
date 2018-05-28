@@ -139,7 +139,8 @@ INSTALLED_APPS.extend([
     'apps.picture_crop',
     'apps.languages',
 
-    'ntb.macros'
+    'ntb.macros',
+    'planning'
 ])
 
 RENDITIONS = {
