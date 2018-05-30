@@ -219,3 +219,21 @@ NIFS_STAGE_MAP = {6: 'Eliteserien menn',
                   676155: 'Eliteserien menn'}
 NIFS_SPORT_MAP = {1: 'Fotball',
                   3: 'Håndball'}
+
+PLANNING_EXPORT_BODY_TEMPLATE = '''
+{% for item in items %}
+<p><b>{{ item.name or item.headline or item.slugline }}</b></p>
+<p>{{ item.description_text }}</p>
+<p></p>
+{% if item.get('event', {}).get('location') %}
+<p>Sted: {{ item.event.location[0].name }}.</p>
+{% endif %}
+{% if item.get('ednote', '') != '' %}
+<p>Til red: {{ item.ednote }}</p>
+{% endif %}
+{% if item.coverages %}
+<p>Dekning: {{ item.coverages | join(', ') }}
+{% endif %}
+<p>---</p>
+{% endfor %}
+'''
