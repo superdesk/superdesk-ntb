@@ -218,3 +218,5 @@ NIFS_STAGE_MAP = {6: 'Eliteserien menn',
                   676155: 'Eliteserien menn'}
 NIFS_SPORT_MAP = {1: 'Fotball',
                   3: 'Håndball'}
+
+PUBLISH_QUEUE_EXPIRY_MINUTES = 60 * 24 * 30  # 30d
