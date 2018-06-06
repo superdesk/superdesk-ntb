@@ -42,7 +42,7 @@ class NTBNIFSFeedParser(FeedParser):
             sport_map = config.NIFS_SPORT_MAP
         except KeyError:
             raise SuperdeskIngestError.notConfiguredError(Exception('NIFS maps are not found in settings'))
-        events = json.loads(data)
+        events = json.loads(data.decode('utf-8', 'ignore'))
         items = []
         try:
             for event in events:
