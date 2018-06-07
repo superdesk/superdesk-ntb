@@ -1,0 +1,20 @@
+[
+    {
+        "_id" : "5b17deb6f7ab23aca0816aad",
+        "name": "event",
+        "schema": {
+            "calendars": {
+                "type": "list",
+                "required": true,
+                "mandatory_in_list": null,
+                "schema": null
+            },
+            "slugline": {
+                "type": "string",
+                "required": true,
+                "minlength": null,
+                "maxlength": null
+            }
+        }
+    }
+]
