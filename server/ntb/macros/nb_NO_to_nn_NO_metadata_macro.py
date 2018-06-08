@@ -6,6 +6,7 @@
 """
 
 import requests
+import logging
 from requests.auth import HTTPBasicAuth
 
 def nb_NO_to_nn_NO_metadata_macro(item, **kwargs):
@@ -23,15 +24,20 @@ def nb_NO_to_nn_NO_metadata_macro(item, **kwargs):
     """
     Translation start
     """
+    logger = logging.getLogger('superdesk')
     payload = {k: item.get(k) for k in item if k in ('guid', 'evolvedfrom', 'versioncreated', 'headline', 'description_text', 'description_html', 'body_text', 'body_html')}
+    logger.debug('Starting request')
     r = requests.post('http://api.smalldata.no:8080/translate', data=payload, timeout=(10, 30), auth=HTTPBasicAuth('superdesk', 'babel'))
+    logger.debug('Request done')
     if r.status_code == 200:
+        logger.warning('200 Success')
         item.update(r.json())
+    else:
+        logger.warning('Something went wrong')
     """
         Translation end
     """
     return item
-
 
 name = 'Bokmal to Nynorsk Metadata Macro'
 label = 'Translate to Nynorsk Macro'
