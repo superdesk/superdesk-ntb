@@ -5,6 +5,8 @@
     - change the service (ANPA category) to "NPKTema"
 """
 
+import requests
+from requests.auth import HTTPBasicAuth
 
 def nb_NO_to_nn_NO_metadata_macro(item, **kwargs):
     item['body_footer'] = '(©NPK)'
@@ -18,6 +20,15 @@ def nb_NO_to_nn_NO_metadata_macro(item, **kwargs):
             'scheme': None
         }
     ]
+    """
+    Translation start
+    """
+    payload = {k: item.get(k) for k in item if k in ('guid', 'evolvedfrom', 'versioncreated', 'headline', 'description_text', 'description_html', 'body_text', 'body_html')}
+    r = requests.post('http://api.smalldata.no:8080/translate', data=payload, auth=HTTPBasicAuth('superdesk', 'babel'))
+    item.update(r.json())
+    """
+        Translation end
+    """
     return item
 
 
