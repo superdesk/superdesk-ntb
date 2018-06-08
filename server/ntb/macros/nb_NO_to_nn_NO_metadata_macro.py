@@ -36,7 +36,7 @@ def nb_NO_to_nn_NO_metadata_macro(item, **kwargs):
     return item
 
 name = 'Bokmal to Nynorsk Metadata Macro'
-label = 'Omsett til Nynorsk-makro'
+label = 'Omsett til nynorsk'
 callback = nb_NO_to_nn_NO_metadata_macro
 access_type = 'frontend'
 action_type = 'direct'
