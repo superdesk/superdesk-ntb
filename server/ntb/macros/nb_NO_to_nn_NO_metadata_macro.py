@@ -42,7 +42,7 @@ def nb_NO_to_nn_NO_metadata_macro(item, **kwargs):
 name = 'Bokmal to Nynorsk Metadata Macro'
 label = 'Translate to Nynorsk Macro'
 callback = nb_NO_to_nn_NO_metadata_macro
-access_type = 'backend'
+access_type = 'frontend'
 action_type = 'direct'
 from_languages = ['nb-NO']
 to_languages = ['nn-NO']
