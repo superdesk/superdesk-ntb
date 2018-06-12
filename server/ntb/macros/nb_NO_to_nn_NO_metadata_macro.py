@@ -25,7 +25,8 @@ def nb_NO_to_nn_NO_metadata_macro(item, **kwargs):
     Translation start
     """
     logger = logging.getLogger('superdesk')
-    payload = {k: item.get(k) for k in item if k in ('guid', 'evolvedfrom', 'versioncreated', 'abstract', 'headline', 'description_text', 'description_html', 'body_text', 'body_html')}
+    #payload = {k: item.get(k) for k in item if k in ('guid', 'evolvedfrom', 'versioncreated', 'abstract', 'headline', 'description_text', 'description_html', 'body_text', 'body_html')}
+    payload = item
     #logger.debug('Starting request')
     r = requests.post('http://api.smalldata.no:8080/translate', data=payload, timeout=(10, 30), auth=HTTPBasicAuth('superdesk', 'babel'))
     if r.status_code == 200:
