@@ -217,8 +217,9 @@ SESSION_EXPIRY_MINUTES = 12 * 60
 
 NIFS_STAGE_MAP = {6: 'Eliteserien menn',
                   676155: 'Eliteserien menn'}
-NIFS_SPORT_MAP = {1: 'Fotball',
-                  3: 'Håndball'}
+NIFS_QCODE_MAP = {1: '15054000',  # Fotball
+                  3: '15029000',  # Håndball
+                  }
 
 PLANNING_EXPORT_BODY_TEMPLATE = '''
 {% for item in items %}
