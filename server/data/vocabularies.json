@@ -843,7 +843,8 @@
             "name": {},
             "qcode": {},
             "content item type": {}
-        }
+        },
+        "init_version": 1
     },
     {
         "_id": "eventoccurstatus",
@@ -941,7 +942,8 @@
         "schema": {
             "name": {},
             "qcode": {}
-        }
+        },
+        "init_version": 1
     },
     {
         "_id": "assignment_priority",
