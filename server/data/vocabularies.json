@@ -208,6 +208,7 @@
         "_id": "subscriber_types",
         "display_name": "Subscriber Types",
         "type": "unmanageable",
+        "init_version": 1,
         "items": [
             {"is_active": true, "name": "All", "qcode": "all",
                 "formats": [

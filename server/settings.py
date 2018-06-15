@@ -238,3 +238,7 @@ PLANNING_EXPORT_BODY_TEMPLATE = '''
 <p>---</p>
 {% endfor %}
 '''
+NIFS_SPORT_MAP = {1: 'Fotball',
+                  3: 'Håndball'}
+
+PUBLISH_QUEUE_EXPIRY_MINUTES = 60 * 24 * 30  # 30d

@@ -18,7 +18,7 @@ currencies = [
     {'currency': 'NOK', 'name': 'Euro', 'multiplication': 0},
     {'currency': 'CHF', 'name': 'Sveitsiske franc', 'multiplication': 100},
     {'currency': 'DKK', 'name': 'Danske kroner', 'multiplication': 100},
-    {'currency': 'GBP', 'name': 'Britiske pund ', 'multiplication': 1},
+    {'currency': 'GBP', 'name': 'Britiske pund', 'multiplication': 1},
     {'currency': 'SEK', 'name': 'Svenske kroner', 'multiplication': 100},
     {'currency': 'CAD', 'name': 'Canadiske dollar', 'multiplication': 1},
     {'currency': 'JPY', 'name': 'Japanske yen', 'multiplication': 100}
