@@ -214,7 +214,8 @@
                     {"name": "NTB NITF 1.0", "qcode": "ntbnitf10"},
                     {"name": "NINJS", "qcode": "ninjs"},
 					{"name": "AAP NewsML 1.2", "qcode": "newsml12"},
-                    {"name": "NewsML G2", "qcode": "newsmlg2"}
+                    {"name": "NewsML G2", "qcode": "newsmlg2"},
+                    {"name": "NTB Event", "qcode": "ntb_event"}
                 ]
             },
             {"is_active": true, "name": "Digital/Internet", "qcode": "digital",
@@ -239,10 +240,12 @@
                     {"name": "AAP ANPA", "qcode": "AAP ANPA"},
                     {"name": "NITF", "qcode": "nitf"},
                     {"name": "AAP IPNEWS", "qcode": "AAP IPNEWS"},
-                    {"name": "AAP SMS", "qcode": "AAP SMS"}
+                    {"name": "AAP SMS", "qcode": "AAP SMS"},
+                    {"name": "NTB Event", "qcode": "ntb_event"}
                 ]
             }
-        ]
+        ],
+        "init_version": 1
     },
     {
         "_id": "place_custom",
@@ -844,7 +847,8 @@
             "qcode": {},
             "content item type": {}
         },
-        "init_version": 1
+        "service": null,
+        "init_version": 2
     },
     {
         "_id": "eventoccurstatus",
@@ -943,7 +947,8 @@
             "name": {},
             "qcode": {}
         },
-        "init_version": 1
+        "service": null,
+        "init_version": 2
     },
     {
         "_id": "assignment_priority",
