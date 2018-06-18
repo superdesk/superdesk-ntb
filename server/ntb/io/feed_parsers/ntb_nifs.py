@@ -35,17 +35,19 @@ class NTBNIFSFeedParser(FeedParser):
     """
     NAME = 'ntb_nifs'
     label = 'NIFS Sport Events'
+    subjects_map = None
 
-    def __init__(self):
-        super().__init__()
-
+    @classmethod
+    def _set_metadata(cls):
+        """Retrieve metadata according to settings, and cache values"""
         # we compute a map of subject qcode to name
-        self.subjects_map = {}
         try:
             subjects = get_resource_service('vocabularies').find_one(
                 req=None, _id='subject_custom')
         except KeyError:
             return
+
+        cls.subjects_map = {}
 
         try:
             items = subjects['items']
@@ -56,12 +58,13 @@ class NTBNIFSFeedParser(FeedParser):
             for item in items:
                 qcode = item.get('qcode')
                 if qcode in configured_qcodes or qcode == MAIN_SUBJ_QCODE:
-                    self.subjects_map[qcode] = item.get('name', '')
+                    cls.subjects_map[qcode] = item.get('name', '')
 
-        self.service_name = self.getVocItem('categories', SERVICE_QCODE).get('name', '')
-        self.calendar_item = self.getVocItem('event_calendars', CALENDAR)
+        cls.service_name = cls.getVocItem('categories', SERVICE_QCODE).get('name', '')
+        cls.calendar_item = cls.getVocItem('event_calendars', CALENDAR)
 
-    def getVocItem(self, _id, qcode):
+    @staticmethod
+    def getVocItem(_id, qcode):
         """Retrieve item from vocabularies
 
         :param str _id: vocabularies _id
@@ -92,6 +95,8 @@ class NTBNIFSFeedParser(FeedParser):
             return ''
 
     def parse(self, data, provider=None):
+        if self.subjects_map is None:
+            self._set_metadata()
         try:
             stage_map = config.NIFS_STAGE_MAP
             qcode_map = config.NIFS_QCODE_MAP
