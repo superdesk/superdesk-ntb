@@ -12,7 +12,7 @@ def nob_NO_publish_macro(item, **kwargs):
     return item
 
 name = 'Bokmal to Nynorsk Publish Macro'
-label = 'Lagre språkvaska versjon av auto-omsetjing'
+label = 'Språkvask - Lagre'
 callback = nob_NO_publish_macro
 access_type = 'frontend'
 action_type = 'direct'
