@@ -6,19 +6,14 @@
 import requests
 from requests.auth import HTTPBasicAuth
 
-def nob_NO_translate_macro(item, **kwargs):
-    """
-    Translation start
-    """
-    #payload = {k: item.get(k) for k in item if k in ('guid', 'evolvedfrom', 'versioncreated', 'abstract', 'headline', 'description_text', 'description_html', 'body_text', 'body_html')}
-    payload = item
-    r = requests.post('http://api.smalldata.no:8080/translate', data=payload, timeout=(10, 30), auth=HTTPBasicAuth('superdesk', 'babel'))
+
+def nob_NO_translate_macro(item, **kwargs):    
+    creds = HTTPBasicAuth('superdesk', 'babel')
+    r = requests.post('http://api.smalldata.no:8080/translate', data=item, timeout=(10, 30), auth=creds)
     if r.status_code == 200:
         item.update(r.json())
-    """
-        Translation end
-    """
     return item
+
 
 name = 'Bokmal to Nynorsk Translate Macro'
 label = 'Omsett NB til NN'
