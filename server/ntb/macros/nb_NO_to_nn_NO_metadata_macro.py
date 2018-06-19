@@ -5,9 +5,6 @@
     - change the service (ANPA category) to "NPKTema"
 """
 
-import requests
-import logging
-from requests.auth import HTTPBasicAuth
 
 def nb_NO_to_nn_NO_metadata_macro(item, **kwargs):
     item['body_footer'] = '(©NPK)'
@@ -21,25 +18,13 @@ def nb_NO_to_nn_NO_metadata_macro(item, **kwargs):
             'scheme': None
         }
     ]
-    """
-    Translation start
-    """
-    logger = logging.getLogger('superdesk')
-    #payload = {k: item.get(k) for k in item if k in ('guid', 'evolvedfrom', 'versioncreated', 'abstract', 'headline', 'description_text', 'description_html', 'body_text', 'body_html')}
-    payload = item
-    #logger.debug('Starting request')
-    r = requests.post('http://api.smalldata.no:8080/translate', data=payload, timeout=(10, 30), auth=HTTPBasicAuth('superdesk', 'babel'))
-    if r.status_code == 200:
-        item.update(r.json())
-    """
-        Translation end
-    """
     return item
 
+
 name = 'Bokmal to Nynorsk Metadata Macro'
-label = 'Omsett til nynorsk'
+label = 'Translate to Nynorsk Macro'
 callback = nb_NO_to_nn_NO_metadata_macro
-access_type = 'frontend'
+access_type = 'backend'
 action_type = 'direct'
 from_languages = ['nb-NO']
 to_languages = ['nn-NO']
