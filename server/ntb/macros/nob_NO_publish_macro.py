@@ -9,7 +9,7 @@ from requests.auth import HTTPBasicAuth
 
 
 def nob_NO_publish_macro(item, **kwargs):
-    creds = HTTPBasicAuth('superdesk', 'babel');
+    creds = HTTPBasicAuth('superdesk', 'babel')
     requests.post('http://api.smalldata.no:8080/publish', data=item, timeout=(10, 30), auth=creds)
     return item
 
