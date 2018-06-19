@@ -20,7 +20,7 @@ def nob_NO_translate_macro(item, **kwargs):
     """
     return item
 
-name = 'Bokmal to Nynorsk Metadata Macro'
+name = 'Bokmal to Nynorsk Translate Macro'
 label = 'Omsett NB til NN'
 callback = nob_NO_translate_macro
 access_type = 'frontend'
