@@ -93,13 +93,13 @@ angular-dynamic-locale@0.1.32:
   version "0.1.32"
   resolved "https://registry.yarnpkg.com/angular-dynamic-locale/-/angular-dynamic-locale-0.1.32.tgz#d07fea75281f25ba94a5be5b46df2a02c5e35836"
 
-"angular-embed@github:superdesk/angular-embed#d75968e":
+angular-embed@superdesk/angular-embed#d75968e:
   version "2.1.1"
   resolved "https://codeload.github.com/superdesk/angular-embed/tar.gz/d75968e9eedc2b255f68d0c298a6c91981bc9444"
 
-"angular-embedly@github:urigo/angular-embedly#0.0.8":
+angular-embedly@Urigo/angular-embedly#0.0.8:
   version "0.0.8"
-  resolved "https://codeload.github.com/urigo/angular-embedly/tar.gz/e48ff27af8bd702f1cefea6119c863df9b0e6042"
+  resolved "https://codeload.github.com/Urigo/angular-embedly/tar.gz/e48ff27af8bd702f1cefea6119c863df9b0e6042"
   dependencies:
     gulp "~3.8.2"
     gulp-concat "~2.2.0"
@@ -124,7 +124,7 @@ angular-gettext@2.3.10:
   version "2.3.10"
   resolved "https://registry.yarnpkg.com/angular-gettext/-/angular-gettext-2.3.10.tgz#f7125bf1a27b767037c204de352f3b144db9697c"
 
-"angular-history@github:decipherinc/angular-history#v0.8.0":
+angular-history@decipherinc/angular-history#v0.8.0:
   version "0.8.0"
   resolved "https://codeload.github.com/decipherinc/angular-history/tar.gz/ee798413fba074e3d8f2d35fc951a83cb73e923e"
 
@@ -2142,7 +2142,7 @@ dns-txt@^2.0.2:
   dependencies:
     buffer-indexof "^1.0.0"
 
-"docs-soap@github:tomaskikutis/docs-soap#convert-tables":
+docs-soap@tomaskikutis/docs-soap#convert-tables:
   version "1.2.1"
   resolved "https://codeload.github.com/tomaskikutis/docs-soap/tar.gz/95dbd7e7d245f4c0329422640cad068e4bcbf9c5"
 
@@ -2198,7 +2198,7 @@ dot-case@^2.1.0:
   dependencies:
     no-case "^2.2.0"
 
-"draft-js@github:tomaskikutis/draft-js#add-subscript-superscript":
+draft-js@tomaskikutis/draft-js#add-subscript-superscript:
   version "0.10.5"
   resolved "https://codeload.github.com/tomaskikutis/draft-js/tar.gz/1609c583a581be8454464f34bb86fabde22420d4"
   dependencies:
@@ -4098,11 +4098,11 @@ jquery-jcrop@0.9.13:
   version "0.9.13"
   resolved "https://registry.yarnpkg.com/jquery-jcrop/-/jquery-jcrop-0.9.13.tgz#cda8c9557fffc56540008cc7b6291a0ec4071bf5"
 
-"jquery-ui@github:components/jqueryui#1.11.4":
+jquery-ui@components/jqueryui#1.11.4:
   version "1.11.4"
   resolved "https://codeload.github.com/components/jqueryui/tar.gz/c34f8dbf3ba57b3784b93f26119f436c0e8288e1"
 
-"jquery.gridster@github:dustmoo/gridster.js#c306335397816beceb74e4a176067baef34a0359":
+jquery.gridster@dustmoo/gridster.js#c306335397816beceb74e4a176067baef34a0359:
   version "0.1.5"
   resolved "https://codeload.github.com/dustmoo/gridster.js/tar.gz/c306335397816beceb74e4a176067baef34a0359"
   dependencies:
@@ -7261,9 +7261,9 @@ substyle@^6.0.0:
     prop-types "^15.5.8"
     warning "^2.1.0"
 
-superdesk-core@1.20.0:
+superdesk-core@petrjasek/superdesk-client-core#c5ba530a2e:
   version "1.20.0"
-  resolved "https://registry.yarnpkg.com/superdesk-core/-/superdesk-core-1.20.0.tgz#cf36038dd78a3f1df0c111e70b603278d4a9f5b1"
+  resolved "https://codeload.github.com/petrjasek/superdesk-client-core/tar.gz/c5ba530a2e8619f296be918a9b63af07b5fb5a08"
   dependencies:
     angular "1.6.9"
     angular-contenteditable "0.3.9"
@@ -7343,13 +7343,13 @@ superdesk-core@1.20.0:
     sass-loader "6.0.6"
     shortid "2.2.8"
     style-loader "0.20.2"
-    superdesk-ui-framework superdesk/superdesk-ui-framework#9e9faa1
+    superdesk-ui-framework superdesk/superdesk-ui-framework#dd4522c
     webpack "3.11.0"
     webpack-dev-server "2.11.1"
 
-superdesk-planning@superdesk/superdesk-planning.git#db638ec:
+superdesk-planning@superdesk/superdesk-planning.git#68bec09:
   version "1.0.0"
-  resolved "https://codeload.github.com/superdesk/superdesk-planning/tar.gz/db638ec0e70a4fd7470a7ad12373dce1770d7410"
+  resolved "https://codeload.github.com/superdesk/superdesk-planning/tar.gz/68bec090a0eab7ecc943f687d148959e9223b2d7"
   dependencies:
     dompurify "^1.0.3"
     nominatim-browser "^2.0.2"
@@ -7365,9 +7365,23 @@ superdesk-planning@superdesk/superdesk-planning.git#db638ec:
     rrule "^2.2.0"
     whatwg-fetch "^2.0.3"
 
-"superdesk-ui-framework@github:superdesk/superdesk-ui-framework#9e9faa1":
+superdesk-ui-framework@superdesk/superdesk-ui-framework#dd4522c:
   version "1.0.1"
-  resolved "https://codeload.github.com/superdesk/superdesk-ui-framework/tar.gz/9e9faa1c347ed4ce1eccd3635929b07321001f31"
+  resolved "https://codeload.github.com/superdesk/superdesk-ui-framework/tar.gz/dd4522c7efe64d153d6917920d4075a92137d6b8"
+  dependencies:
+    angular "1.6.6"
+    angular-animate "1.6.6"
+    classnames "^2.2.5"
+    jquery "^3.1.1"
+    jquery-ui "^1.12.1"
+    lodash "^4.17.4"
+    prop-types "^15.6.0"
+    react "^15.6.1"
+    react-bootstrap "^0.31.2"
+    react-dom "^15.6.1"
+    react-redux "^5.0.6"
+    redux "^3.7.2"
+    redux-form "^7.0.4"
 
 supports-color@^0.2.0:
   version "0.2.0"
