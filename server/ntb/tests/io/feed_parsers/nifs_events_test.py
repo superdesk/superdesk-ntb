@@ -67,6 +67,7 @@ class NifsTestCase(BaseNIFSTestCase):
         self.assertEqual(item['slugline'], "Fotball")
         self.assertEqual(item['dates']['start'].isoformat(), "2018-03-11T18:00:00+01:00")
         self.assertEqual(item['dates']['end'].isoformat(), "2018-03-11T20:00:00+01:00")
+        self.assertIsNone(item['dates']['tz'])
         self.assertEqual(item['anpa_category'][0], {'qcode': 'n', 'name': 'Nyhetstjenesten'})
         self.assertEqual(item['calendars'][0]['qcode'], "sport")
         self.assertIn({'name': 'Sport', 'qcode': 'Sport', 'scheme': 'category'}, item['subject'])

@@ -148,7 +148,7 @@ class NTBNIFSFeedParser(FeedParser):
                 service = {'qcode': SERVICE_QCODE, 'name': self.service_name}
 
                 item = {'guid': event['uid'],
-                        'dates': {'start': event_start, 'end': event_end, 'tz': ''},
+                        'dates': {'start': event_start, 'end': event_end, 'tz': None},
                         'name': name,
                         'slugline': sport,
                         'subject': subject,
