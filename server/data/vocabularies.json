@@ -208,7 +208,7 @@
         "_id": "subscriber_types",
         "display_name": "Subscriber Types",
         "type": "unmanageable",
-        "init_version": 1,
+        "init_version": 2,
         "items": [
             {"is_active": true, "name": "All", "qcode": "all",
                 "formats": [
@@ -900,43 +900,6 @@
             "name": {},
             "label": {}
         }
-    },
-    {
-        "_id": "subscriber_types",
-        "display_name": "Subscriber Types",
-        "type": "unmanageable",
-        "items": [
-            {"is_active": true, "name": "All", "qcode": "all",
-                "formats": [
-                    {"name": "NINJS", "qcode": "ninjs"},
-                    {"name": "NewsML G2", "qcode": "newsmlg2"},
-                    {"name": "Email", "qcode": "email"},
-                    {"name": "NTB Event", "qcode": "ntb_event"},
-                    {"name": "JSON Event", "qcode": "json_event"},
-                    {"name": "JSON Planning", "qcode": "json_planning"},
-                    {"name": "Newsroom NINJS", "qcode": "newsroom ninjs"}
-                ]},
-            {"is_active": true, "name": "Digital/Internet", "qcode": "digital",
-                "formats": [
-                    {"name": "NINJS", "qcode": "ninjs"},
-                    {"name": "NewsML G2", "qcode": "newsmlg2"},
-                    {"name": "Email", "qcode": "email"},
-                    {"name": "NTB Event", "qcode": "ntb_event"},
-                    {"name": "JSON Event", "qcode": "json_event"},
-                    {"name": "JSON Planning", "qcode": "json_planning"},
-                    {"name": "Newsroom NINJS", "qcode": "newsroom ninjs"}
-                ]},
-            {"is_active": true, "name": "Wire/Paper", "qcode": "wire",
-                "formats": [
-                    {"name": "NITF", "qcode": "nitf"},
-                    {"name": "Email", "qcode": "email"},
-                    {"name": "NTB Event", "qcode": "ntb_event"},
-                    {"name": "JSON Event", "qcode": "json_event"},
-                    {"name": "JSON Planning", "qcode": "json_planning"},
-                    {"name": "Newsroom NINJS", "qcode": "newsroom ninjs"}
-                ]}
-        ],
-        "init_version": 1
     },
     {
         "_id": "event_calendars",
