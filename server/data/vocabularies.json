@@ -935,7 +935,8 @@
                     {"name": "JSON Planning", "qcode": "json_planning"},
                     {"name": "Newsroom NINJS", "qcode": "newsroom ninjs"}
                 ]}
-        ]
+        ],
+        "init_version": 1
     },
     {
         "_id": "event_calendars",
