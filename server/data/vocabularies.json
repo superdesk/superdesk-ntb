@@ -851,8 +851,8 @@
             "qcode": {},
             "content item type": {}
         },
-        "service": null,
-        "init_version": 2
+        "service": {},
+        "init_version": 3
     },
     {
         "_id": "eventoccurstatus",
@@ -952,8 +952,8 @@
             "name": {},
             "qcode": {}
         },
-        "service": null,
-        "init_version": 2
+        "service": {},
+        "init_version": 3
     },
     {
         "_id": "assignment_priority",
