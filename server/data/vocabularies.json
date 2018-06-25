@@ -248,8 +248,7 @@
                     {"name": "NTB Event", "qcode": "ntb_event"}
                 ]
             }
-        ],
-        "init_version": 1
+        ]
     },
     {
         "_id": "place_custom",
