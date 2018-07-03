@@ -139,7 +139,8 @@ INSTALLED_APPS.extend([
     'apps.picture_crop',
     'apps.languages',
 
-    'ntb.macros'
+    'ntb.macros',
+    'planning'
 ])
 
 RENDITIONS = {
@@ -216,6 +217,27 @@ SESSION_EXPIRY_MINUTES = 12 * 60
 
 NIFS_STAGE_MAP = {6: 'Eliteserien menn',
                   676155: 'Eliteserien menn'}
+NIFS_QCODE_MAP = {1: '15054000',  # Fotball
+                  3: '15029000',  # Håndball
+                  }
+
+PLANNING_EXPORT_BODY_TEMPLATE = '''
+{% for item in items %}
+<p><b>{{ item.name or item.headline or item.slugline }}</b></p>
+<p>{{ item.description_text }}</p>
+<p></p>
+{% if item.get('event', {}).get('location') %}
+<p>Sted: {{ item.event.location[0].name }}.</p>
+{% endif %}
+{% if item.get('ednote', '') != '' %}
+<p>Til red: {{ item.ednote }}</p>
+{% endif %}
+{% if item.coverages %}
+<p>Dekning: {{ item.coverages | join(', ') }}
+{% endif %}
+<p>---</p>
+{% endfor %}
+'''
 NIFS_SPORT_MAP = {1: 'Fotball',
                   3: 'Håndball'}
 
