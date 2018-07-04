@@ -150,8 +150,11 @@
             {"is_active": true, "name": "video", "qcode": "video"},
             {"is_active": true, "name": "picture", "qcode": "picture"},
             {"is_active": true, "name": "graphic", "qcode": "graphic"},
-            {"is_active": true, "name": "composite", "qcode": "composite"}
-        ]
+            {"is_active": true, "name": "composite", "qcode": "composite"},
+            {"is_active": true, "name": "planning item", "qcode": "planning"},
+            {"is_active": true, "name": "event", "qcode": "event"}
+        ],
+        "init_version": 1
     },
     {
         "_id": "signal",
@@ -205,7 +208,7 @@
         "_id": "subscriber_types",
         "display_name": "Subscriber Types",
         "type": "unmanageable",
-        "init_version": 1,
+        "init_version": 2,
         "items": [
             {"is_active": true, "name": "All", "qcode": "all",
                 "formats": [
@@ -215,7 +218,8 @@
                     {"name": "NTB NITF 1.0", "qcode": "ntbnitf10"},
                     {"name": "NINJS", "qcode": "ninjs"},
 					{"name": "AAP NewsML 1.2", "qcode": "newsml12"},
-                    {"name": "NewsML G2", "qcode": "newsmlg2"}
+                    {"name": "NewsML G2", "qcode": "newsmlg2"},
+                    {"name": "NTB Event", "qcode": "ntb_event"}
                 ]
             },
             {"is_active": true, "name": "Digital/Internet", "qcode": "digital",
@@ -227,7 +231,8 @@
                     {"name": "NINJS", "qcode": "ninjs"},
                     {"name": "AAP NewsML 1.2", "qcode": "newsml12"},
                     {"name": "NewsML G2", "qcode": "newsmlg2"},
-                    {"name": "AAP Bulletin Builder", "qcode": "AAP BULLETIN BUILDER"}
+                    {"name": "AAP Bulletin Builder", "qcode": "AAP BULLETIN BUILDER"},
+                    {"name": "NTB Event", "qcode": "ntb_event"}
                 ]
             },
             {"is_active": true, "name": "Wire/Paper", "qcode": "wire",
@@ -239,7 +244,8 @@
                     {"name": "AAP ANPA", "qcode": "AAP ANPA"},
                     {"name": "NITF", "qcode": "nitf"},
                     {"name": "AAP IPNEWS", "qcode": "AAP IPNEWS"},
-                    {"name": "AAP SMS", "qcode": "AAP SMS"}
+                    {"name": "AAP SMS", "qcode": "AAP SMS"},
+                    {"name": "NTB Event", "qcode": "ntb_event"}
                 ]
             }
         ]
@@ -815,7 +821,6 @@
             {"is_active": true, "name": "Klimaendringer", "qcode": "17002000", "parent": "17000000"}
         ]
     },
-
     {
         "_id": "product_types",
         "display_name": "Product Types",
@@ -824,6 +829,103 @@
             {"is_active": true, "name": "API", "qcode": "api"},
             {"is_active": true, "name": "Direct", "qcode": "direct"},
             {"is_active": true, "name": "Both", "qcode": "both"}
+        ]
+    },
+    {
+        "_id": "g2_content_type",
+        "display_name": "Coverage content types",
+        "type": "manageable",
+        "unique_field": "qcode",
+        "items": [
+            {"is_active": true, "name": "Text", "qcode": "text", "content item type": "text"},
+            {"is_active": true, "name": "Picture", "qcode": "picture", "content item type": "picture"},
+            {"is_active": true, "name": "Video", "qcode": "video", "content item type": "video"},
+            {"is_active": true, "name": "Audio", "qcode": "audio", "content item type": "audio"},
+            {"is_active": true, "name": "Infographics", "qcode": "infographics", "content item type": ""},
+            {"is_active": true, "name": "Live video", "qcode": "live_video", "content item type": ""},
+            {"is_active": true, "name": "Live blog", "qcode": "live_blog", "content item type": ""}
+        ],
+        "schema": {
+            "name": {},
+            "qcode": {},
+            "content item type": {}
+        },
+        "service": {},
+        "init_version": 3
+    },
+    {
+        "_id": "eventoccurstatus",
+        "display_name": "Event Occurence Status",
+        "type": "manageable",
+        "unique_field": "qcode",
+        "items": [
+            {"is_active": true, "qcode": "eocstat:eos0", "name": "Unplanned event",
+                "label": "Unplanned event"},
+            {"is_active": true, "qcode": "eocstat:eos1", "name": "Planned, occurence planned only",
+                "label": "Planned, occurence planned only"},
+            {"is_active": true, "qcode": "eocstat:eos2", "name": "Planned, occurence highly uncertain",
+                "label": "Planned, occurence highly uncertain"},
+            {"is_active": true, "qcode": "eocstat:eos3", "name": "Planned, May occur",
+                "label": "Planned, May occur"},
+            {"is_active": true, "qcode": "eocstat:eos4", "name": "Planned, occurence highly likely",
+                "label": "Planned, occurence highly likely"},
+            {"is_active": true, "qcode": "eocstat:eos5", "name": "Planned, occurs certainly",
+                "label": "Planned, occurs certainly"},
+            {"is_active": false, "qcode": "eocstat:eos6", "name": "Planned, then cancelled",
+                "label": "Planned, then cancelled"}
+        ],
+        "schema": {
+            "qcode": {},
+            "name": {},
+            "label": {}
+        }
+    },
+    {
+        "_id": "newscoveragestatus",
+        "display_name": "News Coverage Status",
+        "type": "manageable",
+        "unique_field": "qcode",
+        "items": [
+            {"is_active": true, "qcode": "ncostat:int", "name": "coverage intended", "label": "Planned"},
+            {"is_active": true, "qcode": "ncostat:notdec", "name": "coverage not decided yet",
+                "label": "On merit"},
+            {"is_active": false, "qcode": "ncostat:notint", "name": "coverage not intended",
+                "label": "Not planned"},
+            {"is_active": true, "qcode": "ncostat:onreq", "name": "coverage upon request",
+                "label": "On request"}
+        ],
+        "schema": {
+            "qcode": {},
+            "name": {},
+            "label": {}
+        }
+    },
+    {
+        "_id": "event_calendars",
+        "display_name": "Event Calendars",
+        "type": "manageable",
+        "unique_field": "qcode",
+        "items": [
+            {"is_active": true, "name": "Sport", "qcode": "sport"},
+            {"is_active": true, "name": "Finance", "qcode": "finance"},
+            {"is_active": true, "name": "Entertainment", "qcode": "entertainment"}
+        ],
+        "schema": {
+            "name": {},
+            "qcode": {}
+        },
+        "service": {},
+        "init_version": 3
+    },
+    {
+        "_id": "assignment_priority",
+        "display_name": "Assignment Priority",
+        "type": "manageable",
+        "unique_field": "qcode",
+        "items": [
+            {"is_active": true, "name": "High", "qcode": 1},
+            {"is_active": true, "name": "Medium", "qcode": 2},
+            {"is_active": true, "name": "Low", "qcode": 3}
         ]
     }
 ]

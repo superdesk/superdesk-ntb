@@ -6,6 +6,10 @@
  */
 module.exports = function(grunt) {
     return {
+        apps: [
+             'superdesk-planning'
+        ],
+
         bodyClass: {
             'indent-article': 1
         },
@@ -53,7 +57,9 @@ module.exports = function(grunt) {
             ingest: false,
             content: false,
             tasks: false,
-            analytics: false
+            analytics: false,
+            planning: true,
+            assignments: true
         },
 
         ui: {

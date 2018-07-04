@@ -27,7 +27,10 @@ class NTBPublishService(PublishService):
             filename = None
             logger.error("Error on parsing, can't get filename: {}".format(e))
         else:
-            filename = xml.find('head/meta[@name="filename"]').attrib['content']
+            try:
+                filename = xml.find('head/meta[@name="filename"]').attrib['content']
+            except AttributeError:
+                filename = None
         if not filename:
             return super(NTBPublishService, cls).get_filename(item)
         return filename
