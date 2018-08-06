@@ -10,7 +10,8 @@ from requests.auth import HTTPBasicAuth
 
 def nob_NO_publish_macro(item, **kwargs):
     creds = HTTPBasicAuth('superdesk', 'babel')
-    requests.post('http://api.smalldata.no:8080/publish', data=item, timeout=(10, 30), auth=creds)
+    payload = {k: item.get(k) for k in item if k in ('guid', 'headline', 'body_html', 'body_text', 'abstract', 'description_html', 'description_text')}
+    requests.post('http://api.smalldata.no:8080/publish', data=payload, timeout=(10, 30), auth=creds)
     return item
 
 
