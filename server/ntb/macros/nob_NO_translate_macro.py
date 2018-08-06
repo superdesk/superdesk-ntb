@@ -6,6 +6,7 @@
 import requests
 from requests.auth import HTTPBasicAuth
 
+
 def nob_NO_translate_macro(item, **kwargs):
     creds = HTTPBasicAuth('superdesk', 'babel')
     payload = {k: item.get(k) for k in item if k in ('guid', 'headline', 'body_html', 'body_text', 'abstract', 'description_html', 'description_text')}
