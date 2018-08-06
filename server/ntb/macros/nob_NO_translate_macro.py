@@ -6,10 +6,10 @@
 import requests
 from requests.auth import HTTPBasicAuth
 
-
 def nob_NO_translate_macro(item, **kwargs):
     creds = HTTPBasicAuth('superdesk', 'babel')
-    r = requests.post('http://api.smalldata.no:8080/translate', data=item, timeout=(10, 30), auth=creds)
+    payload = {k: item.get(k) for k in item if k in ('guid', 'headline', 'body_html', 'body_text', 'abstract', 'description_html', 'description_text')}
+    r = requests.post('http://api.smalldata.no:8080/translate', data=payload, timeout=(10, 30), auth=creds)
     if r.status_code == 200:
         item.update(r.json())
     return item
