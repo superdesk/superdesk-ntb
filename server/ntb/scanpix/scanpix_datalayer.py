@@ -176,11 +176,11 @@ class ScanpixDatalayer(DataLayer):
         offset, limit = int(req.get('from', '0')), max(10, int(req.get('size', '25')))
         data['offset'] = offset
         data['showNumResults'] = limit
-        r = self._request(url, data)
+        r = self._request(url, data, resource)
         hits = self._parse_hits(r.json())
         return ElasticCursor(docs=hits['docs'], hits={'hits': hits})
 
-    def _request(self, url, data):
+    def _request(self, url, data, resource):
         """Perform GET request to given url.
 
         It adds predefined headers and auth token if available.
@@ -192,7 +192,7 @@ class ScanpixDatalayer(DataLayer):
 
         if r.status_code < 200 or r.status_code >= 300:
             logger.error('error fetching url=%s status=%s content=%s' % (url, r.status_code, r.content or ''))
-            raise ProviderError.externalProviderError("Scanpix request can't be performed")
+            raise ProviderError.externalProviderError("Scanpix request can't be performed", provider={'name': resource})
         return r
 
     def _parse_doc(self, doc):
@@ -287,7 +287,7 @@ class ScanpixDatalayer(DataLayer):
         data = {}
         url = self._app.config['SCANPIX_SEARCH_URL'] + '/search'
         data['refPtrs'] = [_id]
-        r = self._request(url, data)
+        r = self._request(url, data, resource)
         doc = r.json()['data'][0]
         self._parse_doc(doc)
 
@@ -295,7 +295,7 @@ class ScanpixDatalayer(DataLayer):
         # if MIME type can't be guessed, we default to jpeg
         mime_type = mimetypes.guess_type(url)[0] or 'image/jpeg'
 
-        r = self._request(url, data)
+        r = self._request(url, data, resource)
         out = BytesIO(r.content)
         file_name, content_type, metadata = process_file_from_stream(out, mime_type)
 
