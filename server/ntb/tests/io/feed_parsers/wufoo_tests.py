@@ -93,3 +93,14 @@ class Wufoo(TestCase):
                     'cTFocGR3ZzkxaDZ1Ymwx/SIioTwuslashL4koY%3D/photo_test.jpg">photo</a></p>')
         item = self.parser.parse_article(article)
         self.assertEqual(item['body_html'], expected)
+
+    def test_missing_field(self):
+        """we check that ingest is not crashing if fields are missing (SDNTB-509)"""
+        article = copy.deepcopy(self.article)
+        for i in range(102, 106):
+            del article['Field' + str(i)]
+        expected = ('<p>biography_test\n<br/>\n<a href="https://norsktelegram.wufoo.com/cabinet/cTFocGR3ZzkxaDZ1Ymwx/SI'
+                    'ioTwuslashL4koY%3D/photo_test.jpg">photo</a></p>')
+
+        item = self.parser.parse_article(article)
+        self.assertEqual(item['body_html'], expected)
