@@ -44,20 +44,23 @@ FIELDS_MAP = {
     "phone": "Field112",
     "further sources": "Field120",
     "biography": "Field119",
-    "photo": "Field121"}
+    "photo": "Field121",
+}
 
-NO_MONTHS = ["januar",
-             "februar",
-             "mars",
-             "april",
-             "mai",
-             "juni",
-             "juli",
-             "august",
-             "september",
-             "oktober",
-             "november",
-             "desember"]
+NO_MONTHS = [
+    "januar",
+    "februar",
+    "mars",
+    "april",
+    "mai",
+    "juni",
+    "juli",
+    "august",
+    "september",
+    "oktober",
+    "november",
+    "desember",
+]
 
 
 class WufooArticle(dict):
@@ -66,12 +69,16 @@ class WufooArticle(dict):
     def __getitem__(self, key):
         if key in FIELDS_MAP:
             key = FIELDS_MAP[key]
-        return super().__getitem__(key)
+        try:
+            return super().__getitem__(key)
+        except KeyError:
+            # we don't want the form to fail if a field is missing
+            return ""
 
 
 class WufooFeedParser(FeedParser):
 
-    NAME = 'wufoo'
+    NAME = "wufoo"
 
     def can_parse(self, article):
         # parse is called directly by wufoo feeding service, and we don't want the parser to
@@ -91,80 +98,89 @@ class WufooFeedParser(FeedParser):
     def parse(self, wufoo_data, provider=None):
         if provider is None:
             return
-        url = wufoo_data['url']
-        user = wufoo_data['user']
-        api_key = wufoo_data['api_key']
-        query = wufoo_data['form_query_entries_tpl'].format(form_hash=FORM_HASH)
-        update = wufoo_data['update']
+        url = wufoo_data["url"]
+        user = wufoo_data["user"]
+        api_key = wufoo_data["api_key"]
+        query = wufoo_data["form_query_entries_tpl"].format(form_hash=FORM_HASH)
+        update = wufoo_data["update"]
         last_ingested_id = provider.get(LAST_INGESTED_ID)
-        auth = (api_key, '')
+        auth = (api_key, "")
         params = {"pageSize": 100}
         if last_ingested_id is not None:
             params["Filter1"] = "EntryId Is_greater_than " + last_ingested_id
 
         r = requests.get(url + query, params=params, auth=auth)
         items = []
-        for entry in r.json()['Entries']:
-            entry['uid_prefix'] = "wufoo_{}_{}_".format(user, FORM_HASH)
+        for entry in r.json()["Entries"]:
+            entry["uid_prefix"] = "wufoo_{}_{}_".format(user, FORM_HASH)
             try:
                 items.append(self.parse_article(entry))
             except Exception as e:
-                logger.error(u"Can't parse Wufoo submission {id}: {reason}".format(
-                    id=entry['EntryId'], reason=e))
-            update['last_ingested_id'] = entry['EntryId']
+                logger.error(u"Can't parse Wufoo submission {id}: {reason}".format(id=entry["EntryId"], reason=e))
+            update["last_ingested_id"] = entry["EntryId"]
 
         return items
 
     def parse_article(self, article):
         article = WufooArticle(article)
         item = {"byline": "NTB"}
-        item['guid'] = article['uid_prefix'] + article['EntryId']
-        birth_date = datetime.strptime(article['birth date'], DATE_FORMAT).date()
+        item["guid"] = article["uid_prefix"] + article["EntryId"]
         today = date.today()
+        try:
+            birth_date = datetime.strptime(article["birth date"], DATE_FORMAT).date()
+        except ValueError as e:
+            birth_date = today
+            logger.warning("birth date has invalid format: {msg}".format(msg=e))
         age = int((today - birth_date).days / 365.25)
         jubilee_date = birth_date.replace(year=today.year)
         if jubilee_date < today:
             jubilee_date = jubilee_date.replace(year=jubilee_date.year + 1)
-        address = '\n'.join(article[k] for k in ('address', 'address_2') if article[k])
+        address = "\n".join(article[k] for k in ("address", "address_2") if article[k])
         try:
-            photo_url = article['photo'].split()[1][1:-1]
-            if not photo_url.startswith('http'):
-                logging.error(u"invalid photo format: {}".format(article['photo']))
+            photo_url = article["photo"].split()[1][1:-1]
+            if not photo_url.startswith("http"):
+                logging.error(u"invalid photo format: {}".format(article["photo"]))
                 raise ValueError
         except (IndexError, ValueError):
             photo_url = None
 
-        item['headline'] = "{age} år {jubilee_date}: {title} {name}, {address}, {zip} {city}{country}".format(
-                           age=age + 1,
-                           jubilee_date=self.strftime(jubilee_date, "%d. " + NO_MONTHS[jubilee_date.month - 1]),
-                           title=article['title'],
-                           name=article['name'],
-                           address=address,
-                           zip=article['zip'],
-                           city=article['city'],
-                           country=', {}'.format(article['country']) if article['country'] != 'Norge' else '')
-        item['slugline'] = "FØDSELSDAG-" + self.strftime(jubilee_date, "%y%m%d")
-        item['anpa_category'] = [{"name": "Omtaletjenesten", "qcode": "o", "language": "nb-NO"}]
+        item["headline"] = "{age} år {jubilee_date}: {title} {name}, {address}, {zip} {city}{country}".format(
+            age=age + 1,
+            jubilee_date=self.strftime(jubilee_date, "%d. " + NO_MONTHS[jubilee_date.month - 1]),
+            title=article["title"],
+            name=article["name"],
+            address=address,
+            zip=article["zip"],
+            city=article["city"],
+            country=", {}".format(article["country"]) if article["country"] != "Norge" else "",
+        )
+        item["slugline"] = "FØDSELSDAG-" + self.strftime(jubilee_date, "%y%m%d")
+        item["anpa_category"] = [{"name": "Omtaletjenesten", "qcode": "o", "language": "nb-NO"}]
         category = "Jubilantomtaler"
-        item['subject'] = [{'qcode': category, 'name': category, 'scheme': 'category'}]
+        item["subject"] = [{"qcode": category, "name": category, "scheme": "category"}]
         genre = "Nyheter"
-        item['genre'] = [{'qcode': genre, 'name': genre, 'scheme': 'genre_custom'}]
-        xhtml = [html.escape(article['biography']).replace('\n', '<br/>\n')]
+        item["genre"] = [{"qcode": genre, "name": genre, "scheme": "genre_custom"}]
+        xhtml = [html.escape(article["biography"]).replace("\n", "<br/>\n")]
         if photo_url is not None:
             label = "photo"
-            xhtml.append('<a href="{url}">{label}</a>'.format(
-                url=html.escape(photo_url),
-                label=label))
-        item['body_html'] = '<p>{}</p>'.format('\n<br/>\n'.join(xhtml))
-        item['ednote'] = ("Kilder: \n" +
-                          article['further sources'] + '\n\n' +
-                          "Fødested: {}\n".format(article['birth place']) +
-                          "Sendt inn av: {}\n".format(article['author']) +
-                          "Godkjent: {}\n".format("Ja" if article['permission'] else "Nei") +
-                          "Epost: {}\n".format(article['email']) +
-                          "Tlf: {}").format(article['phone'])
-        item['versioncreated'] = datetime.strptime(article['DateCreated'], DATETIME_FORMAT)
-        item['sign_off'] = 'personalia@ntb.no'
+            xhtml.append('<a href="{url}">{label}</a>'.format(url=html.escape(photo_url), label=label))
+        item["body_html"] = "<p>{}</p>".format("\n<br/>\n".join(xhtml))
+        item["ednote"] = (
+            "Kilder: \n"
+            + article["further sources"]
+            + "\n\n"
+            + "Fødested: {}\n".format(article["birth place"])
+            + "Sendt inn av: {}\n".format(article["author"])
+            + "Godkjent: {}\n".format("Ja" if article["permission"] else "Nei")
+            + "Epost: {}\n".format(article["email"])
+            + "Tlf: {}"
+        ).format(article["phone"])
+        try:
+            item["versioncreated"] = datetime.strptime(article["DateCreated"], DATETIME_FORMAT)
+        except ValueError as e:
+            logger.warning("DateCreated has invalid format: {msg}".format(msg=e))
+
+        item["sign_off"] = "personalia@ntb.no"
         return item
 
 
