@@ -223,7 +223,7 @@ NIFS_QCODE_MAP = {1: '15054000',  # Fotball
 
 PLANNING_EXPORT_BODY_TEMPLATE = '''
 {% for item in items %}
-<p><b>{{ item.name or item.headline or item.slugline }}</b></p>
+<h2>{{ item.name or item.headline or item.slugline }}</h2>
 <p>{{ item.description_text }}</p>
 <p></p>
 {% if item.get('event', {}).get('location') %}
