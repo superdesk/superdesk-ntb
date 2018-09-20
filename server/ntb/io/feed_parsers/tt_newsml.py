@@ -30,9 +30,15 @@ class TTNewsMLFeedParser(NewsMLTwoFeedParser):
 
     NAME = 'ttnewsml'
     label = "TT NewsML"
+    SPORT_CODES = ['SPT', 'SPR', 'TTL', 'TBL']
 
     def can_parse(self, xml):
         return xml.tag.endswith('newsItem')
+
+    def is_sport(self, root):
+        return any((
+            bool(root.xpath('//iptc:service[@qcode="tt_prodid:%s"]' % code, namespaces=NS)) for code in self.SPORT_CODES
+        ))
 
     def parse(self, xml, provider=None):
         self.root = xml
@@ -40,8 +46,7 @@ class TTNewsMLFeedParser(NewsMLTwoFeedParser):
             item = self.parse_item(xml)
             # SDNTB-462 requires that slugline is removed
             del item['slugline']
-            sport = bool(self.root.xpath('//iptc:service[@qcode="tt_prodid:SPT"]',
-                                         namespaces=NS))
+            sport = self.is_sport(self.root)
             cat = utils.SPORT_CATEGORY if sport else utils.DEFAULT_CATEGORY
             category = {'qcode': cat, 'name': cat, 'scheme': 'category'}
             item['subject'] = utils.filter_missing_subjects(item.get('subject'))

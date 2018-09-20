@@ -9,7 +9,9 @@
 # at https://www.sourcefabric.org/superdesk/license
 
 
-from ntb.io.feed_parsers.tt_newsml import TTNewsMLFeedParser
+from lxml import etree
+from unittest import TestCase
+from ntb.io.feed_parsers.tt_newsml import TTNewsMLFeedParser, IPTC
 from . import XMLParserTestCase
 
 
@@ -115,3 +117,23 @@ class TTTestCase(BaseTTNewsMLTestCase):
                          '          \n        \n      ')
 
         self.assertEqual(item['body_html'], expected_body)
+
+
+class IsSportTestCase(TestCase):
+
+    def test_is_sport(self):
+        ns = '{%s}' % IPTC
+        parser = TTNewsMLFeedParser()
+        codes = {
+            'SPT': True,
+            'SPR': True,
+            'TTL': True,
+            'TBL': True,
+            'FOO': False,
+            'BAR': False,
+        }
+
+        for code, is_sport in codes.items():
+            root = etree.Element('item', nsmap={'iptc': IPTC})
+            etree.SubElement(root, ns + 'service', {'qcode': 'tt_prodid:%s' % code})
+            self.assertEqual(is_sport, parser.is_sport(root), code)
