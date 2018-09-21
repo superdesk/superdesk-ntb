@@ -33,7 +33,7 @@ class RitzauTestCase(BaseRitzauTestCase):
         self.assertEqual(item['version'], 1)
         self.assertEqual(item['byline'], '/ritzau/')
         self.assertEqual(item['guid'], '9a6955fc-11da-46b6-9903-439ebb288f2d')
-        self.assertEqual(item['firstcreated'].isoformat(), '2018-01-30T17:32:18.397000+01:00')
+        self.assertEqual(item['firstcreated'].isoformat(), '2018-01-30T16:32:18.397000+00:00')
         expected_body = ('<p>Hollandske forskere har "i årevis" lavet forsøg på både mennesker og dyr, hvor de har tes'
                          'tet effekten af at indånde udstødningsgas fra dieselbiler.</p><p>Det fortæller forskerne sel'
                          'v til nyhedsbureauet AFP.</p><p>Historien kommer frem på et tidspunkt, hvor tyske bilfabrika'
@@ -71,7 +71,7 @@ class RitzauTestCase2(BaseRitzauTestCase):
         self.assertEqual(item['abstract'], 'En ny, danskudviklet satellit skal udføre overvågningsopgaver i '
                                            'Arktis for det danske Forsvar.<br />')
         self.assertEqual(item['guid'], 'b5342fc2-b3e1-4331-ab2b-5e93e0d59427')
-        self.assertEqual(item['firstcreated'].isoformat(), '2018-01-31T18:45:36.730000+01:00')
+        self.assertEqual(item['firstcreated'].isoformat(), '2018-01-31T17:45:36.730000+00:00')
         expected_body = ('<p>En danskudviklet minisatellit – en såkaldt cubesat - bliver sendt ud i rummet fredag, hvi'
                          's alt går efter planen. Det skriver Videnskab.dk.</p><p>Satellitten er ejet og betalt af For'
                          'svarsministeriet, og den skal udføre overvågningsopgaver for Forsvaret i Arktis.</p> <p>- De'

@@ -53,3 +53,4 @@ class DPATestCase(BaseDPANewsMLTestCase):
                          'en. Es wird vermutet, dass dieses Gasfeld das größte im Mittelmeer ist. </p>')
 
         self.assertEqual(item['body_html'], expected_body)
+        self.assertEqual(item['urgency'], 5)

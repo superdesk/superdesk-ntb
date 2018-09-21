@@ -57,6 +57,13 @@ class DPANewsMLFeedParser(NewsMLTwoFeedParser):
                     category = {'qcode': cat, 'name': cat, 'scheme': 'category'}
                     item['subject'] = utils.filter_missing_subjects(item.get('subject'))
                     item['subject'].append(category)
+
+                    urgency = item.get('urgency', None)
+                    if urgency == 2:
+                        item['urgency'] = 3
+                    elif urgency == 4:
+                        item['urgency'] = 5
+
                     utils.set_default_service(item)
             return items
         except Exception as ex:
