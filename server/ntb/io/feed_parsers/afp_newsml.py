@@ -24,6 +24,13 @@ class NTBAFPNewsMLParser(AFPNewsMLOneFeedParser):
         category = ingest_category_from_subject(item.get('subject'))  # check for sports using all ingested subjects
         item['subject'] = filter_missing_subjects(item.get('subject'))
         item['subject'].append(category)
+
+        urgency = item.get('urgency', None)
+        if urgency == 2:
+            item['urgency'] = 3
+        elif urgency == 4:
+            item['urgency'] = 5
+
         set_default_service(item)
         return item
 

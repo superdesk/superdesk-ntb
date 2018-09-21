@@ -27,3 +27,4 @@ class NTBAFPNewsMLTestCase(XMLParserTestCase):
                       self.item['subject'])
 
         self.assertIn({'name': 'Nyhetstjenesten', 'qcode': 'n'}, self.item['anpa_category'])
+        self.assertEqual(self.item['urgency'], 5)

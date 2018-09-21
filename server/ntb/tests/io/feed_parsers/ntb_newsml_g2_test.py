@@ -56,3 +56,4 @@ class NTBNewsML2TestCase(BaseNTBNewsML2TestCase):
                                             'ck report on NTRI at https://www.zacks.com/ap/NTRI</p>\n            ')
         self.assertEqual(item['guid'], 'tag:ap.org,2011:5e565888b587889c5c8bd62b6164118c-text:2')
         self.assertEqual(item['firstcreated'].isoformat(), '2018-02-26T21:20:36+00:00')
+        self.assertEqual(item['urgency'], 5)
