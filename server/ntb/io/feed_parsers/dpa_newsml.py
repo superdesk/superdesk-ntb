@@ -28,7 +28,7 @@ class DPANewsMLFeedParser(NewsMLTwoFeedParser):
     """
 
     NAME = 'dpanewsml'
-    label = "DPA NewsML"
+    label = "NTB DPA NewsML"
 
     def can_parse(self, xml):
         return xml.tag.endswith('newsMessage')
