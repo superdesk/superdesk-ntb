@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<result numResults='593'>
+    <document>
+        <id>15622520</id>
+        <ntbId>NBRP180717_120434_na_00</ntbId>
+        <service>newscalendar</service>
+        <title>HÅNDBALL: 1. divisjon kvinner (16.00):</title>
+        <priority>5</priority>
+        <time>2018-10-28T16:00:00.000+0100</time>
+        <startDate>2018-10-28T16:00:00.000+0100</startDate>
+        <stopDate>2018-10-28T19:30:00.000+0100</stopDate>
+        <messageType></messageType>
+        <ntbVersion>00</ntbVersion>
+        <content>&lt;p class="lead" lede="yes"&gt;
+            Charlottenlund &amp;#8211; Viking TIF, Flint Tønsberg &amp;#8211; Ålgård, Stabæk &amp;#8211; Aker, Volda
+            &amp;#8211; Follo 17.30, Sola &amp;#8211; Fjellhammer 18.00.&lt;/p&gt;
+            &lt;p class="txt"&gt;
+            &lt;/p&gt;&lt;p class="txt" &gt;&amp;#160;&lt;/p&gt;
+            &lt;table class='newsCalInfo'&gt;&lt;tr&gt;&lt;td valign='top'&gt;&lt;b&gt;N&amp;#197;R:&lt;/b&gt;&lt;/td&gt;&lt;td
+            valign='top'&gt; sø 28.10.2018 kl 16:00-19:30&lt;/td&gt;&lt;/tr&gt;
+            &lt;/table&gt;
+        </content>
+        <keywords/>
+        <category>Sport</category>
+        <subcategory>Nyheter</subcategory>
+        <subjects>
+            <subject reference='15000000'>Sport</subject>
+            <subject reference='15029000'>Håndball</subject>
+        </subjects>
+        <mediaList>
+            <media id='' mediaType='' mimeType='ukjent'>
+                <caption></caption>
+                <url></url>
+            </media>
+        </mediaList>
+    </document>
+    <document>
+        <id>15622516</id>
+        <ntbId>NBRP181022_111334_na_00</ntbId>
+        <service>newscalendar</service>
+        <title>HÅNDBALL: 1. divisjon kvinner:</title>
+        <priority>5</priority>
+        <time>2018-10-27T17:00:00.000+0200</time>
+        <startDate>2018-10-27T17:00:00.000+0200</startDate>
+        <stopDate>2018-10-27T18:30:00.000+0200</stopDate>
+        <messageType></messageType>
+        <ntbVersion>00</ntbVersion>
+        <content>&lt;p class="lead" lede="yes"&gt;
+            Førde &amp;#8211; Gneist 17.00.&lt;/p&gt;
+            &lt;p class="txt"&gt;
+            &lt;/p&gt;&lt;p class="txt" &gt;&amp;#160;&lt;/p&gt;
+            &lt;table class='newsCalInfo'&gt;&lt;tr&gt;&lt;td valign='top'&gt;&lt;b&gt;N&amp;#197;R:&lt;/b&gt;&lt;/td&gt;&lt;td
+            valign='top'&gt; lø 27.10.2018 kl 17:00-18:30&lt;/td&gt;&lt;/tr&gt;
+            &lt;/table&gt;
+        </content>
+        <keywords/>
+        <category>Sport</category>
+        <subcategory>Nyheter</subcategory>
+        <subjects>
+            <subject reference='15000000'>Sport</subject>
+            <subject reference='15029000'>Håndball</subject>
+        </subjects>
+        <mediaList>
+            <media id='' mediaType='' mimeType=''>
+                <caption></caption>
+                <url></url>
+            </media>
+        </mediaList>
+    </document>
+</result>

@@ -7,3 +7,4 @@ from . import ritzau  # noqa
 from . import tt_newsml  # noqa
 from . import ntb_newsml  # noqa
 from . import ntb_nifs  # noqa
+from . import ntb_events_api_xml # noqa

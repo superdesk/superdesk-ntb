@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'apps.auth',
     'superdesk.roles',
     'ntb.scanpix',
+    'planning',
     'ntb.io',
     'ntb.publish',
 ]
@@ -139,8 +140,7 @@ INSTALLED_APPS.extend([
     'apps.picture_crop',
     'apps.languages',
 
-    'ntb.macros',
-    'planning'
+    'ntb.macros'
 ])
 
 RENDITIONS = {
