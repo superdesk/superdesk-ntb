@@ -42,7 +42,8 @@ module.exports = function(grunt) {
             noMissingLink: true,
             editor3: true,
             swimlane: {columnsLimit: 4},
-            noPublishOnAuthoringDesk: true
+            noPublishOnAuthoringDesk: true,
+            autorefreshContent: true,
         },
 
         user: {
