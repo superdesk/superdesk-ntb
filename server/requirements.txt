@@ -4,4 +4,4 @@ newrelic==2.88.1.73
 superdesk-core==1.20
 flask_pymongo==0.5.2
 pymongo==3.7.1
--e git+git://github.com/superdesk/superdesk-planning.git@4fa6555fd#egg=superdesk-planning
+-e git+git://github.com/superdesk/superdesk-planning.git@40b6f8e27#egg=superdesk-planning
