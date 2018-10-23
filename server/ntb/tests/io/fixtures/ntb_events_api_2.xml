@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<result numResults='593'>
+    <document>
+        <id>15622575</id>
+        <ntbId>NBRP181022_112654_na_00</ntbId>
+        <service>newscalendar</service>
+        <title>HÅNDBALL: Landslagsturnering menn ungdom (LM00) i Turda, Romania (2. runde):</title>
+        <priority>5</priority>
+        <time>2018-10-27T12:30:00.000+0200</time>
+        <startDate>2018-10-27T12:30:00.000+0200</startDate>
+        <stopDate>2018-10-27T14:00:00.000+0200</stopDate>
+        <messageType></messageType>
+        <ntbVersion>00</ntbVersion>
+        <content>&lt;p class="lead" lede="yes"&gt;
+            Russland &amp;#8211; Norge 12.30.&lt;/p&gt;
+            &lt;p class="txt"&gt;
+            &lt;/p&gt;&lt;p class="txt" &gt;&amp;#160;&lt;/p&gt;
+            &lt;table class='newsCalInfo'&gt;&lt;tr&gt;&lt;td valign='top'&gt;&lt;b&gt;N&amp;#197;R:&lt;/b&gt;&lt;/td&gt;&lt;td
+            valign='top'&gt; lø 27.10.2018 kl 12:30-14:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td valign='top'&gt;&lt;b&gt;HVOR:&lt;/b&gt;&lt;/td&gt;&lt;td
+            valign='top'&gt; Romania&lt;/td&gt;&lt;/tr&gt;
+            &lt;/table&gt;
+        </content>
+        <keywords/>
+        <regions>
+            <region>Romania</region>
+        </regions>
+        <districts>
+            <district>Romania</district>
+        </districts>
+        <category>Sport</category>
+        <subcategory>Nyheter</subcategory>
+        <geo>45.943161,24.966760000000022</geo>
+        <subjects>
+            <subject reference='15000000'>Sport</subject>
+            <subject reference='15301001'>Aldersbestemt idrett</subject>
+            <subject reference='15029000'>Håndball</subject>
+        </subjects>
+        <mediaList>
+            <media id='' mediaType='' mimeType=''>
+                <caption></caption>
+                <url></url>
+            </media>
+        </mediaList>
+        <calendarData>
+            <location>Romania</location>
+        </calendarData>
+    </document>
+    <document>
+        <id>15622559</id>
+        <ntbId>NBRP180924_110122_na_00</ntbId>
+        <service>newscalendar</service>
+        <title>HÅNDBALL: EHFs Euro Cup menn (1. runde):</title>
+        <priority>5</priority>
+        <time>2018-10-24T18:15:00.000+0200</time>
+        <startDate>2018-10-24T18:15:00.000+0200</startDate>
+        <stopDate>2018-10-24T20:45:00.000+0200</stopDate>
+        <messageType></messageType>
+        <ntbVersion>00</ntbVersion>
+        <content>&lt;p class="lead" lede="yes"&gt;
+            Norge &amp;#8211; Østerrike 18.15 (i Stjørdal), Sverige &amp;#8211; Spania 19.15 (i Malmö).&lt;/p&gt;
+            &lt;p class="txt"&gt;
+            &lt;/p&gt;&lt;p class="txt" &gt;&amp;#160;&lt;/p&gt;
+            &lt;table class='newsCalInfo'&gt;&lt;tr&gt;&lt;td valign='top'&gt;&lt;b&gt;N&amp;#197;R:&lt;/b&gt;&lt;/td&gt;&lt;td
+            valign='top'&gt; on 24.10.2018 kl 18:15-20:45&lt;/td&gt;&lt;/tr&gt;
+            &lt;/table&gt;
+        </content>
+        <keywords/>
+        <category>Sport</category>
+        <subcategory>Nyheter</subcategory>
+        <subjects>
+            <subject reference='15000000'>Sport</subject>
+            <subject reference='15029000'>Håndball</subject>
+        </subjects>
+        <mediaList>
+            <media id='' mediaType='' mimeType='ukjent'>
+                <caption></caption>
+                <url></url>
+            </media>
+        </mediaList>
+    </document>
+</result>
