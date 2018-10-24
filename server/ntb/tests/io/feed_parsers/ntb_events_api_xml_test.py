@@ -88,19 +88,16 @@ class NTBEventsApiXMLTestCase(XMLParserTestCase):
 
     def test_subject(self):
         self.assertEqual(
-            [{'scheme': 'subject_custom', 'name': 'Nasjonal toppliga', 'qcode': '15073031'},
-             {'scheme': 'subject_custom', 'name': 'Ishockey', 'qcode': '15031000'}],
-            self.items['NBRP181003_093009_ga_00']['subject']
-        )
-        self.assertEqual(
             [{'scheme': 'subject_custom', 'name': 'Langrenn', 'qcode': '15043001'}],
             self.items['NBRP181001_152418_hh_00']['subject']
         )
 
     def test_slugline(self):
+        slug = self.items['NBRP181003_093009_ga_00']['slugline'].split(' ')
+        slug.sort()
         self.assertEqual(
-            'Nasjonal toppliga Ishockey',
-            self.items['NBRP181003_093009_ga_00']['slugline']
+            ['Ishockey', 'Nasjonal', 'toppliga'],
+            slug
         )
         self.assertEqual(
             'Langrenn',
