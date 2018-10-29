@@ -11,28 +11,39 @@
 import os
 from unittest import mock
 from superdesk import get_resource_service
+from superdesk.tests import set_placeholder
 from superdesk.tests.steps import (
     when, then, get_json_data
 )
-from superdesk.io.commands.update_ingest import UpdateIngest
+from superdesk.io.commands import update_ingest
 from ntb.io.feeding_services import ntb_event_api
 
 
-@when('we fetch events from "{provider_name}" NTB Events API provider')
-def step_impl_when_fetch_from_ntb_events_api_ingest(context, provider_name):
-    # lets mock request.get
-    # NTBEventsApiFeedingService does 4 request during 1 update,
-    # to mock returning of different results (requests.get) side_effect is used
+@when('we fetch events "{mock_requests}" from "{provider_name}" NTB Events API provider')
+def step_impl_when_fetch_from_ntb_events_api_ingest(context, mock_requests, provider_name):
+    """
+    Mock request.get for NTBEventsApiFeedingService.
+    NTBEventsApiFeedingService does 4 request during 1 update,
+    to mock returning of different results (requests.get) side_effect is used.
+    `filenames` used to provide results for each get request
+
+    :param context: flask app context
+    :param provider_name: provider name ("ntb-events-api") see `setup_ntb_event_api_provider`
+    :param mock_requests: comma separated filenames, used to mock `requests.get`.
+                          Example: `0.xml,1.xml,2.xml,3.xml`
+    :return:
+    """
+
     with mock.patch.object(ntb_event_api.requests, 'get') as get:
         feeds = []
         with context.app.test_request_context(context.app.config['URL_PREFIX']):
             ingest_provider_service = get_resource_service('ingest_providers')
             provider = ingest_provider_service.find_one(name=provider_name, req=None)
 
-        for i in range(4):
+        for filename in mock_requests.split(','):
             file_path = os.path.join(
                 provider.get('config', {}).get('fixtures_path'),
-                'ntb_events_api_{}.xml'.format(i)
+                filename
             )
             with open(file_path, 'rb') as f:
                 feeds.append(f.read())
@@ -55,7 +66,8 @@ def step_impl_when_fetch_from_ntb_events_api_ingest(context, provider_name):
         get.side_effect = side_effect
 
         with context.app.app_context():
-            UpdateIngest().run()
+            with mock.patch.object(update_ingest, 'is_scheduled', return_value=True):
+                update_ingest.UpdateIngest().run()
 
 
 @then('we get list without ntb_id')
@@ -64,3 +76,9 @@ def step_impl_then_get_list_without_ntb_id(context):
 
     for item in items:
         assert 'ntb_id' not in item
+
+
+@then('we save event id')
+def step_impl_then_save_event_id(context):
+    items = get_json_data(context.response)['_items']
+    set_placeholder(context, 'EVENT_TO_PATCH', str(items[0]['guid']))

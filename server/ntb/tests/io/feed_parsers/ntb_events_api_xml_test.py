@@ -5,7 +5,7 @@ from . import XMLParserTestCase
 
 
 class NTBEventsApiXMLTestCase(XMLParserTestCase):
-    filename = 'ntb_events_api_0.xml'
+    filename = 'ntb_events_api/0.xml'
 
     def setUp(self):
         self.parser = NTBEventsApiXMLFeedParser()

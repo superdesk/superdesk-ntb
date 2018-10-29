@@ -11,6 +11,7 @@
 import json
 import requests
 import traceback
+from collections import OrderedDict
 from lxml import etree
 from eve.utils import ParsedRequest
 
@@ -19,6 +20,8 @@ from superdesk.utc import utcnow
 from superdesk.io.registry import register_feeding_service, register_feeding_service_parser
 from superdesk.io.feeding_services import FeedingService
 from superdesk.errors import IngestApiError, SuperdeskIngestError
+from superdesk.metadata.item import GUID_FIELD
+from planning.common import WORKFLOW_STATE, ITEM_STATE
 
 
 class NTBEventsApiFeedingService(FeedingService):
@@ -63,7 +66,7 @@ class NTBEventsApiFeedingService(FeedingService):
         :type update: dict
         :return: a list of events which can be saved.
         """
-        all_items = {}
+        all_items = OrderedDict()
         self._provider = provider
         self._validate_config(config=provider['config'])
         provider_private = self._provider.get('private', {})
@@ -183,7 +186,7 @@ class NTBEventsApiFeedingService(FeedingService):
         """
 
         req = ParsedRequest()
-        req.projection = json.dumps({'ntb_id': 1, 'guid': 1})
+        req.projection = json.dumps({'ntb_id': 1, 'guid': 1, ITEM_STATE: 1})
         req.max_results = len(items)
 
         existing_items = superdesk.get_resource_service('events').get_from_mongo(
@@ -195,8 +198,11 @@ class NTBEventsApiFeedingService(FeedingService):
             }
         )
         for existing_item in existing_items:
-            if existing_item['ntb_id'] in items:
-                # TODO update if needed
+            if existing_item.get(ITEM_STATE) == WORKFLOW_STATE.INGESTED:
+                # update event
+                items[existing_item['ntb_id']][GUID_FIELD] = existing_item[GUID_FIELD]
+            else:
+                # remove event when it has a state different from 'ingested'
                 del items[existing_item['ntb_id']]
 
         return [items[i] for i in items.keys()]

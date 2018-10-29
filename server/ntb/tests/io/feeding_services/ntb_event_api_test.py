@@ -42,7 +42,7 @@ class NTBEventsApiFeedingServiceTestCase(TestCase):
         for i in range(4):
             dirname = os.path.dirname(os.path.realpath(__file__))
             fixture = os.path.normpath(
-                os.path.join(dirname, '../fixtures', 'ntb_events_api_{}.xml'.format(i))
+                os.path.join(dirname, '../fixtures', 'ntb_events_api', '{}.xml'.format(i))
             )
 
             with open(fixture, 'rb') as f:

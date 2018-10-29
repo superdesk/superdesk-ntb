@@ -11,6 +11,7 @@
 import os
 import superdesk
 from superdesk.tests.environment import before_feature, before_step, after_scenario  # noqa
+from superdesk.tests import set_placeholder
 from superdesk.tests.environment import setup_before_all
 from superdesk.tests.environment import setup_before_scenario as setup_before_scenario_core
 from superdesk.io.commands.update_ingest import ingest_items
@@ -26,7 +27,7 @@ def setup_ntb_event_api_provider(context):
     context.providers = {}
     context.ingest_items = ingest_items
     path_to_fixtures = os.path.join(
-        os.path.abspath(os.path.dirname(ntb.__file__)), 'tests', 'io', 'fixtures'
+        os.path.abspath(os.path.dirname(ntb.__file__)), 'tests', 'io', 'fixtures', 'ntb_events_api'
     )
     providers = [
         {
@@ -47,6 +48,7 @@ def setup_ntb_event_api_provider(context):
     with app.test_request_context(app.config['URL_PREFIX']):
         result = superdesk.get_resource_service('ingest_providers').post(providers)
         context.providers['ntb'] = result[0]
+        set_placeholder(context, 'PROVIDER_ID', str(result[0]))
 
 
 def setup_ntb_vocabulary(context):
