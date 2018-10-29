@@ -2,12 +2,11 @@ language: python
 
 python: "3.5"
 
-sudo: false
 dist: trusty
+sudo: required
 
 services:
     - mongodb
-    - elasticsearch
     - redis-server
 
 addons:
@@ -15,9 +14,11 @@ addons:
     sources:
     - mongodb-3.0-precise
     - google-chrome
+    - elasticsearch-2.x
     packages:
     - mongodb-org-server
     - google-chrome-stable
+    - elasticsearch
 
 cache:
   directories:
@@ -25,6 +26,8 @@ cache:
     - $HOME/.npm
 
 before_install:
+    - sudo apt-get purge elasticsearch
+    - sudo apt-get install -t stable elasticsearch
     - nvm install 6.10
     - nvm use 6.10
     - node --version
@@ -38,6 +41,10 @@ before_install:
 install:
     - cd server && pip install -r dev-requirements.txt && cd ..
     - cd client && npm install && cd ..
+
+before_script:
+    - sudo service elasticsearch restart
+    - sleep 10
 
 script:
     - cd client && npm test && cd ..
