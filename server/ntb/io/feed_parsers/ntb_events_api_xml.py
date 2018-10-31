@@ -9,6 +9,7 @@
 # at https://www.sourcefabric.org/superdesk/license
 
 import json
+from collections import OrderedDict
 from eve.utils import ParsedRequest
 
 import superdesk
@@ -50,7 +51,7 @@ class NTBEventsApiXMLFeedParser(XMLFeedParser):
         :return: a list of events
         """
 
-        items = {}
+        items = OrderedDict()
         self._prefetch_vocabularies_items()
 
         for document in xml.xpath('./document'):
