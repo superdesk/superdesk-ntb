@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="transform.xslt"?>
+<document>
+  <service>newscalendar</service>
+  <title>Klimatilpasningskonferansen 2018</title>
+  <priority>5</priority>
+  <time>2018-10-03T16:00:09.817+0200</time>
+  <messageType />
+  <content>Hvordan tar kommunene i bruk kunnskap og praktiske verktøy for å tilpasse seg til klimaendringer, og hvordan kan sentrale myndigheter bidra? Samarbeid nasjonalt - styrke lokalt. Konferansen arrangeres av KS,DSB,Miljødirektoratet og NVE.</content>
+  <keywords />
+  <category>Innenriks</category>
+  <subcategory>Nyheter</subcategory>
+  <address>Thon Hotel Arena</address>
+  <location>Lillestrøm</location>
+  <contactname>Marit Finnland Trøite</contactname>
+  <contactphone>994 63 198</contactphone>
+  <contactmail>marit.finnland.troite@miljodir.no</contactmail>
+  <contactweb>https://egencia.qondor.com/klimatilpasningskonferansen</contactweb>
+  <timeStart>2018-11-29T09:45:00.000+0100</timeStart>
+  <timeEnd>2018-11-29T16:00:00.000+0100</timeEnd>
+  <infoText>Til NTB kalender. På forhånd takk.</infoText>
+  <addedby>Marianne Fromreide, mfr@ks.no, 97643346</addedby>
+</document>
