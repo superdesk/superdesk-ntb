@@ -3,4 +3,4 @@ honcho==1.0.1
 newrelic==2.88.1.73
 
 -e git+git://github.com/superdesk/superdesk-core.git@5dfdfdc#egg=Superdesk-Core
--e git+git://github.com/superdesk/superdesk-planning.git@1cb05b6#egg=superdesk-planning
+-e git+git://github.com/superdesk/superdesk-planning.git@7878147#egg=superdesk-planning
