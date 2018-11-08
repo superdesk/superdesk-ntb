@@ -103,6 +103,9 @@
             "name" : {
                 "enabled" : false
             }
+        },
+        "list": {
+            "primary_fields": ["slugline", "internalnote", "headline"]
         }
     }
 ]
