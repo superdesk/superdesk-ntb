@@ -24,6 +24,9 @@ class XMLParserTestCase(TestCase):
             if key.isupper():
                 setattr(config, key, getattr(settings, key))
 
+        self._run_parse()
+
+    def _run_parse(self):
         dirname = os.path.dirname(os.path.realpath(__file__))
         fixture = os.path.normpath(os.path.join(dirname, '../fixtures', self.filename))
         provider = {'name': 'Test'}

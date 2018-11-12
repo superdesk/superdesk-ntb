@@ -174,7 +174,9 @@ class NTBEventsApiFeedingService(FeedingService):
         :return: a list of events
         """
         parser = self.get_feed_parser(self._provider, article=xml)
-        return parser.parse(xml)
+        return OrderedDict(
+            (item['ntb_id'], item) for item in parser.parse(xml)
+        )
 
     def _filter_items(self, items):
         """
