@@ -15,7 +15,7 @@ def en_to_no_metadata_macro(item, **kwargs):
     item['anpa_category'] = [
         {
             'qcode': 's',
-            'single_value': True,
+            'selection_type': 'single selection',
             'name': 'NPKSisteNytt',
             'language': 'nn-NO',
             'scheme': None
