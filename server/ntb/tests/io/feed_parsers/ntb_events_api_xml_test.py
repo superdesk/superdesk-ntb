@@ -71,7 +71,7 @@ class NTBEventsApiXMLTestCase(XMLParserTestCase):
                 'language': 'nb-NO',
                 'name': 'Nyhetstjenesten',
                 'qcode': 'n',
-                'single_value': False
+                'selection_type': 'multi selection'
             }],
             self.items[0]['anpa_category']
         )
