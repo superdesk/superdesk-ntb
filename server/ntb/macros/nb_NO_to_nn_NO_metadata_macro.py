@@ -12,7 +12,7 @@ def nb_NO_to_nn_NO_metadata_macro(item, **kwargs):
     item['anpa_category'] = [
         {
             'qcode': 'a',
-            'single_value': True,
+            'selection_type': 'single selection',
             'name': 'NPKTema',
             'language': 'nn-NO',
             'scheme': None

@@ -3,28 +3,30 @@
         "_id": "categories",
         "display_name": "ANPA Category",
         "type": "manageable",
+        "selection_type": "multi selection",
         "items": [
-            {"is_active": true, "name": "Nyhetstjenesten", "qcode": "n", "single_value": false, "language": "nb-NO"},
-            {"is_active": true, "name": "SisteNytt", "qcode": "e", "single_value": false, "language": "nb-NO"},
-            {"is_active": true, "name": "Tikkertjenesten", "qcode": "t", "single_value": false, "language": "nb-NO"},
-            {"is_active": true, "name": "Morgennyheter", "qcode": "m", "single_value": true, "language": "nb-NO"},
-            {"is_active": true, "name": "NPKTjenesten", "qcode": "j", "single_value": false, "language": "nn-NO"},
-            {"is_active": true, "name": "NPKSisteNytt", "qcode": "s", "single_value": false, "language": "nn-NO"},
-            {"is_active": true, "name": "NPKTema", "qcode": "a", "single_value": true, "language": "nn-NO"},
-            {"is_active": true, "name": "NTBTema", "qcode": "b", "single_value": true, "language": "nb-NO"},
-            {"is_active": true, "name": "Kulturtjenesten", "qcode": "k", "single_value": true, "language": "nb-NO"},
-            {"is_active": true, "name": "DageniDag", "qcode": "d", "single_value": true, "language": "nb-NO"},
-            {"is_active": true, "name": "Omtaletjenesten", "qcode": "o", "single_value": true, "language": "nb-NO"},
-            {"is_active": true, "name": "Tipstjenesten", "qcode": "p", "single_value": true, "language": "nb-NO"},
-            {"is_active": true, "name": "ForskningNo", "qcode": "f", "single_value": true, "language": "nb-NO"},
-            {"is_active": true, "name": "Formidlingstjenester", "qcode": "r", "single_value": true, "language": "nb-NO"},
-            {"is_active": true, "name": "Interntjenesten", "qcode": "i", "single_value": true, "language": "nb-NO"}
+            {"is_active": true, "name": "Nyhetstjenesten", "qcode": "n", "selection_type": "multi selection", "language": "nb-NO"},
+            {"is_active": true, "name": "SisteNytt", "qcode": "e", "selection_type": "multi selection", "language": "nb-NO"},
+            {"is_active": true, "name": "Tikkertjenesten", "qcode": "t", "selection_type": "multi selection", "language": "nb-NO"},
+            {"is_active": true, "name": "Morgennyheter", "qcode": "m", "selection_type": "single selection", "language": "nb-NO"},
+            {"is_active": true, "name": "NPKTjenesten", "qcode": "j", "selection_type": "multi selection", "language": "nn-NO"},
+            {"is_active": true, "name": "NPKSisteNytt", "qcode": "s", "selection_type": "multi selection", "language": "nn-NO"},
+            {"is_active": true, "name": "NPKTema", "qcode": "a", "selection_type": "single selection", "language": "nn-NO"},
+            {"is_active": true, "name": "NTBTema", "qcode": "b", "selection_type": "single selection", "language": "nb-NO"},
+            {"is_active": true, "name": "Kulturtjenesten", "qcode": "k", "selection_type": "single selection", "language": "nb-NO"},
+            {"is_active": true, "name": "DageniDag", "qcode": "d", "selection_type": "single selection", "language": "nb-NO"},
+            {"is_active": true, "name": "Omtaletjenesten", "qcode": "o", "selection_type": "single selection", "language": "nb-NO"},
+            {"is_active": true, "name": "Tipstjenesten", "qcode": "p", "selection_type": "single selection", "language": "nb-NO"},
+            {"is_active": true, "name": "ForskningNo", "qcode": "f", "selection_type": "single selection", "language": "nb-NO"},
+            {"is_active": true, "name": "Formidlingstjenester", "qcode": "r", "selection_type": "single selection", "language": "nb-NO"},
+            {"is_active": true, "name": "Interntjenesten", "qcode": "i", "selection_type": "single selection", "language": "nb-NO"}
         ]
     },
     {
         "_id": "default_categories",
         "display_name": "Default Services",
         "type": "manageable",
+        "selection_type": "multi selection",
         "items": [
             {"is_active": true, "qcode": "n"},
             {"is_active": true, "qcode": "e"},
@@ -40,7 +42,7 @@
         "display_name": "Category",
         "type": "manageable",
         "service": {"all": 1},
-        "single_value": true,
+        "selection_type": "single selection",
         "schema_field": "subject",
         "dependent": 1,
         "items": [
@@ -83,7 +85,7 @@
         "display_name": "Genre",
         "type": "manageable",
         "service": {"all": 1},
-        "single_value": true,
+        "selection_type": "single selection",
         "schema_field": "genre",
         "dependent": 1,
         "items": [
@@ -116,6 +118,7 @@
         "_id": "urgency",
         "display_name": "Urgency",
         "type": "manageable",
+        "selection_type": "multi selection",
         "items": [
             {"is_active": true, "name": "1", "qcode": 1, "color" : "#ff0000"},
             {"is_active": true, "name": "2", "qcode": 2, "color" : "#ffa500"},
@@ -128,6 +131,7 @@
         "_id": "priority",
         "display_name": "Priority",
         "type": "unmanageable",
+        "selection_type": "multi selection",
         "items": [
             {"is_active": true, "name": "1", "qcode": 1},
             {"is_active": true, "name": "2", "qcode": 2},
@@ -144,6 +148,7 @@
         "_id": "type",
         "display_name": "Article Type",
         "type": "unmanageable",
+        "selection_type": "multi selection",
         "items": [
             {"is_active": true, "name": "text", "qcode": "text"},
             {"is_active": true, "name": "preformatted", "qcode": "preformatted"},
@@ -161,6 +166,7 @@
         "_id": "signal",
         "display_name": "Signal",
         "type": "unmanageable",
+        "selection_type": "multi selection",
         "items": [
             {"is_active": true, "name": "Correction", "qcode": "Correction"},
             {"is_active": true, "name": "Update", "qcode": "Update"},
@@ -173,6 +179,7 @@
         "_id": "rightsinfo",
         "display_name": "Copyrights",
         "type": "manageable",
+        "selection_type": "multi selection",
         "items": [
             {
                 "is_active": true,
@@ -194,6 +201,7 @@
         "_id": "geographical_restrictions",
         "display_name": "Geographical Restrictions",
         "type": "manageable",
+        "selection_type": "multi selection",
         "items": [
             {"is_active": true, "name": "New South Wales", "qcode": "NSW"},
             {"is_active": true, "name": "Victoria", "qcode": "VIC"},
@@ -209,6 +217,7 @@
         "_id": "subscriber_types",
         "display_name": "Subscriber Types",
         "type": "unmanageable",
+        "selection_type": "do not show",
         "init_version": 2,
         "items": [
             {"is_active": true, "name": "All", "qcode": "all",
@@ -255,6 +264,7 @@
         "_id": "place_custom",
         "display_name": "Place",
         "type": "unmanageable",
+        "selection_type": "multi selection",
         "service": {"all": 1},
         "schema_field": "place",
         "dependent": 0,
@@ -509,6 +519,7 @@
         "_id": "crop_sizes",
         "display_name": "Image Crop Sizes",
         "type": "manageable",
+        "selection_type": "do not show",
         "items": [
             {"is_active": true, "name": "4-3", "width": 800, "height": 600},
             {"is_active": true, "name": "16-9", "width": 1280, "height": 720}
@@ -518,6 +529,7 @@
         "_id": "keywords",
         "display_name": "Keywords for Articles",
         "type": "manageable",
+        "selection_type": "multi selection",
         "items": [
             {
                 "is_active": true,
@@ -555,6 +567,7 @@
         "_id": "desk_types",
         "display_name": "Desk Types",
         "type": "unmanageable",
+        "selection_type": "do not show",
         "items": [
             {"is_active": true, "name": "authoring", "qcode": "authoring"},
             {"is_active": true, "name": "production", "qcode": "production"}
@@ -564,6 +577,7 @@
         "_id": "iptc_category_map",
         "display_name": "Ingest map between IPTC codes and ANPA Categories",
         "type": "manageable",
+        "selection_type": "do not show",
         "items": [
         ]
     },
@@ -571,6 +585,7 @@
         "_id": "subject_custom",
         "display_name": "Subject",
         "type": "manageable",
+        "selection_type": "multi selection",
         "service": {"all": 1},
         "schema_field": "subject",
         "dependent": 0,
@@ -826,6 +841,7 @@
         "_id": "product_types",
         "display_name": "Product Types",
         "type": "unmanageable",
+        "selection_type": "do not show",
         "items": [
             {"is_active": true, "name": "API", "qcode": "api"},
             {"is_active": true, "name": "Direct", "qcode": "direct"},
@@ -836,6 +852,7 @@
         "_id": "g2_content_type",
         "display_name": "Coverage content types",
         "type": "manageable",
+        "selection_type": "do not show",
         "unique_field": "qcode",
         "items": [
             {"is_active": true, "name": "Text", "qcode": "text", "content item type": "text"},
@@ -858,6 +875,7 @@
         "_id": "eventoccurstatus",
         "display_name": "Event Occurence Status",
         "type": "manageable",
+        "selection_type": "do not show",
         "unique_field": "qcode",
         "items": [
             {"is_active": true, "qcode": "eocstat:eos0", "name": "Unplanned event",
@@ -885,6 +903,7 @@
         "_id": "newscoveragestatus",
         "display_name": "News Coverage Status",
         "type": "manageable",
+        "selection_type": "do not show",
         "unique_field": "qcode",
         "items": [
             {"is_active": true, "qcode": "ncostat:int", "name": "coverage intended", "label": "Planned"},
@@ -905,6 +924,7 @@
         "_id": "event_calendars",
         "display_name": "Event Calendars",
         "type": "manageable",
+        "selection_type": "do not show",
         "unique_field": "qcode",
         "items": [
             {"is_active": true, "name": "Sport", "qcode": "sport"},
@@ -922,6 +942,7 @@
         "_id": "assignment_priority",
         "display_name": "Assignment Priority",
         "type": "manageable",
+        "selection_type": "multi selection",
         "unique_field": "qcode",
         "items": [
             {"is_active": true, "name": "High", "qcode": 1},
@@ -933,6 +954,7 @@
         "_id": "contact_job_titles",
         "display_name": "Contact job titles/roles",
         "type": "manageable",
+        "selection_type": "multi selection",
         "unique_field": "qcode",
         "items": [
             {
@@ -1004,6 +1026,7 @@
     {
         "_id": "contact_mobile_usage",
         "type": "manageable",
+        "selection_type": "do not show",
         "unique_field": "qcode",
         "display_name": "Contact mobile usage",
         "items": [
@@ -1033,6 +1056,7 @@
     {
         "_id": "contact_phone_usage",
         "type": "manageable",
+        "selection_type": "do not show",
         "unique_field": "qcode",
         "display_name": "Contact phone usage",
         "items": [
@@ -1062,6 +1086,7 @@
     {
         "_id": "contact_states",
         "type": "manageable",
+        "selection_type": "multi selection",
         "unique_field": "qcode",
         "display_name": "Contact States",
         "items": [

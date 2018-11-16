@@ -30,7 +30,8 @@ VOC = [
      "display_name": "ANPA Category",
      "type": "manageable",
      "items": [
-         {"is_active": True, "name": "Nyhetstjenesten", "qcode": "n", "single_value": False, "language": "nb-NO"}]},
+         {"is_active": True, "name": "Nyhetstjenesten", "qcode": "n",
+          "selection_type": "single selection", "language": "nb-NO"}]},
     {"_id": "event_calendars",
      "display_name": "Event Calendars",
      "type": "manageable",

@@ -64,7 +64,11 @@
             "urgency": {
                 "required": false,
                 "type": "number"
-            }
+            },
+	        "files" : {
+	            "required" : false,
+	            "type" : "list"
+	        }
         },
         "editor": {
             "agendas": {
@@ -102,7 +106,10 @@
             },
             "name" : {
                 "enabled" : false
-            }
+            },
+	        "files" : {
+	            "enabled" : true
+	        }
         },
         "list": {
             "primary_fields": ["slugline", "internalnote", "headline"]
