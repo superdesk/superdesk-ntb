@@ -76,6 +76,9 @@ class NTBEventsApiXMLFeedParser(XMLFeedParser):
             self._fill_ntb_id(document, item)
             self._fill_name(document, item)
             self._fill_dates(document, item)
+            if 'start' not in item['dates'] or 'end' not in item['dates']:
+                # explicit ignoring items without start/end dates.
+                continue
             self._fill_definition_short(document, item)
             self._fill_priority(document, item)
             self._fill_category(document, item)
