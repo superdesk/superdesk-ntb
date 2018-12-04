@@ -154,5 +154,7 @@ module.exports = function(grunt) {
                 nn: 108
             }
         },
+
+        planning_allow_freetext_location: true
     };
 };
