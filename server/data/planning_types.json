@@ -14,7 +14,15 @@
                 "required": true,
                 "minlength": null,
                 "maxlength": null
+            },
+            "occur_status": {
+                "type": "list",
+                "required": false,
+                "nullable": true
             }
+        },
+        "editor": {
+            "occur_status": {"enabled": false}
         }
     },
     {
