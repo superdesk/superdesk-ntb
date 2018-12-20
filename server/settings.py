@@ -216,7 +216,10 @@ INGEST_SKIP_IPTC_CODES = True
 SESSION_EXPIRY_MINUTES = 12 * 60
 
 NIFS_STAGE_MAP = {6: 'Eliteserien menn',
-                  676155: 'Eliteserien menn'}
+                  676155: 'Eliteserien menn',
+                  679874: 'Eliteserien menn',
+                  679873: '1. divisjon menn'
+                 }
 NIFS_QCODE_MAP = {1: '15054000',  # Fotball
                   3: '15029000',  # Håndball
                   }
