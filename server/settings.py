@@ -215,22 +215,25 @@ INGEST_SKIP_IPTC_CODES = True
 
 SESSION_EXPIRY_MINUTES = 12 * 60
 
-NIFS_STAGE_MAP = {6: 'Eliteserien menn',
-                  676155: 'Eliteserien menn',
-                  679874: 'Eliteserien menn',
-                  679873: '1. divisjon menn'
-                 }
-NIFS_QCODE_MAP = {1: '15054000',  # Fotball
-                  1: '15031000',  # Ishockey
-                  3: '15029000',  # Håndball
-                  4: '15076000' # Bandy
-                  }
+NIFS_STAGE_MAP = {
+    6: 'Eliteserien menn',
+    676155: 'Eliteserien menn',
+    679874: 'Eliteserien menn',
+    679873: '1. divisjon menn'
+}
+NIFS_QCODE_MAP = {
+    1: '15054000',  # Fotball
+    2: '15031000',  # Ishockey
+    3: '15029000',  # Håndball
+    4: '15076000'   # Bandy
+}
 
-NIFS_SPORT_MAP = {1: 'Fotball',
-                  2: 'Ishockey',
-                  3: 'Håndball',
-                  4: 'Bandy'
-                 }
+NIFS_SPORT_MAP = {
+    1: 'Fotball',
+    2: 'Ishockey',
+    3: 'Håndball',
+    4: 'Bandy'
+}
 
 PLANNING_EXPORT_BODY_TEMPLATE = '''
 {% for item in items %}
@@ -251,3 +254,31 @@ PLANNING_EXPORT_BODY_TEMPLATE = '''
 '''
 
 PUBLISH_QUEUE_EXPIRY_MINUTES = 60 * 24 * 30  # 30d
+
+# media required fields
+VALIDATOR_MEDIA_METADATA = {
+    "headline": {
+        "required": False,
+    },
+    "alt_text": {
+        "required": False,
+    },
+    "archive_description": {
+        "required": False,
+    },
+    "description_text": {
+        "required": True,
+    },
+    "copyrightholder": {
+        "required": False,
+    },
+    "byline": {
+        "required": False,
+    },
+    "usageterms": {
+        "required": False,
+    },
+    "copyrightnotice": {
+        "required": False,
+    },
+}
