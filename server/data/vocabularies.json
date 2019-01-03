@@ -1131,5 +1131,1376 @@
             "qcode": {},
             "name": {}
         }
+    },
+    {
+        "_id": "countries",
+        "type": "manageable",
+        "unique_field": "qcode",
+        "schema": {
+            "name": {},
+            "qcode": {}
+        },
+        "display_name": "Countries",
+        "items": [
+            {
+                "is_active": true,
+                "qcode": "AD",
+                "name": "Andorra"
+            },
+            {
+                "is_active": true,
+                "qcode": "AE",
+                "name": "De Forente Arabiske Emirater"
+            },
+            {
+                "is_active": true,
+                "qcode": "AF",
+                "name": "Afghanistan"
+            },
+            {
+                "is_active": true,
+                "qcode": "AG",
+                "name": "Antigua og Barbuda"
+            },
+            {
+                "is_active": true,
+                "qcode": "AI",
+                "name": "Anguilla"
+            },
+            {
+                "is_active": true,
+                "qcode": "AL",
+                "name": "Albania"
+            },
+            {
+                "is_active": true,
+                "qcode": "AM",
+                "name": "Armenia"
+            },
+            {
+                "is_active": true,
+                "qcode": "AO",
+                "name": "Angola"
+            },
+            {
+                "is_active": true,
+                "qcode": "AR",
+                "name": "Argentina"
+            },
+            {
+                "is_active": true,
+                "qcode": "AS",
+                "name": "Amerikansk Samoa"
+            },
+            {
+                "is_active": true,
+                "qcode": "AT",
+                "name": "Østerrike"
+            },
+            {
+                "is_active": true,
+                "qcode": "AU",
+                "name": "Australia"
+            },
+            {
+                "is_active": true,
+                "qcode": "AW",
+                "name": "Aruba"
+            },
+            {
+                "is_active": true,
+                "qcode": "AX",
+                "name": "Åland"
+            },
+            {
+                "is_active": true,
+                "qcode": "AZ",
+                "name": "Aserbajdsjan"
+            },
+            {
+                "is_active": true,
+                "qcode": "BA",
+                "name": "Bosnia-Hercegovina"
+            },
+            {
+                "is_active": true,
+                "qcode": "BB",
+                "name": "Barbados"
+            },
+            {
+                "is_active": true,
+                "qcode": "BD",
+                "name": "Bangladesh"
+            },
+            {
+                "is_active": true,
+                "qcode": "BE",
+                "name": "Belgia"
+            },
+            {
+                "is_active": true,
+                "qcode": "BF",
+                "name": "Burkina Faso"
+            },
+            {
+                "is_active": true,
+                "qcode": "BG",
+                "name": "Bulgaria"
+            },
+            {
+                "is_active": true,
+                "qcode": "BH",
+                "name": "Bahrain"
+            },
+            {
+                "is_active": true,
+                "qcode": "BI",
+                "name": "Burundi"
+            },
+            {
+                "is_active": true,
+                "qcode": "BJ",
+                "name": "Benin"
+            },
+            {
+                "is_active": true,
+                "qcode": "BL",
+                "name": "Saint Barthelemy"
+            },
+            {
+                "is_active": true,
+                "qcode": "BM",
+                "name": "Bermuda"
+            },
+            {
+                "is_active": true,
+                "qcode": "BN",
+                "name": "Brunei Darussalam"
+            },
+            {
+                "is_active": true,
+                "qcode": "BO",
+                "name": "Bolivia"
+            },
+            {
+                "is_active": true,
+                "qcode": "BQ",
+                "name": "Bonaire, Saint Eustatius og Saba"
+            },
+            {
+                "is_active": true,
+                "qcode": "BR",
+                "name": "Brasil"
+            },
+            {
+                "is_active": true,
+                "qcode": "BS",
+                "name": "Bahamas"
+            },
+            {
+                "is_active": true,
+                "qcode": "BT",
+                "name": "Bhutan"
+            },
+            {
+                "is_active": true,
+                "qcode": "BW",
+                "name": "Botswana"
+            },
+            {
+                "is_active": true,
+                "qcode": "BY",
+                "name": "Hviterussland"
+            },
+            {
+                "is_active": true,
+                "qcode": "BZ",
+                "name": "Belize"
+            },
+            {
+                "is_active": true,
+                "qcode": "CA",
+                "name": "Canada"
+            },
+            {
+                "is_active": true,
+                "qcode": "CC",
+                "name": "Kokosøyene (Keelingøyene)"
+            },
+            {
+                "is_active": true,
+                "qcode": "CD",
+                "name": "Kongo"
+            },
+            {
+                "is_active": true,
+                "qcode": "CF",
+                "name": "Sentralafrikanske Republikk"
+            },
+            {
+                "is_active": true,
+                "qcode": "CG",
+                "name": "Kongo, Brazzaville"
+            },
+            {
+                "is_active": true,
+                "qcode": "CH",
+                "name": "Sveits"
+            },
+            {
+                "is_active": true,
+                "qcode": "CI",
+                "name": "Elfenbenskysten"
+            },
+            {
+                "is_active": true,
+                "qcode": "CK",
+                "name": "Cookøyene"
+            },
+            {
+                "is_active": true,
+                "qcode": "CL",
+                "name": "Chile"
+            },
+            {
+                "is_active": true,
+                "qcode": "CM",
+                "name": "Kamerun"
+            },
+            {
+                "is_active": true,
+                "qcode": "CN",
+                "name": "Kina"
+            },
+            {
+                "is_active": true,
+                "qcode": "CO",
+                "name": "Colombia"
+            },
+            {
+                "is_active": true,
+                "qcode": "CR",
+                "name": "Costa Rica"
+            },
+            {
+                "is_active": true,
+                "qcode": "CU",
+                "name": "Cuba"
+            },
+            {
+                "is_active": true,
+                "qcode": "CV",
+                "name": "Kapp Verde"
+            },
+            {
+                "is_active": true,
+                "qcode": "CW",
+                "name": "Curacao"
+            },
+            {
+                "is_active": true,
+                "qcode": "CX",
+                "name": "Christmasøya"
+            },
+            {
+                "is_active": true,
+                "qcode": "CY",
+                "name": "Kypros"
+            },
+            {
+                "is_active": true,
+                "qcode": "CZ",
+                "name": "Tsjekkia"
+            },
+            {
+                "is_active": true,
+                "qcode": "DE",
+                "name": "Tyskland"
+            },
+            {
+                "is_active": true,
+                "qcode": "DJ",
+                "name": "Djibouti"
+            },
+            {
+                "is_active": true,
+                "qcode": "DK",
+                "name": "Danmark"
+            },
+            {
+                "is_active": true,
+                "qcode": "DM",
+                "name": "Dominica"
+            },
+            {
+                "is_active": true,
+                "qcode": "DO",
+                "name": "Den Dominikanske Republikk"
+            },
+            {
+                "is_active": true,
+                "qcode": "DZ",
+                "name": "Algerie"
+            },
+            {
+                "is_active": true,
+                "qcode": "EC",
+                "name": "Ecuador"
+            },
+            {
+                "is_active": true,
+                "qcode": "EE",
+                "name": "Estland"
+            },
+            {
+                "is_active": true,
+                "qcode": "EG",
+                "name": "Egypt"
+            },
+            {
+                "is_active": true,
+                "qcode": "EH",
+                "name": "Vest-Sahara"
+            },
+            {
+                "is_active": true,
+                "qcode": "ER",
+                "name": "Eritrea"
+            },
+            {
+                "is_active": true,
+                "qcode": "ES",
+                "name": "Spania"
+            },
+            {
+                "is_active": true,
+                "qcode": "ET",
+                "name": "Etiopia"
+            },
+            {
+                "is_active": true,
+                "qcode": "FI",
+                "name": "Finland"
+            },
+            {
+                "is_active": true,
+                "qcode": "FJ",
+                "name": "Fiji"
+            },
+            {
+                "is_active": true,
+                "qcode": "FK",
+                "name": "Falklandsøyene (Malvinas)"
+            },
+            {
+                "is_active": true,
+                "qcode": "FM",
+                "name": "Mikronesiaføderasjonen"
+            },
+            {
+                "is_active": true,
+                "qcode": "FO",
+                "name": "Færøyene"
+            },
+            {
+                "is_active": true,
+                "qcode": "FR",
+                "name": "Frankrike"
+            },
+            {
+                "is_active": true,
+                "qcode": "GA",
+                "name": "Gabon"
+            },
+            {
+                "is_active": true,
+                "qcode": "GB",
+                "name": "Storbritannia"
+            },
+            {
+                "is_active": true,
+                "qcode": "GD",
+                "name": "Grenada"
+            },
+            {
+                "is_active": true,
+                "qcode": "GE",
+                "name": "Georgia"
+            },
+            {
+                "is_active": true,
+                "qcode": "GF",
+                "name": "Fransk Guyana"
+            },
+            {
+                "is_active": true,
+                "qcode": "GG",
+                "name": "Guernsey"
+            },
+            {
+                "is_active": true,
+                "qcode": "GH",
+                "name": "Ghana"
+            },
+            {
+                "is_active": true,
+                "qcode": "GI",
+                "name": "Gibraltar"
+            },
+            {
+                "is_active": true,
+                "qcode": "GL",
+                "name": "Grønland"
+            },
+            {
+                "is_active": true,
+                "qcode": "GM",
+                "name": "Gambia"
+            },
+            {
+                "is_active": true,
+                "qcode": "GN",
+                "name": "Guinea"
+            },
+            {
+                "is_active": true,
+                "qcode": "GP",
+                "name": "Guadeloupe"
+            },
+            {
+                "is_active": true,
+                "qcode": "GQ",
+                "name": "Ekvatorial-Guinea"
+            },
+            {
+                "is_active": true,
+                "qcode": "GR",
+                "name": "Hellas"
+            },
+            {
+                "is_active": true,
+                "qcode": "GS",
+                "name": "Sør-Georgia/Søndre Sandwichøyene"
+            },
+            {
+                "is_active": true,
+                "qcode": "GT",
+                "name": "Guatemala"
+            },
+            {
+                "is_active": true,
+                "qcode": "GU",
+                "name": "Guam"
+            },
+            {
+                "is_active": true,
+                "qcode": "GW",
+                "name": "Guinea-Bissau"
+            },
+            {
+                "is_active": true,
+                "qcode": "GY",
+                "name": "Guyana"
+            },
+            {
+                "is_active": true,
+                "qcode": "HK",
+                "name": "Hong Kong"
+            },
+            {
+                "is_active": true,
+                "qcode": "HM",
+                "name": "Heard- og McDonaldøyene"
+            },
+            {
+                "is_active": true,
+                "qcode": "HN",
+                "name": "Honduras"
+            },
+            {
+                "is_active": true,
+                "qcode": "HR",
+                "name": "Kroatia"
+            },
+            {
+                "is_active": true,
+                "qcode": "HT",
+                "name": "Haiti"
+            },
+            {
+                "is_active": true,
+                "qcode": "HU",
+                "name": "Ungarn"
+            },
+            {
+                "is_active": true,
+                "qcode": "ID",
+                "name": "Indonesia"
+            },
+            {
+                "is_active": true,
+                "qcode": "IE",
+                "name": "Irland"
+            },
+            {
+                "is_active": true,
+                "qcode": "IL",
+                "name": "Israel"
+            },
+            {
+                "is_active": true,
+                "qcode": "IM",
+                "name": "Isle of Man"
+            },
+            {
+                "is_active": true,
+                "qcode": "IN",
+                "name": "India"
+            },
+            {
+                "is_active": true,
+                "qcode": "IO",
+                "name": "Det Britiske terr. i Indiahavet"
+            },
+            {
+                "is_active": true,
+                "qcode": "IQ",
+                "name": "Irak"
+            },
+            {
+                "is_active": true,
+                "qcode": "IR",
+                "name": "Iran"
+            },
+            {
+                "is_active": true,
+                "qcode": "IS",
+                "name": "Island"
+            },
+            {
+                "is_active": true,
+                "qcode": "IT",
+                "name": "Italia"
+            },
+            {
+                "is_active": true,
+                "qcode": "JE",
+                "name": "Jersey"
+            },
+            {
+                "is_active": true,
+                "qcode": "JM",
+                "name": "Jamaica"
+            },
+            {
+                "is_active": true,
+                "qcode": "JO",
+                "name": "Jordan"
+            },
+            {
+                "is_active": true,
+                "qcode": "JP",
+                "name": "Japan"
+            },
+            {
+                "is_active": true,
+                "qcode": "KE",
+                "name": "Kenya"
+            },
+            {
+                "is_active": true,
+                "qcode": "KG",
+                "name": "Kirgisistan"
+            },
+            {
+                "is_active": true,
+                "qcode": "KH",
+                "name": "Kambodsja"
+            },
+            {
+                "is_active": true,
+                "qcode": "KI",
+                "name": "Kiribati"
+            },
+            {
+                "is_active": true,
+                "qcode": "KM",
+                "name": "Komorene"
+            },
+            {
+                "is_active": true,
+                "qcode": "KN",
+                "name": "Saint Kitts og Nevis"
+            },
+            {
+                "is_active": true,
+                "qcode": "KP",
+                "name": "Nord-Korea"
+            },
+            {
+                "is_active": true,
+                "qcode": "KR",
+                "name": "Sør-Korea"
+            },
+            {
+                "is_active": true,
+                "qcode": "KW",
+                "name": "Kuwait"
+            },
+            {
+                "is_active": true,
+                "qcode": "KY",
+                "name": "Caymanøyene"
+            },
+            {
+                "is_active": true,
+                "qcode": "KZ",
+                "name": "Kasakhstan"
+            },
+            {
+                "is_active": true,
+                "qcode": "LA",
+                "name": "Laos"
+            },
+            {
+                "is_active": true,
+                "qcode": "LB",
+                "name": "Libanon"
+            },
+            {
+                "is_active": true,
+                "qcode": "LC",
+                "name": "Saint Lucia"
+            },
+            {
+                "is_active": true,
+                "qcode": "LI",
+                "name": "Liechtenstein"
+            },
+            {
+                "is_active": true,
+                "qcode": "LK",
+                "name": "Sri Lanka"
+            },
+            {
+                "is_active": true,
+                "qcode": "LR",
+                "name": "Liberia"
+            },
+            {
+                "is_active": true,
+                "qcode": "LS",
+                "name": "Lesotho"
+            },
+            {
+                "is_active": true,
+                "qcode": "LT",
+                "name": "Litauen"
+            },
+            {
+                "is_active": true,
+                "qcode": "LU",
+                "name": "Luxemburg"
+            },
+            {
+                "is_active": true,
+                "qcode": "LV",
+                "name": "Latvia"
+            },
+            {
+                "is_active": true,
+                "qcode": "LY",
+                "name": "Libya"
+            },
+            {
+                "is_active": true,
+                "qcode": "MA",
+                "name": "Marokko"
+            },
+            {
+                "is_active": true,
+                "qcode": "MC",
+                "name": "Monaco"
+            },
+            {
+                "is_active": true,
+                "qcode": "MD",
+                "name": "Moldova"
+            },
+            {
+                "is_active": true,
+                "qcode": "ME",
+                "name": "Montenegro"
+            },
+            {
+                "is_active": true,
+                "qcode": "MF",
+                "name": "Saint Martin, FR"
+            },
+            {
+                "is_active": true,
+                "qcode": "MG",
+                "name": "Madagaskar"
+            },
+            {
+                "is_active": true,
+                "qcode": "MH",
+                "name": "Marshalløyene"
+            },
+            {
+                "is_active": true,
+                "qcode": "MK",
+                "name": "Makedonia"
+            },
+            {
+                "is_active": true,
+                "qcode": "ML",
+                "name": "Mali"
+            },
+            {
+                "is_active": true,
+                "qcode": "MM",
+                "name": "Myanmar/Burma"
+            },
+            {
+                "is_active": true,
+                "qcode": "MN",
+                "name": "Mongolia"
+            },
+            {
+                "is_active": true,
+                "qcode": "MO",
+                "name": "Macao"
+            },
+            {
+                "is_active": true,
+                "qcode": "MP",
+                "name": "Nordre Marianene"
+            },
+            {
+                "is_active": true,
+                "qcode": "MQ",
+                "name": "Martinique"
+            },
+            {
+                "is_active": true,
+                "qcode": "MR",
+                "name": "Mauritania"
+            },
+            {
+                "is_active": true,
+                "qcode": "MS",
+                "name": "Montserrat"
+            },
+            {
+                "is_active": true,
+                "qcode": "MT",
+                "name": "Malta"
+            },
+            {
+                "is_active": true,
+                "qcode": "MU",
+                "name": "Mauritius"
+            },
+            {
+                "is_active": true,
+                "qcode": "MV",
+                "name": "Maldivene"
+            },
+            {
+                "is_active": true,
+                "qcode": "MW",
+                "name": "Malawi"
+            },
+            {
+                "is_active": true,
+                "qcode": "MX",
+                "name": "Mexico"
+            },
+            {
+                "is_active": true,
+                "qcode": "MY",
+                "name": "Malaysia"
+            },
+            {
+                "is_active": true,
+                "qcode": "MZ",
+                "name": "Mosambik"
+            },
+            {
+                "is_active": true,
+                "qcode": "NA",
+                "name": "Namibia"
+            },
+            {
+                "is_active": true,
+                "qcode": "NC",
+                "name": "Ny Caledonia"
+            },
+            {
+                "is_active": true,
+                "qcode": "NE",
+                "name": "Niger"
+            },
+            {
+                "is_active": true,
+                "qcode": "NF",
+                "name": "Norfolkøya"
+            },
+            {
+                "is_active": true,
+                "qcode": "NG",
+                "name": "Nigeria"
+            },
+            {
+                "is_active": true,
+                "qcode": "NI",
+                "name": "Nicaragua"
+            },
+            {
+                "is_active": true,
+                "qcode": "NL",
+                "name": "Nederland"
+            },
+            {
+                "is_active": true,
+                "qcode": "NO",
+                "name": "Norge"
+            },
+            {
+                "is_active": true,
+                "qcode": "NP",
+                "name": "Nepal"
+            },
+            {
+                "is_active": true,
+                "qcode": "NR",
+                "name": "Nauru"
+            },
+            {
+                "is_active": true,
+                "qcode": "NU",
+                "name": "Niue"
+            },
+            {
+                "is_active": true,
+                "qcode": "NZ",
+                "name": "New Zealand"
+            },
+            {
+                "is_active": true,
+                "qcode": "OM",
+                "name": "Oman"
+            },
+            {
+                "is_active": true,
+                "qcode": "PA",
+                "name": "Panama"
+            },
+            {
+                "is_active": true,
+                "qcode": "PE",
+                "name": "Peru"
+            },
+            {
+                "is_active": true,
+                "qcode": "PF",
+                "name": "Fransk Polynesia"
+            },
+            {
+                "is_active": true,
+                "qcode": "PG",
+                "name": "Papua Ny-Guinea"
+            },
+            {
+                "is_active": true,
+                "qcode": "PH",
+                "name": "Filippinene"
+            },
+            {
+                "is_active": true,
+                "qcode": "PK",
+                "name": "Pakistan"
+            },
+            {
+                "is_active": true,
+                "qcode": "PL",
+                "name": "Polen"
+            },
+            {
+                "is_active": true,
+                "qcode": "PM",
+                "name": "Saint Pierre og Miquelon"
+            },
+            {
+                "is_active": true,
+                "qcode": "PN",
+                "name": "Pitcairn"
+            },
+            {
+                "is_active": true,
+                "qcode": "PR",
+                "name": "Puerto Rico"
+            },
+            {
+                "is_active": true,
+                "qcode": "PS",
+                "name": "Palestina"
+            },
+            {
+                "is_active": true,
+                "qcode": "PT",
+                "name": "Portugal"
+            },
+            {
+                "is_active": true,
+                "qcode": "PW",
+                "name": "Palau"
+            },
+            {
+                "is_active": true,
+                "qcode": "PY",
+                "name": "Paraguay"
+            },
+            {
+                "is_active": true,
+                "qcode": "QA",
+                "name": "Qatar"
+            },
+            {
+                "is_active": true,
+                "qcode": "RE",
+                "name": "Reunion"
+            },
+            {
+                "is_active": true,
+                "qcode": "RO",
+                "name": "Romania"
+            },
+            {
+                "is_active": true,
+                "qcode": "RS",
+                "name": "Serbia"
+            },
+            {
+                "is_active": true,
+                "qcode": "RU",
+                "name": "Russland"
+            },
+            {
+                "is_active": true,
+                "qcode": "RW",
+                "name": "Rwanda"
+            },
+            {
+                "is_active": true,
+                "qcode": "SA",
+                "name": "Saudi-Arabia"
+            },
+            {
+                "is_active": true,
+                "qcode": "SB",
+                "name": "Salomonøyene"
+            },
+            {
+                "is_active": true,
+                "qcode": "SC",
+                "name": "Seychellene"
+            },
+            {
+                "is_active": true,
+                "qcode": "SD",
+                "name": "Sudan"
+            },
+            {
+                "is_active": true,
+                "qcode": "SE",
+                "name": "Sverige"
+            },
+            {
+                "is_active": true,
+                "qcode": "SG",
+                "name": "Singapore"
+            },
+            {
+                "is_active": true,
+                "qcode": "SH",
+                "name": "Sankt Helena"
+            },
+            {
+                "is_active": true,
+                "qcode": "SI",
+                "name": "Slovenia"
+            },
+            {
+                "is_active": true,
+                "qcode": "SK",
+                "name": "Slovakia"
+            },
+            {
+                "is_active": true,
+                "qcode": "SL",
+                "name": "Sierra Leone"
+            },
+            {
+                "is_active": true,
+                "qcode": "SM",
+                "name": "San Marino"
+            },
+            {
+                "is_active": true,
+                "qcode": "SN",
+                "name": "Senegal"
+            },
+            {
+                "is_active": true,
+                "qcode": "SO",
+                "name": "Somalia"
+            },
+            {
+                "is_active": true,
+                "qcode": "SR",
+                "name": "Surinam"
+            },
+            {
+                "is_active": true,
+                "qcode": "SS",
+                "name": "Sør-Sudan"
+            },
+            {
+                "is_active": true,
+                "qcode": "ST",
+                "name": "Sao Tome og Principe"
+            },
+            {
+                "is_active": true,
+                "qcode": "SV",
+                "name": "El Salvador"
+            },
+            {
+                "is_active": true,
+                "qcode": "SX",
+                "name": "Sint Marteen (Nederlandsk del)"
+            },
+            {
+                "is_active": true,
+                "qcode": "SY",
+                "name": "Syria"
+            },
+            {
+                "is_active": true,
+                "qcode": "SZ",
+                "name": "Swaziland"
+            },
+            {
+                "is_active": true,
+                "qcode": "TC",
+                "name": "Turks og Caicosøyene"
+            },
+            {
+                "is_active": true,
+                "qcode": "TD",
+                "name": "Tsjad"
+            },
+            {
+                "is_active": true,
+                "qcode": "TF",
+                "name": "Franske Sørlige Territorier"
+            },
+            {
+                "is_active": true,
+                "qcode": "TG",
+                "name": "Togo"
+            },
+            {
+                "is_active": true,
+                "qcode": "TH",
+                "name": "Thailand"
+            },
+            {
+                "is_active": true,
+                "qcode": "TJ",
+                "name": "Tadsjikistan"
+            },
+            {
+                "is_active": true,
+                "qcode": "TK",
+                "name": "Tokelau"
+            },
+            {
+                "is_active": true,
+                "qcode": "TL",
+                "name": "Øst-Timor"
+            },
+            {
+                "is_active": true,
+                "qcode": "TM",
+                "name": "Turkmenistan"
+            },
+            {
+                "is_active": true,
+                "qcode": "TN",
+                "name": "Tunisia"
+            },
+            {
+                "is_active": true,
+                "qcode": "TO",
+                "name": "Tonga"
+            },
+            {
+                "is_active": true,
+                "qcode": "TR",
+                "name": "Tyrkia"
+            },
+            {
+                "is_active": true,
+                "qcode": "TT",
+                "name": "Trinidad og Tobago"
+            },
+            {
+                "is_active": true,
+                "qcode": "TV",
+                "name": "Tuvalu"
+            },
+            {
+                "is_active": true,
+                "qcode": "TW",
+                "name": "Taiwan"
+            },
+            {
+                "is_active": true,
+                "qcode": "TZ",
+                "name": "Tanzania"
+            },
+            {
+                "is_active": true,
+                "qcode": "UA",
+                "name": "Ukraina"
+            },
+            {
+                "is_active": true,
+                "qcode": "UG",
+                "name": "Uganda"
+            },
+            {
+                "is_active": true,
+                "qcode": "UM",
+                "name": "USA mindre utenforliggende øyer"
+            },
+            {
+                "is_active": true,
+                "qcode": "US",
+                "name": "USA"
+            },
+            {
+                "is_active": true,
+                "qcode": "UY",
+                "name": "Uruguay"
+            },
+            {
+                "is_active": true,
+                "qcode": "UZ",
+                "name": "Usbekistan"
+            },
+            {
+                "is_active": true,
+                "qcode": "VA",
+                "name": "Vatikanstaten"
+            },
+            {
+                "is_active": true,
+                "qcode": "VC",
+                "name": "Saint Vincent og Grenadine"
+            },
+            {
+                "is_active": true,
+                "qcode": "VE",
+                "name": "Venezuela"
+            },
+            {
+                "is_active": true,
+                "qcode": "VG",
+                "name": "Jomfruøyene, Britisk"
+            },
+            {
+                "is_active": true,
+                "qcode": "VI",
+                "name": "Jomfruøyene, US"
+            },
+            {
+                "is_active": true,
+                "qcode": "VN",
+                "name": "Vietnam"
+            },
+            {
+                "is_active": true,
+                "qcode": "VU",
+                "name": "Vanuatu"
+            },
+            {
+                "is_active": true,
+                "qcode": "WF",
+                "name": "Wallis og Futuna"
+            },
+            {
+                "is_active": true,
+                "qcode": "WS",
+                "name": "Samoa"
+            },
+            {
+                "is_active": true,
+                "qcode": "XB",
+                "name": "Kanariøyene"
+            },
+            {
+                "is_active": true,
+                "qcode": "XC",
+                "name": "Ceuta og Melilla"
+            },
+            {
+                "is_active": true,
+                "qcode": "XK",
+                "name": "Kosovo"
+            },
+            {
+                "is_active": true,
+                "qcode": "YE",
+                "name": "Jemen"
+            },
+            {
+                "is_active": true,
+                "qcode": "YT",
+                "name": "Mayotte"
+            },
+            {
+                "is_active": true,
+                "qcode": "ZA",
+                "name": "Sør-Afrika"
+            },
+            {
+                "is_active": true,
+                "qcode": "ZM",
+                "name": "Zambia"
+            },
+            {
+                "is_active": true,
+                "qcode": "ZW",
+                "name": "Zimbabwe"
+            }
+        ]
+    },
+    {
+        "_id": "regions",
+        "items": [
+            {
+                "is_active": true,
+                "qcode": "NO-01",
+                "name": "Østfold"
+            },
+            {
+                "is_active": true,
+                "qcode": "NO-02",
+                "name": "Akershus"
+            },
+            {
+                "is_active": true,
+                "qcode": "NO-03",
+                "name": "Oslo"
+            },
+            {
+                "is_active": true,
+                "qcode": "NO-04",
+                "name": "Hedmark"
+            },
+            {
+                "is_active": true,
+                "qcode": "NO-05",
+                "name": "Oppland"
+            },
+            {
+                "is_active": true,
+                "qcode": "NO-06",
+                "name": "Buskerud"
+            },
+            {
+                "is_active": true,
+                "qcode": "NO-07",
+                "name": "Vestfold"
+            },
+            {
+                "is_active": true,
+                "qcode": "NO-08",
+                "name": "Telemark"
+            },
+            {
+                "is_active": true,
+                "qcode": "NO-09",
+                "name": "Aust-Agder"
+            },
+            {
+                "is_active": true,
+                "qcode": "NO-10",
+                "name": "Vest-Agder"
+            },
+            {
+                "is_active": true,
+                "qcode": "NO-11",
+                "name": "Rogaland"
+            },
+            {
+                "is_active": true,
+                "qcode": "NO-12",
+                "name": "Hordaland"
+            },
+            {
+                "is_active": true,
+                "qcode": "NO-14",
+                "name": "Sogn og Fjordane"
+            },
+            {
+                "is_active": true,
+                "qcode": "NO-15",
+                "name": "Møre og Romsdal"
+            },
+            {
+                "is_active": true,
+                "qcode": "NO-18",
+                "name": "Nordland"
+            },
+            {
+                "is_active": true,
+                "qcode": "NO-19",
+                "name": "Troms"
+            },
+            {
+                "is_active": true,
+                "qcode": "NO-20",
+                "name": "Finnmark"
+            },
+            {
+                "is_active": true,
+                "qcode": "NO-21",
+                "name": "Svalbard"
+            },
+            {
+                "is_active": true,
+                "qcode": "NO-22",
+                "name": "Jan Mayen"
+            },
+            {
+                "is_active": true,
+                "qcode": "NO-23",
+                "name": "Trøndelag"
+            }
+        ],
+        "type": "manageable",
+        "selection_type": "multi selection",
+        "unique_field": "qcode",
+        "schema": {
+            "name": {},
+            "qcode": {}
+        },
+        "display_name": "State / Region",
+        "helper_text": "The administrative state or region of an address"
     }
 ]
