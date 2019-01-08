@@ -238,18 +238,21 @@ NIFS_SPORT_MAP = {
 PLANNING_EXPORT_BODY_TEMPLATE = '''
 {% for item in items %}
 <h2>{{ item.name or item.headline or item.slugline }}</h2>
-<p>{{ item.description_text }}</p>
-<p></p>
+<p>{{ item.description_text }}
 {% if item.get('event', {}).get('location') %}
-<p>Sted: {{ item.event.location[0].name }}.</p>
+&nbsp;Sted: {{ item.event.location[0].name }}.
 {% endif %}
+{% if item.get('planning_date', '') != '' %}
+&nbsp;Tid: {{ item.planning_date | format_datetime(date_format='%H:%M') }}.
+{% endif %}
+</p>
 {% if item.get('ednote', '') != '' %}
 <p>Til red: {{ item.ednote }}</p>
 {% endif %}
 {% if item.coverages %}
-<p>Dekning: {{ item.coverages | join(', ') }}
+<p>Dekning: {{ item.coverages | join(', ') }}</p>
 {% endif %}
-<p>---</p>
+<p></p>
 {% endfor %}
 '''
 
