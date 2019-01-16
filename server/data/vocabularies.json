@@ -43,6 +43,7 @@
         "type": "manageable",
         "service": {"all": 1},
         "selection_type": "single selection",
+        "schema_field": "subject",
         "dependent": 1,
         "items": [
             {"is_active": true, "name": "Innenriks", "qcode": "Innenriks", "service": {"n": 1, "s": 1, "e": 1, "t": 1, "m": 1, "j": 1, "i": 1}},
@@ -77,8 +78,7 @@
             "name": {},
             "qcode": {},
             "service": {"type": "object"}
-        },
-        "init_version": 1
+        }
     },
     {
         "_id": "genre_custom",
