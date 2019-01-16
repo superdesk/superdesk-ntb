@@ -78,7 +78,8 @@
             "qcode": {},
             "service": {"type": "object"}
         },
-        "init_version": 1
+        "schema_field": null,
+        "init_version": 2
     },
     {
         "_id": "genre_custom",
