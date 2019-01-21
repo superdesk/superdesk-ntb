@@ -150,7 +150,7 @@ class NTBNIFSFeedParser(FeedParser):
 
                 item = {'guid': event['uid'],
                         ITEM_TYPE: CONTENT_TYPE.EVENT,
-                        'dates': {'start': event_start, 'end': event_end, 'tz': None},
+                        'dates': {'start': event_start, 'end': event_end, 'tz': ''},
                         'name': name,
                         'slugline': sport,
                         'subject': subject,
