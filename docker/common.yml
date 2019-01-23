@@ -1,36 +1,43 @@
 mongodb:
   image: mongo:3
+  container_name: mongodb
   volumes:
    - ../data/mongodb:/data/db
 
 redis:
   image: redis:3
+  container_name: redis
   volumes:
    - ../data/redis:/data
 
 logstash:
   image: logstash:1.5
+  container_name: logstash
   command: logstash -f /usr/share/logstash/logstash.conf
   volumes:
   - ./logstash:/usr/share/logstash
 
 kibana:
   build: kibana
+  container_name: kibana
   restart: always
 
 elastic:
   image: elasticsearch:1.5
+  container_name: elastic
   volumes:
    - ../data/elastic:/usr/share/elasticsearch/data
 
 postfix:
   image: catatnight/postfix
+  container_name: postfix
   environment:
   - maildomain=mail.sourcefabric.org
   - smtp_user=user:pwd
 
 superdesk:
   build: ../
+  container_name: superdesk
   environment:
    - MONGO_URI=mongodb://mongodb/test
    - PUBLICAPI_MONGO_URI=mongodb://mongodb/test
@@ -66,6 +73,7 @@ superdesk:
 
 pubapi:
   build: ../superdesk-content-api
+  container_name: pubapi
   command: sh /opt/superdesk-content-api/scripts/fig_wrapper.sh honcho start
   environment:
    - MONGO_URI=mongodb://mongodb/test
