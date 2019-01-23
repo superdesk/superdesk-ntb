@@ -22,7 +22,10 @@
             }
         },
         "editor": {
-            "occur_status": {"enabled": false}
+            "occur_status": {"enabled": false},
+            "category": {"enabled": true},
+            "subject": {"enabled": false},
+            "subject_custom": {"enabled": true}
         }
     },
     {
@@ -117,7 +120,10 @@
             },
 	        "files" : {
 	            "enabled" : true
-	        }
+	        },
+            "category": {"enabled": true},
+            "subject": {"enabled": false},
+            "subject_custom": {"enabled": true}
         },
         "list": {
             "primary_fields": ["slugline", "internalnote", "headline"]
