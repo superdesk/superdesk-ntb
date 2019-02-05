@@ -13,6 +13,7 @@ from superdesk import get_resource_service
 from superdesk.io.registry import register_feed_parser
 from superdesk.errors import ParserError, SuperdeskIngestError
 from superdesk.io.feed_parsers import FeedParser
+from superdesk.metadata.item import ITEM_TYPE, CONTENT_TYPE
 from superdesk.utc import utcnow
 from eve.utils import config
 import dateutil.parser
@@ -148,7 +149,8 @@ class NTBNIFSFeedParser(FeedParser):
                 service = {'qcode': SERVICE_QCODE, 'name': self.service_name}
 
                 item = {'guid': event['uid'],
-                        'dates': {'start': event_start, 'end': event_end, 'tz': None},
+                        ITEM_TYPE: CONTENT_TYPE.EVENT,
+                        'dates': {'start': event_start, 'end': event_end, 'tz': ''},
                         'name': name,
                         'slugline': sport,
                         'subject': subject,

@@ -33,7 +33,7 @@ FILENAME_FORBIDDEN_RE = re.compile(r"[^a-zA-Z0-9._-]")
 STRIP_INVALID_CHARS_RE = re.compile('[\x00-\x08\x0B-\x0C\x0E-\x1F\x7F]')
 ENCODING = 'iso-8859-1'
 LANGUAGE = 'nb-NO'  # default language for ntb
-assert ENCODING is not 'unicode'  # use e.g. utf-8 for unicode
+assert ENCODING != 'unicode'  # use e.g. utf-8 for unicode
 
 
 def _get_rewrite_sequence(article):
@@ -211,10 +211,10 @@ class NTBNITFFormatter(NITFFormatter):
                  name_key: subject.get('name', '')})
 
     def _format_datetimes(self, article, head):
-            created = article['versioncreated'].astimezone(tz)
-            etree.SubElement(head, 'meta', {'name': 'timestamp', 'content': created.strftime("%Y.%m.%d %H:%M:%S")})
-            etree.SubElement(head, 'meta', {'name': 'ntb-dato', 'content': created.strftime("%d.%m.%Y %H:%M")})
-            etree.SubElement(head, 'meta', {'name': 'NTBUtDato', 'content': created.strftime("%d.%m.%Y")})
+        created = article['versioncreated'].astimezone(tz)
+        etree.SubElement(head, 'meta', {'name': 'timestamp', 'content': created.strftime("%Y.%m.%d %H:%M:%S")})
+        etree.SubElement(head, 'meta', {'name': 'ntb-dato', 'content': created.strftime("%d.%m.%Y %H:%M")})
+        etree.SubElement(head, 'meta', {'name': 'NTBUtDato', 'content': created.strftime("%d.%m.%Y")})
 
     def _get_filename(self, article):
         """return filename as specified by NTB
