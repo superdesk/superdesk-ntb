@@ -4,7 +4,6 @@ from unittest import mock
 from superdesk.tests import TestCase
 from superdesk.vocabularies.commands import VocabulariesPopulateCommand
 import ntb
-from superdesk.io.feeding_services import http_base_service
 from ntb.io.feeding_services import ntb_event_api
 from planning.events import init_app as init_events_app
 
@@ -64,30 +63,27 @@ class NTBEventsApiFeedingServiceTestCase(TestCase):
 
         return m
 
-    @mock.patch.object(http_base_service.requests, 'get')
+    @mock.patch.object(ntb_event_api.requests, 'get')
     def test_items_count(self, get):
         get.side_effect = self._side_effect
         feeding_service = ntb_event_api.NTBEventsApiFeedingService()
-        feeding_service.provider = PROVIDER
         items = feeding_service._update(PROVIDER, {})[0]
 
         self.assertEqual(len(items), 8)
 
-    @mock.patch.object(http_base_service.requests, 'get')
+    @mock.patch.object(ntb_event_api.requests, 'get')
     def test_items_count_ignore_duplicates(self, get):
         feeding_service = ntb_event_api.NTBEventsApiFeedingService()
 
         get.return_value.ok = True
         get.return_value.content = self.feeds[0]
-        feeding_service.provider = PROVIDER
         items = feeding_service._update(PROVIDER, {})[0]
         self.assertEqual(len(items), 2)
 
-    @mock.patch.object(http_base_service.requests, 'get')
+    @mock.patch.object(ntb_event_api.requests, 'get')
     def test_requests_offset(self, get):
         get.side_effect = self._side_effect
         feeding_service = ntb_event_api.NTBEventsApiFeedingService()
-        feeding_service.provider = PROVIDER
         feeding_service._update(PROVIDER, {})
 
         self.assertEqual(

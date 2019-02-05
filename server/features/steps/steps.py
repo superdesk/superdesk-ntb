@@ -16,7 +16,7 @@ from superdesk.tests.steps import (
     when, then, get_json_data
 )
 from superdesk.io.commands import update_ingest
-from superdesk.io.feeding_services import http_base_service
+from ntb.io.feeding_services import ntb_event_api
 
 
 @when('we fetch events "{mock_requests}" from "{provider_name}" NTB Events API provider')
@@ -34,7 +34,7 @@ def step_impl_when_fetch_from_ntb_events_api_ingest(context, mock_requests, prov
     :return:
     """
 
-    with mock.patch.object(http_base_service.requests, 'get') as get:
+    with mock.patch.object(ntb_event_api.requests, 'get') as get:
         feeds = []
         with context.app.test_request_context(context.app.config['URL_PREFIX']):
             ingest_provider_service = get_resource_service('ingest_providers')

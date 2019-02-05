@@ -9,6 +9,8 @@
 # at https://www.sourcefabric.org/superdesk/license
 
 import json
+import requests
+import traceback
 from collections import OrderedDict
 from lxml import etree
 from eve.utils import ParsedRequest
@@ -16,13 +18,13 @@ from eve.utils import ParsedRequest
 import superdesk
 from superdesk.utc import utcnow
 from superdesk.io.registry import register_feeding_service, register_feeding_service_parser
-from superdesk.io.feeding_services.http_base_service import HTTPFeedingServiceBase
+from superdesk.io.feeding_services import FeedingService
 from superdesk.errors import IngestApiError, SuperdeskIngestError
 from superdesk.metadata.item import GUID_FIELD
 from planning.common import WORKFLOW_STATE, ITEM_STATE
 
 
-class NTBEventsApiFeedingService(HTTPFeedingServiceBase):
+class NTBEventsApiFeedingService(FeedingService):
     """
     Feeding Service class which can read events from NTB API using HTTP
     """
@@ -35,14 +37,23 @@ class NTBEventsApiFeedingService(HTTPFeedingServiceBase):
     ]
     REQUESTS_PER_UPDATE = 4
     EVENTS_PER_REQUEST = 25
-    HTTP_TIMEOUT = 20
+    TIMEOUT = 20
 
     label = 'NTB Events API'
     fields = [
         {
             'id': 'url', 'type': 'text', 'label': 'Feed URL',
             'placeholder': 'Feed URL', 'required': True
-        }] + HTTPFeedingServiceBase.AUTH_FIELDS
+        },
+        {
+            'id': 'username', 'type': 'text', 'label': 'Username',
+            'placeholder': 'Username', 'required': True
+        },
+        {
+            'id': 'password', 'type': 'password', 'label': 'Password',
+            'placeholder': 'Password', 'required': True
+        },
+    ]
     service = 'events'
 
     def _update(self, provider, update):
@@ -57,6 +68,7 @@ class NTBEventsApiFeedingService(HTTPFeedingServiceBase):
         """
         all_items = OrderedDict()
         self._provider = provider
+        self._validate_config(config=provider['config'])
         provider_private = self._provider.get('private', {})
         offset = provider_private.get('search', {}).get('offset', 0)
 
@@ -86,6 +98,26 @@ class NTBEventsApiFeedingService(HTTPFeedingServiceBase):
 
         return [all_items]
 
+    def _validate_config(self, config):
+        """
+        Validate provider config according to `cls.fields`
+
+        :param config: Ingest provider configuration
+        :type config: dict
+        :return:
+        """
+        # validate required config fields
+        required_keys = [field['id'] for field in self.fields if field['required']]
+        if not all([c in config for c in required_keys]):
+            raise SuperdeskIngestError.notConfiguredError(
+                Exception('{} are required.'.format(', '.join(required_keys)))
+            )
+        # validate url
+        if not config['url'].lstrip().startswith('http'):
+            raise SuperdeskIngestError.notConfiguredError(
+                Exception('URL must be a valid http link.')
+            )
+
     def _send_request(self, offset):
         """
         Execute http request to external API
@@ -100,13 +132,38 @@ class NTBEventsApiFeedingService(HTTPFeedingServiceBase):
         :raises IngestApiError.apiAuthError
         :raises IngestApiError.apiNotFoundError
         """
+        auth = (
+            self._provider['config'].get('username'),
+            self._provider['config'].get('password')
+        )
         payload = {
             'search.offset': offset,
             'search.showNumResults': self.EVENTS_PER_REQUEST
         }
         url = self._provider['config']['url'].strip()
 
-        return self.get_url(url, params=payload)
+        try:
+            response = requests.get(url, auth=auth, params=payload, timeout=self.TIMEOUT)
+        except requests.exceptions.Timeout as exception:
+            raise IngestApiError.apiTimeoutError(exception, self._provider)
+        except requests.exceptions.ConnectionError as exception:
+            raise IngestApiError.apiConnectionError(exception, self._provider)
+        except requests.exceptions.RequestException as exception:
+            raise IngestApiError.apiRequestError(exception, self._provider)
+        except Exception as exception:
+            traceback.print_exc()
+            raise IngestApiError.apiGeneralError(exception, self._provider)
+
+        if not response.ok:
+            exception = Exception(response.reason)
+            if response.status_code in (401, 403):
+                raise IngestApiError.apiAuthError(exception, self._provider)
+            elif response.status_code == 404:
+                raise IngestApiError.apiNotFoundError(exception, self._provider)
+            else:
+                raise IngestApiError.apiGeneralError(response.reason, self._provider)
+
+        return response
 
     def _parse_events(self, xml):
         """
