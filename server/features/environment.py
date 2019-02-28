@@ -15,7 +15,7 @@ from superdesk.tests import set_placeholder
 from superdesk.tests.environment import setup_before_all
 from superdesk.tests.environment import setup_before_scenario as setup_before_scenario_core
 from superdesk.io.commands.update_ingest import ingest_items
-from superdesk.vocabularies.commands import VocabulariesPopulateCommand
+from apps.prepopulate.app_populate import AppPopulateCommand
 from planning.events import init_app as init_events_app
 import ntb
 from app import get_app
@@ -57,7 +57,7 @@ def setup_ntb_vocabulary(context):
         voc_file = os.path.join(
             os.path.abspath(os.path.dirname(os.path.dirname(ntb.__file__))), 'data', 'vocabularies.json'
         )
-        VocabulariesPopulateCommand().run(voc_file)
+        AppPopulateCommand().run(voc_file)
 
 
 def setup_before_scenario(context, scenario, config, app_factory):
