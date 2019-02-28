@@ -4,7 +4,7 @@ import settings
 from superdesk import config
 from superdesk.tests import TestCase
 from superdesk.etree import etree
-from superdesk.vocabularies.commands import VocabulariesPopulateCommand
+from apps.prepopulate.app_populate import AppPopulateCommand
 import ntb
 
 
@@ -17,7 +17,7 @@ class XMLParserTestCase(TestCase):
         # we need to prepopulate vocabularies to get qcodes
         voc_file = os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(ntb.__file__))),
                                 'data', 'vocabularies.json')
-        VocabulariesPopulateCommand().run(voc_file)
+        AppPopulateCommand().run(voc_file)
 
         # settings are needed in order to get into account NITF_MAPPING
         for key in dir(settings):

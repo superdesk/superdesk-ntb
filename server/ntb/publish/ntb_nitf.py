@@ -211,10 +211,10 @@ class NTBNITFFormatter(NITFFormatter):
                  name_key: subject.get('name', '')})
 
     def _format_datetimes(self, article, head):
-            created = article['versioncreated'].astimezone(tz)
-            etree.SubElement(head, 'meta', {'name': 'timestamp', 'content': created.strftime("%Y.%m.%d %H:%M:%S")})
-            etree.SubElement(head, 'meta', {'name': 'ntb-dato', 'content': created.strftime("%d.%m.%Y %H:%M")})
-            etree.SubElement(head, 'meta', {'name': 'NTBUtDato', 'content': created.strftime("%d.%m.%Y")})
+        created = article['versioncreated'].astimezone(tz)
+        etree.SubElement(head, 'meta', {'name': 'timestamp', 'content': created.strftime("%Y.%m.%d %H:%M:%S")})
+        etree.SubElement(head, 'meta', {'name': 'ntb-dato', 'content': created.strftime("%d.%m.%Y %H:%M")})
+        etree.SubElement(head, 'meta', {'name': 'NTBUtDato', 'content': created.strftime("%d.%m.%Y")})
 
     def _get_filename(self, article):
         """return filename as specified by NTB
