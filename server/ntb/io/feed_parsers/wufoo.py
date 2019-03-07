@@ -13,6 +13,7 @@ from superdesk.io.feed_parsers import FeedParser
 from superdesk.io.registry import register_feed_parser
 from superdesk.io.commands.update_ingest import LAST_INGESTED_ID
 from datetime import datetime, date
+from superdesk.utc import local_to_utc
 import html
 import requests
 import logging
@@ -26,6 +27,7 @@ logger = logging.getLogger(__name__)
 DATE_FORMAT = "%Y-%m-%d"
 DATETIME_FORMAT = DATE_FORMAT + " %H:%M:%S"
 FORM_HASH = "q1hpdwg91h6ubl1"
+TIMEZONE = 'Europe/Oslo'  # timezone is actually user timezone, so we're guessing here
 
 FIELDS_MAP = {
     "author": "Field1",
@@ -176,12 +178,17 @@ class WufooFeedParser(FeedParser):
             + "Tlf: {}"
         ).format(article["phone"])
         try:
-            item["versioncreated"] = datetime.strptime(article["DateCreated"], DATETIME_FORMAT)
+            item["versioncreated"] = self._parse_date(article["DateCreated"])
+            item["firstcreated"] = item["versioncreated"]
         except ValueError as e:
             logger.warning("DateCreated has invalid format: {msg}".format(msg=e))
 
         item["sign_off"] = "personalia@ntb.no"
         return item
+
+    def _parse_date(self, value):
+        dt = datetime.strptime(value, DATETIME_FORMAT)
+        return local_to_utc(TIMEZONE, dt)
 
 
 register_feed_parser(WufooFeedParser.NAME, WufooFeedParser())
