@@ -29,11 +29,13 @@ class STTTestCase(BaseSolitaTestCase):
     def test_content(self):
         """Check majors metadata"""
         item = self.item[0]
+        self.assertEqual(item['guid'], 'solita-123123-17854111')
         self.assertEqual(item['type'], 'text')
         self.assertEqual(item['firstpublished'].isoformat(), '2018-09-28T11:15:00')
         self.assertEqual(item['headline'], 'PRM: Nye Veier / Signerte veikontrakt på 4 mrd. i Trøndelag')
         self.assertEqual(item['slugline'], 'PRM-NTB-17854111')
         self.assertEqual(item['anpa_category'], [{"name": "Formidlingstjenester", "qcode": "r"}])
+        self.assertEqual(item['genre'], [{"name": "Fulltekstmeldinger", "qcode": "Fulltekstmeldinger"}])
 
         self.assertIn(
             {'qcode': 'PRM-NTB',
@@ -127,12 +129,12 @@ class STTBodyTestCase(BaseSolitaTestCase):
             'ate barnehagekjedene. Form&aring;let vil v&aelig;re &aring; legge til rette for en barnehagesektor med lan'
             'gsiktige og seri&oslash;se eiere, som driver barnehager av h&oslash;y kvalitet og som er opptatt av innova'
             'sjon og kostnadseffektiv drift.</p>\n        <p>Utvalget som n&aring; nedsette vil v&aelig;re et viktig su'
-            'pplement til disse arbeidene.</p>\n<p>Kontacter:<name>Pressevakt NFD</name><title>Pressevakta er betent me'
-            'llom 8.00 - 15.45 på kvardagar (8.00-15.00 om sumaren).</title><phone>902 51 303 (ikkje SMS)</phone><email'
-            '>media@nfd.dep.no</email></p>\n<p>Les hele denne saken fra <name>Nærings- og fiskeridepartementet</name> p'
-            'å NTB info<br><a href="https://www.ntbinfo.no/pressemelding/ekspertutvalg-skal-se-pa-bruk-av-private-velfe'
-            'rdsleverandorer?releaseId=17854144">https://www.ntbinfo.no/pressemelding/ekspertutvalg-skal-se-pa-bruk-av-'
-            'private-velferdsleverandorer?releaseId=17854144</a></p>')
+            'pplement til disse arbeidene.</p>\n<h2>Kontacter</h2><p><name>Pressevakt NFD</name><br><title>Pressevakta '
+            'er betent mellom 8.00 - 15.45 på kvardagar (8.00-15.00 om sumaren).</title><br><phone>902 51 303 (ikkje SM'
+            'S)</phone><br><email>media@nfd.dep.no</email></p>\n<p>Les hele denne saken fra <name>Nærings- og fiskeride'
+            'partementet</name> på NTB info<br><a href="https://www.ntbinfo.no/pressemelding/ekspertutvalg-skal-se-pa-b'
+            'ruk-av-private-velferdsleverandorer?releaseId=17854144">https://www.ntbinfo.no/pressemelding/ekspertutvalg'
+            '-skal-se-pa-bruk-av-private-velferdsleverandorer?releaseId=17854144</a></p>')
 
 
 class STTDocumentsTestCase(BaseSolitaTestCase):
@@ -167,10 +169,11 @@ class STTDocumentsTestCase(BaseSolitaTestCase):
             'ene. Spesielt Detaljhandel, Lagring og Transport merker presset. (foto for fri bruk til saken)</a><br><a h'
             'ref="https://www.ntbinfo.no/data/images/00749/e303f05c-30ad-4821-8862-d0f1f27d484a.jpg">– Det er spesielt '
             'noen bransjer som merker presset. Butikkene har for lengst merket kampen mot netthandelen og sliter med la'
-            've marginer, forteller Per Einar Ruud i data- og analyseselskapet Bisnode.</a>\n</p>\n<p>\n<a href="https:'
-            '//www.ntbinfo.no/data/attachments/00203/fa42f1c1-aaa5-4ec1-908d-8b38a100bfab.pptx">Konkurser februar 2019.'
-            'pptx</a>\n</p>\n<p>Kontacter:<name>Per Einar Ruud i Bisnode</name><title>Kredittøkonom, Bisnode</title><ph'
-            'one>+47 92 40 10 04\u2028</phone><email>per.einar.ruud@bisnode.com</email></p>\n<p>Les hele denne saken fr'
-            'a <name>Bisnode</name> på NTB info<br><a href="https://www.ntbinfo.no/pressemelding/nedgang-men-fortsatt-h'
-            'oye-konkurstall-med-bransje--og-fylkesoversikt?releaseId=17861325">https://www.ntbinfo.no/pressemelding/ne'
-            'dgang-men-fortsatt-hoye-konkurstall-med-bransje--og-fylkesoversikt?releaseId=17861325</a></p>')
+            've marginer, forteller Per Einar Ruud i data- og analyseselskapet Bisnode.</a>\n</p>\n<h2>Dokumenter</h2><'
+            'p>\n<a href="https://www.ntbinfo.no/data/attachments/00203/fa42f1c1-aaa5-4ec1-908d-8b38a100bfab.pptx">Konk'
+            'urser februar 2019.pptx</a>\n</p>\n<h2>Kontacter</h2><p><name>Per Einar Ruud i Bisnode</name><br><title>Kr'
+            'edittøkonom, Bisnode</title><br><phone>+47 92 40 10 04\u2028</phone><br><email>per.einar.ruud@bisnode.com<'
+            '/email></p>\n<p>Les hele denne saken fra <name>Bisnode</name> på NTB info<br><a href="https://www.ntbinfo.'
+            'no/pressemelding/nedgang-men-fortsatt-hoye-konkurstall-med-bransje--og-fylkesoversikt?releaseId=17861325">'
+            'https://www.ntbinfo.no/pressemelding/nedgang-men-fortsatt-hoye-konkurstall-med-bransje--og-fylkesoversikt?'
+            'releaseId=17861325</a></p>')

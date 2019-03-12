@@ -35,6 +35,10 @@ class SolitaFeedParser(XMLFeedParser):
         super().__init__()
 
         self.default_mapping = {
+            'guid': {
+                'xpath': './@id',
+                'filter': lambda i: "solita-{}-{}".format(self.provider['_id'], i)
+            },
             'headline': self.get_headline,
             'slugline': {
                 'xpath': './@id',
@@ -42,8 +46,10 @@ class SolitaFeedParser(XMLFeedParser):
             },
             'abstract': 'leadtext',
             'body_html': self.get_body,
-            'firstpublished': {'xpath': 'publicationDate/text()',
-                               'filter': dateutil.parser.parse},
+            'firstpublished': {
+                'xpath': 'publicationDate/text()',
+                'filter': dateutil.parser.parse
+            },
             'original_source': 'publisher/@id',
 
         }
@@ -52,11 +58,13 @@ class SolitaFeedParser(XMLFeedParser):
         return xml.tag.endswith('release')
 
     def parse(self, xml, provider=None):
+        self.provider = provider
         item = {
             ITEM_TYPE: CONTENT_TYPE.TEXT,  # set the default type.
             'guid': generate_guid(type=GUID_NEWSML),
             'versioncreated': utcnow(),
             'anpa_category': [{"name": "Formidlingstjenester", "qcode": "r"}],
+            'genre': [{"name": "Fulltekstmeldinger", "qcode": "Fulltekstmeldinger"}],
             'subject': [{'qcode': 'PRM-NTB',
                          'name': 'PRM-NTB',
                          'scheme': 'category'}],
@@ -96,15 +104,15 @@ class SolitaFeedParser(XMLFeedParser):
                 url=url,
                 caption=e(document_elt.findtext('title') or url)))
         if documents:
-            body_list.extend(["<p>", "<br>".join(documents), "</p>"])
+            body_list.extend(["<h2>Dokumenter</h2><p>", "<br>".join(documents), "</p>"])
 
         # contacts
         for contact_elt in root_elt.xpath('contacts/contact'):
             body_list.append(
-                '<p>Kontacter:'
-                '<name>{name}</name>'
-                '<title>{title}</title>'
-                '<phone>{phone}</phone>'
+                '<h2>Kontacter</h2>'
+                '<p><name>{name}</name><br>'
+                '<title>{title}</title><br>'
+                '<phone>{phone}</phone><br>'
                 '<email>{email}</email>'
                 '</p>'.format(
                     name=e(contact_elt.findtext('name', '')),
