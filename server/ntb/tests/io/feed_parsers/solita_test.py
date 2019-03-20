@@ -35,7 +35,8 @@ class STTTestCase(BaseSolitaTestCase):
         self.assertEqual(item['headline'], 'PRM: Nye Veier / Signerte veikontrakt på 4 mrd. i Trøndelag')
         self.assertEqual(item['slugline'], 'PRM-NTB-17854111')
         self.assertEqual(item['anpa_category'], [{"name": "Formidlingstjenester", "qcode": "r"}])
-        self.assertEqual(item['genre'], [{"name": "Fulltekstmeldinger", "qcode": "Fulltekstmeldinger"}])
+        self.assertEqual(item['genre'], [{"name": "Fulltekstmeldinger", "qcode": "Fulltekstmeldinger",
+                                          "scheme": "genre_custom"}])
 
         self.assertIn(
             {'qcode': 'PRM-NTB',
@@ -72,17 +73,37 @@ class STTTestCase(BaseSolitaTestCase):
             ' med optimalisering og utarbeidelse av reguleringsplaner i f&oslash;rste fase mellom byggherre, entrepren&'
             'oslash;r og r&aring;dgiver. Deretter lukkes kontrakten som totalentreprise i gjennomf&oslash;ringsfasen, f'
             'orklarer prosjektdirekt&oslash;r i Nye Veier Tr&oslash;ndelag, Johan Arnt Vatnan.</p>\n        <p>Byggesta'
-            'rt er planlagt i midten av 2019. Prosjektet fullf&oslash;res i 2024/2025.</p>\n<p>\n<a href="https://www.n'
-            'tbinfo.no/data/images/00775/c7bdf102-9122-4fce-b762-e34353d7a68b.jpg">https://www.ntbinfo.no/data/images/0'
-            '0775/c7bdf102-9122-4fce-b762-e34353d7a68b.jpg</a><br><a href="https://www.ntbinfo.no/data/images/00507/265'
-            '39909-564d-40dc-8298-d237b964dde9.jpg">Kontrakten ble signert i Trondheim i dag. Fra venstre: Pablo Garcia'
-            ' Caramés, finanssjef, ACCIONA Construction; Joan Gil, divisjonssjef, ACCIONA Construction; Ingrid Dahl Hov'
-            'land, adm. dir. Nye Veier og Johan Arnt Vatnan, prosjektdir. Nye Veier.</a>\n</p>\n<p>Les hele denne saken'
-            ' fra <name>Nye Veier</name> på NTB info<br><a href="https://www.ntbinfo.no/pressemelding/signerte-veikontr'
-            'akt-pa-4-mrd-i-trondelag?releaseId=17854111">https://www.ntbinfo.no/pressemelding/signerte-veikontrakt-pa-'
-            '4-mrd-i-trondelag?releaseId=17854111</a></p>')
+            'rt er planlagt i midten av 2019. Prosjektet fullf&oslash;res i 2024/2025.</p>\n<p class="ntb-media">\n<a h'
+            'ref="https://www.ntbinfo.no/data/images/00775/c7bdf102-9122-4fce-b762-e34353d7a68b.jpg">https://www.ntbinf'
+            'o.no/data/images/00775/c7bdf102-9122-4fce-b762-e34353d7a68b.jpg</a><br><a href="https://www.ntbinfo.no/dat'
+            'a/images/00507/26539909-564d-40dc-8298-d237b964dde9.jpg">Kontrakten ble signert i Trondheim i dag. Fra ven'
+            'stre: Pablo Garcia Caramés, finanssjef, ACCIONA Construction; Joan Gil, divisjonssjef, ACCIONA Constructio'
+            'n; Ingrid Dahl Hovland, adm. dir. Nye Veier og Johan Arnt Vatnan, prosjektdir. Nye Veier.</a>\n</p>\n<p>Le'
+            's hele denne saken fra <name>Nye Veier</name> på NTB info<br><a href="https://www.ntbinfo.no/pressemelding'
+            '/signerte-veikontrakt-pa-4-mrd-i-trondelag?releaseId=17854111">https://www.ntbinfo.no/pressemelding/signer'
+            'te-veikontrakt-pa-4-mrd-i-trondelag?releaseId=17854111</a></p>')
         self.assertEqual(item['urgency'], 6)
         self.assertEqual(item['ednote'], '**** NTBs PRESSEMELDINGSTJENESTE - Se www.ntbinfo.no ****')
+
+    def test_ntb_media(self):
+        item = self.item[0]
+        expected = {
+            "ntb_media": [
+                {
+                    "description_text": ("Kontrakten ble signert i Trondheim i dag. "
+                                         "Fra venstre: Pablo Garcia Caramés, "
+                                         "finanssjef, ACCIONA Construction; Joan "
+                                         "Gil, divisjonssjef, ACCIONA Construction; "
+                                         "Ingrid Dahl Hovland, adm. dir. Nye Veier "
+                                         "og Johan Arnt Vatnan, prosjektdir. Nye "
+                                         "Veier."),
+                    "id": "17854273",
+                    "mime_type": "image/jpeg",
+                    "url": "https://www.ntbinfo.no/data/images/00507/26539909-564d-40dc-8298-d237b964dde9.jpg",
+                }
+            ]
+        }
+        self.assertEqual(item['extra'], expected)
 
 
 class STTBodyTestCase(BaseSolitaTestCase):
@@ -164,16 +185,16 @@ class STTDocumentsTestCase(BaseSolitaTestCase):
             'verlever i markedet. Blant annet innkj&oslash;p, bransjeutvikling, rammebetingelser, markedsf&oslash;ring '
             'og kundeopplevelser. Men det er i hvert fall en ting man kan gj&oslash;re noe med for &aring; unng&aring; '
             'konkurs, og det er &aring; f&oslash;lge godt med p&aring; de man handler med og v&aelig;re tilbakeholden m'
-            'ed kreditter til virksomheter som sliter, r&aring;der Ruud.</p>\n<p>\n<a href="https://www.ntbinfo.no/data'
-            '/images/00390/20b6d51e-3abb-4eff-ae86-c4dfff029a23.jpg">6244 bedrifter har gått overende de siste 12 måned'
-            'ene. Spesielt Detaljhandel, Lagring og Transport merker presset. (foto for fri bruk til saken)</a><br><a h'
-            'ref="https://www.ntbinfo.no/data/images/00749/e303f05c-30ad-4821-8862-d0f1f27d484a.jpg">– Det er spesielt '
-            'noen bransjer som merker presset. Butikkene har for lengst merket kampen mot netthandelen og sliter med la'
-            've marginer, forteller Per Einar Ruud i data- og analyseselskapet Bisnode.</a>\n</p>\n<h2>Dokumenter</h2><'
-            'p>\n<a href="https://www.ntbinfo.no/data/attachments/00203/fa42f1c1-aaa5-4ec1-908d-8b38a100bfab.pptx">Konk'
-            'urser februar 2019.pptx</a>\n</p>\n<h2>Kontacter</h2><p><name>Per Einar Ruud i Bisnode</name><br><title>Kr'
-            'edittøkonom, Bisnode</title><br><phone>+47 92 40 10 04\u2028</phone><br><email>per.einar.ruud@bisnode.com<'
-            '/email></p>\n<p>Les hele denne saken fra <name>Bisnode</name> på NTB info<br><a href="https://www.ntbinfo.'
-            'no/pressemelding/nedgang-men-fortsatt-hoye-konkurstall-med-bransje--og-fylkesoversikt?releaseId=17861325">'
-            'https://www.ntbinfo.no/pressemelding/nedgang-men-fortsatt-hoye-konkurstall-med-bransje--og-fylkesoversikt?'
-            'releaseId=17861325</a></p>')
+            'ed kreditter til virksomheter som sliter, r&aring;der Ruud.</p>\n<p class="ntb-media">\n<a href="https://w'
+            'ww.ntbinfo.no/data/images/00390/20b6d51e-3abb-4eff-ae86-c4dfff029a23.jpg">6244 bedrifter har gått overende'
+            ' de siste 12 månedene. Spesielt Detaljhandel, Lagring og Transport merker presset. (foto for fri bruk til '
+            'saken)</a><br><a href="https://www.ntbinfo.no/data/images/00749/e303f05c-30ad-4821-8862-d0f1f27d484a.jpg">'
+            '– Det er spesielt noen bransjer som merker presset. Butikkene har for lengst merket kampen mot netthandele'
+            'n og sliter med lave marginer, forteller Per Einar Ruud i data- og analyseselskapet Bisnode.</a>\n</p>\n<h'
+            '2>Dokumenter</h2><p>\n<a href="https://www.ntbinfo.no/data/attachments/00203/fa42f1c1-aaa5-4ec1-908d-8b38a'
+            '100bfab.pptx">Konkurser februar 2019.pptx</a>\n</p>\n<h2>Kontacter</h2><p><name>Per Einar Ruud i Bisnode</'
+            'name><br><title>Kredittøkonom, Bisnode</title><br><phone>+47 92 40 10 04\u2028</phone><br><email>per.einar'
+            '.ruud@bisnode.com</email></p>\n<p>Les hele denne saken fra <name>Bisnode</name> på NTB info<br><a href="ht'
+            'tps://www.ntbinfo.no/pressemelding/nedgang-men-fortsatt-hoye-konkurstall-med-bransje--og-fylkesoversikt?re'
+            'leaseId=17861325">https://www.ntbinfo.no/pressemelding/nedgang-men-fortsatt-hoye-konkurstall-med-bransje--'
+            'og-fylkesoversikt?releaseId=17861325</a></p>')

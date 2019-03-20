@@ -11,11 +11,11 @@
 from superdesk.io.feed_parsers import XMLFeedParser
 from superdesk.io.registry import register_feed_parser
 from superdesk.metadata.item import CONTENT_TYPE, ITEM_TYPE
-from superdesk.metadata.utils import generate_guid, GUID_NEWSML
 from superdesk.errors import ParserError
 from superdesk.utc import utcnow
 from html import escape as e
 import dateutil.parser
+import mimetypes
 import logging
 
 logger = logging.getLogger(__name__)
@@ -45,7 +45,7 @@ class SolitaFeedParser(XMLFeedParser):
                 'filter': lambda i: "PRM-NTB-{}".format(i)
             },
             'abstract': 'leadtext',
-            'body_html': self.get_body,
+            'body_html': {'callback_with_item': self.get_body},
             'firstpublished': {
                 'xpath': 'publicationDate/text()',
                 'filter': dateutil.parser.parse
@@ -61,10 +61,9 @@ class SolitaFeedParser(XMLFeedParser):
         self.provider = provider
         item = {
             ITEM_TYPE: CONTENT_TYPE.TEXT,  # set the default type.
-            'guid': generate_guid(type=GUID_NEWSML),
             'versioncreated': utcnow(),
             'anpa_category': [{"name": "Formidlingstjenester", "qcode": "r"}],
-            'genre': [{"name": "Fulltekstmeldinger", "qcode": "Fulltekstmeldinger"}],
+            'genre': [{"name": "Fulltekstmeldinger", "qcode": "Fulltekstmeldinger", "scheme": "genre_custom"}],
             'subject': [{'qcode': 'PRM-NTB',
                          'name': 'PRM-NTB',
                          'scheme': 'category'}],
@@ -83,18 +82,29 @@ class SolitaFeedParser(XMLFeedParser):
         name = root_elt.findtext('publisher/name', '')
         return 'PRM: {name} / {title}'.format(name=name, title=title)
 
-    def get_body(self, root_elt):
+    def get_body(self, root_elt, item):
+        """This method generate the body according to NTB requirements and add images to associations"""
         body_list = [root_elt.find('body').text]
 
         # images
         images = []
+        ntb_media = []
         for image_elt in root_elt.xpath('images/image'):
-            url = e(image_elt.findtext('url', ''))
-            images.append('<a href="{url}">{caption}</a>'.format(
-                url=url,
-                caption=e(image_elt.findtext('caption') or url)))
+            image_id = e(image_elt.get('id'))
+            url = image_elt.findtext('url', '')
+            e_url = e(url)
+            caption = image_elt.findtext('caption') or e_url
+            mime_type = mimetypes.guess_type(url, strict=False)[0]
+            images.append('<a href="{url}">{caption}</a>'.format(url=e_url, caption=e(caption)))
+            ntb_media = {
+                "id": image_id,
+                "url": url,
+                "mime_type": mime_type,
+                "description_text": caption,
+            }
         if images:
-            body_list.extend(["<p>", "<br>".join(images), "</p>"])
+            body_list.extend(['<p class="ntb-media">', "<br>".join(images), "</p>"])
+            item.setdefault("extra", {}).setdefault("ntb_media", []).append(ntb_media)
 
         # documents
         documents = []
@@ -128,7 +138,7 @@ class SolitaFeedParser(XMLFeedParser):
                 name=e(root_elt.findtext('publisher/name', '')),
                 longurl=e(root_elt.findtext('longurl', ''))))
 
-        return '\n'.join(body_list)
+        item['body_html'] = '\n'.join(body_list)
 
 
 register_feed_parser(SolitaFeedParser.NAME, SolitaFeedParser())
