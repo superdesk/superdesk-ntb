@@ -1,6 +1,6 @@
 {
     "dependencies": {
-        "superdesk-core": "superdesk/superdesk-client-core#master",
+        "superdesk-core": "ride90/superdesk-client-core#fix-tansa-load",
         "superdesk-planning": "superdesk/superdesk-planning.git#master"
     }
 }
