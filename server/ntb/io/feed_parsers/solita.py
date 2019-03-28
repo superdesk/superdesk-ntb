@@ -13,7 +13,7 @@ from superdesk.io.registry import register_feed_parser
 from superdesk.metadata.item import CONTENT_TYPE, ITEM_TYPE
 from superdesk.errors import ParserError
 from superdesk.utc import utcnow
-from html import escape as e
+from html import escape as e, unescape
 import dateutil.parser
 import mimetypes
 import logging
@@ -39,7 +39,7 @@ class SolitaFeedParser(XMLFeedParser):
                 'xpath': './@id',
                 'filter': lambda i: "solita-{}-{}".format(self.provider['_id'], i)
             },
-            'headline': self.get_headline,
+            'headline': 'title',
             'slugline': {
                 'xpath': './@id',
                 'filter': lambda i: "PRM-NTB-{}".format(i)
@@ -51,6 +51,11 @@ class SolitaFeedParser(XMLFeedParser):
                 'filter': dateutil.parser.parse
             },
             'original_source': 'publisher/@id',
+            'name': {
+                'xpath': 'publisher/name',
+                'key_hook': lambda item, name: item.setdefault('extra', {}).__setitem__('ntb_pub_name', name),
+            }
+
 
         }
 
@@ -77,14 +82,9 @@ class SolitaFeedParser(XMLFeedParser):
             raise ParserError.parseMessageError(ex, provider)
         return [item]
 
-    def get_headline(self, root_elt):
-        title = root_elt.find('title').text
-        name = root_elt.findtext('publisher/name', '')
-        return 'PRM: {name} / {title}'.format(name=name, title=title)
-
     def get_body(self, root_elt, item):
         """This method generate the body according to NTB requirements and add images to associations"""
-        body_list = [root_elt.find('body').text]
+        body_list = [unescape(root_elt.find('body').text)]
 
         # images
         images = []
@@ -96,15 +96,15 @@ class SolitaFeedParser(XMLFeedParser):
             caption = image_elt.findtext('caption') or e_url
             mime_type = mimetypes.guess_type(url, strict=False)[0]
             images.append('<a href="{url}">{caption}</a>'.format(url=e_url, caption=e(caption)))
-            ntb_media = {
+            ntb_media.append({
                 "id": image_id,
                 "url": url,
                 "mime_type": mime_type,
                 "description_text": caption,
-            }
+            })
         if images:
             body_list.extend(['<p class="ntb-media">', "<br>".join(images), "</p>"])
-            item.setdefault("extra", {}).setdefault("ntb_media", []).append(ntb_media)
+            item.setdefault("extra", {}).setdefault("ntb_media", []).extend(ntb_media)
 
         # documents
         documents = []

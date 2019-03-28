@@ -142,11 +142,10 @@ class NTBNITFFormatter(NITFFormatter):
             p_elem.attrib['class'] = 'txt-ind'
 
     def _get_ntb_category(self, article):
-        category = ''
         for s in article.get('subject', []):
             if s.get('scheme') == 'category':
-                category = s['qcode']
-        return category
+                return s['qcode']
+        return ''
 
     def _get_ntb_subject(self, article):
         update = _get_rewrite_sequence(article)
@@ -264,6 +263,14 @@ class NTBNITFFormatter(NITFFormatter):
         pub_queue = superdesk.get_resource_service("publish_queue")
         daily_count = pub_queue.find({'transmit_started_at': {'$gte': day_start}}).count() + 1
         etree.SubElement(head, 'meta', {'name': 'NTBIPTCSequence', 'content': str(daily_count)})
+
+        # name
+        try:
+            name = article['extra']['ntb_pub_name']
+        except KeyError:
+            pass
+        else:
+            etree.SubElement(head, 'meta', {'name': 'NTBKilde', 'content': name})
 
     def _format_service(self, article):
         try:

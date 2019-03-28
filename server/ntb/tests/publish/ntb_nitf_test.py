@@ -196,6 +196,7 @@ ARTICLE = {
         "embedded03": None,
     },
     "extra": {
+        "ntb_pub_name": "test ntb_pub_name",
         "ntb_media": [
             {
                 "id": "1234",
@@ -547,6 +548,8 @@ class NTBNITFFormatterTest(TestCase):
         self.assertEqual(kanal.get('content'), 'A')
         ntb_id = head.find('meta[@name="NTBID"]')
         self.assertEqual(ntb_id.get('content'), 'NTB' + ITEM_ID)
+        ntb_kilde = head.find('meta[@name="NTBKilde"]')
+        self.assertEqual(ntb_kilde.get('content'), 'test ntb_pub_name')
 
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
     def test_update_id(self):
