@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'ntb.scanpix',
     'planning',
     'ntb.io',
+    'ntb.io.feeding_services.newsworthy',
     'ntb.publish',
 ]
 
