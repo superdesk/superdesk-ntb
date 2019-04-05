@@ -119,7 +119,7 @@ class SolitaFeedParser(XMLFeedParser):
         # contacts
         for contact_elt in root_elt.xpath('contacts/contact'):
             body_list.append(
-                '<h2>Kontacter</h2>'
+                '<h2>Kontakter</h2>'
                 '<p><name>{name}</name><br>'
                 '<title>{title}</title><br>'
                 '<phone>{phone}</phone><br>'
