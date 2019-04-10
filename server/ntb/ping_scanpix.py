@@ -1,7 +1,7 @@
 
 import requests
 
-from flask import json
+from flask import json, current_app as app
 from superdesk.signals import item_published
 
 
@@ -17,6 +17,7 @@ def handle_item_published(sender, item, **kwargs):
                     json.dumps({
                         'type': 'articleUsage',
                         'data': {
+                            'owner': app.config.get('SCANPIX_PING_OWNER'),
                             'media_id': assoc.get('guid', assoc.get('_id')),
                             'article_id': item.get('guid', item.get('_id')),
                         },
@@ -26,5 +27,5 @@ def handle_item_published(sender, item, **kwargs):
 
 
 def init_app(app):
-    if app.config.get('SCANPIX_PING'):
+    if app.config.get('SCANPIX_PING_OWNER'):
         item_published.connect(handle_item_published)
