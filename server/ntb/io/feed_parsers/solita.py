@@ -73,7 +73,7 @@ class SolitaFeedParser(XMLFeedParser):
                          'name': 'PRM-NTB',
                          'scheme': 'category'}],
             'urgency': 6,
-            'ednote': '**** NTBs PRESSEMELDINGSTJENESTE - Se www.ntbinfo.no ****'
+            'ednote': '*** Dette er en pressemelding formidlet av NTB pva. andre ***'
         }
 
         try:
@@ -117,9 +117,10 @@ class SolitaFeedParser(XMLFeedParser):
             body_list.extend(["<h2>Dokumenter</h2><p>", "<br>".join(documents), "</p>"])
 
         # contacts
-        for contact_elt in root_elt.xpath('contacts/contact'):
+        for idx, contact_elt in enumerate(root_elt.xpath('contacts/contact')):
+            if idx == 0:
+                body_list.append('<h2>Kontakter</h2>')
             body_list.append(
-                '<h2>Kontakter</h2>'
                 '<p><name>{name}</name><br>'
                 '<title>{title}</title><br>'
                 '<phone>{phone}</phone><br>'
@@ -133,7 +134,7 @@ class SolitaFeedParser(XMLFeedParser):
 
         # longurl
         body_list.append(
-            '<p>Les hele denne saken fra <name>{name}</name> på NTB info<br><a href="{longurl}">'
+            '<p>Se saken i sin helhet<br><a href="{longurl}">'
             '{longurl}</a></p>'.format(
                 name=e(root_elt.findtext('publisher/name', '')),
                 longurl=e(root_elt.findtext('longurl', ''))))

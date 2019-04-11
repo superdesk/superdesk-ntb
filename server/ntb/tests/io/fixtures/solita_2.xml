@@ -104,6 +104,13 @@
             <!--LinkedIn account name for the contact person-->
             <linkedIn/>
         </contact>
+        <contact id="13423774">
+            <name>Foo Bar</name>
+            <title>title</title>
+            <phone>123 123 123 (ikkje SMS)</phone>
+            <email>test@example.net</email>
+            <url>https://www.example.net/data/images/test.png</url>
+        </contact>
     </contacts>
     <!--Categories for the release-->
     <categories>
