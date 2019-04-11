@@ -550,6 +550,9 @@ class NTBNITFFormatterTest(TestCase):
         self.assertEqual(ntb_id.get('content'), 'NTB' + ITEM_ID)
         ntb_kilde = head.find('meta[@name="NTBKilde"]')
         self.assertEqual(ntb_kilde.get('content'), 'test ntb_pub_name')
+        # priority
+        ntb_kilde = head.find('meta[@name="NTBNewsValue"]')
+        self.assertEqual(ntb_kilde.get('content'), '2')
 
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
     def test_update_id(self):

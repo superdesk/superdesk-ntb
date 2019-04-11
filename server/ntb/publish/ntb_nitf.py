@@ -236,6 +236,11 @@ class NTBNITFFormatter(NITFFormatter):
             **metadata)
         return FILENAME_FORBIDDEN_RE.sub('-', filename_raw)
 
+    def _format_meta_priority(self, article, head):
+        priority = article.get('priority')
+        if priority is not None:
+            etree.SubElement(head, 'meta', {'name': 'NTBNewsValue', 'content': str(priority)})
+
     def _format_meta(self, article, head, destination, pub_seq_num):
         super()._format_meta(article, head, destination, pub_seq_num)
         article['head'] = head  # needed to access head when formatting body content
