@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'ntb.io',
     'ntb.io.feeding_services.newsworthy',
     'ntb.publish',
+    'ntb.ping_scanpix',
 ]
 
 # LDAP settings
@@ -286,3 +287,5 @@ VALIDATOR_MEDIA_METADATA = {
         "required": False,
     },
 }
+
+SCANPIX_PING_OWNER = env('SCANPIX_PING_OWNER')
