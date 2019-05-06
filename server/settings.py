@@ -14,6 +14,7 @@ import os
 import json
 from ntb.io.feed_parsers import ntb_nitf
 from ntb.io.feed_parsers import stt_newsml  # NOQA
+from content_api.app.settings import CONTENTAPI_INSTALLED_APPS
 
 
 try:
@@ -289,3 +290,7 @@ VALIDATOR_MEDIA_METADATA = {
 }
 
 SCANPIX_PING_OWNER = env('SCANPIX_PING_OWNER')
+
+CONTENTAPI_INSTALLED_APPS += (
+    'ntb.content_api_rss',
+)
