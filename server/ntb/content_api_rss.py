@@ -25,6 +25,9 @@ def generate_rss(items):
 
         if item.get('description_text'):
             entry.summary(item['description_text'])
+        
+        if item.get('byline'):
+            entry.author({'name': item['byline']})
 
     return fg.atom_str(pretty=True)
 
@@ -61,4 +64,4 @@ def index():
 
 
 def init_app(_app):
-    _app.register_blueprint(blueprint)
+    _app.register_blueprint(blueprint, url_prefix='/contentapi')
