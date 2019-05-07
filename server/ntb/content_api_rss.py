@@ -1,7 +1,6 @@
 import flask
 import superdesk
 
-from werkzeug.datastructures import MultiDict
 from flask import current_app as app, request
 from eve.utils import ParsedRequest
 from feedgen import feed
@@ -26,7 +25,7 @@ def generate_rss(items):
 
         if item.get('description_text'):
             entry.summary(item['description_text'])
-        
+
     return fg.atom_str(pretty=True)
 
 
@@ -37,7 +36,11 @@ def get_content(item):
             media = item['associations']['featuremedia']
             original = media.get('renditions', {}).get('original')
             if original.get('href'):
-                html += '\n<img src="{}" alt="{}" title="{}" />'.format(original['href'], media.get('headline'), media.get('headline'))
+                html += '\n<img src="{}" alt="{}" title="{}" />'.format(
+                    original['href'],
+                    media.get('headline'),
+                    media.get('headline'),
+                )
     return html
 
 
