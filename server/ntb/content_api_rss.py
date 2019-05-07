@@ -44,7 +44,7 @@ def get_content(item):
     return html
 
 
-@blueprint.route('/')
+@blueprint.route('/rss')
 def index():
     auth = app.auth
     if not auth.authorized([], 'items', request.method):
@@ -61,4 +61,4 @@ def index():
 
 
 def init_app(_app):
-    _app.register_blueprint(blueprint, url_prefix='/rss')
+    _app.register_blueprint(blueprint)
