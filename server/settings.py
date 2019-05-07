@@ -38,16 +38,6 @@ ABS_PATH = os.path.abspath(os.path.dirname(__file__))
 INIT_DATA_PATH = os.path.join(ABS_PATH, 'data')
 LOCATORS_DATA_FILE = os.path.join(ABS_PATH, 'data', 'locators.json')
 
-LOG_CONFIG_FILE = env('LOG_CONFIG_FILE', 'logging_config.yml')
-
-APPLICATION_NAME = env('APP_NAME', 'Superdesk')
-server_url = urlparse(env('SUPERDESK_URL', 'http://localhost:5000/api'))
-CLIENT_URL = env('SUPERDESK_CLIENT_URL', 'http://localhost:9000')
-URL_PROTOCOL = server_url.scheme or None
-SERVER_NAME = server_url.netloc or None
-URL_PREFIX = server_url.path.lstrip('/') or ''
-if SERVER_NAME.endswith(':80'):
-    SERVER_NAME = SERVER_NAME[:-3]
 
 INSTALLED_APPS = [
     'apps.auth',
