@@ -12,18 +12,33 @@ blueprint = flask.Blueprint('rss', __name__)
 
 def generate_rss(items):
     fg = feed.FeedGenerator()
-    fg.title('Newshub feed')
+    fg.title('Superdesk')
+    fg.id('msn-feed')
     fg.link(href=flask.url_for('rss.index', _external=True), rel='self')
     fg.description('foo')
     for item in items:
         entry = fg.add_entry()
-        entry.id(item['_id'])
+        entry.guid(item['_id'])
         entry.title(item.get('headline', item.get('name', item.get('slugline', ''))))
-        entry.description(item.get('description_text'))
-        entry.published(item['_created'])
+        entry.pubDate(item.get('firstpublished'))
         entry.updated(item['versioncreated'])
-        entry.content(item.get('body_html'), type='text/html')
-    return fg.rss_str(pretty=True)
+        entry.content(get_content(item), type='CDATA')
+
+        if item.get('description_text'):
+            entry.summary(item['description_text'])
+        
+    return fg.atom_str(pretty=True)
+
+
+def get_content(item):
+    html = item.get('body_html', '<p></p>')
+    if item.get('associations', {}):
+        if item.get('featuremedia'):
+            media = item['associations']['featuremedia']
+            original = media.get('renditions', {}).get('original')
+            if original.get('href'):
+                html += '\n<img src="{}" alt="{}" title="{}" />'.format(original['href'], media.get('headline'), media.get('headline'))
+    return html
 
 
 @blueprint.route('/')
@@ -32,7 +47,7 @@ def index():
     if not auth.authorized([], 'items', request.method):
         return auth.authenticate()
     req = ParsedRequest()
-    req.args = MultiDict()
+    req.args = request.args
     res = superdesk.get_resource_service('items').get(req, {})
     items = []
     for item in res:
