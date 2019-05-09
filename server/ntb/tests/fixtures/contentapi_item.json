@@ -1,0 +1,76 @@
+{
+    "copyrightnotice": "",
+    "readtime": 0,
+    "firstpublished": "2019-05-09T08:49:31+0000",
+    "body_html": "<p>with image</p>\n<p>foo</p>\n<!-- EMBED START Image {id: \"editor_0\"} -->\n<figure>\n    <img src=\"https://example.com/view.jpg\" alt=\"\" />\n    <figcaption>caption</figcaption>\n</figure>\n<!-- EMBED END Image {id: \"editor_0\"} -->",
+    "_updated": "2019-05-09T08:49:31+0000",
+    "headline": "again",
+    "type": "text",
+    "usageterms": "",
+    "extra": {
+        "subtitle": "test capi"
+    },
+    "firstcreated": "2019-05-09T08:48:53+0000",
+    "associations": {
+        "editor_0": {
+            "copyrightnotice": "",
+            "version": "1",
+            "firstcreated": "2019-05-09T08:49:10+0000",
+            "versioncreated": "2019-05-09T08:49:10+0000",
+            "source": "Reuters",
+            "renditions": {
+                "original": {
+                    "href": "https://example.com/original.jpg"
+                },
+                "viewImage": {
+                    "href": "https://example.com/view.jpg"
+                },
+                "baseImage": {
+                    "href": "https://example.com/base.jpg"
+                }
+            },
+            "headline": "headline",
+            "copyrightholder": "Sourcefabric",
+            "pubstatus": "usable",
+            "products": [{
+                "name": "all",
+                "code": "570e04e23c5e9f89fe95366e"
+            }],
+            "mimetype": "image/jpeg",
+            "subscribers": ["5c6eab76f78dd2309e3e28eb"],
+            "description_text": "description",
+            "type": "picture",
+            "guid": "FE6PuLOWNNs",
+            "usageterms": "",
+            "byline": "Edgar Su",
+            "priority": 5
+        }
+    },
+    "versioncreated": "2019-05-09T08:49:31+0000",
+    "subject": [{
+        "name": "lawyer",
+        "code": "02002001"
+    }, {
+        "name": "Landbruk",
+        "scheme": "subject_custom",
+        "code": "04001000"
+    }],
+    "subscribers": ["5c6eab76f78dd2309e3e28eb"],
+    "priority": 5,
+    "version": "2",
+    "wordcount": 38,
+    "source": "politics",
+    "_current_version": 2,
+    "copyrightholder": "Sourcefabric",
+    "pubstatus": "usable",
+    "_created": "2019-05-09T08:49:31+0000",
+    "charcount": 196,
+    "annotations": [],
+    "profile": "editor3",
+    "products": [{
+        "name": "all",
+        "code": "570e04e23c5e9f89fe95366e"
+    }],
+    "language": "nb-NO",
+    "_etag": "0e31f80e2526e2afb56a71d611fb0e022148618f"
+}

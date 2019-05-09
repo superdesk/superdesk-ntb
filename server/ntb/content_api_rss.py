@@ -1,12 +1,15 @@
+import re
 import flask
 import superdesk
 
+from lxml import etree
+from feedgen import feed
 from flask import current_app as app, request
 from eve.utils import ParsedRequest
-from feedgen import feed
 
 
 blueprint = flask.Blueprint('rss', __name__)
+parser = etree.HTMLParser(recover=True)
 
 
 def generate_rss(items):
@@ -25,7 +28,7 @@ def generate_rss(items):
 
         if item.get('description_text'):
             entry.summary(item['description_text'])
-        
+
         if item.get('byline'):
             entry.author({'name': item['byline']})
 
@@ -33,18 +36,24 @@ def generate_rss(items):
 
 
 def get_content(item):
+    assoc = item.get('associations') or {}
     html = item.get('body_html', '<p></p>')
-    if item.get('associations', {}):
-        if item.get('featuremedia'):
-            media = item['associations']['featuremedia']
-            original = media.get('renditions', {}).get('original')
-            if original.get('href'):
-                html += '\n<img src="{}" alt="{}" title="{}" />'.format(
-                    original['href'],
-                    media.get('headline'),
-                    media.get('headline'),
-                )
-    return html
+    tree = etree.fromstring(html, parser=parser)
+    body = tree[0]
+    for elem in body:
+        if elem.tag is etree.Comment and elem.text:
+            m = re.fullmatch(r'EMBED START Image {id: "([-_a-z0-9]+)"}', elem.text.strip())
+            if m:
+                _id = m.group(1)
+                related = assoc.get(_id)
+                if related and related.get('renditions') and related['renditions'].get('original'):
+                    img = elem.getnext().find('img')
+                    img.attrib['src'] = related['renditions']['original']['href']
+                    img.attrib['alt'] = related.get('description_text')
+    return etree.tostring(body, method='html') \
+        .decode('utf-8') \
+        .replace('<body>', '') \
+        .replace('</body>', '')
 
 
 @blueprint.route('/rss')

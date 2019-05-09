@@ -17,12 +17,6 @@ from ntb.io.feed_parsers import stt_newsml  # NOQA
 from content_api.app.settings import CONTENTAPI_INSTALLED_APPS
 
 
-try:
-    from urllib.parse import urlparse
-except ImportError:
-    from urlparse import urlparse
-
-
 def env(variable, fallback_value=None):
     env_value = os.environ.get(variable, '')
     if len(env_value) == 0:
