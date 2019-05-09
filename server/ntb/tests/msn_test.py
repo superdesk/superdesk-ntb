@@ -36,5 +36,5 @@ class MSNFeedTestCase(unittest.TestCase):
         self.assertEqual('http://localhost/contentapi/rss', feed.feed.id)
 
         entry = feed.entries[0]
-        self.assertEqual('%s' % ITEM['_id'], entry.id)
+        self.assertEqual('%s/%s' % (feed.feed.id, ITEM['_id']), entry.id)
         self.assertEqual(ITEM['subject'][0]['name'], entry.category)
