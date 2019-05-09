@@ -5,7 +5,6 @@ import flask
 import unittest
 import feedparser
 
-from lxml import etree
 from ntb.content_api_rss import get_content, generate_feed, init_app
 
 
