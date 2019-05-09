@@ -1,4 +1,5 @@
 {
+    "_id": "someid",
     "copyrightnotice": "",
     "readtime": 0,
     "firstpublished": "2019-05-09T08:49:31+0000",
@@ -49,7 +50,8 @@
     "versioncreated": "2019-05-09T08:49:31+0000",
     "subject": [{
         "name": "lawyer",
-        "code": "02002001"
+        "code": "02002001",
+        "scheme": "category"
     }, {
         "name": "Landbruk",
         "scheme": "subject_custom",
@@ -72,5 +74,6 @@
         "code": "570e04e23c5e9f89fe95366e"
     }],
     "language": "nb-NO",
+    "byline": "petr",
     "_etag": "0e31f80e2526e2afb56a71d611fb0e022148618f"
 }

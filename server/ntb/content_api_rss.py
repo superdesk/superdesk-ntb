@@ -12,19 +12,23 @@ blueprint = flask.Blueprint('rss', __name__)
 parser = etree.HTMLParser(recover=True)
 
 
-def generate_rss(items):
+def generate_feed(items):
     fg = feed.FeedGenerator()
     fg.title('Superdesk')
-    fg.id('msn-feed')
+    fg.id(flask.url_for('rss.index', _external=True))
     fg.link(href=flask.url_for('rss.index', _external=True), rel='self')
     fg.description('foo')
     for item in items:
         entry = fg.add_entry()
-        entry.guid(item['_id'])
+        entry.guid('{}/{}'.format(flask.url_for('rss.index', _external=True), item['_id']))
         entry.title(item.get('headline', item.get('name', item.get('slugline', ''))))
         entry.pubDate(item.get('firstpublished'))
         entry.updated(item['versioncreated'])
         entry.content(get_content(item), type='CDATA')
+
+        category = [{'term': s.get('name')} for s in item.get('subject', []) if s.get('scheme') == 'category']
+        if category:
+            entry.category(category)
 
         if item.get('description_text'):
             entry.summary(item['description_text'])
@@ -32,7 +36,8 @@ def generate_rss(items):
         if item.get('byline'):
             entry.author({'name': item['byline']})
 
-    return fg.atom_str(pretty=True)
+    return fg.atom_str(pretty=True) \
+        .replace(b'<content type="CDATA">', b'<content type="html">')
 
 
 def get_content(item):
@@ -67,9 +72,8 @@ def index():
     items = []
     for item in res:
         items.append(item)
-
-    content = generate_rss(items)
-    return flask.Response(content, mimetype='application/rss+xml')
+    content = generate_feed(items)
+    return flask.Response(content, mimetype='application/atom+xml')
 
 
 def init_app(_app):
