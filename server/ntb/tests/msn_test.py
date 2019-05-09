@@ -39,4 +39,3 @@ class MSNFeedTestCase(unittest.TestCase):
         entry = feed.entries[0]
         self.assertEqual('http://localhost/contentapi/rss/%s' % ITEM['_id'], entry.id)
         self.assertEqual(ITEM['subject'][0]['name'], entry.category)
-        assert False
