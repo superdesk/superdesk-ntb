@@ -31,11 +31,10 @@ class MSNFeedTestCase(unittest.TestCase):
         init_app(app)
         with app.app_context():
             xml = generate_feed([ITEM])
-        print(xml.decode('utf-8'))
 
         feed = feedparser.parse(xml)
         self.assertEqual('http://localhost/contentapi/rss', feed.feed.id)
 
         entry = feed.entries[0]
-        self.assertEqual('http://localhost/contentapi/rss/%s' % ITEM['_id'], entry.id)
+        self.assertEqual(ITEM['_id'], entry.id)
         self.assertEqual(ITEM['subject'][0]['name'], entry.category)

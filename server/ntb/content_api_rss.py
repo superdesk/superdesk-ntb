@@ -20,7 +20,7 @@ def generate_feed(items):
     fg.description('foo')
     for item in items:
         entry = fg.add_entry()
-        entry.guid('{}/{}'.format(flask.url_for('rss.index', _external=True), item['_id']))
+        entry.guid(item['_id'])
         entry.title(item.get('headline', item.get('name', item.get('slugline', ''))))
         entry.pubDate(item.get('firstpublished'))
         entry.updated(item['versioncreated'])
