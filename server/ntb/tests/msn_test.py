@@ -29,7 +29,7 @@ class MSNFeedTestCase(unittest.TestCase):
         app = flask.Flask(__name__)
         app.config['SERVER_NAME'] = 'localhost'
         init_app(app)
-        with app.app_context():
+        with app.test_request_context('/'):
             xml = generate_feed([ITEM])
 
         feed = feedparser.parse(xml)
