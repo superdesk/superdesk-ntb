@@ -42,7 +42,7 @@ def generate_feed(items):
 
 def get_content(item):
     assoc = item.get('associations') or {}
-    html = item.get('body_html', '<p></p>')
+    html = item.get('body_html', '<p></p>').replace('<figcatpion>', '<figcaption>')
     tree = etree.fromstring(html, parser=parser)
     body = tree[0]
     for elem in body:

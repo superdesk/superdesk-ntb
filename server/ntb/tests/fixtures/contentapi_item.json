@@ -3,7 +3,7 @@
     "copyrightnotice": "",
     "readtime": 0,
     "firstpublished": "2019-05-09T08:49:31+0000",
-    "body_html": "<p>with image</p>\n<p>foo</p>\n<!-- EMBED START Image {id: \"editor_0\"} -->\n<figure>\n    <img src=\"https://example.com/view.jpg\" alt=\"\" />\n    <figcaption>caption</figcaption>\n</figure>\n<!-- EMBED END Image {id: \"editor_0\"} -->",
+    "body_html": "<p>with image</p>\n<p>foo</p>\n<!-- EMBED START Image {id: \"editor_0\"} -->\n<figure>\n    <img src=\"https://example.com/view.jpg\" alt=\"\" />\n    <figcatpion>caption</figcaption>\n</figure>\n<!-- EMBED END Image {id: \"editor_0\"} -->",
     "_updated": "2019-05-09T08:49:31+0000",
     "headline": "again",
     "type": "text",
