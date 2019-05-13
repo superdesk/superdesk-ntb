@@ -30,6 +30,7 @@ class XMLParserTestCase(TestCase):
         dirname = os.path.dirname(os.path.realpath(__file__))
         fixture = os.path.normpath(os.path.join(dirname, '../fixtures', self.filename))
         provider = {'_id': '123123', 'name': 'Test'}
+
         with open(fixture, 'rb') as f:
             self.xml = f.read()
             self.xml_root = etree.fromstring(self.xml)

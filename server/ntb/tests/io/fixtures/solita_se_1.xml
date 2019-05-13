@@ -1,0 +1,166 @@
+<NewsML
+  Version="1.2"
+  xmlns="http://iptc.org/std/NewsML/2003-10-10/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://iptc.org/std/NewsML/2003-10-10/ https://www.iptc.org/std/NewsML/1.2/specification/NewsML_1.2-xmlschema_4.xsd">
+  <NewsEnvelope>
+    <DateAndTime>20190404T135504+0200</DateAndTime>
+    <NewsProduct FormalName="nordicir.com"/>
+  </NewsEnvelope>
+  <NewsItem>
+    <Identification>
+      <NewsIdentifier>
+        <ProviderId>nordicir.com</ProviderId>
+        <DateId>20190402</DateId>
+        <NewsItemId>ntb:announcement:8-en</NewsItemId>
+        <RevisionId PreviousRevision="0" Update="N">1</RevisionId>
+        <PublicIdentifier>urn:newsml:nordicir.com:20190402:ntb:announcement:8-en:1</PublicIdentifier>
+      </NewsIdentifier>
+    </Identification>
+    <NewsManagement>
+      <NewsItemType FormalName="News"/>
+      <FirstCreated>20190402T160209+0200</FirstCreated>
+      <ThisRevisionCreated>20190402T160209+0200</ThisRevisionCreated>
+      <Status FormalName="Usable"/>
+      <Urgency FormalName="4"/>
+    </NewsManagement>
+    <NewsComponent>
+      <NewsLines>
+        <HeadLine>This is the title</HeadLine>
+        <DateLine>2.4.2019 16:02:09 CEST</DateLine>
+        <ByLine>Cypress Test publisher</ByLine>
+      </NewsLines>
+      <AdministrativeMetadata>
+        <Source>
+          <Party FormalName="Cypress Test publisher"/>
+        </Source>
+      </AdministrativeMetadata>
+      <DescriptiveMetadata>
+        <Language FormalName="en"/>
+        <Property FormalName="Country" Value="DK"/>
+      </DescriptiveMetadata>
+      <Metadata>
+        <MetadataType FormalName="Securities Identifier"/>
+        <Property FormalName="Exchange" Value="First North Denmark"/>
+        <Property FormalName="ISIN" Value="US0004026250"/>
+      </Metadata>
+      <ContentItem Euid="announcement_html">
+        <MimeType FormalName="text/html"/>
+        <DataContent>
+          <![CDATA[<!-- title -->
+<h1>This is the title</h1>
+<!-- byline -->
+<p>2.4.2019 16:02:09 CEST | Cypress Test publisher | Annual report</p>
+<!-- leadtext -->
+The is the lead text
+<!-- body -->
+<p>This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. </p>
+<p>This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. </p>
+<p>This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. This is the body text. </p>
+<!-- legal disclaimer -->
+<h4>Disclaimer</h4>
+<p>This is the English disclaimer text</p>
+<!-- contacts -->
+<h4>Contacts</h4>
+<ul>
+    <li>
+        Lennart Lie-Havstein
+        Produktsjef
+        +47 942 77 795
+        <a href="mailto:lennart.lie-havstein@ntb.no">lennart.lie-havstein@ntb.no</a>
+    </li>
+</ul>
+<!-- boilerplate -->
+<h4>About Cypress Test publisher</h4>
+<p>This is the English About us text</p>
+<!-- attachments -->
+<h4>Attachments</h4>
+<ul>
+    <li>
+        <a href="https://prs-ntb-beta.solitaservices.fi/ir-files/42/8/1/NewsML%201.2%20documentation%20for%203rd%20parties.pdf">NewsML 1.2 documentation for 3rd parties.pdf</a>
+    </li>
+</ul>
+]]>
+        </DataContent>
+      </ContentItem>
+      <ContentItem Euid="announcement_pdf" Href="https://prs-nordic-platform-beta.solitaservices.fi/announcements/pdf/ntb/8/en"><MimeType FormalName="application/pdf"/></ContentItem>
+      <ContentItem Href="https://prs-ntb-beta.solitaservices.fi/ir-files/42/8/1/NewsML%201.2%20documentation%20for%203rd%20parties.pdf"><MimeType FormalName="application/pdf"/>
+        <Characteristics>
+          <SizeInBytes>513008</SizeInBytes><Property FormalName="Title" Value="NewsML 1.2 documentation for 3rd parties.pdf"/></Characteristics>
+      </ContentItem>
+    </NewsComponent>
+  </NewsItem>
+  <NewsItem>
+    <Identification>
+      <NewsIdentifier>
+        <ProviderId>nordicir.com</ProviderId>
+        <DateId>20190402</DateId>
+        <NewsItemId>ntb:announcement:8-no</NewsItemId>
+        <RevisionId PreviousRevision="0" Update="N">1</RevisionId>
+        <PublicIdentifier>urn:newsml:nordicir.com:20190402:ntb:announcement:8-no:1</PublicIdentifier>
+      </NewsIdentifier>
+    </Identification>
+    <NewsManagement><NewsItemType FormalName="News"/>
+      <FirstCreated>20190402T160209+0200</FirstCreated>
+      <ThisRevisionCreated>20190402T160209+0200</ThisRevisionCreated><Status FormalName="Usable"/><Urgency FormalName="4"/></NewsManagement>
+    <NewsComponent>
+      <NewsLines>
+        <HeadLine>Dette er tittelen</HeadLine>
+        <DateLine>2.4.2019 16:02:09 CEST</DateLine>
+        <ByLine>Cypress Test publisher</ByLine>
+      </NewsLines>
+      <AdministrativeMetadata>
+        <Source><Party FormalName="Cypress Test publisher"/></Source>
+      </AdministrativeMetadata>
+      <DescriptiveMetadata><Language FormalName="no"/><Property FormalName="Country" Value="DK"/></DescriptiveMetadata>
+      <Metadata><MetadataType FormalName="Securities Identifier"/><Property FormalName="Exchange" Value="First North Denmark"/><Property FormalName="ISIN" Value="US0004026250"/></Metadata>
+      <ContentItem Euid="announcement_html"><MimeType FormalName="text/html"/>
+        <DataContent>
+          <![CDATA[<!-- title -->
+<h1>Dette er tittelen</h1>
+<!-- byline -->
+<p>2.4.2019 16:02:09 CEST | Cypress Test publisher | Årsrapport</p>
+<!-- leadtext -->
+Dette er ingressen
+<!-- body -->
+<p>Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. </p>
+<p>Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. </p>
+<p>Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. Dette er brødteksten. </p>
+<!-- legal disclaimer -->
+<h4>Ansvarsfraskrivelse</h4>
+<p>Dette er den norske ansvarsfraskrivelsesteksten</p>
+<!-- contacts -->
+<h4>Kontakter</h4>
+<ul>
+    <li>
+        Lennart Lie-Havstein
+        Produktsjef
+        +47 942 77 795
+        <a href="mailto:lennart.lie-havstein@ntb.no">lennart.lie-havstein@ntb.no</a>
+    </li>
+</ul>
+<!-- boilerplate -->
+<h4>Om Cypress Test publisher</h4>
+<p>Dette er den norske Om oss- teksten</p>
+<!-- attachments -->
+<h4>Vedlegg</h4>
+<ul>
+    <li>
+        <a href="https://prs-ntb-beta.solitaservices.fi/ir-files/42/8/2/2019-02-22%20-%20Hjemstatsliste.pdf">2019-02-22 - Hjemstatsliste.pdf</a>
+    </li>
+</ul>
+]]>
+        </DataContent>
+      </ContentItem>
+      <ContentItem Euid="announcement_pdf" Href="https://prs-nordic-platform-beta.solitaservices.fi/announcements/pdf/ntb/8/no"><MimeType FormalName="application/pdf"/>
+      </ContentItem>
+      <ContentItem Href="https://prs-ntb-beta.solitaservices.fi/ir-files/42/8/2/2019-02-22%20-%20Hjemstatsliste.pdf">
+        <MimeType FormalName="application/pdf"/>
+        <Characteristics>
+          <SizeInBytes>246174</SizeInBytes>
+          <Property FormalName="Title" Value="2019-02-22 - Hjemstatsliste.pdf"/>
+        </Characteristics>
+      </ContentItem>
+    </NewsComponent>
+  </NewsItem>
+</NewsML>
