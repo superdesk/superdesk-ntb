@@ -19,13 +19,17 @@
                 "type": "list",
                 "required": false,
                 "nullable": true
+            },
+            "category": {
+                "required": true
             }
         },
         "editor": {
             "occur_status": {"enabled": false},
             "category": {"enabled": true},
             "subject": {"enabled": false},
-            "subject_custom": {"enabled": true}
+            "subject_custom": {"enabled": true},
+            "anpa_category": {"enabled": false}
         }
     },
     {
@@ -79,7 +83,10 @@
 	        "files" : {
 	            "required" : false,
 	            "type" : "list"
-	        }
+	        },
+            "category": {
+                "required": true
+            }
         },
         "editor": {
             "agendas": {
@@ -89,7 +96,7 @@
                 "enabled": false
             },
             "anpa_category": {
-                "enabled": true
+                "enabled": false
             },
             "description_text": {
                 "enabled": true

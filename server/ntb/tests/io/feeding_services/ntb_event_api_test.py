@@ -2,7 +2,7 @@ import os
 from unittest import mock
 
 from superdesk.tests import TestCase
-from superdesk.vocabularies.commands import VocabulariesPopulateCommand
+from apps.prepopulate.app_populate import AppPopulateCommand
 import ntb
 from ntb.io.feeding_services import ntb_event_api
 from planning.events import init_app as init_events_app
@@ -32,7 +32,7 @@ class NTBEventsApiFeedingServiceTestCase(TestCase):
             voc_file = os.path.join(
                 os.path.abspath(os.path.dirname(os.path.dirname(ntb.__file__))), 'data', 'vocabularies.json'
             )
-            VocabulariesPopulateCommand().run(voc_file)
+            AppPopulateCommand().run(voc_file)
             # by default events resource is not available
             init_events_app(self.app)
 

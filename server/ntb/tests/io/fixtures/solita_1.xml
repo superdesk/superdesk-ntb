@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<release id="17854111" lang="no">
+    <!--Long URL for the release if published in the agency's website. Url has release title and other key values in the url-->
+    <longurl>https://www.ntbinfo.no/pressemelding/signerte-veikontrakt-pa-4-mrd-i-trondelag?releaseId=17854111</longurl>
+    <!--Body text for a release, HTML (both XML- and HTML-encoded)-->
+    <body>&lt;p&gt;&amp;ndash; Dette er en merkedag for Nye Veier. N&amp;aring; signerer vi kontrakten for en av v&amp;aring;re h&amp;oslash;yest prioriterte strekninger, og det f&amp;oslash;rste virkelig store prosjektet i Tr&amp;oslash;ndelag. Med dette er vi i gang i alle v&amp;aring;re utbyggingsomr&amp;aring;der, sier Nye Veiers administrerende direkt&amp;oslash;r, Ingrid Dahl Hovland.&lt;/p&gt;
+        &lt;p&gt;ACCIONA Construction er tildelt kontrakten sammen med sine norske underleverand&amp;oslash;rer Multiconsult og Leonhard Nilsen &amp;amp; S&amp;oslash;nner. Entreprisen omfatter prosjektering og bygging av 23 kilometer firefelts motorvei langs dagens E6-tras&amp;eacute;. Det skal ogs&amp;aring; bygges tre tunneler parallelt med de eksisterende, samt en ny tunnel forbi Hommelvik. I prosjektet inng&amp;aring;r totalt &amp;aring;tte bruer og tre toplanskryss.&lt;/p&gt;
+        &lt;p&gt;&amp;ndash; I et selskap som v&amp;aring;rt, der vi legger stor vekt p&amp;aring; &amp;aring;&lt;em&gt; fornye&lt;/em&gt; og &lt;em&gt;forbedre,&lt;/em&gt; b&amp;oslash;r vi ogs&amp;aring; v&amp;aelig;re &amp;aring;pne for at det kan v&amp;aelig;re mye &amp;aring; l&amp;aelig;re av et konsern som bygger infrastruktur i over 40 land, og &amp;aring;rlig setter av mer enn to milliarder kroner til forskning og utvikling, sier Dahl Hovland.&lt;/p&gt;
+        &lt;p&gt;Ny E6 Ranheim&amp;ndash;V&amp;aelig;rnes f&amp;aring;r i hovedsak en fartsgrense p&amp;aring; 110 km/t, og utbyggingen vil redusere k&amp;oslash;er og stimulere til vekst og utvikling i det sammensl&amp;aring;tte Tr&amp;oslash;ndelag. Med fire felt og doble tunnell&amp;oslash;p styrkes ogs&amp;aring; trafikksikkerheten betydelig.&lt;/p&gt;
+        &lt;p&gt;Kontrakten mellom ACCIONA Construction og Nye Veier er utformet som en s&amp;aring;kalt integrert samhandlingskontrakt, den andre slik type kontrakt Nye Veier inng&amp;aring;r p&amp;aring; en uke.&lt;/p&gt;
+        &lt;p&gt;-Slike kontrakter er til n&amp;aring; sjeldne i norsk anleggsbransje, og betyr i korthet tett samarbeid med optimalisering og utarbeidelse av reguleringsplaner i f&amp;oslash;rste fase mellom byggherre, entrepren&amp;oslash;r og r&amp;aring;dgiver. Deretter lukkes kontrakten som totalentreprise i gjennomf&amp;oslash;ringsfasen, forklarer prosjektdirekt&amp;oslash;r i Nye Veier Tr&amp;oslash;ndelag, Johan Arnt Vatnan.&lt;/p&gt;
+        &lt;p&gt;Byggestart er planlagt i midten av 2019. Prosjektet fullf&amp;oslash;res i 2024/2025.&lt;/p&gt;</body>
+    <!--Boilerplate text for the release, plain text-->
+    <boilerplate/>
+    <!--Possible contact persons for the release as plain text-->
+    <contactsAsText>Ingrid Dahl Hovland 
+        Adm. direktør, Nye Veier 
+        ingrid.hovland@nyeveier.no 
+        905 823 34 
+        
+        Johan Arnt Vatnan
+        Prosjektdirektør, Nye Veier
+        johan.arnt.vatnan@nyeveier.no
+        922 51 113</contactsAsText>
+    <!--Embargo, used pattern is dd.MM.yyyy HH:mm-->
+    <embargo/>
+    <!--Possible keywords for a release, free text-->
+    <keywords/>
+    <!--Lead text for a release, HTML (in XML-encoded form)-->
+    <leadtext>Nye Veier har signert kontrakt med det spanske konsernet ACCIONA Construction om E6-utbygging i Trøndelag, mellom Ranheim og Værnes. Kontrakten er en totalentreprise verdt ca. 4 milliarder kroner, det vil si en av landets største veikontrakter.</leadtext>
+    <!--Embed code for video-->
+    <videoembedcode/>
+    <!--Description for video)-->
+    <videodescription/>
+    <!--URL to the video channel-->
+    <videochannellink/>
+    <!--URL to video thumbnail-->
+    <videothumbnailurl/>
+    <!--Publication date, used pattern is dd.MM.yyyy HH:mm-->
+    <publicationDate>28.09.2018 11:15</publicationDate>
+    <!--Release's title, plain text-->
+    <title>Signerte veikontrakt på 4 mrd. i Trøndelag</title>
+    <language id="16">
+        <!--Language of the release, fixed information, you may use the unique identifier for maintaining references. label-element contains the label in the language the release was written in.-->
+        <label>Norsk</label>
+    </language>
+    <type id="19">
+        <!--Type of the release, fixed information, you may use the unique identifier for maintaining references. label-element contains the label in the language the release was written in.-->
+        <label>Pressemelding</label>
+    </type>
+    <!--Possible logo information related to the release-->
+    <logos>
+        <logo id="17854177">
+            <!--URL for a logo image in absolute form-->
+            <url>https://www.ntbinfo.no/data/images/00440/1a38c89e-da41-4654-9302-d262265cc772.png</url>
+        </logo>
+    </logos>
+    <!--Images attached to the release-->
+    <images>
+        <image id="17854250">
+            <!--URL of a image (the orignal, full-size version of it) attached to a release in absolute form-->
+            <url>https://www.ntbinfo.no/data/images/00775/c7bdf102-9122-4fce-b762-e34353d7a68b.jpg</url>
+            <!--Possible caption for the image as plain text-->
+            <caption/>
+            <!--URL for the small size image-->
+            <smallimageurl>https://www.ntbinfo.no/data/images/00775/c7bdf102-9122-4fce-b762-e34353d7a68b-release_thumbnail.jpg</smallimageurl>
+            <!--URL for the medium size image-->
+            <mediumimageurl>https://www.ntbinfo.no/data/images/00775/c7bdf102-9122-4fce-b762-e34353d7a68b-main_image.jpg</mediumimageurl>
+        </image>
+        <image id="17854273">
+            <!--URL of a image (the orignal, full-size version of it) attached to a release in absolute form-->
+            <url>https://www.ntbinfo.no/data/images/00507/26539909-564d-40dc-8298-d237b964dde9.jpg</url>
+            <!--Possible caption for the image as plain text-->
+            <caption>Kontrakten ble signert i Trondheim i dag. Fra venstre: Pablo Garcia Caramés, finanssjef, ACCIONA Construction; Joan Gil, divisjonssjef, ACCIONA Construction; Ingrid Dahl Hovland, adm. dir. Nye Veier og Johan Arnt Vatnan, prosjektdir. Nye Veier.</caption>
+            <!--URL for the small size image-->
+            <smallimageurl>https://www.ntbinfo.no/data/images/00507/26539909-564d-40dc-8298-d237b964dde9-release_thumbnail.jpg</smallimageurl>
+            <!--URL for the medium size image-->
+            <mediumimageurl>https://www.ntbinfo.no/data/images/00507/26539909-564d-40dc-8298-d237b964dde9-main_image.jpg</mediumimageurl>
+        </image>
+    </images>
+    <!--Other attachments for the release-->
+    <documents/>
+    <!--Wires the release is distributed to-->
+    <distributionChannels>
+        <distributionChannel id="8457" channel="WIRE_NORWAY">
+            <!--Wire's name, in plain-text - this value can change, so do not rely on this when resolving the target for the exports, use the unique wire identifier instead-->
+            <name>WIRE_NORWAY</name>
+        </distributionChannel>
+    </distributionChannels>
+    <!--Social Media channels the release selected to distribute-->
+    <someChannels>
+        <someChannel>
+            <!--Unique fixed textual identifier for the social media and value for publishers selection-->
+            <TWITTER selected="YES"/>
+        </someChannel>
+    </someChannels>
+    <!--Other online services-->
+    <onlineServices/>
+    <!--Links-->
+    <links/>
+    <!--Contact persons' for the release-->
+    <contacts/>
+    <!--Categories for the release-->
+    <categories/>
+    <!--Publisher for the current release, unique identifier can be used to maintain references to release if so desired-->
+    <publisher id="14424980">
+        <!--Publisher's name in arbitrary format-->
+        <name>Nye Veier</name>
+        <!--Street address for the publisher-->
+        <address>Tangen 76, 4608, Kristiansand</address>
+        <!--Web site address, may or may not contain the prefix for the URL-->
+        <webSite>http://www.nyeveier.no</webSite>
+        <!--Free-text keywords in arbitrary format-->
+        <keywords/>
+        <!--Description (boilerplate) for the publisher as plain text-->
+        <description>Nye Veier er et fullt ut statlig eid aksjeselskap. Selskapets oppgaver omfatter å planlegge, bygge, drifte og vedlikeholde viktige hovedveier. Disse binder landet vårt sammen, og knytter Norge til hovedveier i utlandet. Nye Veier skal være en slank og effektiv byggherreorganisasjon, med et mål om å sikre helhetlig og kostnadseffektiv utbygging og drift av trafikksikre hovedveier.
+            Denne infrastrukturen vil raskt styrke næringslivets konkurranseevne, gi innbyggere mer effektiv, forutsigbar og tryggere veitransport og mer vei for pengene. Dette skaper en merverdi, utover utbygging i tradisjonell forstand.
+            Selskapets visjon er «Vi skal bygge gode veier raskt og smart». Våre verdier er fornyer, forbedrer og forsikrer.</description>
+    </publisher>
+</release>

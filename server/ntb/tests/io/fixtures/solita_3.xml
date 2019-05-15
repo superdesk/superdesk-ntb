@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<release id="17861325" lang="no">
+    <!--Long URL for the release if published in the agency's website. Url has release title and other key values in the url-->
+    <longurl>https://www.ntbinfo.no/pressemelding/nedgang-men-fortsatt-hoye-konkurstall-med-bransje--og-fylkesoversikt?releaseId=17861325</longurl>
+    <!--Body text for a release, HTML (both XML- and HTML-encoded)-->
+    <body>&lt;p&gt;6244 bedrifter har g&amp;aring;tt overende de siste 12 m&amp;aring;nedene. Det er en &amp;oslash;kning p&amp;aring; hele 6,6 prosent sammenlignet med samme periode i fjor. &amp;shy;&amp;ndash; Det er spesielt noen bransjer som merker presset. Butikkene har for lengst merket kampen mot netthandelen og sliter med lave marginer, forteller Per Einar Ruud i data- og analyseselskapet Bisnode.&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Ringvirkninger&lt;/strong&gt;&lt;/p&gt;
+        &lt;p&gt;Mange store kjeder gikk overende i 2018, og denne utviklingen har fortsatt inn i 2019. I februar gikk ogs&amp;aring; Hansen &amp;amp; Dysvik konkurs. &amp;ndash; Hvis butikkene ikke bestiller varer eller ikke betaler sine leverand&amp;oslash;rer, vil dette gi ringvirkninger, sier Ruud. Bransjen Lagring og Transport opplever en &amp;oslash;kning p&amp;aring; hele 42,6 prosent i antall konkurser og tvangsavviklinger hittil i &amp;aring;r.&lt;/p&gt;
+        &lt;p&gt;To av bransjene som kan ha hatt en positiv p&amp;aring;virkning p&amp;aring; februar-tallene er Bygg og Anlegg samt Tjenesteyting. Bygg og Anlegg har hatt en nedgang p&amp;aring; 13,5 prosent hittil i &amp;aring;r, men st&amp;aring;r fortsatt for 25,9 prosent av alle konkurser. Tjenesteyting har hatt en nedgang p&amp;aring; hele 30,9 prosent i samme periode.&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;St&amp;oslash;rst &amp;oslash;kning i Hedmark og Nordland&lt;/strong&gt;&lt;/p&gt;
+        &lt;p&gt;Hedmark har hatt en &amp;oslash;kning p&amp;aring; 34,5 prosent og Nordland en &amp;oslash;kning p&amp;aring; hele 59 prosent i konkursene hittil i &amp;aring;r. Mens det stort sett har v&amp;aelig;rt en nedgang i de store n&amp;aelig;ringslivsfylkene som Oslo og Hordaland. Av de store er det kun Akershus som har en liten oppgang i konkurser i 2019.&lt;/p&gt;
+        &lt;p&gt;&amp;ndash; Det er mange faktorer som bestemmer om bedriften overlever i markedet. Blant annet innkj&amp;oslash;p, bransjeutvikling, rammebetingelser, markedsf&amp;oslash;ring og kundeopplevelser. Men det er i hvert fall en ting man kan gj&amp;oslash;re noe med for &amp;aring; unng&amp;aring; konkurs, og det er &amp;aring; f&amp;oslash;lge godt med p&amp;aring; de man handler med og v&amp;aelig;re tilbakeholden med kreditter til virksomheter som sliter, r&amp;aring;der Ruud.&lt;/p&gt;</body>
+    <!--Boilerplate text for the release, plain text-->
+    <boilerplate>Bisnode er et ledende europeisk data- og analyseselskap. Vi hjelper bedrifter med å finne og administrere sine kunder gjennom hele kundens livssyklus. Vi gjør dette ved å samle og utvikle smarte data for å gjøre våre kunder i stand til å ta smarte avgjørelser. Bisnode har 2400 ansatte i 18 land og har hovedkontor i Stockholm, Sverige. Bisnode Norge AS holder til i Oslo Havnelager.</boilerplate>
+    <!--Possible contact persons for the release as plain text-->
+    <contactsAsText/>
+    <!--Embargo, used pattern is dd.MM.yyyy HH:mm-->
+    <embargo/>
+    <!--Possible keywords for a release, free text-->
+    <keywords>konkurs Bisnode næringsliv tvangsavviklinger eiendom</keywords>
+    <!--Lead text for a release, HTML (in XML-encoded form)-->
+    <leadtext>446 bedrifter ble slått konkurs eller tvangsavviklet av myndighetene i februar. Det er en nedgang på 17,3 prosent sammenlignet med samme måned i fjor. –Samtidig som konkurstallene er bedre enn på samme tid i fjor, er tallene fortsatt høye, og noen bransjer sliter veldig, sier kredittøkonom Per Einar Ruud i Bisnode.</leadtext>
+    <!--Embed code for video-->
+    <videoembedcode/>
+    <!--Description for video)-->
+    <videodescription/>
+    <!--URL to the video channel-->
+    <videochannellink/>
+    <!--URL to video thumbnail-->
+    <videothumbnailurl/>
+    <!--Publication date, used pattern is dd.MM.yyyy HH:mm-->
+    <publicationDate>04.03.2019 15:05</publicationDate>
+    <!--Release's title, plain text-->
+    <title>Nedgang, men fortsatt høye konkurstall (med bransje- og fylkesoversikt)</title>
+    <language id="16">
+        <!--Language of the release, fixed information, you may use the unique identifier for maintaining references. label-element contains the label in the language the release was written in.-->
+        <label>Norsk</label>
+    </language>
+    <type id="19">
+        <!--Type of the release, fixed information, you may use the unique identifier for maintaining references. label-element contains the label in the language the release was written in.-->
+        <label>Pressemelding</label>
+    </type>
+    <!--Possible logo information related to the release-->
+    <logos>
+        <logo id="17862049">
+            <!--URL for a logo image in absolute form-->
+            <url>https://www.ntbinfo.no/data/images/00431/d430b019-537c-4bd7-88c7-b4925ad44321.png</url>
+        </logo>
+    </logos>
+    <!--Images attached to the release-->
+    <images>
+        <image id="17862629">
+            <!--URL of a image (the orignal, full-size version of it) attached to a release in absolute form-->
+            <url>https://www.ntbinfo.no/data/images/00390/20b6d51e-3abb-4eff-ae86-c4dfff029a23.jpg</url>
+            <!--Possible caption for the image as plain text-->
+            <caption>6244 bedrifter har gått overende de siste 12 månedene. Spesielt Detaljhandel, Lagring og Transport merker presset. (foto for fri bruk til saken)</caption>
+            <!--URL for the small size image-->
+            <smallimageurl>https://www.ntbinfo.no/data/images/00390/20b6d51e-3abb-4eff-ae86-c4dfff029a23-release_thumbnail.jpg</smallimageurl>
+            <!--URL for the medium size image-->
+            <mediumimageurl>https://www.ntbinfo.no/data/images/00390/20b6d51e-3abb-4eff-ae86-c4dfff029a23-main_image.jpg</mediumimageurl>
+        </image>
+        <image id="17862609">
+            <!--URL of a image (the orignal, full-size version of it) attached to a release in absolute form-->
+            <url>https://www.ntbinfo.no/data/images/00749/e303f05c-30ad-4821-8862-d0f1f27d484a.jpg</url>
+            <!--Possible caption for the image as plain text-->
+            <caption>– Det er spesielt noen bransjer som merker presset. Butikkene har for lengst merket kampen mot netthandelen og sliter med lave marginer, forteller Per Einar Ruud i data- og analyseselskapet Bisnode.</caption>
+            <!--URL for the small size image-->
+            <smallimageurl>https://www.ntbinfo.no/data/images/00749/e303f05c-30ad-4821-8862-d0f1f27d484a-release_thumbnail.jpg</smallimageurl>
+            <!--URL for the medium size image-->
+            <mediumimageurl>https://www.ntbinfo.no/data/images/00749/e303f05c-30ad-4821-8862-d0f1f27d484a-main_image.jpg</mediumimageurl>
+        </image>
+    </images>
+    <!--Other attachments for the release-->
+    <documents>
+        <document id="17852118">
+            <!--Absolute URL for the document-->
+            <url>https://www.ntbinfo.no/data/attachments/00203/fa42f1c1-aaa5-4ec1-908d-8b38a100bfab.pptx</url>
+            <!--Document's title as plain text-->
+            <title>Konkurser februar 2019.pptx</title>
+            <!--Document's MIME-type, e.g. text/html-->
+            <mimeType>application/vnd.openxmlformats-officedocument.presentationml.presentation</mimeType>
+        </document>
+    </documents>
+    <!--Wires the release is distributed to-->
+    <distributionChannels>
+        <distributionChannel id="8457" channel="WIRE_NORWAY">
+            <!--Wire's name, in plain-text - this value can change, so do not rely on this when resolving the target for the exports, use the unique wire identifier instead-->
+            <name>WIRE_NORWAY</name>
+        </distributionChannel>
+    </distributionChannels>
+    <!--Social Media channels the release selected to distribute-->
+    <someChannels>
+        <someChannel>
+            <!--Unique fixed textual identifier for the social media and value for publishers selection-->
+            <TWITTER selected="YES"/>
+        </someChannel>
+    </someChannels>
+    <!--Other online services-->
+    <onlineServices/>
+    <!--Links-->
+    <links>
+        <link id="17867648">
+            <!--The URL of the link-->
+            <url>http://www.bisnode.no</url>
+            <!--Link description-->
+            <description/>
+        </link>
+    </links>
+    <!--Contact persons' for the release-->
+    <contacts>
+        <contact id="17858076">
+            <!--Contact person's name in arbitrary format-->
+            <name>Per Einar Ruud i Bisnode</name>
+            <!--Contact person's title in arbitrary format-->
+            <title>Kredittøkonom, Bisnode</title>
+            <!--Contact person's phone number in arbitrary format-->
+            <phone>+47 92 40 10 04 </phone>
+            <!--Contact person's e-mail address-->
+            <email>per.einar.ruud@bisnode.com</email>
+            <!--WWW address for the contact person in arbitrary format-->
+            <url>https://www.ntbinfo.no/data/images/00238/2b90f843-ce5a-4bb0-90f3-bf4ab9447975.jpg</url>
+            <!--Skype username for the contact person-->
+            <skype/>
+            <!--Blog address for the contact person in arbitrary format-->
+            <blog/>
+            <!--Twitter account name for the contact person-->
+            <twitter/>
+            <!--LinkedIn account name for the contact person-->
+            <linkedIn/>
+        </contact>
+    </contacts>
+    <!--Categories for the release-->
+    <categories>
+        <category id="16789972">
+            <!--Category's name-->
+            <label>Økonomi og næringsliv</label>
+        </category>
+        <category id="16789970">
+            <!--Category's name-->
+            <label>Vitenskap og teknologi</label>
+        </category>
+        <category id="16789964">
+            <!--Category's name-->
+            <label>Politikk</label>
+        </category>
+        <category id="16789956">
+            <!--Category's name-->
+            <label>Arbeidsliv</label>
+        </category>
+    </categories>
+    <!--Publisher for the current release, unique identifier can be used to maintain references to release if so desired-->
+    <publisher id="10874623">
+        <!--Publisher's name in arbitrary format-->
+        <name>Bisnode</name>
+        <!--Business id for this publisher-->
+        <businessId/>
+        <!--Street address for the publisher-->
+        <address>Langkaia 1, 0150, Oslo</address>
+        <!--Web site address, may or may not contain the prefix for the URL-->
+        <webSite>http://www.bisnode.com/norge</webSite>
+        <!--Description (boilerplate) for the publisher as plain text-->
+        <description>Store og små spørsmål eksisterer i alle selskaper, organisasjoner og forretningsområder. Spørsmål som krever oppmerksomhet og gode svar før du kan ta en avgjørelse og sette i gang effektive tiltak.
+            Dette er vår drivende kraft i Bisnode. Det å hjelpe mennesker å finne det riktige svaret. Vi er linken mellom all eksisterende informasjon og innsikten mennesker trenger for å ta kloke beslutninger. 
+            Bisnode har ca 2400 ansatte i 18 europeiske land. Investeringsselskapet Ratos eier 70 % av Bisnode og de resterende 30 % er eid av Bonnier.</description>
+    </publisher>
+</release>

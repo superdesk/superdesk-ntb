@@ -1,0 +1,101 @@
+{
+    "publish_schedule": null,
+    "source": "NaregsDesk",
+    "event_id": "22c6c886-d082-4b1e-9579-7f92754eca0d",
+    "family_id": "a3b71dbe-c23b-49d8-8f2b-cbe09e2cff3e",
+    "slugline": "test",
+    "version_creator": "5640a5eef40235008465242b",
+    "profile": "5a57c114177e5b23ece69acf",
+    "byline": "aa",
+    "template": "5a57c114177e5b23ece69ad1",
+    "flags": {
+        "marked_for_legal": false,
+        "marked_for_not_publication": false,
+        "marked_archived_only": false,
+        "marked_for_sms": false
+    },
+    "firstpublished": "2018-12-27T11:38:00+0000",
+    "_created": "2018-12-27T10:45:43+0000",
+    "task": {
+        "desk": "5a57bea9177e5b23ece69a86",
+        "stage": "5a57bea9177e5b23ece69a84",
+        "user": "5640a5eef40235008465242b"
+    },
+    "lock_user": null,
+    "guid": "a3b71dbe-c23b-49d8-8f2b-cbe09e2cff3e",
+    "_updated": "2018-12-27T11:38:00+0000",
+    "sign_off": "admin@example.com",
+    "type": "text",
+    "language": "nb-NO",
+    "genre": [],
+    "unique_name": "#114317",
+    "state": "published",
+    "expiry": null,
+    "lock_action": null,
+    "priority": 6,
+    "schedule_settings": {
+        "utc_publish_schedule": null,
+        "time_zone": null,
+        "utc_embargo": null
+    },
+    "lock_time": null,
+    "firstcreated": "2018-12-27T10:45:43+0000",
+    "_id": "a3b71dbe-c23b-49d8-8f2b-cbe09e2cff3e",
+    "original_creator": "5640a5eef40235008465242b",
+    "place": [],
+    "unique_id": 114317,
+    "associations": {
+        "featuremedia": {
+            "_links": {
+                "self": {
+                    "href": "search_providers_proxy/td773c79",
+                    "title": "Search_providers_proxy"
+                }
+            },
+            "headline": "Glatte veier.",
+            "byline": "Pedersen, Terje",
+            "fetch_endpoint": "scanpix",
+            "guid": "td773c79",
+            "selected": false,
+            "mimetype": "image/jpeg",
+            "source": "NTB scanpix",
+            "description_text": "Oslo  20181227.\nUnderkjølt regn fører til såpeglatte veier slik som her Kjelsås i Oslo tredje juledag.\nFoto: Terje Pedersen / NTB scanpix",
+            "original_source": "NTB scanpix",
+            "_updated": "2018-12-27T10:46:29+0000",
+            "ingest_provider": "5880e2fad512c50048787bc7",
+            "renditions": {
+                "thumbnail": {
+                    "href": "https://preview.scanpix.no/thumbs/td/7/73/td773c79.jpg"
+                },
+                "viewImage": {
+                    "href": "https://scanpix.no/spWebApp/previewimage/sdl/preview/td773c79.jpg"
+                },
+                "baseImage": {
+                    "href": "https://scanpix.no/spWebApp/previewimage/sdl/preview_big/td773c79.jpg"
+                }
+            },
+            "type": "picture",
+            "firstcreated": "2018-12-27T10:08:05+0000",
+            "_id": "td773c79",
+            "pubstatus": "usable",
+            "versioncreated": "2018-12-27T10:08:05+0000",
+            "_etag": "7cbd9e468fb09231001eef1bcfbdb9edf18903df"
+        }
+    },
+    "format": "HTML",
+    "version": 1,
+    "_current_version": 2,
+    "operation": "publish",
+    "force_unlock": true,
+    "_etag": "dcaf8296635349624ed4782ee06a1ba2b964f64a",
+    "lock_session": null,
+    "urgency": 3,
+    "pubstatus": "usable",
+    "versioncreated": "2018-12-27T10:46:29+0000",
+    "subject": [{
+        "scheme": "subject_custom",
+        "parent": "01000000",
+        "qcode": "01001000",
+        "name": "Arkeologi"
+    }]
+}
