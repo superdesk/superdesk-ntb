@@ -12,6 +12,7 @@
 import copy
 import datetime
 from unittest.mock import patch
+from superdesk.utc import utc
 from superdesk.tests import TestCase
 from ntb.io.feed_parsers.wufoo import WufooFeedParser
 
@@ -62,7 +63,8 @@ class Wufoo(TestCase):
                          'cTFocGR3ZzkxaDZ1Ymwx/SIioTwuslashL4koY%3D/photo_test.jpg">photo</a></p>',
             'ednote': 'Kilder: \nfurther_sources_test\n\nFødested: birth_place_test\nSendt inn av: author_test'
                       '\nGodkjent: Ja\nEpost: email_test@example.net\nTlf: 123456789',
-            'versioncreated': datetime.datetime(2017, 2, 20, 12, 55, 57),
+            'versioncreated': datetime.datetime(2017, 2, 20, 11, 55, 57, tzinfo=utc),
+            'firstcreated': datetime.datetime(2017, 2, 20, 11, 55, 57, tzinfo=utc),
             'sign_off': 'personalia@ntb.no'}
 
     def test_parsing(self):

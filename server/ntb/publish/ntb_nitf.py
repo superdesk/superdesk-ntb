@@ -20,7 +20,7 @@ from flask import current_app as app
 
 from superdesk import etree as sd_etree
 from superdesk.metadata.item import ITEM_TYPE, CONTENT_TYPE
-from superdesk.publish.formatters.nitf_formatter import NITFFormatter
+from superdesk.publish.formatters.nitf_formatter import NITFFormatter, EraseElement
 from superdesk.publish.publish_service import PublishService
 from superdesk.errors import FormatterError
 
@@ -131,6 +131,8 @@ class NTBNITFFormatter(NITFFormatter):
 
         'txt' is only used immediatly after "hl2" elem, txt-ind in all other cases
         """
+        if p_elem.get('class') == 'ntb-media':
+            raise EraseElement("Element need to be erased")
         parent = p_elem.find('..')
         children = list(parent)
         idx = children.index(p_elem)
@@ -140,11 +142,10 @@ class NTBNITFFormatter(NITFFormatter):
             p_elem.attrib['class'] = 'txt-ind'
 
     def _get_ntb_category(self, article):
-        category = ''
         for s in article.get('subject', []):
             if s.get('scheme') == 'category':
-                category = s['qcode']
-        return category
+                return s['qcode']
+        return ''
 
     def _get_ntb_subject(self, article):
         update = _get_rewrite_sequence(article)
@@ -235,6 +236,11 @@ class NTBNITFFormatter(NITFFormatter):
             **metadata)
         return FILENAME_FORBIDDEN_RE.sub('-', filename_raw)
 
+    def _format_meta_priority(self, article, head):
+        priority = article.get('priority')
+        if priority is not None:
+            etree.SubElement(head, 'meta', {'name': 'NTBNewsValue', 'content': str(priority)})
+
     def _format_meta(self, article, head, destination, pub_seq_num):
         super()._format_meta(article, head, destination, pub_seq_num)
         article['head'] = head  # needed to access head when formatting body content
@@ -262,6 +268,14 @@ class NTBNITFFormatter(NITFFormatter):
         pub_queue = superdesk.get_resource_service("publish_queue")
         daily_count = pub_queue.find({'transmit_started_at': {'$gte': day_start}}).count() + 1
         etree.SubElement(head, 'meta', {'name': 'NTBIPTCSequence', 'content': str(daily_count)})
+
+        # name
+        try:
+            name = article['extra']['ntb_pub_name']
+        except KeyError:
+            pass
+        else:
+            etree.SubElement(head, 'meta', {'name': 'NTBKilde', 'content': name})
 
     def _format_service(self, article):
         try:
@@ -291,15 +305,19 @@ class NTBNITFFormatter(NITFFormatter):
         elif language == 'nn-NO':
             org.text = 'NPK'
 
-    def _add_media(self, body_content, type_, mime_type, source, caption, featured):
+    def _add_media(self, body_content, type_, mime_type, source, caption, featured=None, cls=None, alternate_text=None):
         media = etree.SubElement(body_content, 'media')
         media.attrib['media-type'] = type_
+        if cls:
+            media.set('class', cls)
         if featured is not None:
-            media.attrib['class'] = 'illustrasjonsbilde'
+            media.set('class', 'illustrasjonsbilde')
         media_reference = etree.SubElement(media, 'media-reference')
         if mime_type is not None:
-            media_reference.attrib['mime-type'] = mime_type
-        media_reference.attrib['source'] = source
+            media_reference.set('mime-type', mime_type)
+        if alternate_text is not None:
+            media_reference.set('alternate-text', alternate_text)
+        media_reference.set('source', source)
         media_caption = etree.SubElement(media, 'media-caption')
         media_caption.text = caption
 
@@ -450,7 +468,28 @@ class NTBNITFFormatter(NITFFormatter):
                 mime_type = 'image/jpeg' if type_ == 'image' or type_ == 'grafikk' else 'video/mpeg'
             caption = self.strip_invalid_chars(data.get('description_text'))
             self._add_media(body_content, type_, mime_type, source, caption, featured)
-        self._add_meta_media_counter(head, len(media_data))
+        media_counter = len(media_data)
+
+        # ntb-media
+        try:
+            ntb_media = article['extra']['ntb_media']
+        except KeyError:
+            pass
+        else:
+            for data in ntb_media:
+                mime_type = data['mime_type']
+                self._add_media(
+                    body_content=body_content,
+                    type_=mime_type.split('/')[0],
+                    mime_type=mime_type,
+                    source=data['url'],
+                    caption=data['description_text'],
+                    cls='prs',
+                    alternate_text='http://www.ntbinfo.no/',
+                )
+                media_counter += 1
+
+        self._add_meta_media_counter(head, media_counter)
 
     def _format_body_end(self, article, body_end):
         try:

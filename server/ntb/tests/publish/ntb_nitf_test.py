@@ -25,6 +25,7 @@ TEST_ABSTRACT = "This is the abstract"
 TEST_NOT_LEAD = "This should not be lead"
 TEST_EMAILS = ('test1@test.tld', 'test2@example.net', 'test3@example.org')
 ITEM_ID = str(uuid.uuid4())
+NTB_MEDIA_TXT = 'NTBMEDIA TO REMOVE'
 NOW = datetime.datetime.now(datetime.timezone.utc)
 TEST_BODY = """
 <p class="lead" lede="true">""" + TEST_NOT_LEAD + """</p>
@@ -39,6 +40,7 @@ following a general election in Madrid, Spain, July 19, 2016. REUTERS/Andrea Com
 </figure><!-- EMBED END Image {id: "embedded18237840351"} -->
 <h3>intermediate line</h3>
 <p>this element should have a txt class</p>
+<p class="ntb-media"><a url="http://example.net/something.jpg">test</a>""" + NTB_MEDIA_TXT + """</p>
 <!-- EMBED START Video {id: "embedded10005446043"} --><figure>
 <video controls="controls">
 </video>
@@ -193,6 +195,17 @@ ARTICLE = {
         },
         "embedded03": None,
     },
+    "extra": {
+        "ntb_pub_name": "test ntb_pub_name",
+        "ntb_media": [
+            {
+                "id": "1234",
+                "url": "https://www.example.net/ntb_media_test.jpg",
+                "mime_type": "image/jpeg",
+                "description_text": "this is a test ntb media"
+            }
+        ]
+    },
 }
 
 
@@ -247,6 +260,11 @@ class NTBNITFFormatterTest(TestCase):
     def test_body(self):
         # body content
         body_content = self.nitf_xml.find("body/body.content")
+        # we must not have ntb-media <p> element
+        # we can't use the "ntb-media" class, because all classes are changed to
+        # "txt" or "txt-ind", so we use NTB_MEDIA_TXT to check if element is here
+        p_ntb_media_elem = body_content.xpath('p[text()="{}"]'.format(NTB_MEDIA_TXT))
+        self.assertEqual(p_ntb_media_elem, [])
         p_elems = iter(body_content.findall('p'))
         lead = next(p_elems)
         self.assertEqual(lead.get("class"), "lead")
@@ -298,6 +316,13 @@ class NTBNITFFormatterTest(TestCase):
         self.assertEqual(video.find("media-reference").get("source"), "tb42bf38")
         self.assertEqual(video.find("media-caption").text, "\n\nSCRIPT TO FOLLOW\n")
 
+        ntb_media = medias[3]
+        self.assertEqual(ntb_media.get("media-type"), "image")
+        self.assertEqual(ntb_media.get("class"), "prs")
+        self.assertEqual(ntb_media.find("media-reference").get("source"), "https://www.example.net/ntb_media_test.jpg")
+        self.assertEqual(ntb_media.find("media-reference").get("alternate-text"), "http://www.ntbinfo.no/")
+        self.assertEqual(ntb_media.find("media-caption").text, "this is a test ntb media")
+
     def test_sign_off(self):
         a_elems = self.nitf_xml.findall("body/body.end/tagline/a")
         assert len(a_elems) == len(TEST_EMAILS)
@@ -326,13 +351,17 @@ class NTBNITFFormatterTest(TestCase):
         article['abstract'] = ''
         del article['associations']
         article['body_html'] = "<pref:h1><other_pref:body.content><t:t/>toto</other_pref:body.content></pref:h1>"
-        expected = (b'<body.content><p class="lead" lede="true" />toto<p class="txt">'
-                    b'footer text</p></body.content>')
+        expected = (
+            '<body.content><p class="lead" lede="true"/>toto<p class="txt">footer text</p><media media-type="image" cla'
+            'ss="prs"><media-reference mime-type="image/jpeg" alternate-text="http://www.ntbinfo.no/" source="https://w'
+            'ww.example.net/ntb_media_test.jpg"/><media-caption>this is a test ntb media</media-caption></media></body.'
+            'content>'
+        )
         formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
         doc = formatter_output[0]['encoded_item']
         nitf_xml = etree.fromstring(doc)
-        body_content = nitf_xml.find("body/body.content")
-        self.assertEqual(b''.join(etree.tostring(body_content).split()), b''.join(expected.split()))
+        body_content = ' '.join(etree.tostring(nitf_xml.find("body/body.content"), encoding="unicode").split())
+        self.assertEqual(body_content, expected)
 
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
     def test_single_counter(self):
@@ -341,6 +370,7 @@ class NTBNITFFormatterTest(TestCase):
         article = copy.deepcopy(self.article)
         article['body_html'] = "<p/>"
         del article['associations']
+        del article['extra']
         formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
         doc = formatter_output[0]['encoded_item']
         nitf_xml = etree.fromstring(doc)
@@ -362,18 +392,19 @@ class NTBNITFFormatterTest(TestCase):
             i den canadiske byen Windsor var personlig rekord på <st1:metricconverter productid="1500 meter"
             w:st="on">1500 meter</st1:metricconverter><br></p>
             """
-        expected = b"""\
-            <body.content><p class="lead" lede="true" /><p class="txt-ind">M&#229;let i
-            kortbane-VM som nylig ble avsluttet i den canadiske byen Windsor var personlig rekord p&#229; 1500
-            meter</p><p class="txt">footer text</p><media media-type="image" class="illustrasjonsbilde"><media-referenc
-            e mime-type="image/jpeg" source="test_id" /><media-caption>test feature media</media-caption></media>
-            </body.content>
-            """.replace(b'\n', b'').replace(b' ', b'')
+        expected = (
+            '<body.content> <p class="lead" lede="true"/> <p class="txt-ind">Målet i kortbane-VM som nylig ble avslutte'
+            't i den canadiske byen Windsor var personlig rekord på 1500 meter</p> <p class="txt">footer text</p> <medi'
+            'a media-type="image" class="illustrasjonsbilde"> <media-reference mime-type="image/jpeg" source="test_id"/'
+            '> <media-caption>test feature media</media-caption> </media> <media media-type="image" class="prs"> <media'
+            '-reference mime-type="image/jpeg" alternate-text="http://www.ntbinfo.no/" source="https://www.example.net/'
+            'ntb_media_test.jpg"/> <media-caption>this is a test ntb media</media-caption> </media> </body.content>'
+        )
         formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
         doc = formatter_output[0]['encoded_item']
         nitf_xml = etree.fromstring(doc)
-        body_content = nitf_xml.find("body/body.content")
-        self.assertEqual(etree.tostring(body_content).replace(b'\n', b'').replace(b' ', b''), expected)
+        body_content = ' '.join(etree.tostring(nitf_xml.find("body/body.content"), encoding='unicode').split())
+        self.assertEqual(body_content, expected)
 
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
     def test_355(self):
@@ -389,7 +420,7 @@ class NTBNITFFormatterTest(TestCase):
         # the test will raise an exception during self.formatter.format if SDNTB-355 bug is still present
         # but we check in addition that media counter is as expected
         media_counter = nitf_xml.find('head').find('meta[@name="NTBBilderAntall"]')
-        self.assertEqual(media_counter.get('content'), '2')
+        self.assertEqual(media_counter.get('content'), '3')
 
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
     def test_358(self):
@@ -439,7 +470,7 @@ class NTBNITFFormatterTest(TestCase):
         media_counter = nitf_xml.find('head').find('meta[@name="NTBBilderAntall"]')
         # the test will raise an exception during self.formatter.format if SDNTB-390 bug is still present
         # but we check in addition that media counter is as expected (same as for test_355)
-        self.assertEqual(media_counter.get('content'), '2')
+        self.assertEqual(media_counter.get('content'), '3')
 
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
     def test_pretty_formatting(self):
@@ -464,7 +495,7 @@ class NTBNITFFormatterTest(TestCase):
         formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
         doc = formatter_output[0]['encoded_item']
         body_content = doc[doc.find(b'<body.content>') - 4:doc.find(b'</body.content>') + 15]
-        expected = b"""\
+        expected = (b"""\
     <body.content>
       <p class="lead" lede="true"></p>
       <hl2>test title</hl2>
@@ -479,7 +510,12 @@ class NTBNITFFormatterTest(TestCase):
       <p class="txt-ind">foo</p>
       <p class="txt-ind">bar</p>
       <p class="txt">footer text</p>
-    </body.content>"""
+      <media media-type="image" class="prs">
+        <media-reference mime-type="image/jpeg" alternate-text="http://www.ntbinfo.no/" source"""
+                    b"""="https://www.example.net/ntb_media_test.jpg"/>
+        <media-caption>this is a test ntb media</media-caption>
+      </media>
+    </body.content>""")
         self.assertEqual(body_content, expected, body_content.decode('utf-8'))
 
     def test_filename(self):
@@ -503,7 +539,7 @@ class NTBNITFFormatterTest(TestCase):
         head = self.nitf_xml.find('head')
 
         media_counter = head.find('meta[@name="NTBBilderAntall"]')
-        self.assertEqual(media_counter.get('content'), '3')
+        self.assertEqual(media_counter.get('content'), '4')
         editor = head.find('meta[@name="NTBEditor"]')
         self.assertEqual(editor.get('content'), 'Superdesk')
         kode = head.find('meta[@name="NTBDistribusjonsKode"]')
@@ -512,6 +548,11 @@ class NTBNITFFormatterTest(TestCase):
         self.assertEqual(kanal.get('content'), 'A')
         ntb_id = head.find('meta[@name="NTBID"]')
         self.assertEqual(ntb_id.get('content'), 'NTB' + ITEM_ID)
+        ntb_kilde = head.find('meta[@name="NTBKilde"]')
+        self.assertEqual(ntb_kilde.get('content'), 'test ntb_pub_name')
+        # priority
+        ntb_kilde = head.find('meta[@name="NTBNewsValue"]')
+        self.assertEqual(ntb_kilde.get('content'), '2')
 
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
     def test_update_id(self):
@@ -548,7 +589,7 @@ class NTBNITFFormatterTest(TestCase):
         # the test will raise an exception during self.formatter.format if SDNTB-396 bug is still present
         # but we check in addition that media counter is as expected (same as for test_355)
         media_counter = nitf_xml.find('head').find('meta[@name="NTBBilderAntall"]')
-        self.assertEqual(media_counter.get('content'), '3')
+        self.assertEqual(media_counter.get('content'), '4')
 
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
     def test_body_none(self):
@@ -559,17 +600,15 @@ class NTBNITFFormatterTest(TestCase):
         # but we also check that body.content is there
         doc = formatter_output[0]['encoded_item']
         nitf_xml = etree.fromstring(doc)
-        expected = ("""
-        <body.content>
-            <p class="lead" lede="true">This is the abstract</p>
-            <p class="txt">footer text</p>
-            <media media-type="image" class="illustrasjonsbilde">
-                <media-reference mime-type="image/jpeg" source="test_id"/>
-                <media-caption>test feature media</media-caption>
-            </media>
-        </body.content>""").replace('\n', '').replace(' ', '')
-        content = etree.tostring(nitf_xml.find('body/body.content'),
-                                 encoding="unicode").replace('\n', '').replace(' ', '')
+        expected = (
+            '<body.content> <p class="lead" lede="true">This is the abstract</p> <p class="txt">footer text</p> <media '
+            'media-type="image" class="illustrasjonsbilde"> <media-reference mime-type="image/jpeg" source="test_id"/> '
+            '<media-caption>test feature media</media-caption> </media> <media media-type="image" class="prs"> <media-r'
+            'eference mime-type="image/jpeg" alternate-text="http://www.ntbinfo.no/" source="https://www.example.net/nt'
+            'b_media_test.jpg"/> <media-caption>this is a test ntb media</media-caption> </media> </body.content>'
+        )
+        content = ' '.join(etree.tostring(nitf_xml.find('body/body.content'),
+                                          encoding="unicode").split())
         self.assertEqual(content, expected)
 
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)

@@ -54,7 +54,9 @@ INSTALLED_APPS = [
     'ntb.scanpix',
     'planning',
     'ntb.io',
+    'ntb.io.feeding_services.newsworthy',
     'ntb.publish',
+    'ntb.ping_scanpix',
 ]
 
 # LDAP settings
@@ -256,7 +258,7 @@ PLANNING_EXPORT_BODY_TEMPLATE = '''
 {% endfor %}
 '''
 
-PUBLISH_QUEUE_EXPIRY_MINUTES = 60 * 24 * 30  # 30d
+PUBLISH_QUEUE_EXPIRY_MINUTES = 60 * 24 * 7  # 7d
 
 # media required fields
 VALIDATOR_MEDIA_METADATA = {
@@ -285,3 +287,5 @@ VALIDATOR_MEDIA_METADATA = {
         "required": False,
     },
 }
+
+SCANPIX_PING_OWNER = env('SCANPIX_PING_OWNER')
