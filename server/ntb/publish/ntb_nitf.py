@@ -436,19 +436,9 @@ class NTBNITFFormatter(NITFFormatter):
 
         # media
         for data in media_data:
-            if 'scanpix' in data.get('fetch_endpoint', ''):
-                # NTB request that Scanpix ID is used
-                # in source for Scanpix media (see SDNTB-229)
-                source = data['guid']
-            else:
-                try:
-                    source = data['renditions']['original']['href']
-                except KeyError:
-                    try:
-                        source = next(iter(data['renditions'].values()))['href']
-                    except (StopIteration, KeyError):
-                        logger.warning("Can't find source for media {}".format(data.get('guid', '')))
-                        continue
+            source = self._get_media_source(data)
+            if not source:
+                continue
 
             if data['type'] == CONTENT_TYPE.PICTURE:
                 type_ = 'image'
@@ -490,6 +480,23 @@ class NTBNITFFormatter(NITFFormatter):
                 media_counter += 1
 
         self._add_meta_media_counter(head, media_counter)
+
+    def _get_media_source(self, data):
+        if 'scanpix' in data.get('fetch_endpoint', ''):
+            # NTB request that Scanpix ID is used
+            # in source for Scanpix media (see SDNTB-229)
+            return data['guid']
+        else:
+            return self._get_original_href(data)
+
+    def _get_original_href(self, data):
+        try:
+            return data['renditions']['original']['href']
+        except KeyError:
+            try:
+                return next(iter(data['renditions'].values()))['href']
+            except (StopIteration, KeyError):
+                logger.warning("Can't find source for media {}".format(data.get('guid', '')))
 
     def _format_body_end(self, article, body_end):
         try:
