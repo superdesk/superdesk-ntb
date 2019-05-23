@@ -13,7 +13,7 @@ def handle_item_published(sender, item, **kwargs):
     if item.get('associations'):
         for key, assoc in item['associations'].items():
             if assoc is not None and assoc.get('fetch_endpoint') == 'scanpix':
-                requests.post(
+                res = requests.post(
                     SCANPIX_PING_URL,
                     json.dumps({
                         'type': 'articleUsage',
@@ -24,10 +24,13 @@ def handle_item_published(sender, item, **kwargs):
                         },
                     }),
                     headers={'content-type': 'application/json'},
+                    auth=(app.config.get('SCANPIX_PING_USERNAME'), app.config.get('SCANPIX_PING_PASSWORD')),
                 )
-                logger.info('scanpix image published image=%s article=%s',
+                logger.info('scanpix image published status=%d image=%s article=%s',
+                            res.status_code,
                             assoc.get('guid', ''),
                             item.get('guid', ''))
+
 
 
 def init_app(app):
