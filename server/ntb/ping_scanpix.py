@@ -3,6 +3,7 @@ import requests
 
 from flask import json, current_app as app
 from superdesk.signals import item_published
+from superdesk.logging import logger
 
 
 SCANPIX_PING_URL = 'https://api.sdl.no/v1/pushData'
@@ -24,8 +25,14 @@ def handle_item_published(sender, item, **kwargs):
                     }),
                     headers={'content-type': 'application/json'},
                 )
+                logger.info('scanpix image published image=%s article=%s',
+                            assoc.get('guid', ''),
+                            item.get('guid', ''))
 
 
 def init_app(app):
     if app.config.get('SCANPIX_PING_OWNER'):
         item_published.connect(handle_item_published)
+        logger.info('SCANPIX ping owner configured %s', app.config['SCANPIX_PING_OWNER'])
+    else:
+        logger.info('SCANPIX ping owner not set')
