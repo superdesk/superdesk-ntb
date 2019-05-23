@@ -32,7 +32,6 @@ def handle_item_published(sender, item, **kwargs):
                             item.get('guid', ''))
 
 
-
 def init_app(app):
     if app.config.get('SCANPIX_PING_OWNER'):
         item_published.connect(handle_item_published)
