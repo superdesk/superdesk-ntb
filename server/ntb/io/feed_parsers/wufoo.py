@@ -154,7 +154,7 @@ class WufooFeedParser(FeedParser):
             address=address,
             zip=article["zip"],
             city=article["city"],
-            country=", {}".format(article["country"]) if article["country"] != "Norge" else "",
+            country=", {}".format(article["country"]) if article["country"] not in ("Norge", "Noreg") else "",
         )
         item["slugline"] = "FØDSELSDAG-" + self.strftime(jubilee_date, "%y%m%d")
         item["anpa_category"] = [{"name": "Omtaletjenesten", "qcode": "o", "language": "nb-NO"}]
