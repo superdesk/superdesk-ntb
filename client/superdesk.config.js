@@ -55,7 +55,12 @@ module.exports = function(grunt) {
         },
 
         monitoring: {
-            'scheduled': true
+            'scheduled': true,
+            customSortOfGroups: {
+                scheduledDeskOutput: {
+                    publish_schedule: { label: 'Scheduled time' }
+                }
+            }
         },
 
         workspace: {
