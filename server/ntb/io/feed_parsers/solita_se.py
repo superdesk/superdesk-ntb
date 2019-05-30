@@ -40,6 +40,10 @@ class SolitaSE(NewsMLOneFeedParser):
                 'filter': lambda i: "solita-se_{}".format(i)
             },
             'headline': 'NewsComponent/NewsLines/HeadLine',
+            'slugline': {
+                'xpath': 'Identification/NewsIdentifier/ProviderId/text()',
+                'filter': lambda p: "Borsmelding-{}".format(p)
+            },
             'body_html': self.get_body,
             'name': {
                 'xpath': 'NewsComponent/AdministrativeMetadata/Source/Party/@FormalName',
