@@ -4,7 +4,7 @@ import responses
 
 from flask import json, Flask
 from unittest import TestCase
-from ntb.ping_scanpix import handle_item_published, SCANPIX_PING_URL
+from ntb.ping_scanpix import publish_scanpix, SCANPIX_PING_URL
 
 
 class PingScanpixTestCase(TestCase):
@@ -15,12 +15,14 @@ class PingScanpixTestCase(TestCase):
 
     @responses.activate
     def test_ping_scanpix_on_item_publish(self):
-        app = Flask(__name__)
+        self.app = Flask(__name__)
         self.assertIn('associations', self.item)
         responses.add(responses.POST, SCANPIX_PING_URL, json={}, status=200)
-        with app.app_context():
-            app.config['SCANPIX_PING_OWNER'] = 'ntb'
-            handle_item_published(self, item=self.item, foo='foo')
+        with self.app.app_context():
+            self.app.config['SCANPIX_PING_OWNER'] = 'ntb'
+            self.app.config['SCANPIX_PING_USERNAME'] = 'foo'
+            self.app.config['SCANPIX_PING_PASSWORD'] = 'bar'
+            publish_scanpix(self, item=self.item, foo='foo')
         self.assertEqual(1, len(responses.calls))
         self.assertEqual(json.dumps({
             'type': 'articleUsage',
