@@ -259,6 +259,14 @@ class ScanpixDatalayer(DataLayer):
                         break
 
         new_doc['byline'] = doc['byline']
+        new_doc.setdefault('extra', {})
+        new_doc['extra'].update({
+            'main_group': doc['mainGroup'],
+            'width': doc.get('hiresWidth'),
+            'height': doc.get('hiresHeight'),
+            'filename': doc.get('originalFileName'),
+        })
+
         doc.clear()
         doc.update(new_doc)
 
