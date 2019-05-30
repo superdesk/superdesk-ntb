@@ -32,6 +32,7 @@ class STTTestCase(BaseSolitaTestCase):
         self.assertEqual(item['type'], 'text')
         self.assertEqual(item['guid'], 'solita-se_ntb:announcement:8-no')
         self.assertEqual(item['headline'], 'Dette er tittelen')
+        self.assertEqual(item['slugline'], 'Borsmelding-nordicir.com')
         self.assertEqual(item['anpa_category'], [{"name": "Formidlingstjenester", "qcode": "r"}])
         self.assertEqual(item['genre'], [{"name": "Fulltekstmeldinger", "qcode": "Fulltekstmeldinger",
                                           "scheme": "genre_custom"}])
