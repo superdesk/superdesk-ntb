@@ -31,6 +31,8 @@ class PingScanpixTestCase(TestCase):
                       body=b'', status=200)
         with self.app.app_context():
             self.app.config['SCANPIX_PING_OWNER'] = 'ntb'
+            self.app.config['SCANPIX_PING_USERNAME'] = 'foo'
+            self.app.config['SCANPIX_PING_PASSWORD'] = 'bar'
             publish_scanpix(self, item=self.item, foo='foo')
         self.assertEqual(2, len(responses.calls))
         self.assertEqual(json.dumps({
