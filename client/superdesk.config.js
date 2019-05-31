@@ -58,7 +58,7 @@ module.exports = function(grunt) {
             'scheduled': true,
             customSortOfGroups: {
                 scheduledDeskOutput: {
-                    publish_schedule: { label: 'Scheduled time' }
+                    publish_schedule: { label: (gettext) => gettext('Scheduled time') }
                 }
             }
         },
