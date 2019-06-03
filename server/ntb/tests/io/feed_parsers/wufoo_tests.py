@@ -39,7 +39,7 @@ class Wufoo(TestCase):
             "Field115": "city_test",
             "Field116": "state_test",
             "Field117": "123456",
-            "Field118": "Norge",
+            "Field118": "Noreg",
             "Field111": "email_test@example.net",
             "Field112": "123456789",
             "Field120": "further_sources_test",

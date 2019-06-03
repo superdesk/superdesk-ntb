@@ -9,3 +9,4 @@ from . import ntb_newsml  # noqa
 from . import ntb_nifs  # noqa
 from . import ntb_events_api_xml # noqa
 from . import solita # noqa
+from . import solita_se # noqa
