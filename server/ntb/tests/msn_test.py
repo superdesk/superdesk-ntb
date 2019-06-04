@@ -14,7 +14,7 @@ with open(os.path.join(os.path.dirname(__file__), 'fixtures', 'contentapi_item.j
 
 class MSNFeedTestCase(unittest.TestCase):
 
-    def test_feed(self):
+    def test_get_content(self):
         content = get_content(ITEM)
         self.assertEqual('''<p>with image</p>
 <p>foo</p>
