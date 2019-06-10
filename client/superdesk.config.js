@@ -55,9 +55,8 @@ module.exports = function(grunt) {
         },
 
         monitoring: {
-            'scheduled': true,
-            customSortOfGroups: {
-                scheduledDeskOutput: [ 'publish_schedule' ],
+            scheduled: {
+                sort: [ 'publish_schedule' ]
             },
         },
 
