@@ -55,7 +55,9 @@ module.exports = function(grunt) {
         },
 
         monitoring: {
-            'scheduled': true
+            scheduled: {
+                sort: [ 'publish_schedule' ]
+            },
         },
 
         workspace: {
