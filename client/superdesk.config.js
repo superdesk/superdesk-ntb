@@ -56,7 +56,10 @@ module.exports = function(grunt) {
 
         monitoring: {
             scheduled: {
-                sort: [ 'publish_schedule' ]
+                sort: {
+                    default: 'publish_schedule:asc',
+                    options: [ 'publish_schedule' ]
+                }
             },
         },
 
