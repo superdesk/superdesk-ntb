@@ -19,6 +19,8 @@ def generate_feed(items):
     fg.link(href=flask.url_for('rss.index', _external=True), rel='self')
     fg.description('foo')
     for item in items:
+        if not item.get('headline') and not item.get('slugline') and not item.get('name'):
+            continue  # no title no atom
         entry = fg.add_entry()
         entry.guid('{}/{}'.format(flask.url_for('rss.index', _external=True).rstrip('/'), item['_id']))
         entry.title(item.get('headline', item.get('name', item.get('slugline', ''))))
