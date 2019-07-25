@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<release id="17867709" lang="no">
+    <!--Long URL for the release if published in the agency's website. Url has release title and other key values in the url-->
+    <longurl>https://www.ntbinfo.no/pressemelding/dette-er-en-test-tittel?releaseId=17867709</longurl>
+    <!--Body text for a release, HTML (both XML- and HTML-encoded)-->
+    <body>&lt;p&gt;DETTE ER EN TEST BR&amp;Oslash;DTEKST&lt;/p&gt;</body>
+    <!--Boilerplate text for the release, plain text-->
+    <boilerplate/>
+    <!--Possible contact persons for the release as plain text-->
+    <contactsAsText>Dette er en test kontaktperson</contactsAsText>
+    <!--Embargo, used pattern is dd.MM.yyyy HH:mm-->
+    <embargo/>
+    <!--Possible keywords for a release, free text-->
+    <keywords/>
+    <!--Lead text for a release, HTML (in XML-encoded form)-->
+    <leadtext>DETTE ER EN TEST INGRESS</leadtext>
+    <!--Embed code for video-->
+    <videoembedcode/>
+    <!--Description for video)-->
+    <videodescription/>
+    <!--URL to the video channel-->
+    <videochannellink/>
+    <!--URL to video thumbnail-->
+    <videothumbnailurl/>
+    <!--Publication date, used pattern is dd.MM.yyyy HH:mm-->
+    <publicationDate>11.07.2019 12:17</publicationDate>
+    <!--Release's title, plain text-->
+    <title>DETTE ER EN TEST TITTEL</title>
+    <language id="16">
+        <!--Language of the release, fixed information, you may use the unique identifier for maintaining references. label-element contains the label in the language the release was written in.-->
+        <label>Norsk</label>
+    </language>
+    <type id="19">
+        <!--Type of the release, fixed information, you may use the unique identifier for maintaining references. label-element contains the label in the language the release was written in.-->
+        <label>Pressemelding</label>
+    </type>
+    <!--Possible logo information related to the release-->
+    <logos>
+        <logo id="17869068">
+            <!--URL for a logo image in absolute form-->
+            <url>https://www.ntbinfo.no/data/images/00680/fbe56e2b-d7b2-4382-991e-473d119cb72f.png</url>
+        </logo>
+    </logos>
+    <!--Images attached to the release-->
+    <images>
+        <image id="17870472">
+            <!--URL of a image (the orignal, full-size version of it) attached to a release in absolute form-->
+            <url>https://www.ntbinfo.no/data/images/00633/c0973bb9-ae50-4dd6-8e83-3bdabd4dea5d.jpg</url>
+            <!--Possible caption for the image as plain text-->
+            <caption>Dette er en test bildetekst</caption>
+            <!--URL for the small size image-->
+            <smallimageurl>https://www.ntbinfo.no/data/images/00633/c0973bb9-ae50-4dd6-8e83-3bdabd4dea5d-release_thumbnail.jpg</smallimageurl>
+            <!--URL for the medium size image-->
+            <mediumimageurl>https://www.ntbinfo.no/data/images/00633/c0973bb9-ae50-4dd6-8e83-3bdabd4dea5d-main_image.jpg</mediumimageurl>
+        </image>
+    </images>
+    <!--Other attachments for the release-->
+    <documents/>
+    <!--Wires the release is distributed to-->
+    <distributionChannels>
+        <distributionChannel id="8457" channel="WIRE_NORWAY">
+            <!--Wire's name, in plain-text - this value can change, so do not rely on this when resolving the target for the exports, use the unique wire identifier instead-->
+            <name>WIRE_NORWAY</name>
+        </distributionChannel>
+    </distributionChannels>
+    <!--Social Media channels the release selected to distribute-->
+    <someChannels/>
+    <!--Other online services-->
+    <onlineServices/>
+    <!--Links-->
+    <links/>
+    <!--Contact persons' for the release-->
+    <contacts/>
+    <!--Categories for the release-->
+    <categories/>
+    <!--Publisher for the current release, unique identifier can be used to maintain references to release if so desired-->
+    <publisher id="7">
+        <!--Publisher's name in arbitrary format-->
+        <name>NTB</name>
+        <!--Business id for this publisher-->
+        <businessId>914 797 497</businessId>
+        <!--Street address for the publisher-->
+        <address>Langkaia 1 – Havnelageret, 0150, Oslo</address>
+        <!--Web site address, may or may not contain the prefix for the URL-->
+        <webSite>http://www.ntb.no</webSite>
+        <!--Description (boilerplate) for the publisher as plain text-->
+        <description>NTB har formidlet nyheter i over 150 år. I dag er vi landets største leverandør av redaksjonelt innhold i tekst og bilder til norske medier. I tillegg tilbyr vi en lang rekke kommunikasjonstjenester, som kommunikasjonsplattform, oppdragsfoto, produksjon av ferdigsider, bildelagring og språktjenester.</description>
+    </publisher>
+</release>
