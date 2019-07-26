@@ -76,9 +76,11 @@ class STTTestCase(BaseSolitaTestCase):
             '.ntbinfo.no/data/images/00507/26539909-564d-40dc-8298-d237b964dde9.jpg">Kontrakten ble signert i Trondheim'
             ' i dag. Fra venstre: Pablo Garcia Caramés, finanssjef, ACCIONA Construction; Joan Gil, divisjonssjef, ACCI'
             'ONA Construction; Ingrid Dahl Hovland, adm. dir. Nye Veier og Johan Arnt Vatnan, prosjektdir. Nye Veier.</'
-            'a>\n</p>\n<p>Se saken i sin helhet:<br><a href="https://www.ntbinfo.no/pressemelding/signerte-veikontrakt-'
-            'pa-4-mrd-i-trondelag?releaseId=17854111">https://www.ntbinfo.no/pressemelding/signerte-veikontrakt-pa-4-mr'
-            'd-i-trondelag?releaseId=17854111</a></p>'
+            'a>\n</p>\n<h2>Kontakter</h2>\n<p>Ingrid Dahl Hovland \n        Adm. direktør, Nye Veier \n        ingrid.h'
+            'ovland@nyeveier.no \n        905 823 34 \n        \n        Johan Arnt Vatnan\n        Prosjektdirektør, N'
+            'ye Veier\n        johan.arnt.vatnan@nyeveier.no\n        922 51 113</p>\n<p>Se saken i sin helhet:<br><a h'
+            'ref="https://www.ntbinfo.no/pressemelding/signerte-veikontrakt-pa-4-mrd-i-trondelag?releaseId=17854111">ht'
+            'tps://www.ntbinfo.no/pressemelding/signerte-veikontrakt-pa-4-mrd-i-trondelag?releaseId=17854111</a></p>'
         )
         self.assertEqual(item['urgency'], 6)
         self.assertEqual(item['ednote'], '*** Dette er en pressemelding formidlet av NTB pva. andre ***')
@@ -183,11 +185,28 @@ class STTDocumentsTestCase(BaseSolitaTestCase):
             'sielt Detaljhandel, Lagring og Transport merker presset. (foto for fri bruk til saken)</a><br><a href="htt'
             'ps://www.ntbinfo.no/data/images/00749/e303f05c-30ad-4821-8862-d0f1f27d484a.jpg">– Det er spesielt noen bra'
             'nsjer som merker presset. Butikkene har for lengst merket kampen mot netthandelen og sliter med lave margi'
-            'ner, forteller Per Einar Ruud i data- og analyseselskapet Bisnode.</a>\n</p>\n<h2>Dokumenter</h2><p>\n<a h'
-            'ref="https://www.ntbinfo.no/data/attachments/00203/fa42f1c1-aaa5-4ec1-908d-8b38a100bfab.pptx">Konkurser fe'
-            'bruar 2019.pptx</a>\n</p>\n<h2>Kontakter</h2>\n<p><name>Per Einar Ruud i Bisnode</name><br><title>Kredittø'
-            'konom, Bisnode</title><br><phone>+47 92 40 10 04\u2028</phone><br><email>per.einar.ruud@bisnode.com</email'
-            '></p>\n<p>Se saken i sin helhet:<br><a href="https://www.ntbinfo.no/pressemelding/nedgang-men-fortsatt-hoy'
-            'e-konkurstall-med-bransje--og-fylkesoversikt?releaseId=17861325">https://www.ntbinfo.no/pressemelding/nedg'
-            'ang-men-fortsatt-hoye-konkurstall-med-bransje--og-fylkesoversikt?releaseId=17861325</a></p>'
+            'ner, forteller Per Einar Ruud i data- og analyseselskapet Bisnode.</a>\n</p>\n<h2>Kontakter</h2>\n<p><name'
+            '>Per Einar Ruud i Bisnode</name><br><title>Kredittøkonom, Bisnode</title><br><phone>+47 92 40 10 04\u2028<'
+            '/phone><br><email>per.einar.ruud@bisnode.com</email></p>\n<h2>Dokumenter</h2><p>\n<a href="https://www.ntb'
+            'info.no/data/attachments/00203/fa42f1c1-aaa5-4ec1-908d-8b38a100bfab.pptx">Konkurser februar 2019.pptx</a>'
+            '\n</p>\n<p>Se saken i sin helhet:<br><a href="https://www.ntbinfo.no/pressemelding/nedgang-men-fortsatt-ho'
+            'ye-konkurstall-med-bransje--og-fylkesoversikt?releaseId=17861325">https://www.ntbinfo.no/pressemelding/ned'
+            'gang-men-fortsatt-hoye-konkurstall-med-bransje--og-fylkesoversikt?releaseId=17861325</a></p>'
+        )
+
+
+class STTDocumentWithContactsAsTextCase(BaseSolitaTestCase):
+    """This test use a file which contains a <contactsAsText> element"""
+    filename = 'solita_4.xml'
+
+    def test_body(self):
+        """Check that body is as expected (SDNTB-591 regression test)"""
+        item = self.item[0]
+        self.assertEqual(
+            item['body_html'],
+            '<p>DETTE ER EN TEST BRØDTEKST</p>\n<p class="ntb-media">\n<a href="https://www.ntbinfo.no/data/images/0063'
+            '3/c0973bb9-ae50-4dd6-8e83-3bdabd4dea5d.jpg">Dette er en test bildetekst</a>\n</p>\n<h2>Kontakter</h2>\n<p>'
+            'Dette er en test kontaktperson</p>\n<p>Se saken i sin helhet:<br><a href="https://www.ntbinfo.no/pressemel'
+            'ding/dette-er-en-test-tittel?releaseId=17867709">https://www.ntbinfo.no/pressemelding/dette-er-en-test-tit'
+            'tel?releaseId=17867709</a></p>'
         )

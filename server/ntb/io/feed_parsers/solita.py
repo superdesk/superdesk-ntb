@@ -106,6 +106,26 @@ class SolitaFeedParser(XMLFeedParser):
             body_list.extend(['<p class="ntb-media">', "<br>".join(images), "</p>"])
             item.setdefault("extra", {}).setdefault("ntb_media", []).extend(ntb_media)
 
+        # contacts
+        contacts = root_elt.xpath('contacts/contact')
+        contacts_as_text = root_elt.xpath('contactsAsText/text()')
+        if contacts or contacts_as_text:
+            body_list.append('<h2>Kontakter</h2>')
+            for contact_elt in contacts:
+                body_list.append(
+                    '<p><name>{name}</name><br>'
+                    '<title>{title}</title><br>'
+                    '<phone>{phone}</phone><br>'
+                    '<email>{email}</email>'
+                    '</p>'.format(
+                        name=e(contact_elt.findtext('name', '')),
+                        title=e(contact_elt.findtext('title', '')),
+                        phone=e(contact_elt.findtext('phone', '')),
+                        email=e(contact_elt.findtext('email', '')),
+                    ))
+            for contact_txt in contacts_as_text:
+                body_list.append('<p>{contact}</p>'.format(contact=e(contact_txt)))
+
         # documents
         documents = []
         for document_elt in root_elt.xpath('documents/document'):
@@ -115,22 +135,6 @@ class SolitaFeedParser(XMLFeedParser):
                 caption=e(document_elt.findtext('title') or url)))
         if documents:
             body_list.extend(["<h2>Dokumenter</h2><p>", "<br>".join(documents), "</p>"])
-
-        # contacts
-        for idx, contact_elt in enumerate(root_elt.xpath('contacts/contact')):
-            if idx == 0:
-                body_list.append('<h2>Kontakter</h2>')
-            body_list.append(
-                '<p><name>{name}</name><br>'
-                '<title>{title}</title><br>'
-                '<phone>{phone}</phone><br>'
-                '<email>{email}</email>'
-                '</p>'.format(
-                    name=e(contact_elt.findtext('name', '')),
-                    title=e(contact_elt.findtext('title', '')),
-                    phone=e(contact_elt.findtext('phone', '')),
-                    email=e(contact_elt.findtext('email', '')),
-                ))
 
         # longurl
         body_list.append(
