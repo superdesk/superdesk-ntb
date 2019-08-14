@@ -4,3 +4,4 @@ work: celery -A worker worker
 publish: celery -A worker -Q "${SUPERDESK_CELERY_PREFIX}publish" worker
 capi: gunicorn -c gunicorn_config.py content_api.wsgi
 beat: celery -A worker beat --pid=
+publish_priority: celery -A worker -Q "${SUPERDESK_CELERY_PREFIX}publish_priority" worker
