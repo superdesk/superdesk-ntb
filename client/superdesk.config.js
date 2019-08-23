@@ -110,6 +110,7 @@ module.exports = function(grunt) {
                 'update',
                 'updated',
                 'state',
+		'scheduledDateTime',
                 'versioncreated'
             ]
         },
