@@ -47,9 +47,7 @@ def extract_params(query, names):
     for name, value in findall:
         query = query.replace('%s:(%s)' % (name, value), '')
     query = query.strip()
-    # escape dashes
-    for name, value in params.items():
-        params[name] = value.replace('-', r'\-')
+
     if query:
         params['q'] = query
     return params
