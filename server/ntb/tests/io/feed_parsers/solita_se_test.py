@@ -85,7 +85,7 @@ class STTTestCase2(BaseSolitaTestCase):
             'm TESTKUNDE BØRS ASA</h4><p>Dette er en om oss-tekst i en børsmelding</p><h4>Vedlegg</h4><ul><li><a href="'
             'https://prs-ntb-beta.solitaservices.fi/ir-files/17847073/6/5/Hjemstatsliste%20Oslo%20Bors.pdf">Hjemstatsli'
             'ste Oslo Bors.pdf</a></li><li><a href="https://prs-ntb-beta.solitaservices.fi/ir-files/17847073/6/6/Medlem'
-            'sliste%20Oslo%20Bors.pdf">Medlemsliste Oslo Bors.pdf</a></li></ul><p>Se saken i sin helhet: <a src="https:'
-            '//prs-ntb-beta.solitaservices.fi/announcement?announcementId=6&amp;lang=no">https://prs-ntb-beta.solitaser'
-            'vices.fi/announcement?announcementId=6&amp;lang=no</a></p>'
+            'sliste%20Oslo%20Bors.pdf">Medlemsliste Oslo Bors.pdf</a></li></ul><p>Se saken i sin helhet: <a href="https'
+            '://prs-ntb-beta.solitaservices.fi/announcement?announcementId=6&amp;lang=no">https://prs-ntb-beta.solitase'
+            'rvices.fi/announcement?announcementId=6&amp;lang=no</a></p>'
         )

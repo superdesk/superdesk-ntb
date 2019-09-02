@@ -130,7 +130,7 @@ class SolitaSE(NewsMLOneFeedParser):
                 raise ValueError("Invalid url: {url}".format(url=url))
             p_elt = etree.SubElement(content_elt, "p")
             p_elt.text = 'Se saken i sin helhet: '
-            a_elt = etree.SubElement(p_elt, "a", attrib={'src': url})
+            a_elt = etree.SubElement(p_elt, "a", attrib={'href': url})
             a_elt.text = url
 
         ret = sd_etree.to_string(content_elt)
