@@ -230,7 +230,11 @@
                     {"name": "NINJS", "qcode": "ninjs"},
 					{"name": "AAP NewsML 1.2", "qcode": "newsml12"},
                     {"name": "NewsML G2", "qcode": "newsmlg2"},
-                    {"name": "NTB Event", "qcode": "ntb_event"}
+                    {"name": "NTB Event", "qcode": "ntb_event"},
+                    {"name": "JSON Event format", "qcode": "json_event"},
+                    {"name": "JSON Planning format", "qcode": "json_planning"},
+                    {"name": "JSON Planning featured format", "qcode": "json_planning_featured"},
+                    {"name": "Newsroom NINJS format", "qcode": "newsroom ninjs"}
                 ]
             },
             {"is_active": true, "name": "Digital/Internet", "qcode": "digital",
@@ -244,7 +248,11 @@
                     {"name": "AAP NewsML 1.2", "qcode": "newsml12"},
                     {"name": "NewsML G2", "qcode": "newsmlg2"},
                     {"name": "AAP Bulletin Builder", "qcode": "AAP BULLETIN BUILDER"},
-                    {"name": "NTB Event", "qcode": "ntb_event"}
+                    {"name": "NTB Event", "qcode": "ntb_event"},
+                    {"name": "JSON Event format", "qcode": "json_event"},
+                    {"name": "JSON Planning format", "qcode": "json_planning"},
+                    {"name": "JSON Planning featured format", "qcode": "json_planning_featured"},
+                    {"name": "Newsroom NINJS format", "qcode": "newsroom ninjs"}
                 ]
             },
             {"is_active": true, "name": "Wire/Paper", "qcode": "wire",
@@ -258,7 +266,11 @@
                     {"name": "NITF", "qcode": "nitf"},
                     {"name": "AAP IPNEWS", "qcode": "AAP IPNEWS"},
                     {"name": "AAP SMS", "qcode": "AAP SMS"},
-                    {"name": "NTB Event", "qcode": "ntb_event"}
+                    {"name": "NTB Event", "qcode": "ntb_event"},
+                    {"name": "JSON Event format", "qcode": "json_event"},
+                    {"name": "JSON Planning format", "qcode": "json_planning"},
+                    {"name": "JSON Planning featured format", "qcode": "json_planning_featured"},
+                    {"name": "Newsroom NINJS format", "qcode": "newsroom ninjs"}
                 ]
             }
         ]
