@@ -15,7 +15,8 @@
             {% if item.get('event', {}).get('location') %}
             &nbsp;Sted: {{ item.event.location[0].name }}.
             {% endif %}
-            {% if item.get('planning_date', '') != '' %}
+            {% if item.get('planning_date', '') != ''
+                and item.get('planning_date', '') | format_datetime(date_format='%H:%M') != '00:00' %}
             &nbsp;Tid: {{ item.planning_date | format_datetime(date_format='%H:%M') }}.
             {% endif %}
         </p>
