@@ -28,3 +28,15 @@ class NTBAFPNewsMLTestCase(XMLParserTestCase):
 
         self.assertIn({'name': 'Nyhetstjenesten', 'qcode': 'n'}, self.item['anpa_category'])
         self.assertEqual(self.item['urgency'], 5)
+        self.assertEqual(self.item.get('headline'), 'Burkina Faso bans imports from North Korea')
+
+
+class NoHeadlineTestCase(XMLParserTestCase):
+
+    filename = 'afp_no_headline.xml'
+    parser = NTBAFPNewsMLParser()
+
+    def test_no_headline(self):
+        self.assertEqual(self.item.get('headline'), 'Burkina Faso is banning imports from North Korea to comply with to'
+                                                    'ugh UN economic sanctions punishing Pyongyang\'s weapons programme'
+                                                    's, the government said Wednesday.')
