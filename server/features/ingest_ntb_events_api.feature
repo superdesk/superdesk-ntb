@@ -1,4 +1,4 @@
-Feature: Events ingest
+Feature: Ingest NTV Events api
 
     @ntb_vocabulary @auth @ntb_event_api_provider
     Scenario: Ingest NTB event API xml
