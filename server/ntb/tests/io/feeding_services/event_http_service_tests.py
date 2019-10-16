@@ -14,8 +14,9 @@ class EventHTTPFeedingServiceTestCase(TestCase):
             provider = {
                 'feed_parser': 'ntb_event_xml',
                 'config': {
-                    'url': 'https://gist.github.com/vied12/d390cd5f245faa8311f70562a71e7820/' +
-                    'raw/0f74b78c124482d6c897dcfc24202981cd4428b2/NTBEvent.xml',
+                    # TODO check if real network request is happening here
+                    'url': 'https://gist.github.com/vied12/d390cd5f245faa8311f70562a71e7820/'
+                           'raw/0f74b78c124482d6c897dcfc24202981cd4428b2/NTBEvent.xml',
                 }
             }
             events = list(service._update(provider, None))

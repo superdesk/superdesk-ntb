@@ -132,8 +132,9 @@ class NTBEventFormatter(Formatter):
         local_start_time = self._get_local_time(dates.get('start'), dates.get('tz'))
         local_end_time = self._get_local_time(dates.get('end'), dates.get('tz'))
         _pattern = '%H:%M'
-        is_all_day_event = (local_start_time.strftime(_pattern) == '00:00' and
-                            local_end_time.strftime(_pattern) == '23:59')
+        is_all_day_event = (
+            local_start_time.strftime(_pattern) == '00:00' and local_end_time.strftime(_pattern) == '23:59'
+        )
         alldayevent = etree.SubElement(doc, 'alldayevent')
         alldayevent.text = str(is_all_day_event)
 
