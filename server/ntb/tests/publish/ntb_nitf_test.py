@@ -474,11 +474,12 @@ class NTBNITFFormatterTest(TestCase):
 
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
     def test_pretty_formatting(self):
-        """check that content is pretty formatted
+        """Check that content is pretty formatted
 
         we use here a body_html with spaces added on purpose, and check that resulting
         body.content is formatted as expected
         """
+
         article = copy.deepcopy(self.article)
         article['abstract'] = ""
         article['body_html'] = """\

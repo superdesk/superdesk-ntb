@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*
 """
-    Getting currency exchange rates for today and yesterday. The source is an XML file
-    Source of data is http://www.ecb.int/stats/eurofxref/eurofxref-hist-90d.xml
+Getting currency exchange rates for today and yesterday. The source is an XML file
+Source of data is http://www.ecb.int/stats/eurofxref/eurofxref-hist-90d.xml
 
-    (c) NTB 2007-: Trond Husoe (510 / thu@ntb.no)
-    This solution gets data form http://www.dnbnor.no until the bank of norway sets up an xml-feed.
-    Version 0.9
-    Corrected fetching data from ebc and corrected decimals
+(c) NTB 2007-: Trond Husoe (510 / thu@ntb.no)
+This solution gets data form http://www.dnbnor.no until the bank of norway sets up an xml-feed.
+Version 0.9
+Corrected fetching data from ebc and corrected decimals
 """
 
 import xml.etree.cElementTree as ElementTree

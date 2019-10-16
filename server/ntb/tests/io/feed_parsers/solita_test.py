@@ -197,6 +197,7 @@ class STTDocumentsTestCase(BaseSolitaTestCase):
 
 class STTDocumentWithContactsAsTextCase(BaseSolitaTestCase):
     """This test use a file which contains a <contactsAsText> element"""
+
     filename = 'solita_4.xml'
 
     def test_body(self):

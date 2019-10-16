@@ -1,8 +1,8 @@
 """
-    nb-NO to nn-NO Metadata Macro will perform the following changes to current content item:
-    - change the language to nn-NO
-    - change the body footer to "(©NPK)" - NB: copyrightsign, not @
-    - change the service (ANPA category) to "NPKTema"
+nb-NO to nn-NO Metadata Macro will perform the following changes to current content item:
+- change the language to nn-NO
+- change the body footer to "(©NPK)" - NB: copyrightsign, not @
+- change the service (ANPA category) to "NPKTema"
 """
 
 
