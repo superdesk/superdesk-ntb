@@ -13,6 +13,7 @@ SCANPIX_DOWNLOAD_URL = 'https://api.scanpix.no/v2/download/quiet/{}/{}/high'
 
 PING_TIMEOUT = 5
 DOWNLOAD_TIMEOUT = (5, 25)
+MEDIA_RESOURCE = 'upload'
 
 http = requests.Session()
 
@@ -23,9 +24,9 @@ def fetch_original(item):
             return
         extra = item.get('extra', {})
         item.setdefault('renditions', {})
-        media = app.media.get(item['_id'], 'upload')
+        media = app.media.get(item['guid'], MEDIA_RESOURCE)
         if not media:
-            url = SCANPIX_DOWNLOAD_URL.format(extra['main_group'], item['_id'])
+            url = SCANPIX_DOWNLOAD_URL.format(extra['main_group'], item['guid'])
             provider = superdesk.get_resource_service('search_providers') \
                 .find_one(req=None, _id=item['ingest_provider'])
             res = http.get(
@@ -40,13 +41,14 @@ def fetch_original(item):
             media_id = app.media.put(
                 res.content,
                 filename=extra.get('filename'),
-                content_type=content_type, _id=item['_id'])
-            item['renditions']['original'] = {
-                'href': app.media.url_for_media(media_id),
-                'width': int(extra['width']) if extra.get('width') else None,
-                'height': int(extra['height']) if extra.get('height') else None,
-                'mimetype': content_type,
-            }
+                content_type=content_type, _id=item['guid'])
+            media = app.media.get(media_id, MEDIA_RESOURCE)
+        item['renditions']['original'] = {
+            'href': media._id,
+            'width': int(extra['width']) if extra.get('width') else None,
+            'height': int(extra['height']) if extra.get('height') else None,
+            'mimetype': media.content_type,
+        }
     except Exception as e:
         logger.exception(e)
 
