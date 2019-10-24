@@ -35,6 +35,22 @@ class NTBEventXMLFeedParser(XMLFeedParser):
     def can_parse(self, xml):
         return xml.tag.endswith('document')
 
+    def parse_email(self, content, content_type, provider):
+        if content_type != 'text/xml':
+            raise ParserError.parseMessageError('Not supported content type.')
+
+        content.seek(0)
+        xml = ET.parse(content)
+        return self.parse(xml.getroot(), provider)
+
+    def parse_file(self, fstream, provider):
+        xml = ET.parse(fstream)
+        return self.parse(xml.getroot(), provider)
+
+    def parse_http(self, content, provider):
+        xml = ET.fromstring(content)
+        return self.parse(xml, provider)
+
     def parse(self, xml, provider=None, content=None):
         items = []
         try:

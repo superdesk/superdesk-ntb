@@ -1,5 +1,15 @@
-from planning.feeding_services.event_http_service import EventHTTPFeedingService
+import os
+from unittest import mock
+
+from planning.feeding_services import event_http_service
 from planning.tests import TestCase
+
+
+class MockResponse:
+    def __init__(self, status_code, content):
+        self.status_code = status_code
+        self.content = content
+        self.headers = mock.MagicMock()
 
 
 class EventHTTPFeedingServiceTestCase(TestCase):
@@ -7,16 +17,21 @@ class EventHTTPFeedingServiceTestCase(TestCase):
     def setUp(self):
         super().setUp()
 
-    def test_update_ntb(self):
-        with self.app.app_context():
+    @mock.patch.object(event_http_service, 'requests')
+    def test_update_ntb(self, requests):
+        dirname = os.path.dirname(os.path.realpath(__file__))
+        fixture = os.path.normpath(os.path.join(dirname, '../fixtures', 'ntb_event.xml'))
 
-            service = EventHTTPFeedingService()
-            provider = {
-                'feed_parser': 'ntb_event_xml',
-                'config': {
-                    'url': 'https://gist.github.com/vied12/d390cd5f245faa8311f70562a71e7820/' +
-                    'raw/0f74b78c124482d6c897dcfc24202981cd4428b2/NTBEvent.xml',
-                }
+        with open(fixture, 'rb') as f:
+            requests.get.return_value = MockResponse(status_code=200, content=f.read())
+
+        service = event_http_service.EventHTTPFeedingService()
+        provider = {
+            'feed_parser': 'ntb_event_xml',
+            'config': {
+                'url': 'https://example.com/NTBEvent.xml',
             }
-            events = list(service._update(provider, None))
-            self.assertEqual(len(events), 1)
+        }
+
+        events = list(service._update(provider, None))
+        self.assertEqual(len(events), 1)
