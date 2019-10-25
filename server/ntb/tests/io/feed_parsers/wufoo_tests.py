@@ -97,7 +97,7 @@ class Wufoo(TestCase):
         self.assertEqual(item['body_html'], expected)
 
     def test_missing_field(self):
-        """we check that ingest is not crashing if fields are missing (SDNTB-509)"""
+        """We check that ingest is not crashing if fields are missing (SDNTB-509)"""
         article = copy.deepcopy(self.article)
         for i in range(102, 106):
             del article['Field' + str(i)]

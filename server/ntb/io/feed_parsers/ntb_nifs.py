@@ -34,6 +34,7 @@ class NTBNIFSFeedParser(FeedParser):
     Feed Parser which can parse an NTB created XML file exported from Outlook
     the firstcreated and versioncreated times are localised.
     """
+
     NAME = 'ntb_nifs'
     label = 'NIFS Sport Events'
     subjects_map = None

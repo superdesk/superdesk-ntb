@@ -14,7 +14,7 @@ from lxml import etree
 
 def extract_html_macro(item, **kwargs):
     """
-        Delete from body_html all html tags except links
+    Delete from body_html all html tags except links
     """
     if 'body_html' not in item:
         return None
