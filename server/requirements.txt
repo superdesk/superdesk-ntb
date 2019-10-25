@@ -4,4 +4,4 @@ newrelic==2.88.1.73
 feedgen==0.7.0
 
 -e git+git://github.com/superdesk/superdesk-core.git@develop#egg=Superdesk-Core
--e git+git://github.com/superdesk/superdesk-planning.git@1.7#egg=superdesk-planning
+-e git+git://github.com/superdesk/superdesk-planning.git@3529552#egg=superdesk-planning
