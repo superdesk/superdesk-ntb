@@ -44,7 +44,7 @@ def fetch_original(item):
                 content_type=content_type, _id=item['guid'])
             media = app.media.get(media_id, MEDIA_RESOURCE)
         item['renditions']['original'] = {
-            'href': media._id,
+            'href': app.media.url_for_media(media._id, media.content_type),
             'width': int(extra['width']) if extra.get('width') else None,
             'height': int(extra['height']) if extra.get('height') else None,
             'mimetype': media.content_type,
