@@ -83,7 +83,8 @@ def publish_scanpix(sender, item, **kwargs):
     if item.get('associations'):
         for key, assoc in item['associations'].items():
             if assoc is not None and assoc.get('fetch_endpoint') == 'scanpix':
-                fetch_original(assoc)
+                if assoc.get('type') == 'picture':
+                    fetch_original(assoc)
                 ping_scanpix(assoc, item)
 
 
