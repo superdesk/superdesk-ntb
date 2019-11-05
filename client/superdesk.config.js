@@ -7,8 +7,10 @@
 module.exports = function(grunt) {
     return {
         apps: [
-             'superdesk-planning'
+            'ntb.superdesk',
+            'superdesk-planning'
         ],
+        importApps: ['../index'],
 
         bodyClass: {
             'indent-article': 1
