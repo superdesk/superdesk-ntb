@@ -278,7 +278,7 @@
     {
         "_id": "place_custom",
         "display_name": "Place",
-        "type": "unmanageable",
+        "type": "manageable",
         "selection_type": "multi selection",
         "service": {"all": 1},
         "schema_field": "place",
