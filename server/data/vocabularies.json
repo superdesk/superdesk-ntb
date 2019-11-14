@@ -278,11 +278,12 @@
     {
         "_id": "place_custom",
         "display_name": "Place",
-        "type": "unmanageable",
+        "type": "manageable",
         "selection_type": "multi selection",
         "service": {"all": 1},
         "schema_field": "place",
         "dependent": 0,
+        "init_version": 1,
         "items": [
             {"is_active": true, "name": "Norge", "qcode": "Norge", "parent": null},
             {"is_active": true, "name": "Norden", "qcode": "Norden", "parent": null},
