@@ -283,7 +283,7 @@
         "service": {"all": 1},
         "schema_field": "place",
         "dependent": 0,
-	"init_version": 1,
+        "init_version": 1,
         "items": [
             {"is_active": true, "name": "Norge", "qcode": "Norge", "parent": null},
             {"is_active": true, "name": "Norden", "qcode": "Norden", "parent": null},
