@@ -8,6 +8,7 @@ class MultiserviceMediaNITFFormatterTestCase(TestCase):
     def test_scanpix_original_href(self):
         formatter = NTBNITFMultiServiceMediaFormatter()
         data = {
+            'type': 'picture',
             'fetch_endpoint': 'scanpix',
             'renditions': {
                 'original': {'href': 'http://example.com'},

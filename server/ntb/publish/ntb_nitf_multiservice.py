@@ -30,7 +30,9 @@ class NTBNITFMultiServiceMediaFormatter(NTBNITFMultiServiceFormatter):
     FORMAT_TYPE = 'ntbnitfmedia'
 
     def _get_media_source(self, data):
-        return self._get_original_href(data)
+        if data.get('type') == 'picture':
+            return self._get_original_href(data)
+        return super()._get_media_source(data)
 
 
 PublishService.register_file_extension(NTBNITFMultiServiceFormatter.FORMAT_TYPE, 'xml')
