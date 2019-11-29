@@ -112,7 +112,6 @@ module.exports = function(grunt) {
                 'updated',
                 'state',
                 'scheduledDateTime',
-                'associations',
                 'associatedItems',
                 'versioncreated'
             ]
