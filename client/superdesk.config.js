@@ -105,12 +105,14 @@ module.exports = function(grunt) {
                 'slugline',
                 'takekey',
                 'highlights',
+                'markedDesks',
                 'headline',
                 'provider',
                 'update',
                 'updated',
                 'state',
                 'scheduledDateTime',
+                'associations',
                 'versioncreated'
             ]
         },
@@ -126,6 +128,10 @@ module.exports = function(grunt) {
         defaultRoute: '/workspace/monitoring',
 
         langOverride: {
+            'nb': {
+                'Planelement': 'NTB-planer',
+                'Hendelser': 'Nyhetskalender'
+            },
             'en': {
                 'ANPA Category': 'Service',
                 'ANPA CATEGORY': 'SERVICE'
