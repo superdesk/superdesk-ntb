@@ -129,7 +129,7 @@ module.exports = function(grunt) {
 
         langOverride: {
             'nb': {
-                'Planning item': 'NTB-planer',
+                'Planning Item': 'NTB-planer',
                 'Event': 'Nyhetskalender'
             },
             'en': {
