@@ -113,6 +113,7 @@ module.exports = function(grunt) {
                 'state',
                 'scheduledDateTime',
                 'associations',
+                'associatedItems',
                 'versioncreated'
             ]
         },
