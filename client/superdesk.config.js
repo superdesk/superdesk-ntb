@@ -129,8 +129,8 @@ module.exports = function(grunt) {
 
         langOverride: {
             'nb': {
-                'Planelement': 'NTB-planer',
-                'Hendelser': 'Nyhetskalender'
+                'Planning item': 'NTB-planer',
+                'Event': 'Nyhetskalender'
             },
             'en': {
                 'ANPA Category': 'Service',
