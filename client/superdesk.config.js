@@ -42,6 +42,7 @@ module.exports = function(grunt) {
             customMonitoringWidget: true,
             scanpixSearchShortcut: true,
             searchShortcut: true,
+            elasticHighlight: true,
             noTakes: true,
             noMissingLink: true,
             editor3: true,
