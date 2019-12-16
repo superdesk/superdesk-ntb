@@ -7,7 +7,11 @@
 module.exports = function(grunt) {
     return {
         apps: [
-             'superdesk-planning'
+             'superdesk-planning',
+        ],
+
+        importApps: [
+            'superdesk-planning',
         ],
 
         bodyClass: {
