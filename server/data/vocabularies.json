@@ -505,18 +505,20 @@
             {"is_active": true, "name": "Færøyene", "qcode": "Færøyene", "parent": "Norden"},
             {"is_active": true, "name": "Grønland", "qcode": "Grønland", "parent": "Norden"},
             {"is_active": true, "name": "Sverige", "qcode": "Sverige", "parent": "Norden"},
-
+		
+            {"is_active": true, "name": "Riksnyheter", "qcode": "Riksnyheter", "parent": "Norge"},
             {"is_active": true, "name": "Agder", "qcode": "Agder", "parent": "Norge"},
             {"is_active": true, "name": "Innlandet", "qcode": "Innlandet", "parent": "Norge"},
             {"is_active": true, "name": "Møre og Romsdal", "qcode": "Møre og Romsdal", "parent": "Norge"},
             {"is_active": true, "name": "Nordland", "qcode": "Nordland", "parent": "Norge"},
             {"is_active": true, "name": "Oslo", "qcode": "Oslo", "parent": "Norge"},
-            {"is_active": true, "name": "Rogaland", "qcode": "Rogaland", "parent": "Norge"},
+	    {"is_active": true, "name": "Rogaland", "qcode": "Rogaland", "parent": "Norge"},
             {"is_active": true, "name": "Troms og Finnmark", "qcode": "Troms og Finnmark", "parent": "Norge"},
             {"is_active": true, "name": "Trøndelag", "qcode": "Trøndelag", "parent": "Norge"},
             {"is_active": true, "name": "Vestfold og Telemark", "qcode": "Vestfold og Telemark", "parent": "Norge"},
             {"is_active": true, "name": "Vestland", "qcode": "Vestland", "parent": "Norge"},
             {"is_active": true, "name": "Viken", "qcode": "Viken", "parent": "Norge"},
+            {"is_active": true, "name": "Svalbard", "qcode": "Svalbard", "parent": "Norge"},
 
             {"is_active": true, "name": "Oslo kommune", "qcode": "Oslo kommune", "parent": "Oslo"},
             {"is_active": true, "name": "Bjerkreim", "qcode": "Bjerkreim", "parent": "Rogaland"},
