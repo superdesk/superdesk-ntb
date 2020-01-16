@@ -167,8 +167,8 @@ class NTBNITFFormatter(NITFFormatter):
             attrib={'norm': article['versioncreated'].astimezone(tz).strftime("%Y-%m-%dT%H:%M:%S")})
 
     def _format_docdata_doc_id(self, article, docdata):
-        doc_id = "NTB{family_id}_{version:02}".format(
-            family_id=article['family_id'],
+        doc_id = "{ntbid}_{version:02}".format(
+            ntbid=self._get_ntbid(article),
             version=_get_rewrite_sequence(article))
         etree.SubElement(docdata, 'doc-id', attrib={'regsrc': 'NTB', 'id-string': doc_id})
 
@@ -257,7 +257,7 @@ class NTBNITFFormatter(NITFFormatter):
             etree.SubElement(head, 'meta', {'name': 'NTBStikkord', 'content': self._get_ntb_slugline(article)})
         etree.SubElement(head, 'meta', {'name': 'subject', 'content': self._get_ntb_subject(article)})
 
-        etree.SubElement(head, 'meta', {'name': 'NTBID', 'content': 'NTB{}'.format(article['family_id'])})
+        etree.SubElement(head, 'meta', {'name': 'NTBID', 'content': self._get_ntbid(article)})
 
         # these static values never change
         etree.SubElement(head, 'meta', {'name': 'NTBDistribusjonsKode', 'content': 'ALL'})
@@ -344,6 +344,7 @@ class NTBNITFFormatter(NITFFormatter):
 
         # media
         media_data = []
+        associations = {}
         try:
             associations = article['associations']
         except KeyError:
@@ -497,6 +498,48 @@ class NTBNITFFormatter(NITFFormatter):
                 return next(iter(data['renditions'].values()))['href']
             except (StopIteration, KeyError):
                 logger.warning("Can't find source for media {}".format(data.get('guid', '')))
+
+    def _get_ntbid(self, article):
+        """
+        Return NTBID.
+        If article is an update, use original item guid (if no guid use _id) to create an NTBID.
+        If article is not an update use guid/_id of a current article to to create an NTBID.
+        :param article: article
+        :return: NTBID
+        """
+
+        if 'rewrite_of' in article:
+            # pymongo is used to have an ability to specify a projection
+            # it's not possible to specify a projection while using eve's resource based service
+            # https://github.com/pyeve/eve/blob/master/eve/io/base.py#L449
+            db_arhive = app.data.mongo.pymongo('archive').db['archive']
+            items = tuple(db_arhive.find(
+                {
+                    'family_id': article['family_id'],
+                    '_id': {
+                        '$ne': article['_id']
+                    }
+                },
+                {'rewrite_of': 1, 'guid': 1}
+            ))
+            items_dict = {i['_id']: i for i in items}
+            # find original item id
+            orig_id = article['rewrite_of']
+            while True:
+                try:
+                    # if no rewrite_of, it means that item is original
+                    orig_id = items_dict[orig_id]['rewrite_of']
+                except KeyError:
+                    break
+            # try to get guid
+            try:
+                orig_id = items_dict[orig_id]['guid']
+            except KeyError:
+                pass
+
+            return 'NTB{}'.format(orig_id)
+
+        return 'NTB{}'.format(article.get('guid', article['_id']))
 
     def _format_body_end(self, article, body_end):
         try:
