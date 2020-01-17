@@ -512,8 +512,8 @@ class NTBNITFFormatter(NITFFormatter):
             # pymongo is used to have an ability to specify a projection
             # it's not possible to specify a projection while using eve's resource based service
             # https://github.com/pyeve/eve/blob/master/eve/io/base.py#L449
-            db_arhive = app.data.mongo.pymongo('archive').db['archive']
-            items = tuple(db_arhive.find(
+            db_archive = app.data.mongo.pymongo('archive').db['archive']
+            items = tuple(db_archive.find(
                 {
                     'family_id': article['family_id'],
                     '_id': {
