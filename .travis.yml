@@ -10,11 +10,9 @@ addons:
   apt:
     sources:
     - mongodb-3.0-precise
-    - google-chrome
     - elasticsearch-2.x
     packages:
     - mongodb-org-server
-    - google-chrome-stable
     - elasticsearch
 
 cache:
