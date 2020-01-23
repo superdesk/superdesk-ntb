@@ -204,9 +204,10 @@ SESSION_EXPIRY_MINUTES = 12 * 60
 
 NIFS_STAGE_MAP = {
     6: 'Eliteserien menn',
-    676155: 'Eliteserien menn',
+    682936: 'Eliteserien menn',
     679874: 'Eliteserien menn',
-    679873: '1. divisjon menn'
+    679873: '1. divisjon menn',
+    682948: '1. divisjon menn'
 }
 NIFS_QCODE_MAP = {
     1: '15054000',  # Fotball
