@@ -1,1 +1,187 @@
-[{"timestamp":"2018-03-11T18:00:00+01:00","name":"Bod\u00f8\/Glimt - Lillestr\u00f8m","result":{"homeScore45":1,"homeScore90":3,"awayScore45":0,"awayScore90":1,"type":"nifs:result","uid":"res_1438696"},"homeTeam":{"name":"Bod\u00f8\/Glimt","type":"nifs:teamCompact","uid":"te_c_8_1438696","id":8,"externalIds":{"tv2":[206],"fiks":[4]}},"awayTeam":{"name":"Lillestr\u00f8m","type":"nifs:teamCompact","uid":"te_c_12_1438696","id":12,"externalIds":{"tv2":[13],"fiks":[177]}},"matchStatusId":1,"matchTypeId":null,"attendance":3484,"round":1,"comment":"Kampen ble stoppet i en halvtime, etter 15 minutters spill, p\u00e5 grunn kraftig sn\u00f8fall. ","tv2Ids":[912476],"coveredLive":true,"stageId":676155,"type":"nifs:matchCompact","uid":"m_c_1438696","id":1438696,"externalIds":{"tv2":[912476],"fiks":6901460,"fiksMatchNumber":99120001002},"sportId":1},{"timestamp":"2018-03-11T18:00:00+01:00","name":"Molde - Sandefjord","result":{"homeScore45":2,"homeScore90":5,"awayScore45":0,"awayScore90":0,"type":"nifs:result","uid":"res_1438694"},"homeTeam":{"name":"Molde","type":"nifs:teamCompact","uid":"te_c_6_1438694","id":6,"externalIds":{"tv2":[290,1729],"fiks":[3]}},"awayTeam":{"name":"Sandefjord","type":"nifs:teamCompact","uid":"te_c_48_1438694","id":48,"externalIds":{"tv2":[286],"fiks":[195]}},"matchStatusId":1,"matchTypeId":null,"attendance":6218,"round":1,"comment":"","tv2Ids":[912477],"coveredLive":true,"stageId":676155,"type":"nifs:matchCompact","uid":"m_c_1438694","id":1438694,"externalIds":{"tv2":[912477],"fiks":6901462,"fiksMatchNumber":99120001003},"sportId":1},{"timestamp":"2018-03-11T18:00:00+01:00","name":"Odd - Haugesund","result":{"homeScore45":0,"homeScore90":1,"awayScore45":0,"awayScore90":2,"type":"nifs:result","uid":"res_1438693"},"homeTeam":{"name":"Odd","type":"nifs:teamCompact","uid":"te_c_14_1438693","id":14,"externalIds":{"tv2":[14],"fiks":[270,14274]}},"awayTeam":{"name":"Haugesund","type":"nifs:teamCompact","uid":"te_c_16_1438693","id":16,"externalIds":{"tv2":[284],"fiks":[202]}},"matchStatusId":1,"matchTypeId":null,"attendance":4466,"round":1,"comment":"","tv2Ids":[912474],"coveredLive":true,"stageId":676155,"type":"nifs:matchCompact","uid":"m_c_1438693","id":1438693,"externalIds":{"tv2":[912474],"fiks":6901463,"fiksMatchNumber":99120001004},"sportId":1}]
+[
+    {
+        "timestamp": "2018-03-11T18:00:00+01:00",
+        "name": "Bod\u00f8\/Glimt - Lillestr\u00f8m",
+        "result": {
+            "homeScore45": 1,
+            "homeScore90": 3,
+            "awayScore45": 0,
+            "awayScore90": 1,
+            "type": "nifs:result",
+            "uid": "res_1438696"
+        },
+        "homeTeam": {
+            "name": "Bod\u00f8\/Glimt",
+            "type": "nifs:teamCompact",
+            "uid": "te_c_8_1438696",
+            "id": 8,
+            "externalIds": {
+                "tv2": [
+                    206
+                ],
+                "fiks": [
+                    4
+                ]
+            }
+        },
+        "awayTeam": {
+            "name": "Lillestr\u00f8m",
+            "type": "nifs:teamCompact",
+            "uid": "te_c_12_1438696",
+            "id": 12,
+            "externalIds": {
+                "tv2": [
+                    13
+                ],
+                "fiks": [
+                    177
+                ]
+            }
+        },
+        "matchStatusId": 1,
+        "matchTypeId": null,
+        "attendance": 3484,
+        "round": 1,
+        "comment": "Kampen ble stoppet i en halvtime, etter 15 minutters spill, p\u00e5 grunn kraftig sn\u00f8fall. ",
+        "tv2Ids": [
+            912476
+        ],
+        "coveredLive": true,
+        "stageId": 682936,
+        "type": "nifs:matchCompact",
+        "uid": "m_c_1438696",
+        "id": 1438696,
+        "externalIds": {
+            "tv2": [
+                912476
+            ],
+            "fiks": 6901460,
+            "fiksMatchNumber": 99120001002
+        },
+        "sportId": 1
+    },
+    {
+        "timestamp": "2018-03-11T18:00:00+01:00",
+        "name": "Molde - Sandefjord",
+        "result": {
+            "homeScore45": 2,
+            "homeScore90": 5,
+            "awayScore45": 0,
+            "awayScore90": 0,
+            "type": "nifs:result",
+            "uid": "res_1438694"
+        },
+        "homeTeam": {
+            "name": "Molde",
+            "type": "nifs:teamCompact",
+            "uid": "te_c_6_1438694",
+            "id": 6,
+            "externalIds": {
+                "tv2": [
+                    290,
+                    1729
+                ],
+                "fiks": [
+                    3
+                ]
+            }
+        },
+        "awayTeam": {
+            "name": "Sandefjord",
+            "type": "nifs:teamCompact",
+            "uid": "te_c_48_1438694",
+            "id": 48,
+            "externalIds": {
+                "tv2": [
+                    286
+                ],
+                "fiks": [
+                    195
+                ]
+            }
+        },
+        "matchStatusId": 1,
+        "matchTypeId": null,
+        "attendance": 6218,
+        "round": 1,
+        "comment": "",
+        "tv2Ids": [
+            912477
+        ],
+        "coveredLive": true,
+        "stageId": 682936,
+        "type": "nifs:matchCompact",
+        "uid": "m_c_1438694",
+        "id": 1438694,
+        "externalIds": {
+            "tv2": [
+                912477
+            ],
+            "fiks": 6901462,
+            "fiksMatchNumber": 99120001003
+        },
+        "sportId": 1
+    },
+    {
+        "timestamp": "2018-03-11T18:00:00+01:00",
+        "name": "Odd - Haugesund",
+        "result": {
+            "homeScore45": 0,
+            "homeScore90": 1,
+            "awayScore45": 0,
+            "awayScore90": 2,
+            "type": "nifs:result",
+            "uid": "res_1438693"
+        },
+        "homeTeam": {
+            "name": "Odd",
+            "type": "nifs:teamCompact",
+            "uid": "te_c_14_1438693",
+            "id": 14,
+            "externalIds": {
+                "tv2": [
+                    14
+                ],
+                "fiks": [
+                    270,
+                    14274
+                ]
+            }
+        },
+        "awayTeam": {
+            "name": "Haugesund",
+            "type": "nifs:teamCompact",
+            "uid": "te_c_16_1438693",
+            "id": 16,
+            "externalIds": {
+                "tv2": [
+                    284
+                ],
+                "fiks": [
+                    202
+                ]
+            }
+        },
+        "matchStatusId": 1,
+        "matchTypeId": null,
+        "attendance": 4466,
+        "round": 1,
+        "comment": "",
+        "tv2Ids": [
+            912474
+        ],
+        "coveredLive": true,
+        "stageId": 682936,
+        "type": "nifs:matchCompact",
+        "uid": "m_c_1438693",
+        "id": 1438693,
+        "externalIds": {
+            "tv2": [
+                912474
+            ],
+            "fiks": 6901463,
+            "fiksMatchNumber": 99120001004
+        },
+        "sportId": 1
+    }
+]
