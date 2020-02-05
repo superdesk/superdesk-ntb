@@ -66,6 +66,7 @@ def ping_scanpix(assoc, item):
                     'owner': app.config['SCANPIX_PING_OWNER'],
                     'media_id': assoc.get('guid', assoc.get('_id')),
                     'article_id': item.get('guid', item.get('_id')),
+                    'services': [cat.get('name') for cat in item.get('anpa_category', [])],
                 },
             }),
             headers={'content-type': 'application/json'},

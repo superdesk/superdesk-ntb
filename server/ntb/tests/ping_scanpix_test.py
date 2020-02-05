@@ -37,6 +37,7 @@ class PingScanpixTestCase(TestCase):
                       SCANPIX_DOWNLOAD_URL.format('editorial', self.item['associations']['featuremedia']['_id']),
                       body=b'', status=200)
         item = copy.deepcopy(self.item)
+        item['anpa_category'] = [{'name': 'Foo'}, {'name': 'Bar'}]
         renditions = item['associations']['featuremedia']['renditions']
         self.assertNotIn('original', renditions)
         with self.app.app_context():
@@ -51,6 +52,7 @@ class PingScanpixTestCase(TestCase):
                 'owner': 'ntb',
                 'media_id': 'td773c79',
                 'article_id': 'a3b71dbe-c23b-49d8-8f2b-cbe09e2cff3e',
+                'services': ['Foo', 'Bar'],
             },
         }), responses.calls[1].request.body)
         self.assertIn('original', renditions)
