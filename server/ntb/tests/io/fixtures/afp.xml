@@ -38,6 +38,14 @@
                 <DateLine xml:lang="en">Ouagadougou, Dec 20, 2017 (AFP) -</DateLine>
                 <HeadLine xml:lang="en">Burkina Faso bans imports from North Korea</HeadLine>
                 <SlugLine xml:lang="en">Burkina-Faso</SlugLine>
+                <NewsLine>
+                    <NewsLineType FormalName="AdvisoryLine"/>
+                    <NewsLineText xml:lang="en">UPDATES with Germany, US, UAE cases</NewsLineText>
+                </NewsLine>
+                <NewsLine>
+                    <NewsLineType FormalName="ProductLine"/>
+                    <NewsLineText xml:lang="en">(Graphic+Picture)</NewsLineText>
+                </NewsLine>
             </NewsLines>
             <AdministrativeMetadata>
                 <Provider>
