@@ -34,6 +34,7 @@ class DPATestCase(BaseDPANewsMLTestCase):
         self.assertEqual(item['uri'], 'urn:newsml:dpa.com:20090101:171220-99-357156')
         self.assertEqual(item['versioncreated'].isoformat(), '2017-12-20T14:49:36+01:00')
         self.assertEqual(item['firstcreated'].isoformat(), '2017-12-20T14:49:36+01:00')
+        self.assertEqual(item['ednote'], 'Some other text')
 
         expected_body = ('<p>Rom (dpa) - Der Geschäftsführer des italienischen Energiekonzerns Eni, Claudio Descalzi, '
                          'muss wegen mutmaßlicher Schmiergeldzahlungen seiner Firma bei Auftragsvergaben in Nigeria vo'
@@ -52,5 +53,33 @@ class DPATestCase(BaseDPANewsMLTestCase):
                          'ügelt, der Konzern habe mit der Gasgewinnung im Offshore-Feld Zohr vor Ägyptens Küste begonn'
                          'en. Es wird vermutet, dass dieses Gasfeld das größte im Mittelmeer ist. </p>')
 
-        self.assertEqual(item['body_html'], expected_body)
+        ednote = """
+              <h3>Notizblock</h3>
+            
+            
+              <h4>Internet</h4>
+              <ul>
+                <li>
+                  <a href="http://dpaq.de/rLByV">Erklärung Eni (Englisch)</a>
+                </li>
+                <li>
+                  <a href="http://dpaq.de/DNjBn">Aktienkurs Eni an Mailänder Börse</a>
+                </li>
+                <li>
+                  <a href="http://dpaq.de/KZQ6N">Mitteilung Eni über Gasförderung im Zohr-Offshore-Feld</a>
+                </li>
+              </ul>
+            
+            
+              <p>Die folgenden Informationen sind nicht zur Veröffentlichung bestimmt</p>
+              <h4>Kontakte</h4>
+              <ul>
+                <li>Autorin: Alvise Armellini (Rom) und Angelika Engler (Berlin), +49 30 2852 31160, &lt;<a href="mailto:fsd@dpa.com">fsd@dpa.com</a>&gt;</li>
+                <li>Redaktion: Matthias Arnold (Berlin), +49 30 2852 32242, &lt;<a href="mailto:wirtschaft@dpa.com">wirtschaft@dpa.com</a>&gt;</li>
+              </ul>
+            
+            <p>dpa alv aae xxzz n1 maa</p>"""  # noqa: W293, E501
+
+        self.assertIn(expected_body, item['body_html'])
+        self.assertIn(ednote, item['body_html'])
         self.assertEqual(item['urgency'], 5)

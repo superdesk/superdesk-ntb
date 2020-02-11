@@ -142,9 +142,11 @@ class STTSportTestCase(BaseSTTNewsMLTestCase):
         self.assertEqual(item['guid'], 'urn:newsml:stt.fi:20180123:101863800:1')
         self.assertEqual(item['uri'], 'urn:newsml:stt.fi:20180123:101863800')
         self.assertEqual(item['firstcreated'].isoformat(), '2018-01-23T13:31:01+02:00')
-        expected_body = ('<p>Eläkevakuutusyhtiö Ilmarinen hakee jääkiekkoseura Espoo Unitedia konkurssiin, kertoo Häme'
-                         'en Sanomat nettisivuillaan. Lehden tietojen mukaan Ilmarinen on jättänyt konkurssihakemuksen'
-                         ' Espoon käräjäoikeuteen tällä viikolla.</p>\n\n<p>Espoo United pelaa jääkiekon toiseksi kork'
+        expected_body = ('<p>Eläkevakuutusyhtiö Ilmarinen hakee jääkiekkoseura Espoo Unitedia konkurssiin, kertoo '
+                         '<a href="https://www.hameensanomat.fi/uutiset/kiekko/343838-ilmarinen-hakee-espoo-unitedia-'
+                         'konkurssiin">Hämeen Sanomat</a> nettisivuillaan. Lehden tietojen mukaan Ilmarinen on '
+                         'jättänyt konkurssihakemuksen Espoon käräjäoikeuteen tällä viikolla.</p>\n\n<p>Espoo United'
+                         ' pelaa jääkiekon toiseksi kork'
                          'eimmalla kotimaisella sarjatasolla Mestiksessä. Joukkue on sarjassa kahdeksannella sijalla.<'
                          '/p>\n\n<p>Seuran taloudelliset vaikeudet ovat olleet julkisuudessa useampaan otteeseen viime'
                          ' kesästä.</p>\n\n<p>Osakeyhtiön viime vuoden huhtikuussa päättyneen tilikauden tulos oli 1,8'
