@@ -15,6 +15,7 @@ import json
 from ntb.io.feed_parsers import ntb_nitf
 from ntb.io.feed_parsers import stt_newsml  # NOQA
 from content_api.app.settings import CONTENTAPI_INSTALLED_APPS
+from superdesk.default_settings import HTML_TAGS_WHITELIST as _HTML_TAGS_WHITELIST
 
 
 def env(variable, fallback_value=None):
@@ -286,3 +287,5 @@ CONTENTAPI_INSTALLED_APPS += (
 HIGH_PRIORITY_QUEUE_ENABLED = True
 
 PLANNING_EVENT_TEMPLATES_ENABLED = True
+
+HTML_TAGS_WHITELIST = _HTML_TAGS_WHITELIST + ('a', )

@@ -13,6 +13,7 @@ from superdesk.io.registry import register_feed_parser
 from superdesk.errors import ParserError
 from superdesk.metadata.item import CONTENT_TYPE
 from superdesk import etree as sd_etree
+from lxml import etree
 from . import utils
 import dateutil.parser
 import logging
@@ -39,6 +40,7 @@ class DPANewsMLFeedParser(NewsMLTwoFeedParser):
         try:
             for item_set in xml.findall(self.qname('itemSet')):
                 for item_tree in item_set:
+                    self.item_tree = item_tree
                     item = self.parse_item(item_tree)
                     try:
                         published = item_tree.xpath('.//xhtml:body/xhtml:header/'
@@ -85,6 +87,15 @@ class DPANewsMLFeedParser(NewsMLTwoFeedParser):
             body_elt = tree.xpath('//xhtml:body//xhtml:section[contains(@class,"main")]', namespaces=NS)[0]
         except IndexError:
             body_elt = tree.xpath('//xhtml:body', namespaces=NS)[0]
+
+        try:
+            notepad = self.item_tree.xpath('.//iptc:edNote[@role="dpaednoterole:notepad"]//xhtml:section',
+                                           namespaces=NS)[0]
+            for elem in notepad:
+                body_elt.append(elem)
+        except IndexError:
+            pass
+
         body_elt = sd_etree.clean_html(body_elt)
 
         content = dict()
@@ -95,6 +106,21 @@ class DPANewsMLFeedParser(NewsMLTwoFeedParser):
             content['content'] = '<pre>' + body_elt.text + '</pre>'
             content['format'] = CONTENT_TYPE.PREFORMATTED
         return content
+
+    def parse_item_meta(self, tree, item):
+        super().parse_item_meta(tree, item)
+        meta = tree.find(self.qname('itemMeta'))
+
+        ED_NOTE_ROLES = (
+            'dpaednoterole:correctionshort',
+            'dpaednoterole:correction',
+            'dpaednoterole:editorialnote',
+        )
+
+        for ednote in meta.findall(self.qname('edNote')):
+            if ednote.attrib.get('role') in ED_NOTE_ROLES:
+                item['ednote'] = ednote.text.strip()
+                break
 
 
 register_feed_parser(DPANewsMLFeedParser.NAME, DPANewsMLFeedParser())

@@ -80,6 +80,7 @@
         <edNote role="dpaednoterole:closingline">dpa alv aae xxzz n1 maa</edNote>
         <edNote pubconstraint="dpapconstraint:nonpublic" role="dpaednoterole:dpacontacts">Autorin: Alvise Armellini (Rom) und Angelika Engler (Berlin), +49 30 2852 31160, &lt;fsd@dpa.com&gt;</edNote>
         <edNote pubconstraint="dpapconstraint:nonpublic" role="dpaednoterole:dpacontacts">Redaktion: Matthias Arnold (Berlin), +49 30 2852 32242, &lt;wirtschaft@dpa.com&gt;</edNote>
+        <edNote role="dpaednoterole:editorialnote">Some other text</edNote>
         <link href="https://www.eni.com/en_IT/media/2017/12/eni-opl-245-board-of-directors-expresses-full-confidence-in-the-correctness-and-integrity-of-both-the-companys-and-chief-executives-actions" rank="1" rel="irel:seeAlso">
           <title>Erklärung Eni (Englisch)</title>
           <link href="http://dpaq.de/rLByV" rel="dparel:shorturl"/>
