@@ -41,13 +41,12 @@ class NTBAFPNewsMLParser(AFPNewsMLOneFeedParser):
         return item
 
     def parse_newslines(self, item, tree):
-        if super().parse_newslines(item, tree):
-            newsline_type = tree.find(
-                'NewsItem/NewsComponent/NewsLines/NewsLine/NewsLineType[@FormalName="AdvisoryLine"]'
-            )
-            if newsline_type is not None and newsline_type.getnext() is not None:
-                item['ednote'] = newsline_type.getnext().text or ''
-            return True
+        super().parse_newslines(item, tree)
+        newsline_type = tree.find(
+            'NewsItem/NewsComponent/NewsLines/NewsLine/NewsLineType[@FormalName="AdvisoryLine"]'
+        )
+        if newsline_type is not None and newsline_type.getnext() is not None:
+            item['ednote'] = newsline_type.getnext().text or ''
 
 
 register_feed_parser(NTBAFPNewsMLParser.NAME, NTBAFPNewsMLParser())
