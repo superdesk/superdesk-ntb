@@ -29,6 +29,7 @@ class NTBAFPNewsMLTestCase(XMLParserTestCase):
         self.assertIn({'name': 'Nyhetstjenesten', 'qcode': 'n'}, self.item['anpa_category'])
         self.assertEqual(self.item['urgency'], 5)
         self.assertEqual(self.item.get('headline'), 'Burkina Faso bans imports from North Korea')
+        self.assertEqual('UPDATES with Germany, US, UAE cases', self.item['ednote'])
 
 
 class NoHeadlineTestCase(XMLParserTestCase):
