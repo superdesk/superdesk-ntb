@@ -40,15 +40,12 @@ class SolitaSE(NewsMLOneFeedParser):
                 'filter': lambda i: "solita-se_{}".format(i)
             },
             'headline': 'NewsComponent/NewsLines/HeadLine',
-            'slugline': {
-                'xpath': 'Identification/NewsIdentifier/ProviderId/text()',
-                'filter': lambda p: "Borsmelding-{}".format(p)
-            },
+            'slugline': 'NewsComponent/AdministrativeMetadata/Source/Party/@FormalName',
             'body_html': self.get_body,
             'name': {
                 'xpath': 'NewsComponent/AdministrativeMetadata/Source/Party/@FormalName',
                 'key_hook': lambda item, name: item.setdefault('extra', {}).__setitem__('ntb_pub_name', name),
-            }
+            },
         }
 
     def can_parse(self, xml):
@@ -117,6 +114,24 @@ class SolitaSE(NewsMLOneFeedParser):
         h1 = content_elt.find('h1')
         if h1 is not None:
             content_elt.remove(h1)
+
+        categories = news_item.xpath('NewsComponent/Metadata/Property[@FormalName="Message Category"]/@Value')
+
+        if categories:
+            category = categories[0]
+            p_elt = etree.Element('p')
+            p_elt.text = category
+            content_elt.insert(0, p_elt)
+
+        ori_ann_urls = news_item.xpath('NewsComponent/Metadata/Property[@FormalName="nordicAgencyWebsite"]/@Value')
+        if ori_ann_urls:
+            url = ori_ann_urls[0]
+            if not url.startswith('http'):
+                raise ValueError("Invalid url: {url}".format(url=url))
+            p_elt = etree.SubElement(content_elt, "p")
+            p_elt.text = 'Se saken i sin helhet: '
+            a_elt = etree.SubElement(p_elt, "a", attrib={'href': url})
+            a_elt.text = url
 
         ret = sd_etree.to_string(content_elt)
         return ret

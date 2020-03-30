@@ -4,7 +4,7 @@ import mimetypes
 import superdesk
 
 from flask import json, current_app as app
-from superdesk.signals import item_published
+from superdesk.signals import item_publish
 from superdesk.logging import logger
 
 
@@ -13,6 +13,7 @@ SCANPIX_DOWNLOAD_URL = 'https://api.scanpix.no/v2/download/quiet/{}/{}/high'
 
 PING_TIMEOUT = 5
 DOWNLOAD_TIMEOUT = (5, 25)
+MEDIA_RESOURCE = 'upload'
 
 http = requests.Session()
 
@@ -23,9 +24,9 @@ def fetch_original(item):
             return
         extra = item.get('extra', {})
         item.setdefault('renditions', {})
-        media = app.media.get(item['_id'], 'upload')
+        media = app.media.get(item['guid'], MEDIA_RESOURCE)
         if not media:
-            url = SCANPIX_DOWNLOAD_URL.format(extra['main_group'], item['_id'])
+            url = SCANPIX_DOWNLOAD_URL.format(extra['main_group'], item['guid'])
             provider = superdesk.get_resource_service('search_providers') \
                 .find_one(req=None, _id=item['ingest_provider'])
             res = http.get(
@@ -40,13 +41,14 @@ def fetch_original(item):
             media_id = app.media.put(
                 res.content,
                 filename=extra.get('filename'),
-                content_type=content_type, _id=item['_id'])
-            item['renditions']['original'] = {
-                'href': app.media.url_for_media(media_id),
-                'width': int(extra['width']) if extra.get('width') else None,
-                'height': int(extra['height']) if extra.get('height') else None,
-                'mimetype': content_type,
-            }
+                content_type=content_type, _id=item['guid'])
+            media = app.media.get(media_id, MEDIA_RESOURCE)
+        item['renditions']['original'] = {
+            'href': app.media.url_for_media(media._id, media.content_type),
+            'width': int(extra['width']) if extra.get('width') else None,
+            'height': int(extra['height']) if extra.get('height') else None,
+            'mimetype': media.content_type,
+        }
     except Exception as e:
         logger.exception(e)
 
@@ -81,12 +83,13 @@ def publish_scanpix(sender, item, **kwargs):
     if item.get('associations'):
         for key, assoc in item['associations'].items():
             if assoc is not None and assoc.get('fetch_endpoint') == 'scanpix':
-                # fetch_original(assoc)  #  not yet
+                if assoc.get('type') == 'picture':
+                    fetch_original(assoc)
                 ping_scanpix(assoc, item)
 
 
 def init_app(app):
-    item_published.connect(publish_scanpix)
+    item_publish.connect(publish_scanpix)
     if app.config.get('SCANPIX_PING_OWNER') and app.config.get('SCANPIX_PING_USERNAME'):
         logger.info('SCANPIX ping owner configured %s', app.config['SCANPIX_PING_OWNER'])
     else:

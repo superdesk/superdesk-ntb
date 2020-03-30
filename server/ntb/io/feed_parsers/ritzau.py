@@ -18,6 +18,7 @@ class RitzauFeedParser(RitzauFeedParser):
     """
     Feed Parser which can parse Ritzau XML feed
     """
+
     _subjects_map = None
 
     NAME = 'ntb_ritzau'

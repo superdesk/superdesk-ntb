@@ -1,7 +1,7 @@
 """
-    This macro doesn't change any content, but when executed it'll
-    transfer the article to the nynorsk-API. There it will be stored
-    and used for later improvements of the translation software.
+This macro doesn't change any content, but when executed it'll
+transfer the article to the nynorsk-API. There it will be stored
+and used for later improvements of the translation software.
 """
 
 import requests

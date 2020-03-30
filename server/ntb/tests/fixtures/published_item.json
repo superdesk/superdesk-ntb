@@ -79,7 +79,13 @@
             "_id": "td773c79",
             "pubstatus": "usable",
             "versioncreated": "2018-12-27T10:08:05+0000",
-            "_etag": "7cbd9e468fb09231001eef1bcfbdb9edf18903df"
+            "_etag": "7cbd9e468fb09231001eef1bcfbdb9edf18903df",
+            "extra": {
+                "filename": "test.jpg",
+                "width": 3000,
+                "height": 2000,
+                "main_group": "editorial"
+            }
         }
     },
     "format": "HTML",

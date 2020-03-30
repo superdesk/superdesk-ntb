@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<NewsML xmlns="http://iptc.org/std/NewsML/2003-10-10/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.2" xsi:schemaLocation="http://iptc.org/std/NewsML/2003-10-10/ https://www.iptc.org/std/NewsML/1.2/specification/NewsML_1.2-xmlschema_4.xsd">
+  <NewsEnvelope>
+    <DateAndTime>20190715T120913+0200</DateAndTime>
+    <NewsProduct FormalName="nordicir.com"/>
+  </NewsEnvelope>
+  <NewsItem>
+    <Identification>
+      <NewsIdentifier>
+        <ProviderId>nordicir.com</ProviderId>
+        <DateId>20190715</DateId>
+        <NewsItemId>ntb:announcement:6-no</NewsItemId>
+        <RevisionId PreviousRevision="0" Update="N">1</RevisionId>
+        <PublicIdentifier>urn:newsml:nordicir.com:20190715:ntb:announcement:6-no:1</PublicIdentifier>
+      </NewsIdentifier>
+    </Identification>
+    <NewsManagement>
+      <NewsItemType FormalName="News"/>
+      <FirstCreated>20190715T120911+0200</FirstCreated>
+      <ThisRevisionCreated>20190715T120911+0200</ThisRevisionCreated>
+      <Status FormalName="Usable"/>
+      <Urgency FormalName="4"/>
+    </NewsManagement>
+    <NewsComponent>
+      <NewsLines>
+        <HeadLine>Tittel - Dette er en test - vennligst overse</HeadLine>
+        <DateLine>15.7.2019 12:09:11 CEST</DateLine>
+        <ByLine>TESTKUNDE B&#xD8;RS ASA</ByLine>
+      </NewsLines>
+      <AdministrativeMetadata>
+        <Source>
+          <Party FormalName="TESTKUNDE B&#xD8;RS ASA"/>
+        </Source>
+      </AdministrativeMetadata>
+      <DescriptiveMetadata>
+        <Language FormalName="no"/>
+        <Property FormalName="Country" Value="NO"/>
+      </DescriptiveMetadata>
+      <Metadata>
+        <MetadataType FormalName="Securities Identifier"/>
+        <Property FormalName="Exchange" Value="Oslo Stock Exchange"/>
+        <Property FormalName="Message Category" Value="Mandatory notification of trade primary insiders"/>
+      </Metadata>
+      <Metadata>
+        <MetadataType FormalName="Websites"/>
+        <Property FormalName="nordicAgencyWebsite" Value="https://prs-ntb-beta.solitaservices.fi/announcement?announcementId=6&amp;lang=no"/>
+      </Metadata>
+      <ContentItem Euid="announcement_html">
+        <MimeType FormalName="text/html"/>
+        <DataContent><![CDATA[<p class="prs-announcement__byline">15.7.2019 12:09:11 CEST | TESTKUNDE BØRS ASA | Meldepliktig handel for primærinnsidere</p>
+<p>Dette er en ingress</p>
+<p>Dette er en brødtekst.</p>
+<p></p>
+<table class="prs-table">
+<tr class="prs-table__row--light">
+<td>Dette er en tabell</td>
+<td>2017</td>
+<td>2018</td>
+<td>2019</td>
+</tr>
+<tr>
+<td>Inntekter</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Kostnader</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Resultat</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</table>
+<p></p>
+<h4>Informasjonspliktig opplysning</h4>
+<p>Denne opplysningen er informasjonspliktig etter verdipapirhandelloven § 5-12</p>
+<h4>Kontakter</h4>
+<ul>
+    <li>
+        Lennart Lie-Havstein
+        Produktsjef
+        +47 942 77 795
+        <a href="mailto:llh@ntb.no">llh@ntb.no</a>
+    </li>
+</ul>
+<h4>Om TESTKUNDE BØRS ASA</h4>
+<p>Dette er en om oss-tekst i en børsmelding</p>
+<h4>Vedlegg</h4>
+<ul>
+    <li>
+        <a href="https://prs-ntb-beta.solitaservices.fi/ir-files/17847073/6/5/Hjemstatsliste%20Oslo%20Bors.pdf">Hjemstatsliste Oslo Bors.pdf</a>
+    </li>
+    <li>
+        <a href="https://prs-ntb-beta.solitaservices.fi/ir-files/17847073/6/6/Medlemsliste%20Oslo%20Bors.pdf">Medlemsliste Oslo Bors.pdf</a>
+    </li>
+</ul>
+]]></DataContent>
+      </ContentItem>
+      <ContentItem Euid="announcement_pdf" Href="https://prs-ntb-beta.solitaservices.fi/announcement-api/public/v1/pdf/6/no">
+        <MimeType FormalName="application/pdf"/>
+      </ContentItem>
+      <ContentItem Href="https://prs-ntb-beta.solitaservices.fi/ir-files/17847073/6/5/Hjemstatsliste%20Oslo%20Bors.pdf">
+        <MimeType FormalName="application/pdf"/>
+        <Characteristics>
+          <SizeInBytes>246515</SizeInBytes>
+          <Property FormalName="Title" Value="Hjemstatsliste Oslo Bors.pdf"/>
+        </Characteristics>
+      </ContentItem>
+      <ContentItem Href="https://prs-ntb-beta.solitaservices.fi/ir-files/17847073/6/6/Medlemsliste%20Oslo%20Bors.pdf">
+        <MimeType FormalName="application/pdf"/>
+        <Characteristics>
+          <SizeInBytes>144509</SizeInBytes>
+          <Property FormalName="Title" Value="Medlemsliste Oslo Bors.pdf"/>
+        </Characteristics>
+      </ContentItem>
+    </NewsComponent>
+  </NewsItem>
+</NewsML>

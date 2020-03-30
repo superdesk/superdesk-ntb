@@ -14,12 +14,7 @@ import os
 import json
 from ntb.io.feed_parsers import ntb_nitf
 from ntb.io.feed_parsers import stt_newsml  # NOQA
-
-
-try:
-    from urllib.parse import urlparse
-except ImportError:
-    from urlparse import urlparse
+from content_api.app.settings import CONTENTAPI_INSTALLED_APPS
 
 
 def env(variable, fallback_value=None):
@@ -37,16 +32,6 @@ ABS_PATH = os.path.abspath(os.path.dirname(__file__))
 INIT_DATA_PATH = os.path.join(ABS_PATH, 'data')
 LOCATORS_DATA_FILE = os.path.join(ABS_PATH, 'data', 'locators.json')
 
-LOG_CONFIG_FILE = env('LOG_CONFIG_FILE', 'logging_config.yml')
-
-APPLICATION_NAME = env('APP_NAME', 'Superdesk')
-server_url = urlparse(env('SUPERDESK_URL', 'http://localhost:5000/api'))
-CLIENT_URL = env('SUPERDESK_CLIENT_URL', 'http://localhost:9000')
-URL_PROTOCOL = server_url.scheme or None
-SERVER_NAME = server_url.netloc or None
-URL_PREFIX = server_url.path.lstrip('/') or ''
-if SERVER_NAME.endswith(':80'):
-    SERVER_NAME = SERVER_NAME[:-3]
 
 INSTALLED_APPS = [
     'apps.auth',
@@ -244,7 +229,8 @@ PLANNING_EXPORT_BODY_TEMPLATE = '''
 {% if item.get('event', {}).get('location') %}
 &nbsp;Sted: {{ item.event.location[0].name }}.
 {% endif %}
-{% if item.get('planning_date', '') != '' %}
+{% if item.get('planning_date', '') != ''
+    and item.get('planning_date', '') | format_datetime(date_format='%H:%M') != '00:00' %}
 &nbsp;Tid: {{ item.planning_date | format_datetime(date_format='%H:%M') }}.
 {% endif %}
 </p>
@@ -291,3 +277,11 @@ VALIDATOR_MEDIA_METADATA = {
 SCANPIX_PING_OWNER = env('SCANPIX_PING_OWNER')
 SCANPIX_PING_USERNAME = env('SCANPIX_PING_USERNAME')
 SCANPIX_PING_PASSWORD = env('SCANPIX_PING_PASSWORD')
+
+CONTENTAPI_INSTALLED_APPS += (
+    'ntb.content_api_rss',
+)
+
+HIGH_PRIORITY_QUEUE_ENABLED = True
+
+PLANNING_EVENT_TEMPLATES_ENABLED = True

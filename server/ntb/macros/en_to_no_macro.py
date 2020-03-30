@@ -1,9 +1,9 @@
 """
-    En to NO Metadata Macro will perform the following changes to current content item:
-    - change the byline to "(NPK-NTB)"
-    - change the signoff to "npk@npk.no"
-    - change the body footer to "(©NPK)" - NB: copyrightsign, not @
-    - change the service to "NPKSisteNytt"
+En to NO Metadata Macro will perform the following changes to current content item:
+- change the byline to "(NPK-NTB)"
+- change the signoff to "npk@npk.no"
+- change the body footer to "(©NPK)" - NB: copyrightsign, not @
+- change the service to "NPKSisteNytt"
 """
 
 

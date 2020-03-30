@@ -47,9 +47,7 @@ def extract_params(query, names):
     for name, value in findall:
         query = query.replace('%s:(%s)' % (name, value), '')
     query = query.strip()
-    # escape dashes
-    for name, value in params.items():
-        params[name] = value.replace('-', r'\-')
+
     if query:
         params['q'] = query
     return params
@@ -259,6 +257,14 @@ class ScanpixDatalayer(DataLayer):
                         break
 
         new_doc['byline'] = doc['byline']
+        new_doc.setdefault('extra', {})
+        new_doc['extra'].update({
+            'main_group': doc['mainGroup'],
+            'width': doc.get('hiresWidth'),
+            'height': doc.get('hiresHeight'),
+            'filename': doc.get('originalFileName'),
+        })
+
         doc.clear()
         doc.update(new_doc)
 

@@ -1,0 +1,12 @@
+[
+  {
+    "_id": "planning_group_by_date",
+    "name": "group_by_date",
+    "type": "planning",
+    "data": {
+      "slugline": "planning-date",
+      "body_html_template": "planning_group_by_date.html"
+    },
+    "label": "Group by date"
+  }
+]

@@ -127,7 +127,7 @@ class NTBNITFFormatter(NITFFormatter):
         return None
 
     def p_filter(self, root_elem, p_elem):
-        """modify p element to have 'txt' or 'txt-ind' attribute
+        """Modify p element to have 'txt' or 'txt-ind' attribute
 
         'txt' is only used immediatly after "hl2" elem, txt-ind in all other cases
         """
@@ -218,7 +218,7 @@ class NTBNITFFormatter(NITFFormatter):
         etree.SubElement(head, 'meta', {'name': 'NTBUtDato', 'content': created.strftime("%d.%m.%Y")})
 
     def _get_filename(self, article):
-        """return filename as specified by NTB
+        """Return filename as specified by NTB
 
         filename pattern: date_time_service_category_subject.xml
         example: 2016-08-16_11-07-46_Nyhetstjenesten_Innenriks_ny1-rygge-nedgang.xml
@@ -360,7 +360,7 @@ class NTBNITFFormatter(NITFFormatter):
                     media_data.append(feature_media)
 
         def repl_embedded(match):
-            """embedded in body_html handling"""
+            """Embedded in body_html handling"""
             # this method do 2 important things:
             # - it remove the embedded from body_html
             # - it fill media_data with embedded data in order of appearance
@@ -436,19 +436,9 @@ class NTBNITFFormatter(NITFFormatter):
 
         # media
         for data in media_data:
-            if 'scanpix' in data.get('fetch_endpoint', ''):
-                # NTB request that Scanpix ID is used
-                # in source for Scanpix media (see SDNTB-229)
-                source = data['guid']
-            else:
-                try:
-                    source = data['renditions']['original']['href']
-                except KeyError:
-                    try:
-                        source = next(iter(data['renditions'].values()))['href']
-                    except (StopIteration, KeyError):
-                        logger.warning("Can't find source for media {}".format(data.get('guid', '')))
-                        continue
+            source = self._get_media_source(data)
+            if not source:
+                continue
 
             if data['type'] == CONTENT_TYPE.PICTURE:
                 type_ = 'image'
@@ -490,6 +480,23 @@ class NTBNITFFormatter(NITFFormatter):
                 media_counter += 1
 
         self._add_meta_media_counter(head, media_counter)
+
+    def _get_media_source(self, data):
+        if 'scanpix' in data.get('fetch_endpoint', ''):
+            # NTB request that Scanpix ID is used
+            # in source for Scanpix media (see SDNTB-229)
+            return data['guid']
+        else:
+            return self._get_original_href(data)
+
+    def _get_original_href(self, data):
+        try:
+            return data['renditions']['original']['href']
+        except KeyError:
+            try:
+                return next(iter(data['renditions'].values()))['href']
+            except (StopIteration, KeyError):
+                logger.warning("Can't find source for media {}".format(data.get('guid', '')))
 
     def _format_body_end(self, article, body_end):
         try:

@@ -1,6 +1,6 @@
 """
-    nb-NO to nn-NO Metadata Macro will perform the following changes to current content item:
-    - change the language to nn-NO
+nb-NO to nn-NO Metadata Macro will perform the following changes to current content item:
+- change the language to nn-NO
 """
 
 import requests

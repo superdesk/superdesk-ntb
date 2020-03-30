@@ -7,7 +7,11 @@
 module.exports = function(grunt) {
     return {
         apps: [
-             'superdesk-planning'
+             'superdesk-planning',
+        ],
+
+        importApps: [
+            'superdesk-planning',
         ],
 
         bodyClass: {
@@ -42,6 +46,7 @@ module.exports = function(grunt) {
             customMonitoringWidget: true,
             scanpixSearchShortcut: true,
             searchShortcut: true,
+            elasticHighlight: true,
             noTakes: true,
             noMissingLink: true,
             editor3: true,
@@ -55,7 +60,12 @@ module.exports = function(grunt) {
         },
 
         monitoring: {
-            'scheduled': true
+            scheduled: {
+                sort: {
+                    default: { field: 'publish_schedule', order: 'asc' },
+                    allowed_fields_to_sort: [ 'publish_schedule' ]
+                }
+            },
         },
 
         workspace: {
@@ -100,11 +110,14 @@ module.exports = function(grunt) {
                 'slugline',
                 'takekey',
                 'highlights',
+                'markedDesks',
                 'headline',
                 'provider',
                 'update',
                 'updated',
                 'state',
+                'scheduledDateTime',
+                'associatedItems',
                 'versioncreated'
             ]
         },
@@ -120,6 +133,10 @@ module.exports = function(grunt) {
         defaultRoute: '/workspace/monitoring',
 
         langOverride: {
+            'nb': {
+                'Planning Item': 'NTB-planer',
+                'Event': 'Nyhetskalender'
+            },
             'en': {
                 'ANPA Category': 'Service',
                 'ANPA CATEGORY': 'SERVICE'
