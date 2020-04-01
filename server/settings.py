@@ -35,6 +35,7 @@ LOCATORS_DATA_FILE = os.path.join(ABS_PATH, 'data', 'locators.json')
 
 INSTALLED_APPS = [
     'apps.auth',
+    'superdesk.auth.oauth',
     'superdesk.roles',
     'ntb.scanpix',
     'planning',
