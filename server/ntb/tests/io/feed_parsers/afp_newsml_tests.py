@@ -41,3 +41,15 @@ class NoHeadlineTestCase(XMLParserTestCase):
         self.assertEqual(self.item.get('headline'), 'Burkina Faso is banning imports from North Korea to comply with to'
                                                     'ugh UN economic sanctions punishing Pyongyang\'s weapons programme'
                                                     's, the government said Wednesday.')
+
+
+class NoHeadline2TestCase(XMLParserTestCase):
+
+    filename = 'afp_no_headline_2.xml'
+    parser = NTBAFPNewsMLParser()
+
+    def test_no_headline_SDNTB_627(self):
+        """SDNTB_627 regression test"""
+        self.assertEqual(
+            self.item.get('headline'),
+            "There are 2 paragraphs on the same line on purpose don't add line feed")
