@@ -8,7 +8,7 @@
 # AUTHORS and LICENSE files distributed with this source code, or
 # at https://www.sourcefabric.org/superdesk/license
 
-from lxml import etree
+from superdesk import etree
 from superdesk.io.registry import register_feed_parser
 from superdesk.io.feed_parsers.afp_newsml_1_2 import AFPNewsMLOneFeedParser
 from .utils import ingest_category_from_subject, filter_missing_subjects, set_default_service
@@ -36,7 +36,8 @@ class NTBAFPNewsMLParser(AFPNewsMLOneFeedParser):
 
         if not item.get('headline') and item.get('body_html'):
             first_line = item.get('body_html').strip().split('\n')[0]
-            item['headline'] = etree.fromstring(first_line).text.strip()
+            parsed_headline = etree.parse_html(first_line, 'html')
+            item['headline'] = etree.to_string(parsed_headline, method="text").strip().split('\n')[0]
 
         return item
 
