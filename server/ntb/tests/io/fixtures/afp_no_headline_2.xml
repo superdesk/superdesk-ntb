@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NewsML Version="1.2">
+    <!--AFP NewsML text-photo profile evolution2-->
+    <!--Processed by Xafp1-4ToNewsML1-2 rev25-->
+    <Catalog Href="http://www.afp.com/dtd/AFPCatalog.xml"/>
+    <NewsEnvelope>
+        <TransmissionId>1056</TransmissionId>
+        <DateAndTime>20171220T134757Z</DateAndTime>
+        <NewsService FormalName="DGTE"/>
+        <NewsProduct FormalName="PAW"/>
+        <NewsProduct FormalName="ANA"/>
+        <NewsProduct FormalName="MEW"/>
+        <NewsProduct FormalName="AFW"/>
+        <NewsProduct FormalName="EUW"/>
+        <NewsProduct FormalName="MAX"/>
+        <Priority FormalName="4"/>
+    </NewsEnvelope>
+    <NewsItem xml:lang="en">
+        <Identification>
+            <NewsIdentifier>
+                <ProviderId>afp.com</ProviderId>
+                <DateId>20171220T134757Z</DateId>
+                <NewsItemId>TX-PAR-NBK16</NewsItemId>
+                <RevisionId PreviousRevision="0" Update="N">1</RevisionId>
+                <PublicIdentifier>urn:newsml:afp.com:20171220T134757Z:TX-PAR-NBK16:1</PublicIdentifier>
+            </NewsIdentifier>
+            <NameLabel>Burkina-NKorea-sanctions-UN</NameLabel>
+        </Identification>
+        <NewsManagement>
+            <NewsItemType FormalName="News"/>
+            <FirstCreated>20171220T134757+0000</FirstCreated>
+            <ThisRevisionCreated>20171220T134757+0000</ThisRevisionCreated>
+            <Status FormalName="Usable"/>
+            <Urgency FormalName="4"/>
+        </NewsManagement>
+        <NewsComponent>
+            <NewsLines>
+                <DateLine xml:lang="en">Ouagadougou, Dec 20, 2017 (AFP) -</DateLine>
+                <HeadLine/>
+                <SlugLine xml:lang="en">Burkina-Faso</SlugLine>
+            </NewsLines>
+            <AdministrativeMetadata>
+                <Provider>
+                    <Party FormalName="AFP"/>
+                </Provider>
+            </AdministrativeMetadata>
+            <DescriptiveMetadata>
+                <Language FormalName="en"/>
+                <SubjectCode>
+                    <SubjectMatter FormalName="11014000" cat="POL"/>
+                </SubjectCode>
+                <SubjectCode>
+                    <SubjectDetail FormalName="11005001" cat="POL"/>
+                </SubjectCode>
+                <SubjectCode>
+                    <Subject FormalName="04000000" cat="ECO"/>
+                </SubjectCode>
+                <SubjectCode>
+                    <Subject FormalName="04000000" cat="ECO"/>
+                </SubjectCode>
+                <SubjectCode>
+                    <SubjectMatter FormalName="04008000" cat="ECO"/>
+                </SubjectCode>
+                <SubjectCode>
+                    <Subject FormalName="11000000" cat="POL"/>
+                </SubjectCode>
+                <SubjectCode>
+                    <SubjectMatter FormalName="11014000" cat="POL"/>
+                </SubjectCode>
+                <SubjectCode>
+                    <SubjectMatter FormalName="04017000" cat="ECO"/>
+                </SubjectCode>
+                <OfInterestTo FormalName="ASI-TEG-1=PAW"/>
+                <OfInterestTo FormalName="ANA-TEG-1=ANA"/>
+                <OfInterestTo FormalName="EAA-TEG-1=MEW"/>
+                <OfInterestTo FormalName="EAA-TEG-1=AFW"/>
+                <OfInterestTo FormalName="EAA-TEG-1=EUW"/>
+                <OfInterestTo FormalName="MAX-TEG-1=MAX"/>
+                <DateLineDate>20171220T134757+0000</DateLineDate>
+                <Location HowPresent="Origin">
+                    <Property FormalName="Country" Value="BFA"/>
+                    <Property FormalName="Area" Value="Région du Centre"/>
+                    <Property FormalName="City" Value="Ouagadougou"/>
+                </Location>
+                <Property FormalName="GeneratorSoftware" Value="libg2"/>
+                <Property FormalName="Keyword" Value="Burkina"/>
+                <Property FormalName="Keyword" Value="NKorea"/>
+                <Property FormalName="Keyword" Value="sanctions"/>
+                <Property FormalName="Keyword" Value="UN"/>
+            </DescriptiveMetadata>
+            <ContentItem>
+                <MediaType FormalName="Text"/>
+                <Format FormalName="NITF3.1"/>
+                <Characteristics>
+                    <SizeInBytes>1140</SizeInBytes>
+                    <Property FormalName="Words" Value="190"/>
+                </Characteristics>
+                <DataContent>
+                    <nitf>
+                        <body>
+                            <body.content>
+                                <p>There are 2 paragraphs on the same line on purpose </p><p>don't add line feed</p>
+                            </body.content>
+                        </body>
+                    </nitf>
+                </DataContent>
+            </ContentItem>
+        </NewsComponent>
+    </NewsItem>
+</NewsML>
