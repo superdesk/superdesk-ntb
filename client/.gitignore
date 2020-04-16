@@ -27,3 +27,4 @@ nbproject/
 coveralls.json
 lcov.info
 bower_components
+yarn.lock

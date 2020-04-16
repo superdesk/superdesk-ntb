@@ -140,7 +140,7 @@ class SolitaFeedParser(XMLFeedParser):
         body_list.append(
             '<p>Se saken i sin helhet:<br><a href="{longurl}">'
             '{longurl}</a></p>'.format(
-                name=e(root_elt.findtext('publisher/name', '')),
+                # name=e(root_elt.findtext('publisher/name', '')),
                 longurl=e(root_elt.findtext('longurl', ''))))
 
         item['body_html'] = '\n'.join(body_list)
