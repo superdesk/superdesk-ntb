@@ -1,7 +1,7 @@
 {
     "dependencies": {
         "draft-js": "github:tomaskikutis/draft-js#add-subscript-superscript",
-        "superdesk-core": "1.32.2",
+        "superdesk-core": "superdesk/superdesk-client-core#develop",
         "superdesk-planning": "github:superdesk/superdesk-planning#1.10.0"
     }
 }
