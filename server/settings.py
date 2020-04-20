@@ -12,21 +12,13 @@
 
 import os
 import json
+
 from ntb.io.feed_parsers import ntb_nitf
 from ntb.io.feed_parsers import stt_newsml  # NOQA
 from content_api.app.settings import CONTENTAPI_INSTALLED_APPS
-from superdesk.default_settings import HTML_TAGS_WHITELIST as _HTML_TAGS_WHITELIST
-
-
-def env(variable, fallback_value=None):
-    env_value = os.environ.get(variable, '')
-    if len(env_value) == 0:
-        return fallback_value
-    else:
-        if env_value == "__EMPTY__":
-            return ''
-        else:
-            return env_value
+from superdesk.default_settings import (
+    HTML_TAGS_WHITELIST as _HTML_TAGS_WHITELIST, strtobool, CORE_APPS as _CORE_APPS, env
+)
 
 
 ABS_PATH = os.path.abspath(os.path.dirname(__file__))
@@ -34,8 +26,13 @@ INIT_DATA_PATH = os.path.join(ABS_PATH, 'data')
 LOCATORS_DATA_FILE = os.path.join(ABS_PATH, 'data', 'locators.json')
 
 
+# make sure db auth is not included
+CORE_APPS = [app for app in _CORE_APPS if app != 'apps.auth.db']
+
+
 INSTALLED_APPS = [
     'apps.auth',
+    'superdesk.auth.oauth',
     'superdesk.roles',
     'ntb.scanpix',
     'planning',
@@ -43,35 +40,8 @@ INSTALLED_APPS = [
     'ntb.io.feeding_services.newsworthy',
     'ntb.publish',
     'ntb.ping_scanpix',
-]
 
-# LDAP settings
-LDAP_SERVER = env('LDAP_SERVER', '')  # Ex: ldap://sourcefabric.org
-LDAP_SERVER_PORT = env('LDAP_SERVER_PORT', 389)
-
-# Fully Qualified Domain Name. Ex: sourcefabric.org
-LDAP_FQDN = env('LDAP_FQDN', '')
-
-# LDAP_BASE_FILTER limit the base filter to the security group. Ex: OU=Superdesk Users,dc=sourcefabric,dc=org
-LDAP_BASE_FILTER = env('LDAP_BASE_FILTER', '')
-
-# change the user depending on the LDAP directory structure
-LDAP_USER_FILTER = env('LDAP_USER_FILTER', "(&(objectCategory=user)(objectClass=user)(sAMAccountName={}))")
-
-# LDAP User Attributes to fetch. Keys would be LDAP Attribute Name and Value would be Supderdesk Model Attribute Name
-LDAP_USER_ATTRIBUTES = json.loads(env('LDAP_USER_ATTRIBUTES',
-                                      '{"givenName": "first_name", "sn": "last_name", '
-                                      '"displayName": "display_name", "mail": "email", '
-                                      '"ipPhone": "phone"}'))
-
-if LDAP_SERVER:
-    INSTALLED_APPS.append('apps.ldap')
-else:
-    INSTALLED_APPS.append('superdesk.users')
-    INSTALLED_APPS.append('apps.auth.db')
-
-
-INSTALLED_APPS.extend([
+    'superdesk.users',
     'superdesk.upload',
     'superdesk.sequences',
     'superdesk.notification',
@@ -128,8 +98,8 @@ INSTALLED_APPS.extend([
     'apps.picture_crop',
     'apps.languages',
 
-    'ntb.macros'
-])
+    'ntb.macros',
+]
 
 RENDITIONS = {
     'picture': {
@@ -142,8 +112,6 @@ RENDITIONS = {
         'viewImage': {'width': 200, 'height': 200},
     }
 }
-
-SERVER_DOMAIN = 'localhost'
 
 MACROS_MODULE = env('MACROS_MODULE', 'ntb.macros')
 
@@ -289,3 +257,8 @@ HIGH_PRIORITY_QUEUE_ENABLED = True
 PLANNING_EVENT_TEMPLATES_ENABLED = True
 
 HTML_TAGS_WHITELIST = _HTML_TAGS_WHITELIST + ('a', )
+
+# if google auth is not configured enable password auth
+google_confs = [os.environ.get(conf) for conf in ('GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET')]
+if not all(google_confs):
+    INSTALLED_APPS.append('apps.auth.db')
