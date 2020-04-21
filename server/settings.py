@@ -164,6 +164,9 @@ NO_TAKES = True
 
 FTP_TIMEOUT = 30
 
+#: after how many minutes consider content to be too old for ingestion
+INGEST_OLD_CONTENT_MINUTES = 1
+
 DEFAULT_TIMEZONE = "Europe/Oslo"
 
 # FIXME: temporary fix for SDNTB-344, need to be removed once SDESK-439 is implemented
