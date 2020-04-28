@@ -1,5 +1,6 @@
 import re
 import flask
+import logging
 import superdesk
 
 from lxml import etree
@@ -10,6 +11,7 @@ from eve.utils import ParsedRequest
 
 blueprint = flask.Blueprint('rss', __name__)
 parser = etree.HTMLParser(recover=True)
+logger = logging.getLogger(__name__)
 
 
 def generate_feed(items):
@@ -21,12 +23,15 @@ def generate_feed(items):
     for item in items:
         if not item.get('headline') and not item.get('slugline') and not item.get('name'):
             continue  # no title no atom
+        content = get_content(item)
+        if not content:
+            continue
         entry = fg.add_entry()
         entry.guid('{}/{}'.format(flask.url_for('rss.index', _external=True).rstrip('/'), item['_id']))
         entry.title(item.get('headline', item.get('name', item.get('slugline', ''))))
         entry.pubDate(item.get('firstpublished'))
         entry.updated(item['versioncreated'])
-        entry.content(get_content(item), type='CDATA')
+        entry.content(content, type='CDATA')
 
         category = [{'term': s.get('name')} for s in item.get('subject', []) if s.get('scheme') == 'category']
         if category:
@@ -46,6 +51,10 @@ def get_content(item):
     assoc = item.get('associations') or {}
     html = item.get('body_html', '<p></p>').replace('<figcatpion>', '<figcaption>')
     tree = etree.fromstring(html, parser=parser)
+    if tree is None:
+        logger.warning('no content for item %s headline=%s body=%s',
+                       item['_id'], item.get('headline'), item.get('body_html'))
+        return
     body = tree[0]
     for elem in body:
         if elem.tag is etree.Comment and elem.text:
