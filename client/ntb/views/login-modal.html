@@ -9,13 +9,13 @@
 
         <div class="form-handler" ng-show="!changePassword">
             <figure class="avatar" style="background-image:url('{{ identity.Avatar.href || 'images/avatar_200.png' }}')" ng-show="identity.Avatar"></figure>
-            <form name="loginForm" ng-submit="authenticate()" ng-show="!methods.google">
-                <fieldset class="inputs">
+            <form name="loginForm" ng-submit="authenticate()">
+                <fieldset class="inputs" ng-if="features.auth_db">
                     <input type="text" id="login-username" ng-model="username" placeholder="{{ 'username'|translate }}" class="fullwidth-input" ng-disabled="identity.Id" required />
                     <input type="password" id="login-password" ng-model="password" placeholder="{{ 'password'|translate }}" class="fullwidth-input login-pass" required />
                 </fieldset>
 
-                <fieldset class="buttons">
+                <fieldset class="buttons" ng-if="features.auth_db">
                     <button ng-disabled="isLoading" id="login-btn" type="submit" class="btn btn--sd-green">
                         {{ 'Log In' | translate }}
                         <div class="spinner" ng-show="isLoading">
@@ -24,12 +24,12 @@
                         </div>
                     </button>
                 </fieldset>
-            </form>
 
-            <fieldset class="buttons" ng-show="methods.google">
-                <button class="btn btn--sd-green"
-                    ng-click="openLoginPopup('google')" translate>Log In with Google</button>
-            </fieldset>
+                <fieldset class="buttons" ng-if="methods.google">
+                    <button class="btn btn--sd-green"
+                        ng-click="openLoginPopup('google')" translate>Log In with Google</button>
+                </fieldset>
+            </form>
 
             <a href="/#/secure-login/" class="text" ng-show="methods.xmpp" translate>Secure login</a>
 
