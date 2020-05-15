@@ -1,5 +1,5 @@
 import imaplib
-from unittest.mock import Mock, patch
+from mock import Mock, patch
 from planning.feeding_services.event_email_service import EventEmailFeedingService
 from planning.tests import TestCase
 from ntb.io.feed_parsers.ntb_event_xml import NTBEventXMLFeedParser
