@@ -10,12 +10,12 @@
         <div class="form-handler" ng-show="!changePassword">
             <figure class="avatar" style="background-image:url('{{ identity.Avatar.href || 'images/avatar_200.png' }}')" ng-show="identity.Avatar"></figure>
             <form name="loginForm" ng-submit="authenticate()">
-                <fieldset class="inputs" ng-if="features.auth_db">
+                <fieldset class="inputs" ng-show="features.auth_db">
                     <input type="text" id="login-username" ng-model="username" placeholder="{{ 'username'|translate }}" class="fullwidth-input" ng-disabled="identity.Id" required />
                     <input type="password" id="login-password" ng-model="password" placeholder="{{ 'password'|translate }}" class="fullwidth-input login-pass" required />
                 </fieldset>
 
-                <fieldset class="buttons" ng-if="features.auth_db">
+                <fieldset class="buttons" ng-show="features.auth_db">
                     <button ng-disabled="isLoading" id="login-btn" type="submit" class="btn btn--sd-green">
                         {{ 'Log In' | translate }}
                         <div class="spinner" ng-show="isLoading">
