@@ -222,13 +222,17 @@ class ScanpixDatalayer(DataLayer):
         # so we use original filename to guess it
         mimetype = mimetypes.guess_type("_{}".format(splitext(doc.get('originalFileName', ''))[1]))[0]
         if mimetype is None:
-            # nothing found with filename, we try out luck with fileFormat
+            # nothing found with filename, we try out luck with fileFormat and hires
             try:
-                format_ = doc['fileFormat'].split()[0]
+                format_ = doc.get('fileFormat')
+                if format_:
+                    format_ = format_.split()[0]
+                    mimetype = mimetypes.guess_type('_.{}'.format(format_))[0]
+                else:
+                    hires = doc.get('hires')[0]
+                    mimetype = hires.get('mimeType')
             except (KeyError, IndexError):
                 mimetype = None
-            else:
-                mimetype = mimetypes.guess_type('_.{}'.format(format_))[0]
         if mimetype is not None:
             new_doc['mimetype'] = mimetype
 
