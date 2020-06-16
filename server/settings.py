@@ -198,7 +198,7 @@ NIFS_SPORT_MAP = {
 PLANNING_EXPORT_BODY_TEMPLATE = '''
 {% for item in items %}
 <h2>{{ item.name or item.headline or item.slugline }}</h2>
-<p>{{ item.description_text }}
+<p>{{ item.description_text or '' }}
 {% if item.get('event', {}).get('location') %}
 &nbsp;Sted: {{ item.event.location[0].name }}.
 {% endif %}
