@@ -11,4 +11,4 @@ from . import ntb_events_api_xml # noqa
 from . import solita # noqa
 from . import solita_se # noqa
 from . import ntb_event_xml # noqa
-from . import ntb_tt_ninjs #noqa
+from . import ntb_tt_ninjs # noqa
