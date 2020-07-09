@@ -26,11 +26,15 @@ class BaseNTBTTNINJSTestCase(TestCase):
 
         dirname = os.path.dirname(os.path.realpath(__file__))
         fixture = os.path.normpath(os.path.join(dirname, '../fixtures', self.filename))
-        self.items = NTBTTNINJSFeedParser().parse(fixture)
+        self.parser = NTBTTNINJSFeedParser()
+        self.items = self.parser.parse(fixture)
 
 
 class NTBTTNINJSTestCase(BaseNTBTTNINJSTestCase):
     filename = 'ntbttninjs.json'
+
+    def test_is_sport_item(self):
+        self.assertEqual(self.parser.is_sport_item, False)
 
     def test_item(self):
         item = self.items[0]
