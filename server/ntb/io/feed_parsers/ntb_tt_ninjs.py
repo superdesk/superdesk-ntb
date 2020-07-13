@@ -8,11 +8,11 @@
 # AUTHORS and LICENSE files distributed with this source code, or
 # at https://www.sourcefabric.org/superdesk/license
 
+import json
 from superdesk.io.feed_parsers.ninjs import NINJSFeedParser
 from superdesk.io.registry import register_feed_parser
 from superdesk.utc import utc
 from dateutil.parser import parse
-import json
 
 
 class NTBTTNINJSFeedParser(NINJSFeedParser):
@@ -27,18 +27,15 @@ class NTBTTNINJSFeedParser(NINJSFeedParser):
     def __init__(self):
         super().__init__()
 
-    def parse(self, file_path, provider=None):
-        self.items = []
-        with open(file_path, 'r') as f:
-            ninjs = json.load(f)
 
-        self.items.append(self._transform_from_ninjs(ninjs))
+    def _transform_from_ninjs(self, ninjs):
+        item = super()._transform_from_ninjs(ninjs)
         self.is_sport_item = ninjs.get('sector') == 'SPT'
-        return list(map(
-            self._transform_to_ntb_tt_ninjs, self.items
-        ))
 
-    def _transform_to_ntb_tt_ninjs(self, item):
+        return self._transform_from_ntb_tt_ninjs(item)
+
+
+    def _transform_from_ntb_tt_ninjs(self, item):
         subject_name = 'Sport' if self.is_sport_item else 'Utenriks'
         item['subject'] = item.get('subject', []) + [{
             'name': subject_name,
