@@ -12,6 +12,10 @@ from superdesk.io.feed_parsers.ninjs import NINJSFeedParser
 from superdesk.io.registry import register_feed_parser
 from superdesk.utc import utc
 from dateutil.parser import parse
+from superdesk.utc import local_to_utc
+
+
+TIMEZONE = 'Europe/Oslo'
 
 
 class NTBTTNINJSFeedParser(NINJSFeedParser):
@@ -26,13 +30,12 @@ class NTBTTNINJSFeedParser(NINJSFeedParser):
     def __init__(self):
         super().__init__()
 
-
     def _transform_from_ninjs(self, ninjs):
         item = super()._transform_from_ninjs(ninjs)
         self.is_sport_item = ninjs.get('sector') == 'SPT'
 
+        item['body_html'] = ninjs.get('body_html5')
         return self._transform_from_ntb_tt_ninjs(item)
-
 
     def _transform_from_ntb_tt_ninjs(self, item):
         subject_name = 'Sport' if self.is_sport_item else 'Utenriks'
@@ -50,7 +53,8 @@ class NTBTTNINJSFeedParser(NINJSFeedParser):
         return item
 
     def datetime(self, string):
-        return parse(string).replace(tzinfo=utc)
+        dt = parse(string).replace(tzinfo=utc)
+        return local_to_utc(TIMEZONE, dt)
 
 
 register_feed_parser(NTBTTNINJSFeedParser.NAME, NTBTTNINJSFeedParser())

@@ -34,18 +34,18 @@ class NTBTTNINJSTestCase(BaseNTBTTNINJSTestCase):
     filename = 'ntbttninjs.json'
 
     def test_is_sport_item(self):
-        self.assertEqual(self.parser.is_sport_item, False)
+        self.assertEqual(self.parser.is_sport_item, True)
 
     def test_item(self):
         item = self.items[0]
-        expected_versioncreated = datetime.datetime(2017, 8, 24, 4, 38, 34, tzinfo=utc)
-        expected_firstcreated = datetime.datetime(2017, 8, 24, 4, 37, 19, tzinfo=utc)
+        expected_versioncreated = datetime.datetime(2020, 7, 2, 20, 4, 47, tzinfo=utc)
+        expected_firstcreated = datetime.datetime(2017, 8, 24, 2, 37, 19, tzinfo=utc)
+
         self.assertEqual(item['versioncreated'], expected_versioncreated)
-        self.assertEqual(item['firstcreated'], expected_firstcreated)
         expected_subject = {
-            'name': 'Utenriks',
+            'name': 'Sport',
             'scheme': 'category',
-            'qcode': 'Utenriks'
+            'qcode': 'Sport'
         }
         self.assertIn(expected_subject, item['subject'])
         expected_anpa_category = {
