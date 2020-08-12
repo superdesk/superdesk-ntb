@@ -7,7 +7,7 @@
 # For the full copyright and license information, please see the
 # AUTHORS and LICENSE files distributed with this source code, or
 # at https://www.sourcefabric.org/superdesk/license
-
+import json
 from superdesk.io.feed_parsers.ninjs import NINJSFeedParser
 from superdesk.io.registry import register_feed_parser
 from superdesk.utc import utc
@@ -29,6 +29,12 @@ class NTBTTNINJSFeedParser(NINJSFeedParser):
 
     def __init__(self):
         super().__init__()
+
+    def can_parse(self, file_path):
+        with open(file_path, 'r') as f:
+            ninjs = json.load(f)
+            return ninjs.get('type') != 'image'
+        return super().can_parse(file_path)
 
     def _transform_from_ninjs(self, ninjs):
         item = super()._transform_from_ninjs(ninjs)
