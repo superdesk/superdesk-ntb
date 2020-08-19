@@ -16,7 +16,7 @@
     		"all": 1
     	},
     	"dependent": 0,
-    	"init_version": 5,
+    	"init_version": 6,
     	"items": [{
     			"name": "kultur og underholdning",
     			"qcode": "01000000",
@@ -1194,6 +1194,14 @@
     			"is_active": true
     		},
     		{
+    			"name": "overvåkning",
+    			"qcode": "20001299",
+    			"parent": "20000129",
+    			"wikidata": "Q334401",
+    			"iptc_subject": null,
+    			"is_active": true
+    		},
+    		{
     			"name": "straffeutmåling",
     			"qcode": "20000134",
     			"parent": "20000111",
@@ -2138,6 +2146,22 @@
     			"is_active": true
     		},
     		{
+    			"name": "kjøpesentere",
+    			"qcode": "20001296",
+    			"parent": "20000252",
+    			"wikidata": "Q97395548",
+    			"iptc_subject": null,
+    			"is_active": true
+    		},
+    		{
+    			"name": "handlegater",
+    			"qcode": "20001297",
+    			"parent": "20000252",
+    			"wikidata": "Q21000333",
+    			"iptc_subject": null,
+    			"is_active": true
+    		},
+    		{
     			"name": "leketøy",
     			"qcode": "20000254",
     			"parent": "20000243",
@@ -2263,6 +2287,14 @@
     			"parent": "20001244",
     			"wikidata": "Q1061108",
     			"iptc_subject": "04005008",
+    			"is_active": true
+    		},
+    		{
+    			"name": "varme og ventilasjon",
+    			"qcode": "20001291",
+    			"parent": "20001244",
+    			"wikidata": null,
+    			"iptc_subject": null,
     			"is_active": true
     		},
     		{
@@ -4778,6 +4810,14 @@
     			"is_active": true
     		},
     		{
+    			"name": "personvern",
+    			"qcode": "20001300",
+    			"parent": "20000587",
+    			"wikidata": "Q188728",
+    			"iptc_subject": null,
+    			"is_active": true
+    		},
+    		{
     			"name": "styresmakt",
     			"qcode": "20000593",
     			"parent": "11000000",
@@ -5031,6 +5071,14 @@
     			"parent": "20000345",
     			"wikidata": "Q270791",
     			"iptc_subject": "04017001",
+    			"is_active": true
+    		},
+    		{
+    			"name": "økonomiske insentiver",
+    			"qcode": "20001292",
+    			"parent": "20000345",
+    			"wikidata": "Q5333369",
+    			"iptc_subject": null,
     			"is_active": true
     		},
     		{
@@ -6119,6 +6167,14 @@
     			"parent": "20000756",
     			"wikidata": "Q11661",
     			"iptc_subject": "13022000",
+    			"is_active": true
+    		},
+    		{
+    			"name": "kunstig intelligens",
+    			"qcode": "20001298",
+    			"parent": "20000763",
+    			"wikidata": "Q11660",
+    			"iptc_subject": null,
     			"is_active": true
     		},
     		{
@@ -9266,6 +9322,14 @@
     			"is_active": true
     		},
     		{
+    			"name": "outsourcing",
+    			"qcode": "20001295",
+    			"parent": "20000192",
+    			"wikidata": "Q61515",
+    			"iptc_subject": null,
+    			"is_active": true
+    		},
+    		{
     			"name": "kunsthåndverk",
     			"qcode": "20001160",
     			"parent": "20000209",
@@ -9303,6 +9367,14 @@
     			"parent": "20000271",
     			"wikidata": "Q986008",
     			"iptc_subject": "04006000",
+    			"is_active": true
+    		},
+    		{
+    			"name": "folkefinansiering",
+    			"qcode": "20001294",
+    			"parent": "20000271",
+    			"wikidata": "Q348303",
+    			"iptc_subject": null,
     			"is_active": true
     		},
     		{
@@ -9527,6 +9599,14 @@
     			"parent": "20001182",
     			"wikidata": null,
     			"iptc_subject": "01026000",
+    			"is_active": true
+    		},
+    		{
+    			"name": "strømmetjenester",
+    			"qcode": "20001293",
+    			"parent": "20000045",
+    			"wikidata": "Q63241860",
+    			"iptc_subject": null,
     			"is_active": true
     		},
     		{
@@ -9847,6 +9927,14 @@
     			"parent": "20000817",
     			"wikidata": "Q437458",
     			"iptc_subject": "14015000",
+    			"is_active": true
+    		},
+    		{
+    			"name": "kommunale boliger",
+    			"qcode": "20001290",
+    			"parent": "20000817",
+    			"wikidata": "Q6532502",
+    			"iptc_subject": null,
     			"is_active": true
     		},
     		{
