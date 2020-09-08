@@ -204,7 +204,7 @@ class NTBNITFFormatter(NITFFormatter):
     def _format_subjects(self, article, tobject):
         subjects = [s for s in article.get('subject', []) if s.get("scheme") == "topics"]
         for subject in subjects:
-            name_key = 'tobject.subject.matter' if subject.get('name', None) else 'tobject.subject.type'
+            name_key = 'tobject.subject.matter' if subject.get('name') else 'tobject.subject.type'
             etree.SubElement(
                 tobject,
                 'tobject.subject',
