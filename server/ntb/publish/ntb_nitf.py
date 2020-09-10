@@ -202,13 +202,13 @@ class NTBNITFFormatter(NITFFormatter):
         article['pubdata'] = pubdata  # needed to access pubdata when formatting body content
 
     def _format_subjects(self, article, tobject):
-        subjects = [s for s in article.get('subject', []) if s.get("scheme") == "subject_custom"]
+        subjects = [s for s in article.get('subject', []) if s.get("scheme") == "topics"]
         for subject in subjects:
-            name_key = 'tobject.subject.matter' if subject.get('parent', None) else 'tobject.subject.type'
+            name_key = 'tobject.subject.matter' if subject.get('name') else 'tobject.subject.type'
             etree.SubElement(
                 tobject,
                 'tobject.subject',
-                {'tobject.subject.refnum': subject.get('qcode', ''),
+                {'tobject.subject.refnum': subject.get('iptc_subject', ''),
                  name_key: subject.get('name', '')})
 
     def _format_datetimes(self, article, head):
