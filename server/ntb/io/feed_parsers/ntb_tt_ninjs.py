@@ -37,6 +37,7 @@ class NTBTTNINJSFeedParser(NINJSFeedParser):
         return super().can_parse(file_path)
 
     def _transform_from_ninjs(self, ninjs):
+        ninjs.pop('associations', None)
         item = super()._transform_from_ninjs(ninjs)
         self.is_sport_item = ninjs.get('sector') == 'SPT'
 
