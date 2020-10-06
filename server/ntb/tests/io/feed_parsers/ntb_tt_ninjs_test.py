@@ -53,3 +53,4 @@ class NTBTTNINJSTestCase(BaseNTBTTNINJSTestCase):
             'qcode': 'n'
         }
         self.assertIn(expected_anpa_category, item['anpa_category'])
+        self.assertNotIn('associations', item)
