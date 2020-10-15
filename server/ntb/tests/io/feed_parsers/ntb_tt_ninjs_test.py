@@ -9,6 +9,7 @@
 # at https://www.sourcefabric.org/superdesk/license
 
 import datetime
+import json
 import os
 from ntb.io.feed_parsers.ntb_tt_ninjs import NTBTTNINJSFeedParser
 from superdesk.tests import TestCase
@@ -26,12 +27,15 @@ class BaseNTBTTNINJSTestCase(TestCase):
 
         dirname = os.path.dirname(os.path.realpath(__file__))
         fixture = os.path.normpath(os.path.join(dirname, '../fixtures', self.filename))
+        with open(os.path.normpath(os.path.join(dirname, '../fixtures', self.sanitisedhtmlfilename)), 'r') as f:
+            self.expected_html = f.read()
         self.parser = NTBTTNINJSFeedParser()
         self.items = self.parser.parse(fixture)
 
 
 class NTBTTNINJSTestCase(BaseNTBTTNINJSTestCase):
     filename = 'ntbttninjs.json'
+    sanitisedhtmlfilename = 'ntbttsanitised.html'
 
     def test_is_sport_item(self):
         self.assertEqual(self.parser.is_sport_item, True)
@@ -54,3 +58,4 @@ class NTBTTNINJSTestCase(BaseNTBTTNINJSTestCase):
         }
         self.assertIn(expected_anpa_category, item['anpa_category'])
         self.assertNotIn('associations', item)
+        self.assertEqual(item['body_html'], self.expected_html)
