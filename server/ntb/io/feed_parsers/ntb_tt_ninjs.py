@@ -82,7 +82,8 @@ class NTBTTNINJSFeedParser(NINJSFeedParser):
 
         traversed_html = etree.tostring(root_elem, encoding="unicode")
 
-        return sanitize_html(traversed_html, remove_tags=remove_tags, kill_tags=kill_tags)
+        sanitized_html = sanitize_html(traversed_html, remove_tags=remove_tags, kill_tags=kill_tags)
+        return sanitized_html[5:-6]
 
 
 register_feed_parser(NTBTTNINJSFeedParser.NAME, NTBTTNINJSFeedParser())
