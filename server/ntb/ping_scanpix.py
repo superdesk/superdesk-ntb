@@ -1,4 +1,5 @@
 
+import hashlib
 import requests
 import mimetypes
 import superdesk
@@ -24,7 +25,8 @@ def fetch_original(item):
             return
         extra = item.get('extra', {})
         item.setdefault('renditions', {})
-        media = app.media.get(item['guid'], MEDIA_RESOURCE)
+        media_id = hashlib.sha1(item['guid'].encode()).hexdigest()
+        media = app.media.get(media_id, MEDIA_RESOURCE)
         if not media:
             url = SCANPIX_DOWNLOAD_URL.format(extra['main_group'], item['guid'])
             provider = superdesk.get_resource_service('search_providers') \
@@ -38,10 +40,11 @@ def fetch_original(item):
                 content_type = mimetypes.guess_type(extra['filename'])[0]
             except (KeyError, TypeError):
                 content_type = 'image/jpeg'
-            media_id = app.media.put(
+            app.media.put(
                 res.content,
                 filename=extra.get('filename'),
-                content_type=content_type, _id=item['guid'])
+                content_type=content_type,
+                _id=media_id)
             media = app.media.get(media_id, MEDIA_RESOURCE)
         item['renditions']['original'] = {
             'href': app.media.url_for_media(media._id, media.content_type),
