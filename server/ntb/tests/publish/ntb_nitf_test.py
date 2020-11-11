@@ -89,11 +89,10 @@ ARTICLE = {
              "f": 1,
              "i": 1},
          "name": "Forskning"},
-        {"scheme": "topics",
-         "name": "tyveri og innbrudd",
-         "qcode": "20000104",
-         "parent": "20000082",
-         "iptc_subject": "02001003"}],
+        {"scheme": "subject_custom",
+         "qcode": "02001003",
+         "parent": "02000000",
+         "name": "tyveri og innbrudd"}],
     "associations": {
 
         "featuremedia": {
