@@ -267,3 +267,5 @@ if not all(google_confs) or os.environ.get('SUPERDESK_AUTH'):
     INSTALLED_APPS.append('apps.auth.db')
 
 SCHEMA_VERSION = 1
+
+IMATRICS_SUBJECT_SCHEME = 'topics'
