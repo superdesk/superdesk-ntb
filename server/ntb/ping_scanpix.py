@@ -12,7 +12,7 @@ from superdesk.logging import logger
 SCANPIX_PING_URL = 'https://api.sdl.no/v1/pushData'
 SCANPIX_DOWNLOAD_URL = 'https://api.scanpix.no/v2/download/quiet/{}/{}/high'
 
-PING_TIMEOUT = 5
+PING_TIMEOUT = (5, 5)
 DOWNLOAD_TIMEOUT = (5, 25)
 MEDIA_RESOURCE = 'upload'
 
@@ -61,7 +61,7 @@ def ping_scanpix(assoc, item):
         if not app.config.get('SCANPIX_PING_%s' % key):
             return
     try:
-        res = requests.post(
+        res = http.post(
             SCANPIX_PING_URL,
             json.dumps({
                 'type': 'articleUsage',
@@ -74,6 +74,7 @@ def ping_scanpix(assoc, item):
             }),
             headers={'content-type': 'application/json'},
             auth=(app.config['SCANPIX_PING_USERNAME'], app.config['SCANPIX_PING_PASSWORD']),
+            timeout=PING_TIMEOUT,
         )
         logger.info('scanpix image published status=%d image=%s article=%s',
                     res.status_code,
