@@ -73,7 +73,7 @@ class SolitaFeedParser(XMLFeedParser):
                          'name': 'PRM-NTB',
                          'scheme': 'category'}],
             'urgency': 6,
-            'ednote': '*** Dette er en pressemelding formidlet av NTB pva. andre ***'
+            'ednote': 'Dette er en pressemelding formidlet av NTB for tredjepart. NTB skal ikke siteres.'
         }
 
         try:
