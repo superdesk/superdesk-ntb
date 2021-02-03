@@ -3,5 +3,5 @@ honcho==1.0.1
 newrelic==2.88.1.73
 feedgen==0.7.0
 
-git+git://github.com/superdesk/superdesk-core.git@1.32#egg=Superdesk-Core
+-e git+git://github.com/superdesk/superdesk-core.git@develop#egg=superdesk-core
 git+git://github.com/superdesk/superdesk-planning.git@master#egg=superdesk-planning

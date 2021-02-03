@@ -1,4 +1,12 @@
-import angular from 'angular';
+import {startApp} from 'superdesk-core/scripts/index';
+import autoTaggingWidget from 'superdesk-core/scripts/extensions/auto-tagging-widget/dist/src/extension';
+
+setTimeout(() => {
+    startApp(
+        [autoTaggingWidget],
+        {},
+    );
+});
 
 export default angular.module('ntb', [])
     .run(['$templateCache', ($templateCache) => {

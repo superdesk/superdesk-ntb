@@ -265,3 +265,7 @@ HTML_TAGS_WHITELIST = _HTML_TAGS_WHITELIST + ('a', )
 google_confs = [os.environ.get(conf) for conf in ('GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET')]
 if not all(google_confs) or os.environ.get('SUPERDESK_AUTH'):
     INSTALLED_APPS.append('apps.auth.db')
+
+SCHEMA_VERSION = 1
+
+IMATRICS_SUBJECT_SCHEME = 'topics'
