@@ -10630,7 +10630,8 @@
                     {"name": "JSON Event format", "qcode": "json_event"},
                     {"name": "JSON Planning format", "qcode": "json_planning"},
                     {"name": "JSON Planning featured format", "qcode": "json_planning_featured"},
-                    {"name": "Newsroom NINJS format", "qcode": "newsroom ninjs"}
+                    {"name": "Newsroom NINJS format", "qcode": "newsroom ninjs"},
+                    {"name": "iMatrics", "qcode": "imatrics"}
                 ]
             },
             {"is_active": true, "name": "Digital/Internet", "qcode": "digital",
@@ -10648,7 +10649,8 @@
                     {"name": "JSON Event format", "qcode": "json_event"},
                     {"name": "JSON Planning format", "qcode": "json_planning"},
                     {"name": "JSON Planning featured format", "qcode": "json_planning_featured"},
-                    {"name": "Newsroom NINJS format", "qcode": "newsroom ninjs"}
+                    {"name": "Newsroom NINJS format", "qcode": "newsroom ninjs"},
+                    {"name": "iMatrics", "qcode": "imatrics"}
                 ]
             },
             {"is_active": true, "name": "Wire/Paper", "qcode": "wire",
@@ -10666,7 +10668,8 @@
                     {"name": "JSON Event format", "qcode": "json_event"},
                     {"name": "JSON Planning format", "qcode": "json_planning"},
                     {"name": "JSON Planning featured format", "qcode": "json_planning_featured"},
-                    {"name": "Newsroom NINJS format", "qcode": "newsroom ninjs"}
+                    {"name": "Newsroom NINJS format", "qcode": "newsroom ninjs"},
+                    {"name": "iMatrics", "qcode": "imatrics"}
                 ]
             }
         ]
