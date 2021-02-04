@@ -1,6 +1,6 @@
 {
     "dependencies": {
-        "superdesk-core": "tomaskikutis/superdesk-client-core#auto-tagging",
+        "superdesk-core": "github:superdesk/superdesk-client-core#develop",
         "superdesk-planning": "github:superdesk/superdesk-planning#master"
     }
 }
