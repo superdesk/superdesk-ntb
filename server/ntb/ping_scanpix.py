@@ -1,4 +1,5 @@
 
+import hashlib
 import requests
 import mimetypes
 import superdesk
@@ -11,7 +12,7 @@ from superdesk.logging import logger
 SCANPIX_PING_URL = 'https://api.sdl.no/v1/pushData'
 SCANPIX_DOWNLOAD_URL = 'https://api.scanpix.no/v2/download/quiet/{}/{}/high'
 
-PING_TIMEOUT = 5
+PING_TIMEOUT = (5, 5)
 DOWNLOAD_TIMEOUT = (5, 25)
 MEDIA_RESOURCE = 'upload'
 
@@ -24,7 +25,8 @@ def fetch_original(item):
             return
         extra = item.get('extra', {})
         item.setdefault('renditions', {})
-        media = app.media.get(item['guid'], MEDIA_RESOURCE)
+        media_id = hashlib.sha1(item['guid'].encode()).hexdigest()
+        media = app.media.get(media_id, MEDIA_RESOURCE)
         if not media:
             url = SCANPIX_DOWNLOAD_URL.format(extra['main_group'], item['guid'])
             provider = superdesk.get_resource_service('search_providers') \
@@ -38,10 +40,11 @@ def fetch_original(item):
                 content_type = mimetypes.guess_type(extra['filename'])[0]
             except (KeyError, TypeError):
                 content_type = 'image/jpeg'
-            media_id = app.media.put(
+            app.media.put(
                 res.content,
                 filename=extra.get('filename'),
-                content_type=content_type, _id=item['guid'])
+                content_type=content_type,
+                _id=media_id)
             media = app.media.get(media_id, MEDIA_RESOURCE)
         item['renditions']['original'] = {
             'href': app.media.url_for_media(media._id, media.content_type),
@@ -58,7 +61,7 @@ def ping_scanpix(assoc, item):
         if not app.config.get('SCANPIX_PING_%s' % key):
             return
     try:
-        res = requests.post(
+        res = http.post(
             SCANPIX_PING_URL,
             json.dumps({
                 'type': 'articleUsage',
@@ -71,6 +74,7 @@ def ping_scanpix(assoc, item):
             }),
             headers={'content-type': 'application/json'},
             auth=(app.config['SCANPIX_PING_USERNAME'], app.config['SCANPIX_PING_PASSWORD']),
+            timeout=PING_TIMEOUT,
         )
         logger.info('scanpix image published status=%d image=%s article=%s',
                     res.status_code,

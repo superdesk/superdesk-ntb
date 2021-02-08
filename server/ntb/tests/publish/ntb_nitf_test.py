@@ -54,7 +54,6 @@ ARTICLE = {
     'type': 'text',
     'priority': '2',
     '_id': 'urn:localhost.abc',
-    'guid': 'urn:localhost.guid.abc',
     'item_id': ITEM_ID,
     'family_id': ITEM_ID,
     # we use non latin1 chars in slugline to test encoding
@@ -245,7 +244,7 @@ class NTBNITFFormatterTest(TestCase):
     def test_doc_id(self):
         doc_id = self.nitf_xml.find('head/docdata/doc-id')
         self.assertEqual(doc_id.get('regsrc'), 'NTB')
-        self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(ARTICLE['guid'], 1))
+        self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(ITEM_ID, 1))
 
     def test_pubdata(self):
         pubdata = self.nitf_xml.find('head/pubdata')
@@ -549,7 +548,7 @@ class NTBNITFFormatterTest(TestCase):
         kanal = head.find('meta[@name="NTBKanal"]')
         self.assertEqual(kanal.get('content'), 'A')
         ntb_id = head.find('meta[@name="NTBID"]')
-        self.assertEqual(ntb_id.get('content'), 'NTB' + ARTICLE['guid'])
+        self.assertEqual(ntb_id.get('content'), 'NTB' + ITEM_ID)
         ntb_kilde = head.find('meta[@name="NTBKilde"]')
         self.assertEqual(ntb_kilde.get('content'), 'test ntb_pub_name')
         # priority
@@ -558,22 +557,24 @@ class NTBNITFFormatterTest(TestCase):
 
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
     def test_update_id(self):
-        """Check use of guid on update
+        """Check use of family_id on update
 
         when family id is different from item_id (i.e. on updated item),
         family_id should be used for doc-id and ntbid
         """
         article = copy.deepcopy(self.article)
+        family_id = "test_family_id"
+        article['family_id'] = family_id
         article['rewrite_sequence'] = 3
         formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
         doc = formatter_output[0]['encoded_item']
         nitf_xml = etree.fromstring(doc)
         head = nitf_xml.find('head')
         ntb_id = head.find('meta[@name="NTBID"]')
-        self.assertEqual(ntb_id.get('content'), 'NTB' + article['guid'])
+        self.assertEqual(ntb_id.get('content'), 'NTB' + family_id)
         doc_id = nitf_xml.find('head/docdata/doc-id')
         self.assertEqual(doc_id.get('regsrc'), 'NTB')
-        self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(article['guid'], 3))
+        self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(family_id, 3))
 
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
     def test_description_text_none(self):
@@ -619,86 +620,10 @@ class NTBNITFFormatterTest(TestCase):
         doc = formatter_output[0]['encoded_item']
         nitf_xml = etree.fromstring(doc)
         doc_id = nitf_xml.find('head/docdata/doc-id')
-        self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(article['guid'], 0))
+        self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(article['family_id'], 0))
 
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
     def test_language_empty(self):
         article = copy.deepcopy(self.article)
         article.pop('language')
         self.formatter.format(article, {'name': 'Test NTBNITF'})
-
-
-class NTBNITFFormatterUpdateTest(TestCase):
-    archive = [
-        {
-            '_id': 'urn:localhost.abc',
-            'guid': 'urn:localhost.guid.abc',
-            'family_id': ITEM_ID,
-            'headline': 'test headline',
-            'abstract': TEST_ABSTRACT,
-            'body_html': TEST_BODY,
-            'type': 'text',
-            'priority': '2',
-            "slugline": "this is the slugline œ:?–",
-            'urgency': 2,
-            'versioncreated': NOW,
-            '_current_version': 5,
-            'version': 5,
-            'language': 'nb-NO'
-        },
-        {
-            '_id': 'urn:localhost.abc.up',
-            'guid': 'urn:localhost.guid.abc.up',
-            'family_id': ITEM_ID,
-            'rewrite_sequence': 1,
-            'rewrite_of': 'urn:localhost.abc',
-            'headline': 'test headline',
-            'abstract': TEST_ABSTRACT,
-            'body_html': TEST_BODY,
-            'type': 'text',
-            'priority': '2',
-            "slugline": "this is the slugline œ:?–",
-            'urgency': 2,
-            'versioncreated': NOW,
-            '_current_version': 5,
-            'version': 5,
-            'language': 'nb-NO'
-        },
-        {
-            '_id': 'urn:localhost.abc.up2',
-            'guid': 'urn:localhost.guid.abc.up2',
-            'family_id': ITEM_ID,
-            'rewrite_sequence': 2,
-            'rewrite_of': 'urn:localhost.abc.up',
-            'headline': 'test headline',
-            'abstract': TEST_ABSTRACT,
-            'body_html': TEST_BODY,
-            'type': 'text',
-            'priority': '2',
-            "slugline": "this is the slugline œ:?–",
-            'urgency': 2,
-            'versioncreated': NOW,
-            '_current_version': 5,
-            'version': 5,
-            'language': 'nb-NO'
-        }
-    ]
-
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
-    def setUp(self):
-        init_app(self.app)
-        self.app.data.insert('archive', self.archive)
-        self.formatter = NTBNITFFormatter()
-        self.formatter_output = self.formatter.format(self.archive[-1], {'name': 'Test NTBNITF'})
-        self.doc = self.formatter_output[0]['encoded_item']
-        self.nitf_xml = etree.fromstring(self.doc)
-
-    def test_ntbid(self):
-        head = self.nitf_xml.find('head')
-        ntb_id = head.find('meta[@name="NTBID"]')
-        self.assertEqual(ntb_id.get('content'), 'NTB' + self.archive[0]['guid'])
-
-    def test_docid(self):
-        doc_id = self.nitf_xml.find('head/docdata/doc-id')
-        self.assertEqual(doc_id.get('regsrc'), 'NTB')
-        self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(self.archive[0]['guid'], 2))

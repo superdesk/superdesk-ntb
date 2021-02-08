@@ -7,6 +7,7 @@ services:
     - redis-server
 
 addons:
+  chrome: stable
   apt:
     sources:
     - mongodb-3.0-precise

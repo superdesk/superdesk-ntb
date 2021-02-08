@@ -11,7 +11,7 @@
     {% if weekday == 'Sunday' %}<h2>Søndag {{day}}/{{month}}</h2>{% endif %}
     {% for item in day_group %}
         <h2>{{ item.name or item.headline or item.slugline }}</h2>
-        <p>{{ item.description_text }}
+        <p>{{ item.description_text or '' }}
             {% if item.get('event', {}).get('location') %}
             &nbsp;Sted: {{ item.event.location[0].name }}.
             {% endif %}

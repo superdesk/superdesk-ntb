@@ -56,11 +56,11 @@ class NTBNITFMultiFileFormatterTest(NTBNITFFormatterTest):
     def test_doc_id(self):
         doc_id = self.nitf_xmls[0].find('head/docdata/doc-id')
         self.assertEqual(doc_id.get('regsrc'), 'NTB')
-        self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(ARTICLE['guid'], 1))
+        self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(ITEM_ID, 1))
 
         doc_id = self.nitf_xmls[1].find('head/docdata/doc-id')
         self.assertEqual(doc_id.get('regsrc'), 'NTB')
-        self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(ARTICLE['guid'], 1))
+        self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(ITEM_ID, 1))
 
     def test_filename(self):
         filename = self.nitf_xmls[0].find('head/meta[@name="filename"]')
