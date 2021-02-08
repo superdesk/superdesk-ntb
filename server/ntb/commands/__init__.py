@@ -1,7 +1,7 @@
 
 import superdesk
 
-from .migrate_topics import MigrateTopicsCommand
+from .update_items import UpdateItemsCommand
 
 
-superdesk.command('ntb:migrate_topics', MigrateTopicsCommand())
+superdesk.command('ntb:update_items', UpdateItemsCommand())
