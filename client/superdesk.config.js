@@ -7,10 +7,12 @@
 module.exports = function(grunt) {
     return {
         apps: [
-             'superdesk-planning',
+            'ntb',
+            'superdesk-planning',
         ],
 
         importApps: [
+            '../ntb',
             'superdesk-planning',
         ],
 
