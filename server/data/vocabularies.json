@@ -10693,7 +10693,7 @@
     	},
         "schema_field": "place",
     	"dependent": 0,
-    	"init_version": 5,
+    	"init_version": 6,
     	"items": [
             {"is_active": true, "name":"Norge","wikidata":"Q20","ntb_parent":null,"ntb_qcode":"Norge","qcode":"1edf0e8a-1a64-32a1-9122-74d9f088e46c","parent":null},
             {"is_active": true, "name":"Norden","wikidata":"Q492366","ntb_parent":null,"ntb_qcode":"Norden","qcode":"b88c16a8-2b12-3dd1-8480-badea00a1212","parent":null},
