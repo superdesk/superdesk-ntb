@@ -10693,7 +10693,7 @@
     	},
         "schema_field": "place",
     	"dependent": 0,
-    	"init_version": 6,
+    	"init_version": 7,
     	"items": [
             {"is_active": true, "name":"Norge","wikidata":"Q20","ntb_parent":null,"ntb_qcode":"Norge","qcode":"1edf0e8a-1a64-32a1-9122-74d9f088e46c","parent":null},
             {"is_active": true, "name":"Norden","wikidata":"Q492366","ntb_parent":null,"ntb_qcode":"Norden","qcode":"b88c16a8-2b12-3dd1-8480-badea00a1212","parent":null},
@@ -10905,7 +10905,7 @@
             {"is_active": true, "name":"Trøndelag","wikidata":"Q127676","ntb_parent":"Norge","ntb_qcode":"Trøndelag","qcode":"6364fb23-cf50-3854-99b7-b2fcdafecb94","parent":"1edf0e8a-1a64-32a1-9122-74d9f088e46c"},
             {"is_active": true, "name":"Vestfold og Telemark","wikidata":"Q56405721","ntb_parent":"Norge","ntb_qcode":"Vestfold og Telemark","qcode":"0735e4e7-cba3-3b31-ab5c-2936766c1933","parent":"1edf0e8a-1a64-32a1-9122-74d9f088e46c"},
             {"is_active": true, "name":"Vestland","wikidata":"Q56407177","ntb_parent":"Norge","ntb_qcode":"Vestland","qcode":"ccd85784-0e56-3cd2-9990-393009d55168","parent":"1edf0e8a-1a64-32a1-9122-74d9f088e46c"},
-            {"is_active": true, "name":"Viken","wikidata":"Q1938681","ntb_parent":"Norge","ntb_qcode":"Viken","qcode":"4780baa3-a0b1-3b5a-bd20-acfd181b6a0a","parent":"1edf0e8a-1a64-32a1-9122-74d9f088e46c"},
+            {"is_active": true, "name":"Viken","wikidata":"Q56407178","ntb_parent":"Norge","ntb_qcode":"Viken","qcode":"4780baa3-a0b1-3b5a-bd20-acfd181b6a0a","parent":"1edf0e8a-1a64-32a1-9122-74d9f088e46c"},
             {"is_active": true, "name":"Oslo kommune","wikidata":"Q5245991","ntb_parent":"Oslo","ntb_qcode":"Oslo kommune","qcode":"ae351ffe-ad1e-3237-9d12-823905c7c593","parent":"afbfd596-8795-39b3-bc8a-915ca05d952a"},
             {"is_active": true, "name":"Bjerkreim","wikidata":"Q493308","ntb_parent":"Rogaland","ntb_qcode":"Bjerkreim","qcode":"0d0a69df-e551-3e21-bc0d-9fd777c6b211","parent":"6c9ed1ae-cd66-3f94-b117-dea7e6f89ff0"},
             {"is_active": true, "name":"Bokn","wikidata":"Q489351","ntb_parent":"Rogaland","ntb_qcode":"Bokn","qcode":"cf27b2e2-48b8-3f6c-8e3a-2e216fbe6556","parent":"6c9ed1ae-cd66-3f94-b117-dea7e6f89ff0"},
