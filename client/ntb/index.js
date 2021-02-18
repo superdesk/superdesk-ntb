@@ -1,10 +1,14 @@
 import {startApp} from 'superdesk-core/scripts/index';
-import autoTaggingWidget from 'superdesk-core/scripts/extensions/auto-tagging-widget/dist/src/extension';
 
 setTimeout(() => {
     startApp(
-        [autoTaggingWidget],
-        {},
+        [   
+            {
+                id: 'autoTaggingWidget',
+                load: () => import('superdesk-core/scripts/extensions/auto-tagging-widget/dist/src/extension').then((res) => res.default),
+            }
+        ],
+        {}
     );
 });
 

@@ -39,7 +39,10 @@ class NTBEventTestCase(TestCase):
             ],
             'organisation': 'FUBAR',
             'first_name': 'John',
-            'country': 'Australia',
+            'country': {
+                'name': 'Australia',
+                'qcode': 'aus'
+            },
             'city': 'Sydney',
             'job_title': 'Media Contact',
             'honorific': 'Mr',
