@@ -18,7 +18,7 @@ from copy import deepcopy
 from datetime import datetime
 from flask import current_app as app
 
-from superdesk import etree as sd_etree
+from superdesk import etree as sd_etree, get_resource_service
 from superdesk.metadata.item import ITEM_TYPE, CONTENT_TYPE
 from superdesk.publish.formatters.nitf_formatter import NITFFormatter, EraseElement
 from superdesk.publish.publish_service import PublishService
@@ -46,6 +46,9 @@ def _get_rewrite_sequence(article):
 def _get_language(article):
     return article.get("language") or LANGUAGE
 
+def is_content_field_exists(profile, field):
+    content_type = get_resource_service("content_types").find_one(req=None, _id=profile)
+    return content_type.get("schema", {}).get(field)
 
 class NTBNITFFormatter(NITFFormatter):
     """This is NITF formatter 1.0 generating single file with first service only."""
@@ -84,7 +87,7 @@ class NTBNITFFormatter(NITFFormatter):
         try:
             if article.get("body_html"):
                 article["body_html"] = article["body_html"].replace("<br>", "<br />")
-            pub_seq_num = superdesk.get_resource_service(
+            pub_seq_num = get_resource_service(
                 "subscribers"
             ).generate_sequence_number(subscriber)
             nitf = self.get_nitf(article, subscriber, pub_seq_num)
@@ -117,7 +120,7 @@ class NTBNITFFormatter(NITFFormatter):
         For tree type vocabularies add the parent if a child is present
         """
         vocabularies = list(
-            superdesk.get_resource_service("vocabularies").get(None, None)
+            get_resource_service("vocabularies").get(None, None)
         )
         fields = {"place": "place_custom", "subject": "subject_custom"}
         for field in fields:
@@ -210,6 +213,9 @@ class NTBNITFFormatter(NITFFormatter):
 
     def _format_docdata(self, article, docdata):
         super()._format_docdata(article, docdata)
+        state_prov = "ntb_parent"
+        county_dist = "ntb_qcode"
+
         if "slugline" in article:
             key_list = etree.SubElement(docdata, "key-list")
             etree.SubElement(
@@ -223,9 +229,13 @@ class NTBNITFFormatter(NITFFormatter):
                     "key": self._get_ntb_slugline(article),
                 },
             )
+        if article.get("profile") and is_content_field_exists(article["profile"], "place"):
+            state_prov = "name"
+            county_dist = "qcode"
+
         for place in article.get("place", []):
             evloc = etree.SubElement(docdata, "evloc")
-            for key, att in (("parent", "state-prov"), ("qcode", "county-dist")):
+            for key, att in ((state_prov, "state-prov"), (county_dist, "county-dist")):
                 try:
                     value = place[key]
                 except KeyError:
@@ -245,7 +255,7 @@ class NTBNITFFormatter(NITFFormatter):
 
     def _format_subjects(self, article, tobject):
         if article.get("profile"):
-            content_type = superdesk.get_resource_service("content_types").find_one(
+            content_type = get_resource_service("content_types").find_one(
                 req=None, _id=article.get("profile")
             )
             if (
@@ -282,7 +292,7 @@ class NTBNITFFormatter(NITFFormatter):
                 for topic in topics:
                     name_key = (
                         "tobject.subject.matter"
-                        if topic.get("parent", None)
+                        if topic.get("name", None)
                         else "tobject.subject.type"
                     )
                     etree.SubElement(
@@ -378,7 +388,7 @@ class NTBNITFFormatter(NITFFormatter):
 
         # daily counter
         day_start = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-        pub_queue = superdesk.get_resource_service("publish_queue")
+        pub_queue = get_resource_service("publish_queue")
         daily_count = (
             pub_queue.find({"transmit_started_at": {"$gte": day_start}}).count() + 1
         )
