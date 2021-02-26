@@ -46,9 +46,11 @@ def _get_rewrite_sequence(article):
 def _get_language(article):
     return article.get("language") or LANGUAGE
 
+
 def is_content_field_exists(profile, field):
     content_type = get_resource_service("content_types").find_one(req=None, _id=profile)
     return content_type.get("schema", {}).get(field)
+
 
 class NTBNITFFormatter(NITFFormatter):
     """This is NITF formatter 1.0 generating single file with first service only."""
