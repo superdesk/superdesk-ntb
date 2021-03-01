@@ -10,6 +10,7 @@
 
 from superdesk.tests import TestCase
 from unittest import mock
+from bson import ObjectId
 from ntb.publish.ntb_nitf import NTBNITFFormatter
 from ntb.publish.ntb_nitf import ENCODING
 from superdesk.publish.formatters import Formatter
@@ -58,6 +59,7 @@ ARTICLE = {
     'family_id': ITEM_ID,
     # we use non latin1 chars in slugline to test encoding
     "slugline": "this is the slugline œ:?–",
+    "profile": "5ba11fec0d6f1301ac3cbd13",
     'urgency': 2,
     'versioncreated': NOW,
     '_current_version': 5,
@@ -68,7 +70,7 @@ ARTICLE = {
     'sign_off': '/'.join(TEST_EMAILS),
     # if you change place, please keep a test with 'parent': None
     # cf SDNTB-290
-    'place': [{'scheme': 'place_custom', 'parent': None, 'name': 'Global', 'qcode': 'Global'}],
+    'place': [{'scheme': 'place_custom', 'parent': None, 'ntb_parent': None, 'name': 'Global', 'qcode': 'Global', 'ntb_qcode': 'Global'}],
     'dateline': {
         'located': {
             'dateline': 'city',
@@ -208,27 +210,163 @@ ARTICLE = {
     },
 }
 
+ARTICLE_WITH_IMATRICS_FIELDS = {
+    "_id": "5ba1224e0d6f13056bd82d50",
+    "family_id": "5ba1224e0d6f13056bd82d50",
+    "type": "text",
+    "version": 1,
+    "profile": "5ba11fec0d6f1301ac3cbd14",
+    "format": "HTML",
+    "template": "5ba11fec0d6f1301ac3cbd15",
+    "headline": "custom media field multi",
+    "slugline": "test custom media2",
+    "guid": "123",
+    'subject': [
+        {
+            'name': 'olje- og gassindustri',
+            'qcode': '20001243',
+            'source': 'imatrics',
+            'altids': {
+                'imatrics': '1171f64b-1580-3a9e-add6-27fd59e435d2', 
+                'medtop': '20001243'
+            },
+            'scheme': 'topics'
+        },
+        {
+            "altids": {
+                "imatrics": "66417b95-3ad5-35c3-8b5a-6dec0d4e0946"
+            },
+            "imatrics": "66417b95-3ad5-35c3-8b5a-6dec0d4e0946",
+            "name": "Olje",
+            "qcode": "66417b95-3ad5-35c3-8b5a-6dec0d4e0946",
+            "scheme": "imatrics_topic",
+            "source": "imatrics",
+        }
+    ],
+    "organisation": [
+        {
+            "altids": {
+                "imatrics": "2d824ae1-ab9b-3227-870e-0810be0ebed0"
+            },
+            "imatrics": "2d824ae1-ab9b-3227-870e-0810be0ebed0",
+            "name": "Stortinget",
+            "qcode": "2d824ae1-ab9b-3227-870e-0810be0ebed0",
+            "source": "imatrics",
+        }
+    ],
+    "person": [{
+        "altids": {
+            "imatrics": "211de295-4da5-34b6-9960-cf5b86957e5d"
+        },
+        "imatrics": "211de295-4da5-34b6-9960-cf5b86957e5d",
+        "name": "Ola Borten Moe",
+        "qcode": "211de295-4da5-34b6-9960-cf5b86957e5d",
+        "source": "imatrics",
+    }],
+    'versioncreated': NOW,
+    '_current_version': 5,
+    'version': 5,
+    'rewrite_sequence': 1,
+    'language': 'nb-NO',
+    'body_footer': 'footer text',
+}
+
 
 class NTBNITFFormatterTest(TestCase):
 
     def __init__(self, *args, **kwargs):
         super(NTBNITFFormatterTest, self).__init__(*args, **kwargs)
         self.article = None
+        self.article_with_imatrics_fields = None
 
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
     def setUp(self):
         super().setUp()
         self.formatter = NTBNITFFormatter()
         self.base_formatter = Formatter()
+        self.app.data.insert(
+            "content_types",
+            [
+                {
+                    "_id": ObjectId("5ba11fec0d6f1301ac3cbd13"),
+                    "label": "nift test",
+                    "editor": {
+                        "slugline": {"order": 2, "sdWidth": "full"},
+                        "headline": {"order": 3, "formatOptions": []},
+                        "subject_custom" : {
+                            "order" : 7,
+                            "sdWidth" : "full",
+                            "required" : True
+                        },
+                        "place_custom" : {
+                            "order" : 8,
+                            "sdWidth" : "full",
+                            "required" : True
+                        },
+                    },
+                    "schema": {
+                        "headline": {"type": "string", "required": False, "maxlength": 64, "nullable": True},
+                        "slugline": {"type": "string", "required": False, "maxlength": 24, "nullable": True},
+                        "subject" : {
+                            "type" : "list",
+                            "required" : True,
+                            "mandatory_in_list" : {
+                                "scheme" : {
+                                    "subject" : "subject_custom",
+                                    "category" : "category"
+                                }
+                            },
+                            "schema" : {
+                                "type" : "dict",
+                                "schema" : {
+                                    "name" : {},
+                                    "qcode" : {},
+                                    "scheme" : {
+                                        "type" : "string",
+                                        "required" : True,
+                                        "allowed" : [
+                                            "subject_custom",
+                                            "category"
+                                        ]
+                                    },
+                                    "service" : {
+                                        "nullable" : True
+                                    },
+                                    "parent" : {
+                                        "nullable" : True
+                                    }
+                                }
+                            }
+                        },
+                    },
+                },
+                {
+                    "_id": ObjectId("5ba11fec0d6f1301ac3cbd14"),
+                    "label": "nift test",
+                    "editor": {
+                        "slugline": {"order": 2, "sdWidth": "full"},
+                        "headline": {"order": 3, "formatOptions": []},
+                    },
+                    "schema": {
+                        "headline": {"type": "string", "required": False, "maxlength": 64, "nullable": True},
+                        "slugline": {"type": "string", "required": False, "maxlength": 24, "nullable": True},
+                    },
+                }
+            ],
+        )
         init_app(self.app)
         self.tz = pytz.timezone(self.app.config['DEFAULT_TIMEZONE'])
         if self.article is None:
             # formatting is done once for all tests to save time
             # as long as used attributes are not modified, it's fine
             self.article = ARTICLE
+            self.article_with_imatrics_fields = ARTICLE_WITH_IMATRICS_FIELDS
             self.formatter_output = self.formatter.format(self.article, {'name': 'Test NTBNITF'})
             self.doc = self.formatter_output[0]['encoded_item']
             self.nitf_xml = etree.fromstring(self.doc)
+            self.formatter_output_imatrics = self.formatter.format(self.article_with_imatrics_fields, {'name': 'Test NTBNITF'})
+            self.doc_imatrics = self.formatter_output_imatrics[0]['encoded_item']
+            self.nitf_xml_imatrics = etree.fromstring(self.doc_imatrics)
 
     def test_subject_and_category(self):
         tobject = self.nitf_xml.find('head/tobject')
@@ -236,6 +374,12 @@ class NTBNITFFormatterTest(TestCase):
         subject = tobject.find('tobject.subject')
         self.assertEqual(subject.get('tobject.subject.refnum'), '02001003')
         self.assertEqual(subject.get('tobject.subject.matter'), 'tyveri og innbrudd')
+
+    def test_subject_and_category_with_imatrics(self):
+        tobject = self.nitf_xml_imatrics.find('head/tobject')
+        subject = tobject.find('tobject.subject')
+        self.assertEqual(subject.get('tobject.subject.refnum'), '20001243')
+        self.assertEqual(subject.get('tobject.subject.matter'), 'olje- og gassindustri')
 
     def test_slugline(self):
         du_key = self.nitf_xml.find('head/docdata/du-key')

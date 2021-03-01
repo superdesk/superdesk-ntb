@@ -132,7 +132,7 @@ class NTBNITFFormatter(NITFFormatter):
             vocabulary_items = vocabulary.get("items", [])
             field_values = article.get(field, [])
             for value in list(field_values):
-                if not value.get("parent", None):
+                if not value.get("parent"):
                     continue
                 parent = self._get_list_element(field_values, "qcode", value["parent"])
                 if not parent:
@@ -147,7 +147,7 @@ class NTBNITFFormatter(NITFFormatter):
         Get the element from the list by field 'key' and value 'value'
         """
         for item in items:
-            if item.get(key, None) == value:
+            if item.get(key) == value:
                 return item
         return None
 
@@ -164,7 +164,7 @@ class NTBNITFFormatter(NITFFormatter):
         if (
             idx > 0
             and children[idx - 1].tag == "hl2"
-            or p_elem.attrib.get("class", None) == "footer-txt"
+            or p_elem.attrib.get("class") == "footer-txt"
         ):
             p_elem.attrib["class"] = "txt"
         else:
@@ -261,10 +261,10 @@ class NTBNITFFormatter(NITFFormatter):
                 req=None, _id=article.get("profile")
             )
             if (
-                "subject_custom"
+                is_content_field_exists(article.get("profile"), "subject")
+                and "subject_custom"
                 in content_type.get("schema", {})
-                .get("subject")
-                .get("schema", {})["schema"]["scheme"]["allowed"]
+                .get("subject", {}).get("schema")["schema"]["scheme"]["allowed"]
             ):
                 subjects = [
                     s
@@ -274,7 +274,7 @@ class NTBNITFFormatter(NITFFormatter):
                 for subject in subjects:
                     name_key = (
                         "tobject.subject.matter"
-                        if subject.get("parent", None)
+                        if subject.get("parent")
                         else "tobject.subject.type"
                     )
                     etree.SubElement(
@@ -294,7 +294,7 @@ class NTBNITFFormatter(NITFFormatter):
                 for topic in topics:
                     name_key = (
                         "tobject.subject.matter"
-                        if topic.get("name", None)
+                        if topic.get("name")
                         else "tobject.subject.type"
                     )
                     etree.SubElement(

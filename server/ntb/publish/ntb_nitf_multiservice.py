@@ -50,7 +50,7 @@ class NTBNITFMultiServiceFormatter(NTBNITFFormatter):
                         key_list, "keyword", attrib={"key": entity.get("name")}
                     )
 
-    def _format_subject_with_imatrics(article, tobject):
+    def _format_subject_with_imatrics(self, article, tobject):
         topics = [
             s
             for s in article.get("subject", [])
@@ -59,7 +59,7 @@ class NTBNITFMultiServiceFormatter(NTBNITFFormatter):
         for topic in topics:
             name_key = (
                 "tobject.subject.matter"
-                if topic.get("parent", None)
+                if topic.get("name")
                 else "tobject.subject.type"
             )
             etree.SubElement(
