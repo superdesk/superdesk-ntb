@@ -55,6 +55,7 @@ class NTBEventTestCase(TestCase):
             ],
             '_created': '2018-03-23T05:31:19.000Z'
         }]
+
         self.app.data.insert('contacts', contact)
 
         self.item = {
