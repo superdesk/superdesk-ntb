@@ -49,6 +49,8 @@ def _get_language(article):
 
 def is_content_field_exists(profile, field):
     content_type = get_resource_service("content_types").find_one(req=None, _id=profile)
+    if not content_type:
+        return
     return content_type.get("schema", {}).get(field)
 
 
