@@ -44,8 +44,8 @@ def _get_language(article):
     return article.get('language') or LANGUAGE
 
 
-def is_content_field_exists(profile, field):
-    content_type = get_resource_service("content_types").find_one(req=None, _id=profile)
+def get_content_field(article, field):
+    content_type = get_resource_service("content_types").find_one(req=None, _id=article['profile'])
     if not content_type:
         return
     return content_type.get("schema", {}).get(field)
@@ -86,7 +86,7 @@ class NTBNITFFormatter(NITFFormatter):
         try:
             if article.get('body_html'):
                 article['body_html'] = article['body_html'].replace('<br>', '<br />')
-            pub_seq_num = superdesk.get_resource_service('subscribers').generate_sequence_number(subscriber)
+            pub_seq_num = get_resource_service('subscribers').generate_sequence_number(subscriber)
             nitf = self.get_nitf(article, subscriber, pub_seq_num)
             try:
                 nitf.attrib['baselang'] = _get_language(article)
@@ -107,7 +107,7 @@ class NTBNITFFormatter(NITFFormatter):
         """
         For tree type vocabularies add the parent if a child is present
         """
-        vocabularies = list(superdesk.get_resource_service('vocabularies').get(None, None))
+        vocabularies = list(get_resource_service('vocabularies').get(None, None))
         fields = {'place': 'place_custom', 'subject': 'subject_custom'}
         for field in fields:
             vocabulary = self._get_list_element(vocabularies, '_id', fields[field])
@@ -199,7 +199,7 @@ class NTBNITFFormatter(NITFFormatter):
                     "key": self._get_ntb_slugline(article),
                 },
             )
-        if article.get("profile") and is_content_field_exists(article["profile"], "place"):
+        if article.get("profile") and get_content_field(article, "place"):
             state_prov = "name"
             county_dist = "qcode"
 
@@ -221,15 +221,8 @@ class NTBNITFFormatter(NITFFormatter):
 
     def _format_subjects(self, article, tobject):
         if article.get("profile"):
-            content_type = get_resource_service("content_types").find_one(
-                req=None, _id=article.get("profile")
-            )
-            if (
-                is_content_field_exists(article.get("profile"), "subject")
-                and "subject_custom"
-                in content_type.get("schema", {})
-                .get("subject", {}).get("schema")["schema"]["scheme"]["allowed"]
-            ):
+            content_type = get_content_field(article, "subject")
+            if (content_type and "subject_custom" in content_type.get("schema")["schema"]["scheme"]["allowed"]):
                 subjects = [
                     s
                     for s in article.get("subject", [])
@@ -325,7 +318,7 @@ class NTBNITFFormatter(NITFFormatter):
 
         # daily counter
         day_start = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-        pub_queue = superdesk.get_resource_service("publish_queue")
+        pub_queue = get_resource_service("publish_queue")
         daily_count = pub_queue.find({'transmit_started_at': {'$gte': day_start}}).count() + 1
         etree.SubElement(head, 'meta', {'name': 'NTBIPTCSequence', 'content': str(daily_count)})
 
