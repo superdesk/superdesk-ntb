@@ -18,13 +18,11 @@ imatrics_entities = ["organisation", "person", "event"]
 class NTBNITFMultiServiceFormatter(NTBNITFFormatter):
     """This NITF formatter generates single file with all services."""
 
-    FORMAT_TYPE = "ntbnitf"  # default ntb nitf formatter
+    FORMAT_TYPE = 'ntbnitf'  # default ntb nitf formatter
 
     def _format_service(self, article):
         try:
-            service_names = ", ".join(
-                service.get("name", "") for service in article["anpa_category"]
-            )
+            service_names = ", ".join(service.get("name", "") for service in article['anpa_category'])
             return service_names
         except (KeyError):
             pass
@@ -74,10 +72,10 @@ class NTBNITFMultiServiceFormatter(NTBNITFFormatter):
 
 class NTBNITFMultiServiceMediaFormatter(NTBNITFMultiServiceFormatter):
 
-    FORMAT_TYPE = "ntbnitfmedia"
+    FORMAT_TYPE = 'ntbnitfmedia'
 
     def _get_media_source(self, data):
-        if data.get("type") == "picture":
+        if data.get('type') == 'picture':
             return self._get_original_href(data)
         return super()._get_media_source(data)
 
@@ -104,13 +102,7 @@ class NTBNITFMultiServiceMediaFormatter20(NTBNITFMultiServiceMediaFormatter):
         super()._format_subject_with_imatrics(article, tobject)
 
 
-PublishService.register_file_extension(NTBNITFMultiServiceFormatter.FORMAT_TYPE, "xml")
-PublishService.register_file_extension(
-    NTBNITFMultiServiceMediaFormatter.FORMAT_TYPE, "xml"
-)
-PublishService.register_file_extension(
-    NTBNITFMultiServiceFormatter20.FORMAT_TYPE, "xml"
-)
-PublishService.register_file_extension(
-    NTBNITFMultiServiceMediaFormatter20.FORMAT_TYPE, "xml"
-)
+PublishService.register_file_extension(NTBNITFMultiServiceFormatter.FORMAT_TYPE, 'xml')
+PublishService.register_file_extension(NTBNITFMultiServiceMediaFormatter.FORMAT_TYPE, 'xml')
+PublishService.register_file_extension(NTBNITFMultiServiceFormatter20.FORMAT_TYPE, "xml")
+PublishService.register_file_extension(NTBNITFMultiServiceMediaFormatter20.FORMAT_TYPE, "xml")
