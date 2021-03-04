@@ -49,14 +49,16 @@ class NTBNITFMultiServiceFormatter(NTBNITFFormatter):
 
         for imatrics_entity in imatrics_entities:
             if article.get(imatrics_entity):
-                attrib = {"key": imatrics_entity.get("name")}
+                article_imatric_entity = article[imatrics_entity]
 
-                if imatrics_entity.get('wikidata'):
-                    attrib.update({"id": imatrics_entity['wikidata']})
+                for entity in article_imatric_entity:
+                    attrib = {"key": entity.get("name")}
 
-                for entity in article.get(imatrics_entity, []):
+                    if entity.get('wikidata'):
+                        attrib.update({"id": entity['wikidata']})
+
                     etree.SubElement(
-                        key_list, "keyword", attrib={"key": entity.get("name")}
+                        key_list, "keyword", attrib=attrib
                     )
 
     def _format_subject_with_imatrics(self, article, tobject):
