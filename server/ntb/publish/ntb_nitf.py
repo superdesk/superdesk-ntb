@@ -18,7 +18,7 @@ from copy import deepcopy
 from datetime import datetime
 from flask import current_app as app
 
-from superdesk import etree as sd_etree
+from superdesk import etree as sd_etree, get_resource_service
 from superdesk.metadata.item import ITEM_TYPE, CONTENT_TYPE
 from superdesk.publish.formatters.nitf_formatter import NITFFormatter, EraseElement
 from superdesk.publish.publish_service import PublishService
@@ -42,6 +42,13 @@ def _get_rewrite_sequence(article):
 
 def _get_language(article):
     return article.get('language') or LANGUAGE
+
+
+def get_content_field(article, field):
+    content_type = get_resource_service("content_types").find_one(req=None, _id=article['profile'])
+    if not content_type:
+        return
+    return content_type.get("schema", {}).get(field)
 
 
 class NTBNITFFormatter(NITFFormatter):
@@ -79,7 +86,7 @@ class NTBNITFFormatter(NITFFormatter):
         try:
             if article.get('body_html'):
                 article['body_html'] = article['body_html'].replace('<br>', '<br />')
-            pub_seq_num = superdesk.get_resource_service('subscribers').generate_sequence_number(subscriber)
+            pub_seq_num = get_resource_service('subscribers').generate_sequence_number(subscriber)
             nitf = self.get_nitf(article, subscriber, pub_seq_num)
             try:
                 nitf.attrib['baselang'] = _get_language(article)
@@ -100,7 +107,7 @@ class NTBNITFFormatter(NITFFormatter):
         """
         For tree type vocabularies add the parent if a child is present
         """
-        vocabularies = list(superdesk.get_resource_service('vocabularies').get(None, None))
+        vocabularies = list(get_resource_service('vocabularies').get(None, None))
         fields = {'place': 'place_custom', 'subject': 'subject_custom'}
         for field in fields:
             vocabulary = self._get_list_element(vocabularies, '_id', fields[field])
@@ -128,7 +135,6 @@ class NTBNITFFormatter(NITFFormatter):
 
     def p_filter(self, root_elem, p_elem):
         """Modify p element to have 'txt' or 'txt-ind' attribute
-
         'txt' is only used immediatly after "hl2" elem, txt-ind in all other cases
         """
         if p_elem.get('class') == 'ntb-media':
@@ -177,17 +183,29 @@ class NTBNITFFormatter(NITFFormatter):
 
     def _format_docdata(self, article, docdata):
         super()._format_docdata(article, docdata)
+        state_prov = "ntb_parent"
+        county_dist = "ntb_qcode"
 
-        if 'slugline' in article:
-            key_list = etree.SubElement(docdata, 'key-list')
-            etree.SubElement(key_list, 'keyword', attrib={'key': self._get_ntb_slugline(article)})
+        if "slugline" in article:
+            key_list = etree.SubElement(docdata, "key-list")
+            etree.SubElement(
+                key_list, "keyword", attrib={"key": self._get_ntb_slugline(article)}
+            )
             etree.SubElement(
                 docdata,
-                'du-key',
-                attrib={'version': str(_get_rewrite_sequence(article) + 1), 'key': self._get_ntb_slugline(article)})
-        for place in article.get('place', []):
-            evloc = etree.SubElement(docdata, 'evloc')
-            for key, att in (('parent', 'state-prov'), ('qcode', 'county-dist')):
+                "du-key",
+                attrib={
+                    "version": str(_get_rewrite_sequence(article) + 1),
+                    "key": self._get_ntb_slugline(article),
+                },
+            )
+        if article.get("profile") and get_content_field(article, "place"):
+            state_prov = "name"
+            county_dist = "qcode"
+
+        for place in article.get("place", []):
+            evloc = etree.SubElement(docdata, "evloc")
+            for key, att in ((state_prov, "state-prov"), (county_dist, "county-dist")):
                 try:
                     value = place[key]
                 except KeyError:
@@ -202,14 +220,50 @@ class NTBNITFFormatter(NITFFormatter):
         article['pubdata'] = pubdata  # needed to access pubdata when formatting body content
 
     def _format_subjects(self, article, tobject):
-        subjects = [s for s in article.get('subject', []) if s.get("scheme") == "subject_custom"]
-        for subject in subjects:
-            name_key = 'tobject.subject.matter' if subject.get('parent', None) else 'tobject.subject.type'
-            etree.SubElement(
-                tobject,
-                'tobject.subject',
-                {'tobject.subject.refnum': subject.get('qcode', ''),
-                 name_key: subject.get('name', '')})
+        if article.get("profile"):
+            content_type = get_content_field(article, "subject")
+            if (content_type and "subject_custom" in content_type.get("schema")["schema"]["scheme"]["allowed"]):
+                subjects = [
+                    s
+                    for s in article.get("subject", [])
+                    if s.get("scheme") == "subject_custom"
+                ]
+                for subject in subjects:
+                    name_key = (
+                        "tobject.subject.matter"
+                        if subject.get("parent")
+                        else "tobject.subject.type"
+                    )
+                    etree.SubElement(
+                        tobject,
+                        "tobject.subject",
+                        {
+                            "tobject.subject.refnum": subject.get("qcode", ""),
+                            name_key: subject.get("name", ""),
+                        },
+                    )
+            else:
+                topics = [
+                    s
+                    for s in article.get("subject", [])
+                    if s.get("scheme") == "topics" and s.get("source") == "imatrics"
+                ]
+                for topic in topics:
+                    name_key = (
+                        "tobject.subject.matter"
+                        if topic.get("name")
+                        else "tobject.subject.type"
+                    )
+                    etree.SubElement(
+                        tobject,
+                        "tobject.subject",
+                        {
+                            "tobject.subject.refnum": topic.get("altids", {}).get(
+                                "medtop"
+                            ),
+                            name_key: topic.get("name", ""),
+                        },
+                    )
 
     def _format_datetimes(self, article, head):
         created = article['versioncreated'].astimezone(tz)
@@ -219,7 +273,6 @@ class NTBNITFFormatter(NITFFormatter):
 
     def _get_filename(self, article):
         """Return filename as specified by NTB
-
         filename pattern: date_time_service_category_subject.xml
         example: 2016-08-16_11-07-46_Nyhetstjenesten_Innenriks_ny1-rygge-nedgang.xml
         """
@@ -265,7 +318,7 @@ class NTBNITFFormatter(NITFFormatter):
 
         # daily counter
         day_start = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-        pub_queue = superdesk.get_resource_service("publish_queue")
+        pub_queue = get_resource_service("publish_queue")
         daily_count = pub_queue.find({'transmit_started_at': {'$gte': day_start}}).count() + 1
         etree.SubElement(head, 'meta', {'name': 'NTBIPTCSequence', 'content': str(daily_count)})
 

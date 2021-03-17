@@ -27,21 +27,20 @@ class NTBNITFMultiFileFormatterTest(NTBNITFFormatterTest):
 
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
     def setUp(self):
-        super(TestCase, self).setUp()
+        super().setUp()
         article_legacy = ARTICLE.copy()
         article_legacy['anpa_category'] = [{'name': 'service1'}, {'name': 'service2'}, {'name': 'service3'}]
         self.formatter = NTBNITFMultiFileFormatter()
         self.base_formatter = Formatter()
         init_app(self.app)
         self.tz = pytz.timezone(self.app.config['DEFAULT_TIMEZONE'])
-        if self.article is None:
-            # formatting is done once for all tests to save time
-            # as long as used attributes are not modified, it's fine
-            self.article = article_legacy
-            self.formatter_output = self.formatter.format(self.article, {'name': 'Test NTBNITF'})
-            self.docs = [formatter['encoded_item'] for formatter in self.formatter_output]
-            self.nitf_xmls = [etree.fromstring(doc) for doc in self.docs]
-            self.nitf_xml = self.nitf_xmls[0]
+        # formatting is done once for all tests to save time
+        # as long as used attributes are not modified, it's fine
+        self.article = article_legacy
+        self.formatter_output = self.formatter.format(self.article, {'name': 'Test NTBNITF'})
+        self.docs = [formatter['encoded_item'] for formatter in self.formatter_output]
+        self.nitf_xmls = [etree.fromstring(doc) for doc in self.docs]
+        self.nitf_xml = self.nitf_xmls[0]
 
     def test_the_number_of_generated_files(self):
         self.assertEqual(len(self.nitf_xmls), 3)
