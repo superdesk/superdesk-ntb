@@ -182,8 +182,8 @@ class NTBNITFFormatter(NITFFormatter):
 
     def _format_docdata(self, article, docdata):
         super()._format_docdata(article, docdata)
-        state_prov = "name"
-        county_dist = "qcode"
+        state_prov = "ntb_parent"
+        county_dist = "ntb_qcode"
 
         if "slugline" in article:
             key_list = etree.SubElement(docdata, "key-list")
@@ -198,15 +198,11 @@ class NTBNITFFormatter(NITFFormatter):
                     "key": self._get_ntb_slugline(article),
                 },
             )
-
         if article.get("profile") and get_content_field(article, "place"):
-            places = [place for place in article.get("place", []) if place.get("scheme") == "place_custom"]
-            state_prov = "ntb_parent"
-            county_dist = "ntb_qcode"
-        else:
-            places = [place for place in article.get("place", []) if place.get("source") == "imatrics"]
+            state_prov = "name"
+            county_dist = "qcode"
 
-        for place in places:
+        for place in article.get("place", []):
             evloc = etree.SubElement(docdata, "evloc")
             for key, att in ((state_prov, "state-prov"), (county_dist, "county-dist")):
                 try:
