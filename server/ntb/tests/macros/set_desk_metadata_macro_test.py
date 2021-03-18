@@ -1,5 +1,6 @@
 
 from superdesk.tests import TestCase
+from superdesk.metadata.item import CONTENT_STATE
 
 from ntb.macros import set_desk_metadata_macro
 
@@ -7,6 +8,7 @@ from ntb.macros import set_desk_metadata_macro
 class SetDeskMetadataMacroTestCase(TestCase):
 
     item = {
+        "state": CONTENT_STATE.FETCHED,
         "genre": [
             {"name": "foo", "qcode": "f", "scheme": "genre_custom"},
         ],

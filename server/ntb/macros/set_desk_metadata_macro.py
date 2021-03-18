@@ -1,5 +1,6 @@
 
 from superdesk import get_resource_service
+from superdesk.metadata.item import CONTENT_STATE
 
 
 FIELD_SCHEME_MAP = {
@@ -10,6 +11,8 @@ FIELD_SCHEME_MAP = {
 
 
 def callback(item, **kwargs):
+    if item.get('state') not in (CONTENT_STATE.FETCHED, CONTENT_STATE.ROUTED):
+        return
     try:
         template_id = kwargs["desk"]["default_content_template"]
     except KeyError:
