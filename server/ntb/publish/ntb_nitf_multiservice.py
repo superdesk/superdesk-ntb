@@ -12,7 +12,7 @@ from superdesk.publish.publish_service import PublishService
 from .ntb_nitf import NTBNITFFormatter
 from lxml import etree
 
-imatrics_entities = ["organisation", "person", "event"]
+imatrics_entities = ["organisation", "person", "event", "place"]
 
 
 class NTBNITFMultiServiceFormatter(NTBNITFFormatter):
