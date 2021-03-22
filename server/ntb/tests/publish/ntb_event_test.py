@@ -23,7 +23,7 @@ class NTBEventTestCase(TestCase):
             'website': 'fubar.com',
             'public': True,
             'contact_state': {
-                'name': 'NSW'
+                'name': 'NSW',
                 'qcode': 'NSW'
             },
             'last_name': 'Doe',
