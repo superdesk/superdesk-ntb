@@ -8,7 +8,7 @@ from ntb.macros import set_desk_metadata_macro
 class SetDeskMetadataMacroTestCase(TestCase):
 
     item = {
-        "state": CONTENT_STATE.FETCHED,
+        "state": CONTENT_STATE.INGESTED,
         "genre": [
             {"name": "foo", "qcode": "f", "scheme": "genre_custom"},
         ],

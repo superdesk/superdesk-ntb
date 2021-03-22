@@ -11,7 +11,7 @@ FIELD_SCHEME_MAP = {
 
 
 def callback(item, **kwargs):
-    if item.get('state') not in (CONTENT_STATE.FETCHED, CONTENT_STATE.ROUTED):
+    if item.get('state') not in (CONTENT_STATE.INGESTED, ):
         return
     try:
         template_id = kwargs["desk"]["default_content_template"]
