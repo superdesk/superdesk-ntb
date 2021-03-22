@@ -22,7 +22,10 @@ class NTBEventTestCase(TestCase):
             'locality': 'Rhodes',
             'website': 'fubar.com',
             'public': True,
-            'contact_state': 'NSW',
+            'contact_state': {
+                'name': 'NSW'
+                'qcode': 'NSW'
+            },
             'last_name': 'Doe',
             'notes': 'Exceptionally good looking',
             'mobile': [
