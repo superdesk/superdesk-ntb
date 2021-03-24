@@ -152,6 +152,21 @@ module.exports = function(grunt) {
             }
         },
 
-        planning_allow_freetext_location: true
+        planning_allow_freetext_location: true,
+        
+        iMatricsFields: {
+            imatrics_category: {
+                name: 'Category',
+                order: 1,
+            },
+            imatrics_topic: {
+                name: 'Topics',
+                order: 2,
+            },
+            topics: {
+                name: 'Media topics',
+                order: 3,
+            }
+        }
     };
 };
