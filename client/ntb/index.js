@@ -1,10 +1,10 @@
 import {startApp} from 'superdesk-core/scripts/index';
+import autoTaggingWidget from 'superdesk-core/scripts/extensions/auto-tagging-widget/dist/src/extension';
 
 setTimeout(() => {
-    startApp(
-        [{id: 'auto-tagging-widget', load: () => import('superdesk-core/scripts/extensions/auto-tagging-widget/dist/src/extension').then(res => res.default)}],
-        {},
-    );
+    startApp([
+        autoTaggingWidget,
+    ]);
 });
 
 export default angular.module('ntb', [])
