@@ -1,6 +1,6 @@
 {
     "dependencies": {
-        "superdesk-core": "github:superdesk/superdesk-client-core#pin-tabs",
-        "superdesk-planning": "github:superdesk/superdesk-planning#develop"
+        "superdesk-core": "github:tomaskikutis/superdesk-client-core#extensions-API-improvements-for-assignments-overview",
+        "superdesk-planning": "github:tomaskikutis/superdesk-planning#assignments-widget-in-the-toolbar"
     }
 }
