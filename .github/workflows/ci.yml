@@ -30,7 +30,7 @@ jobs:
 
     - run: flake8
 
-    - run: nosetests
+    - run: nosetests ./ntb/tests/
 
     - run: behave ./features/ --format progress2 --logging-level ERROR
 
