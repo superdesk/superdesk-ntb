@@ -24,7 +24,6 @@ class NTBEventTestCase(TestCase):
             'public': True,
             'contact_state': {
                 'name': 'NSW',
-                'qcode': 'NSW'
             },
             'last_name': 'Doe',
             'notes': 'Exceptionally good looking',
