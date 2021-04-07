@@ -32,7 +32,7 @@ class NTBNITFMultiServiceFormatter(NTBNITFFormatter):
         imatrics_topics = [
             s
             for s in article.get("subject", [])
-            if s.get("scheme") == "imatrics_topic" and s.get("source") == "imatrics"
+            if s.get("scheme") in ["imatrics_topic", "imatrics_category"] and s.get("source") == "imatrics"
         ]
 
         key_list = etree.SubElement(docdata, "key-list")
