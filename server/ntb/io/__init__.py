@@ -30,8 +30,12 @@ def init_app(app):
     enhance_events_projection = {
         'ntb_id': 1
     }
-    app.config['DOMAIN']['events']['schema'].update(enhance_events_schema)
-    app.config['DOMAIN']['events']['datasource']['projection'].update(enhance_events_projection)
+
+    try:
+        app.config['DOMAIN']['events']['schema'].update(enhance_events_schema)
+        app.config['DOMAIN']['events']['datasource']['projection'].update(enhance_events_projection)
+    except KeyError:
+        pass  # events not defined in tests
 
     app.on_fetched_resource_events += remove_ntbid_hook
     app.on_fetched_resource_events_planning_search += remove_ntbid_hook

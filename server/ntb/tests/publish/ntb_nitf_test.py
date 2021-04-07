@@ -518,7 +518,7 @@ class NTBNITFFormatterTest(TestCase):
         del article['associations']
         article['body_html'] = "<pref:h1><other_pref:body.content><t:t/>toto</other_pref:body.content></pref:h1>"
         expected = (
-            '<body.content><p class="lead" lede="true"/>toto<p class="txt">footer text</p><media media-type="image" cla'
+            '<body.content><p lede="true" class="lead"/>toto<p class="txt">footer text</p><media media-type="image" cla'
             'ss="prs"><media-reference mime-type="image/jpeg" alternate-text="http://www.ntbinfo.no/" source="https://w'
             'ww.example.net/ntb_media_test.jpg"/><media-caption>this is a test ntb media</media-caption></media></body.'
             'content>'
@@ -558,7 +558,7 @@ class NTBNITFFormatterTest(TestCase):
             w:st="on">1500 meter</st1:metricconverter><br></p>
             """
         expected = (
-            '<body.content> <p class="lead" lede="true"/> <p class="txt-ind">Målet i kortbane-VM som nylig ble avslutte'
+            '<body.content> <p lede="true" class="lead"/> <p class="txt-ind">Målet i kortbane-VM som nylig ble avslutte'
             't i den canadiske byen Windsor var personlig rekord på 1500 meter</p> <p class="txt">footer text</p> <medi'
             'a media-type="image" class="illustrasjonsbilde"> <media-reference mime-type="image/jpeg" source="test_id"/'
             '> <media-caption>test feature media</media-caption> </media> <media media-type="image" class="prs"> <media'
@@ -656,7 +656,7 @@ class NTBNITFFormatterTest(TestCase):
         body_content = doc[doc.find(b'<body.content>') - 4:doc.find(b'</body.content>') + 15]
         expected = (b"""\
     <body.content>
-      <p class="lead" lede="true"></p>
+      <p lede="true" class="lead"></p>
       <hl2>test title</hl2>
       <p class="txt">test <em class="bold">strong</em>  </p>
       <p class="txt-ind">
@@ -758,7 +758,7 @@ class NTBNITFFormatterTest(TestCase):
         doc = formatter_output[0]['encoded_item']
         nitf_xml = etree.fromstring(doc)
         expected = (
-            '<body.content> <p class="lead" lede="true">This is the abstract</p> <p class="txt">footer text</p> <media '
+            '<body.content> <p lede="true" class="lead">This is the abstract</p> <p class="txt">footer text</p> <media '
             'media-type="image" class="illustrasjonsbilde"> <media-reference mime-type="image/jpeg" source="test_id"/> '
             '<media-caption>test feature media</media-caption> </media> <media media-type="image" class="prs"> <media-r'
             'eference mime-type="image/jpeg" alternate-text="http://www.ntbinfo.no/" source="https://www.example.net/nt'

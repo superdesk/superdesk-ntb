@@ -18,6 +18,7 @@ from superdesk.io.commands.update_ingest import ingest_items
 from apps.prepopulate.app_populate import AppPopulateCommand
 from planning.events import init_app as init_events_app
 import ntb
+import ntb.io
 from app import get_app
 from settings import INSTALLED_APPS
 
@@ -90,6 +91,7 @@ def setup_before_scenario(context, scenario, config, app_factory):
     with app.app_context():
         # by default events resource is not available
         init_events_app(app)
+        ntb.io.init_app(app)
 
     # superdesk.tests.environment
     setup_before_scenario_core(context, scenario, config, app_factory=app_factory)
