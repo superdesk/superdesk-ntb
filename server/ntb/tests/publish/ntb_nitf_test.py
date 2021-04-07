@@ -74,7 +74,7 @@ ARTICLE = {
         {
             'scheme': 'place_custom',
             'parent': None,
-            'ntb_parent': None,
+            'ntb_parent': 'Global Parent',
             'name': 'Global',
             'qcode': 'Global',
             'ntb_qcode': 'Global',
@@ -347,6 +347,12 @@ class NTBNITFFormatterTest(TestCase):
                                     "parent": {"nullable": True},
                                 },
                             },
+                        },
+                        "place": {
+                            "enabled": True,
+                            "nullable": False,
+                            "required": True,
+                            "type": "list",
                         },
                     },
                 },
