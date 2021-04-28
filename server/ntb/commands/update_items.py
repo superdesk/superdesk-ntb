@@ -15,20 +15,37 @@ SCRIPTS = [
 ]
 
 
+def get_id(id):
+    try:
+        return bson.ObjectId(id)
+    except bson.errors.InvalidId:
+        return id
+
+
 class UpdateItemsCommand(superdesk.Command):
     """Update Items"""
 
     option_list = [
         superdesk.Option('--resource', '-r', dest='resources', action='append', choices=RESOURCES),
+        superdesk.Option('--last', '-l'),
     ]
 
-    def run(self, resources=None):
+    def run(self, resources=None, last=None):
         if not resources:
             resources = RESOURCES
         for resource in resources:
-            last_id = None
-            service = superdesk.get_resource_service(resource)
             print("updating {resource}".format(resource=resource))
+            service = superdesk.get_resource_service(resource)
+            last_id = None
+
+            if last:
+                last_item = service.find_one(req=None, _id=get_id(last))
+                if not last_item:
+                    print("skip resource {resource}".format(resource=resource))
+                    continue
+                print("continue from {last}".format(last=last))
+                last_id = get_id(last_item['_id'])
+
             query = {}
             while True:
                 if last_id:
@@ -38,10 +55,7 @@ class UpdateItemsCommand(superdesk.Command):
                     print("done.")
                     break
                 for item in items:
-                    try:
-                        _id = bson.ObjectId(item['_id'])
-                    except bson.errors.InvalidId:
-                        _id = item['_id']
+                    _id = get_id(item['_id'])
                     if _id == last_id:
                         print("error: processing {_id} again".format(_id=last_id))
                         raise ValueError("Invalid id.")
@@ -50,9 +64,10 @@ class UpdateItemsCommand(superdesk.Command):
                     for _, script in SCRIPTS:
                         script(item, updates)
                     if updates:
-                        print("update", _id, updates)
+                        print("update", resource, _id)
                         try:
                             service.system_update(_id, updates, item)
                         except Exception as err:
-                            print("error: {error}".format(error=err))
-                print(".", end="")
+                            print("error", err, "updates", updates)
+                    else:
+                        print("ignore", resource, _id)
