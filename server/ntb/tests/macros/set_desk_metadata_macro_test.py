@@ -45,7 +45,9 @@ class SetDeskMetadataMacroTestCase(TestCase):
             "name": "Sports",
             "default_content_template": self.templates[0]['_id'],
         }]
+
         self.app.data.insert("desks", self.desks)
+        self.template.pop('_etag')  # avoid later update error
 
     def test_replace_if_present_in_template(self):
         item = self.item.copy()
