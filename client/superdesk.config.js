@@ -155,17 +155,21 @@ module.exports = function(grunt) {
         planning_allow_freetext_location: true,
         
         iMatricsFields: {
+            topics: {
+                name: 'Media topics',
+                order: 1,
+            },
+            entities: {
+                name: 'Entities',
+                order: 2,
+            },
             imatrics_category: {
                 name: 'Category',
-                order: 1,
+                order: 3,
             },
             imatrics_topic: {
                 name: 'Topics',
-                order: 2,
-            },
-            topics: {
-                name: 'Media topics',
-                order: 3,
+                order: 4,
             }
         }
     };
