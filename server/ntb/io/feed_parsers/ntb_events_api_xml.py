@@ -235,7 +235,7 @@ class NTBEventsApiXMLFeedParser(XMLFeedParser):
             item['links'] = [contactweb.text]
 
     def _fill_event_contact_info(self, document, item):
-        contact_info = {}
+        contact_info = {'public': True}
 
         el = document.find('contactmail')
         if el is not None:
