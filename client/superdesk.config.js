@@ -159,17 +159,25 @@ module.exports = function(grunt) {
                 name: 'Media topics',
                 order: 1,
             },
-            entities: {
-                name: 'Entities',
+            organisation: {
+                name: 'Organisations',
                 order: 2,
+            },
+            person: {
+                name: 'People',
+                order: 3,
+            },
+            place: {
+                name: 'Places',
+                order: 4,
             },
             imatrics_category: {
                 name: 'Category',
-                order: 3,
+                order: 5,
             },
             imatrics_topic: {
                 name: 'Topics',
-                order: 4,
+                order: 6,
             }
         }
     };
