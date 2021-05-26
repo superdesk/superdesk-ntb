@@ -7,12 +7,13 @@ const planningConfiguration = {
 setTimeout(() => {
     startApp(
         [
-            {id: 'auto-tagging-widget', load: () => import('superdesk-core/scripts/extensions/auto-tagging-widget/dist/src/extension').then(res => res.default)},
+            {
+                id: 'auto-tagging-widget',
+                load: () => import('superdesk-core/scripts/extensions/auto-tagging-widget')
+            },
             {
                 id: 'planning-extension',
-                load: () =>
-                    import('@superdesk/planning-extension/dist/planning-extension/src/extension')
-                        .then((res) => res.default),
+                load: () => import('@superdesk/planning-extension'),
                 configuration: planningConfiguration,
             },
         ],

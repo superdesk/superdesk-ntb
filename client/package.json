@@ -1,12 +1,11 @@
 {
     "dependencies": {
         "@superdesk/build-tools": "^1.0.3",
-        "@superdesk/planning-extension": "^1.0.5",
+        "@superdesk/planning-extension": "^1.0.6",
         "superdesk-core": "github:superdesk/superdesk-client-core#develop",
         "superdesk-planning": "github:tomaskikutis/superdesk-planning#assignments-widget-in-the-toolbar"
     },
     "scripts": {
-        "build": "node --max_old_space_size=4098 ./node_modules/.bin/grunt build && npx @superdesk/build-tools prepare-root-repo ./",
-        "postinstall": "npx @superdesk/build-tools extensions build ./"
+        "build": "npx @superdesk/build-tools build-root-repo ./"
     }
 }
