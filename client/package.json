@@ -1,6 +1,6 @@
 {
     "dependencies": {
-        "@superdesk/build-tools": "^1.0.6",
+        "@superdesk/build-tools": "^1.0.7",
         "superdesk-core": "github:superdesk/superdesk-client-core#develop",
         "superdesk-planning": "github:tomaskikutis/superdesk-planning#assignments-widget-in-the-toolbar"
     },
