@@ -1,8 +1,22 @@
 import {startApp} from 'superdesk-core/scripts/index';
 
+const planningConfiguration = {
+    assignmentsTopBarWidget: true,
+};
+
 setTimeout(() => {
     startApp(
-        [{id: 'auto-tagging-widget', load: () => import('superdesk-core/scripts/extensions/auto-tagging-widget/dist/src/extension').then(res => res.default)}],
+        [
+            {
+                id: 'auto-tagging-widget',
+                load: () => import('superdesk-core/scripts/extensions/auto-tagging-widget')
+            },
+            {
+                id: 'planning-extension',
+                load: () => import('superdesk-planning/client/planning-extension'),
+                configuration: planningConfiguration,
+            },
+        ],
         {},
     );
 });

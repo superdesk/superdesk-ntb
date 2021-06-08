@@ -1,6 +1,10 @@
 {
     "dependencies": {
+        "@superdesk/build-tools": "^1.0.14",
         "superdesk-core": "github:superdesk/superdesk-client-core#develop",
         "superdesk-planning": "github:superdesk/superdesk-planning#develop"
+    },
+    "scripts": {
+        "build": "npx @superdesk/build-tools build-root-repo ./"
     }
 }
