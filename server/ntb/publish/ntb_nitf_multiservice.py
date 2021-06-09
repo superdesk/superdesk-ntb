@@ -115,7 +115,37 @@ class NTBNITFMultiServiceMediaFormatter20(NTBNITFMultiServiceMediaFormatter):
         super()._format_subject_with_imatrics(article, tobject)
 
 
+class NTBNITFCustomFormatter10(NTBNITFFormatter):
+
+    FORMAT_TYPE = "ntbnitfcustom10"
+
+    def _format_body_head_dateline(self, article, body_head):
+        try:
+            dateline_content = article['dateline']['located']['city']
+        except (KeyError, TypeError):
+            pass
+        else:
+            dateline = etree.SubElement(body_head, 'dateline')
+            dateline.attrib['location'] = dateline_content
+
+    def _format_docdata(self, article, docdata):
+        super()._format_docdata(article, docdata)
+
+        # remove old format for place_custom CV
+        for data in docdata:
+            if data.tag == "evloc":
+                docdata.remove(data)
+
+        places = [place for place in article.get("place", []) if place.get("scheme") == "place_custom"]
+        for place in places:
+            evloc = etree.SubElement(docdata, "evloc")
+            for key, att in (("ntb_qcode", "county-dist"), ("ntb_parent", "country")):
+                if place.get(key) is not None:
+                    evloc.attrib[att] = place[key]
+
+
 PublishService.register_file_extension(NTBNITFMultiServiceFormatter.FORMAT_TYPE, 'xml')
 PublishService.register_file_extension(NTBNITFMultiServiceMediaFormatter.FORMAT_TYPE, 'xml')
 PublishService.register_file_extension(NTBNITFMultiServiceFormatter20.FORMAT_TYPE, "xml")
 PublishService.register_file_extension(NTBNITFMultiServiceMediaFormatter20.FORMAT_TYPE, "xml")
+PublishService.register_file_extension(NTBNITFCustomFormatter10.FORMAT_TYPE, "xml")
