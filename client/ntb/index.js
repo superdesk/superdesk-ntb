@@ -3,7 +3,7 @@ import autoTaggingWidget from 'superdesk-core/scripts/extensions/auto-tagging-wi
 
 setTimeout(() => {
     startApp([
-        autoTaggingWidget,
+        //autoTaggingWidget,
     ]);
 });
 
