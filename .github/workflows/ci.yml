@@ -20,6 +20,7 @@ jobs:
       with:
         python-version: 3.6
 
+    - run: sudo apt-get update
     - run: sudo apt-get -y install libxmlsec1-dev
 
     - run: docker-compose -f ../.github/docker-compose.yml up -d
