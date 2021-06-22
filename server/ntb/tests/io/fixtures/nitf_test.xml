@@ -28,6 +28,8 @@
       <key-list />
       <pubdata date.publication="2016-05-12T00:05:13+02:00" item-length="454" unit-of-measure="character" />
       <revision-history name="norm" />
+      <evloc state-prov="Norden" county-dist="Sverige"/>
+      <evloc county-dist="Norden"/>
     </docdata>
   </head>
   <body>
@@ -38,6 +40,7 @@
       <distributor>
         <org />
       </distributor>
+      <dateline>Stockholm</dateline>
     </body.head>
     <body.content>
       <p lede="true" class="lead">København /ritzau/: En 41-årig mand, der onsdag blev anholdt og sat i forbindelse med en mulig skudepisode nær en børnehave i Hvidovre ved København, er blevet løsladt.</p>
