@@ -3,4 +3,4 @@ honcho==1.0.1
 feedgen==0.7.0
 
 -e git+git://github.com/superdesk/superdesk-core.git@hotfix/2.2.1#egg=superdesk-core
--e git+git://github.com/superdesk/superdesk-planning.git@v2.2.1#egg=superdesk-planning
+-e git+git://github.com/superdesk/superdesk-planning.git@hotfix/2.2.2#egg=superdesk-planning
