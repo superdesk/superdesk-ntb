@@ -31,7 +31,7 @@ class SyncTopicsCommand(superdesk.Command):
         $ python manage.py ntb:syn_topics --format
         $ git commit -a -m "standardise vocabularies.json format"
         $ python manage.py ntb:syn_topics
-        $ git add -a
+        $ git add ntb/commands/sync_topics_reports
         $ git commit -a -m "synchronise Media Topics from IPTC"
 
     Command Examples:
