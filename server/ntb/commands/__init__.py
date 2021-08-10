@@ -6,4 +6,4 @@ from .sync_topics import SyncTopicsCommand
 
 
 superdesk.command('ntb:update_items', UpdateItemsCommand())
-superdesk.command('ntb:syn_topics', SyncTopicsCommand())
+superdesk.command('ntb:sync_topics', SyncTopicsCommand())

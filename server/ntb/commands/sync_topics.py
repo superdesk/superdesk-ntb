@@ -70,20 +70,20 @@ class SyncTopicsCommand(superdesk.Command):
     Chore Example:
     ::
 
-        $ python manage.py ntb:syn_topics --format
+        $ python manage.py ntb:sync_topics --format
         $ git commit -a -m "standardise vocabularies.json format"
-        $ python manage.py ntb:syn_topics
+        $ python manage.py ntb:sync_topics
         $ git add ntb/commands/sync_topics_reports
         $ git commit -a -m "synchronise Media Topics from IPTC"
 
     Command Examples:
     ::
 
-        $ python manage.py ntb:syn_topics
-        $ python manage.py ntb:syn_topics --file /tmp/iptc-media-topcs.json
-        $ python manage.py ntb:syn_topics --format
-        $ python manage.py ntb:syn_topics --output /tmp/vocabularies.json
-        $ python manage.py ntb:syn_topics --format --output /tmp/vocabularies.json
+        $ python manage.py ntb:sync_topics
+        $ python manage.py ntb:sync_topics --file /tmp/iptc-media-topcs.json
+        $ python manage.py ntb:sync_topics --format
+        $ python manage.py ntb:sync_topics --output /tmp/vocabularies.json
+        $ python manage.py ntb:sync_topics --format --output /tmp/vocabularies.json
     """
 
     option_list = [
@@ -313,7 +313,7 @@ class SyncTopicsCommand(superdesk.Command):
     def _generate_report(self, report: ReportData, topics: List[CVItemFromIPTC]):
         """Generate and write the report to a markdown file
 
-        Writes the file to ``server/ntb/commands/syn_topics_reports``
+        Writes the file to ``server/ntb/commands/sync_topics_reports``
         The report uses markdown and table to show the data.
         """
 
