@@ -317,10 +317,10 @@ class SyncTopicsCommand(superdesk.Command):
         The report uses markdown and table to show the data.
         """
 
-        output = self._gen_new_table(report["new"])
-
-        output += self._gen_translation_table(topics)
-        output += self._gen_deviated_table(report["deviated"])
+        output: List[str] = []
+        self._gen_new_table(report["new"], output)
+        self._gen_translation_table(topics, output)
+        self._gen_deviated_table(report["deviated"], output)
 
         file_path = path.abspath(
             path.join(
@@ -331,53 +331,54 @@ class SyncTopicsCommand(superdesk.Command):
         )
 
         with open(file_path, "w") as f:
-            f.write(output)
+            f.write('\r\n'.join(output))
 
-    def _gen_new_table(self, topics: List[CVItemFromIPTC]) -> str:
+    def _gen_new_table(self, topics: List[CVItemFromIPTC], output: List[str]):
         """Generate markdown table for newly added IPTC Media Topics"""
 
-        report = """
-New Items:
+        output.extend([
+            "",
+            "New Items:",
+            "",
+            "| Qcode | Name | Parent | Wikidata | IPTC Subject |",
+            "| ----- | ---- | ------ | -------- | ------------ |",
+        ])
 
-| Qcode | Name | Parent | Wikidata | IPTC Subject |
-| ----- | ---- | ------ | -------- | ------------ |
-"""
         for topic in topics:
             qcode = topic.get("qcode") or ""
             name = topic.get("name") or ""
             parent = topic.get("parent") or ""
             wikidata = topic.get("wikidata") or ""
             iptc_subject = topic.get("iptc_subject") or ""
-            report += f"| {qcode} | {name} | {parent} | {wikidata} | {iptc_subject} |\n"
+            output.append(f"| {qcode} | {name} | {parent} | {wikidata} | {iptc_subject} |")
 
-        return report
-
-    def _gen_translation_table(self, topics: List[CVItemFromIPTC]) -> str:
+    def _gen_translation_table(self, topics: List[CVItemFromIPTC], output: List[str]):
         """Generate markdown table for IPTC Media Topics without Norwegian translations"""
 
-        report = """
-Missing Norwegian Translation:
+        output.extend([
+            "",
+            "Missing Norwegian Translation:",
+            "",
+            "| Qcode | Name |",
+            "| ----- | ---- |",
+        ])
 
-| Qcode | Name |
-| ----- | ---- |
-"""
         for topic in topics:
             if topic["_missing_translation"]:
                 qcode = topic.get("qcode") or ""
                 name = topic.get("name") or ""
-                report += f"| {qcode} | {name} |\n"
+                output.append(f"| {qcode} | {name} |")
 
-        return report
-
-    def _gen_deviated_table(self, items: List[ReportDeviationData]) -> str:
+    def _gen_deviated_table(self, items: List[ReportDeviationData], output: List[str]):
         """Generate markdown table items that have deviated from IPTC Media Topics"""
 
-        report = """
-Deviated Items:
-
-| Qcode | Field | Existing | IPTC |
-| ----- | ----- | -------- | ---- |
-"""
+        output.extend([
+            "",
+            "Deviated Items:",
+            "",
+            "| Qcode | Field | Existing | IPTC |",
+            "| ----- | ----- | -------- | ---- |",
+        ])
 
         for item in items:
             topic = item["topic"]
@@ -387,9 +388,7 @@ Deviated Items:
             for field in fields:
                 existing_value = existing.get(field, "") if existing else ""
                 iptc_value = topic.get(field) or ""
-                report += f"| {qcode} | {field} | {existing_value} | {iptc_value} |\n"
-
-        return report
+                output.append(f"| {qcode} | {field} | {existing_value} | {iptc_value} |")
 
     def _update_vocabularies_json(self, vocabularies_json: VocabFileJson, updated_topics: List[CVItemFromIPTC]):
         """Updates the vocabularies json data with the synchronised Media Topics"""
