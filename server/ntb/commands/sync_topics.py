@@ -1,3 +1,5 @@
+from typing import Optional, Dict, List
+from typing_extensions import TypedDict
 from os import path
 import sys
 import json
@@ -11,6 +13,46 @@ import superdesk
 
 logger = logging.getLogger(__name__)
 RESOURCE_URL = "https://cv.iptc.org/newscodes/mediatopic"
+
+
+class CVItem(TypedDict):
+    qcode: str
+    name: str
+    parent: Optional[str]
+    iptc_subject: Optional[str]
+    wikidata: Optional[str]
+    is_active: bool
+
+
+class VocabJson(TypedDict):
+    _id: str
+    items: List[CVItem]
+
+
+VocabFileJson = List[VocabJson]
+
+
+class CVItemFromIPTC(TypedDict, CVItem):
+    _existing: Optional[CVItem]
+    _missing_translation: bool
+
+
+class IPTCTopic(TypedDict):
+    qcode: str
+    prefLabel: Dict[str, str]
+    broader: List[str]
+    exactMatch: List[str]
+    closeMatch: List[str]
+
+
+class ReportDeviationData(TypedDict):
+    topic: CVItemFromIPTC
+    fields: List[str]
+
+
+class ReportData(TypedDict):
+    new: List[CVItemFromIPTC]
+    deviated: List[ReportDeviationData]
 
 
 class SyncTopicsCommand(superdesk.Command):
@@ -69,13 +111,13 @@ class SyncTopicsCommand(superdesk.Command):
         )
     ]
 
-    def run(self, filename=None, output=None, format_json=False):
+    def run(self, filename: Optional[str] = None, output: Optional[str] = None, format_json: bool = False):
         if format_json:
             self._run_standardise_vocabs(output)
         else:
             self._run_synchronise_vocabs(filename, output)
 
-    def _run_standardise_vocabs(self, output=None):
+    def _run_standardise_vocabs(self, output: Optional[str] = None):
         """Standardise the JSON format of the vocabularies.json file
 
         This allows for a clean diff after synchronising the Media Topics
@@ -87,7 +129,7 @@ class SyncTopicsCommand(superdesk.Command):
         vocabularies_json = self._load_vocabularies_json()
         self._format_json(vocabularies_json, output)
 
-    def _run_synchronise_vocabs(self, filename, output=None):
+    def _run_synchronise_vocabs(self, filename: Optional[str] = None, output: Optional[str] = None):
         """Synchronise the Media Topics vocab from IPTC"""
 
         logger.info("Starting to synchronise Media Topics")
@@ -100,10 +142,10 @@ class SyncTopicsCommand(superdesk.Command):
         self._update_vocabularies_json(vocabularies_json, updated_topics)
         self._write_changes_to_vocabularies_json(vocabularies_json, output)
 
-    def _get_vocabularies_json_path(self):
+    def _get_vocabularies_json_path(self) -> str:
         return path.join(app.config["ABS_PATH"], "data", "vocabularies.json")
 
-    def _load_vocabularies_json(self):
+    def _load_vocabularies_json(self) -> VocabFileJson:
         """Loads the MediaTopics json from the local filesystem"""
 
         try:
@@ -113,7 +155,7 @@ class SyncTopicsCommand(superdesk.Command):
             logger.exception("Failed to load vocabularies.json file")
             sys.exit(1)
 
-    def _format_json(self, vocabularies_json, output=None):
+    def _format_json(self, vocabularies_json: VocabFileJson, output: Optional[str] = None):
         """Write the json data back to the vocabularies.json file"""
 
         try:
@@ -131,7 +173,7 @@ class SyncTopicsCommand(superdesk.Command):
             logger.exception("Failed to write changes to vocabularies.json file")
             sys.exit(1)
 
-    def _get_existing_topics_from_cv(self, vocabularies_json):
+    def _get_existing_topics_from_cv(self, vocabularies_json: VocabFileJson) -> Dict[str, CVItem]:
         """Returns dictionary of MediaTopics from vocabularies.json"""
 
         for vocab in vocabularies_json:
@@ -143,7 +185,7 @@ class SyncTopicsCommand(superdesk.Command):
 
         return {}
 
-    def _get_updated_topics_from_iptc(self, filename=None):
+    def _get_updated_topics_from_iptc(self, filename: Optional[str] = None) -> List[CVItemFromIPTC]:
         """Get MediaTopics in CV format from IPTC format"""
 
         return [
@@ -151,7 +193,7 @@ class SyncTopicsCommand(superdesk.Command):
             for item in self._download_topics_json(filename)
         ]
 
-    def _download_topics_json(self, filename=None):
+    def _download_topics_json(self, filename: Optional[str] = None) -> List[IPTCTopic]:
         """Downloads the MediaTopics json file
 
         Requests all languages as not all entries contain Norwegian translation.
@@ -171,7 +213,7 @@ class SyncTopicsCommand(superdesk.Command):
 
         return data.get("conceptSet") or []
 
-    def _convert_iptc_to_cv(self, entry):
+    def _convert_iptc_to_cv(self, entry: IPTCTopic) -> CVItemFromIPTC:
         """Convert IPTC item to Superdesk CV format"""
 
         entry.setdefault("prefLabel", {})
@@ -179,54 +221,58 @@ class SyncTopicsCommand(superdesk.Command):
         entry.setdefault("exactMatch", [])
         entry.setdefault("closeMatch", [])
 
-        def get_name():
+        def get_name() -> str:
             return entry["prefLabel"].get("no") or \
                 entry["prefLabel"].get("en") or \
                 entry["prefLabel"].get("en-US") or \
-                entry["prefLabel"].get("en-GB")
+                entry["prefLabel"].get("en-GB") or ""
 
-        def get_parent():
+        def get_parent() -> Optional[str]:
             try:
                 return extract_code_from_string(entry["broader"][0])
             except IndexError:
                 return None
 
-        def extract_code_from_string(value):
+        def extract_code_from_string(value) -> Optional[str]:
             try:
                 return value.rsplit("/", 1)[1]
             except (IndexError, ValueError):
                 return None
 
-        def get_closest_match(search_string):
-            for match_type in ["exactMatch", "closeMatch"]:
-                for match in entry[match_type]:
-                    if search_string in match:
-                        return extract_code_from_string(match)
+        def get_closest_match(search_string) -> Optional[str]:
+            if search_string in entry["exactMatch"]:
+                return extract_code_from_string("exactMatch")
+            elif search_string in entry["closeMatch"]:
+                return extract_code_from_string("closeMatch")
 
             return None
 
-        return {
-            "qcode": entry["qcode"][7:],  # remove `medtop:` from the qcode
-            "name": get_name(),
-            "parent": get_parent(),
-            "iptc_subject": get_closest_match("subjectcode"),
-            "wikidata": get_closest_match("wikidata"),
-            "is_active": True,
-            "_iptc": entry,
-            "_missing_translation": not entry["prefLabel"].get("no")
-        }
+        return CVItemFromIPTC(
+            qcode=entry["qcode"][7:],  # remove `medtop:` from the qcode
+            name=get_name(),
+            parent=get_parent(),
+            iptc_subject=get_closest_match("subjectcode"),
+            wikidata=get_closest_match("wikidata"),
+            is_active=True,
+            _existing=None,
+            _missing_translation=not entry["prefLabel"].get("no")
+        )
 
-    def _generate_report_data(self, updated_topics, existing_topics):
+    def _generate_report_data(
+        self,
+        updated_topics: List[CVItemFromIPTC],
+        existing_topics: Dict[str, CVItem]
+    ) -> ReportData:
         """Generate data for reporting the changes to the local Media Topics CV
 
         ``report["new"]``: New items from IPTC that aren't in local CV
         ``report["deviated"]``: List of items where attribute values have deviated from IPTC
         """
 
-        report = {
-            "new": [],
-            "deviated": [],
-        }
+        report = ReportData(
+            new=[],
+            deviated=[]
+        )
 
         for topic in updated_topics:
             original = existing_topics.get(topic["qcode"])
@@ -243,11 +289,12 @@ class SyncTopicsCommand(superdesk.Command):
             deviations = []
 
             for field in ["name", "parent", "wikidata", "iptc_subject"]:
+                # Ignore types here, otherwise the mypy fails with
+                # TypedDict key must be a string literal
                 if (
-                    len(original.get(field) or "") and
-                    len(topic.get(field) or "") and
-                    topic[field] != original[field]
-
+                    len(original.get(field) or "") and  # type: ignore
+                    len(topic.get(field) or "") and  # type: ignore
+                    topic[field] != original[field]  # type: ignore
                 ):
                     # This field exists in both local CV and IPTC
                     # but the values differ. Add this to list of deviated fields
@@ -263,7 +310,7 @@ class SyncTopicsCommand(superdesk.Command):
 
         return report
 
-    def _generate_report(self, report, topics):
+    def _generate_report(self, report: ReportData, topics: List[CVItemFromIPTC]):
         """Generate and write the report to a markdown file
 
         Writes the file to ``server/ntb/commands/syn_topics_reports``
@@ -286,7 +333,7 @@ class SyncTopicsCommand(superdesk.Command):
         with open(file_path, "w") as f:
             f.write(output)
 
-    def _gen_new_table(self, topics):
+    def _gen_new_table(self, topics: List[CVItemFromIPTC]) -> str:
         """Generate markdown table for newly added IPTC Media Topics"""
 
         report = """
@@ -305,7 +352,7 @@ New Items:
 
         return report
 
-    def _gen_translation_table(self, topics):
+    def _gen_translation_table(self, topics: List[CVItemFromIPTC]) -> str:
         """Generate markdown table for IPTC Media Topics without Norwegian translations"""
 
         report = """
@@ -322,7 +369,7 @@ Missing Norwegian Translation:
 
         return report
 
-    def _gen_deviated_table(self, items):
+    def _gen_deviated_table(self, items: List[ReportDeviationData]) -> str:
         """Generate markdown table items that have deviated from IPTC Media Topics"""
 
         report = """
@@ -333,18 +380,18 @@ Deviated Items:
 """
 
         for item in items:
-            topic = item.get("topic")
+            topic = item["topic"]
             qcode = topic.get("qcode")
-            fields = item.get("fields")
-            existing = topic.get("_existing") or {}
+            fields = item.get("fields") or []
+            existing = topic.get("_existing")
             for field in fields:
-                existing_value = existing.get(field) or ""
+                existing_value = existing.get(field, "") if existing else ""
                 iptc_value = topic.get(field) or ""
                 report += f"| {qcode} | {field} | {existing_value} | {iptc_value} |\n"
 
         return report
 
-    def _update_vocabularies_json(self, vocabularies_json, updated_topics):
+    def _update_vocabularies_json(self, vocabularies_json: VocabFileJson, updated_topics: List[CVItemFromIPTC]):
         """Updates the vocabularies json data with the synchronised Media Topics"""
 
         # Map the IPTC Media Topics by `qcode` for easier retrieval by qcode
@@ -368,7 +415,7 @@ Deviated Items:
                 for field in ["name", "parent", "iptc_subject", "wikidata"]:
                     # Only apply values to fields that are not defined in local CV
                     # Deviations from IPTC should be submitted manually from the report
-                    item[field] = item.get(field) or iptc_item.get(field)
+                    item[field] = item.get(field) or iptc_item.get(field)  # type: ignore
 
             # Add new Media Topics to the local CV
             # default to being enabled
@@ -383,7 +430,11 @@ Deviated Items:
                         "is_active": True
                     })
 
-    def _write_changes_to_vocabularies_json(self, vocabularies_json, output=None):
+    def _write_changes_to_vocabularies_json(
+        self,
+        vocabularies_json: VocabFileJson,
+        output: Optional[str] = None
+    ):
         """Writes the updated vocabularies json to file"""
 
         try:
