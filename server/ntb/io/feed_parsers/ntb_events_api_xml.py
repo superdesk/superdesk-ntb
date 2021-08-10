@@ -30,7 +30,7 @@ class NTBEventsApiXMLFeedParser(XMLFeedParser):
     """
 
     NAME = 'ntb_events_api_xml'
-    SUPPORTED_ROOT_TAGS = namedtuple('SUPPORTED_ROOT_TAGS', ('RESULT', 'DOCUMENT'))('result', 'document')
+    SUPPORTED_ROOT_TAGS = namedtuple('SUPPORTED_ROOT_TAGS', ('RESULT', 'DOCUMENT'))(('result', 'document'))
 
     label = 'NTB Events API XML'
 
