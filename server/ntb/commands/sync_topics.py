@@ -59,13 +59,13 @@ class SyncTopicsCommand(superdesk.Command):
     """Synchronise MediaTopics CV from IPTC
 
     Downloads that latest Media Topics json from IPTC server,
-    and merges them into the `data/vocabularies.json` file.
+    and merges them into the ``data/vocabularies.json`` file.
 
     A local file can be used instead of downloading from IPTC,
-    using the `--filename` or `-f` argument.
+    using the ``--filename`` or ``-f`` argument.
 
-    To allow for a clean commit diff, use `-t` or `--format` flag
-    to standardise the format of the `data/vocabularies.json` file first.
+    To allow for a clean commit diff, use ``-t`` or ``--format`` flag
+    to standardise the format of the ``data/vocabularies.json`` file first.
 
     Chore Example:
     ::
@@ -121,7 +121,7 @@ class SyncTopicsCommand(superdesk.Command):
         """Standardise the JSON format of the vocabularies.json file
 
         This allows for a clean diff after synchronising the Media Topics
-        as `json.dumps` may differ from human created changes.
+        as ``json.dumps`` may differ from human created changes.
         """
 
         logger.info("Standardising the format of vocabularies.json file (skipping sync)")
@@ -197,7 +197,7 @@ class SyncTopicsCommand(superdesk.Command):
         """Downloads the MediaTopics json file
 
         Requests all languages as not all entries contain Norwegian translation.
-        Uses a local file instead if `filename` is defined
+        Uses a local file instead if ``filename`` is defined
         """
 
         try:
@@ -248,7 +248,7 @@ class SyncTopicsCommand(superdesk.Command):
             return None
 
         return CVItemFromIPTC(
-            qcode=entry["qcode"][7:],  # remove `medtop:` from the qcode
+            qcode=entry["qcode"][7:],  # remove ``medtop:`` from the qcode
             name=get_name(),
             parent=get_parent(),
             iptc_subject=get_closest_match("subjectcode"),
@@ -394,7 +394,7 @@ Deviated Items:
     def _update_vocabularies_json(self, vocabularies_json: VocabFileJson, updated_topics: List[CVItemFromIPTC]):
         """Updates the vocabularies json data with the synchronised Media Topics"""
 
-        # Map the IPTC Media Topics by `qcode` for easier retrieval by qcode
+        # Map the IPTC Media Topics by ``qcode`` for easier retrieval by qcode
         updated_topics_by_id = {
             topic["qcode"]: topic
             for topic in updated_topics
@@ -402,7 +402,7 @@ Deviated Items:
 
         for vocab in vocabularies_json:
             if vocab.get("_id") != "topics":
-                # We only want to update the `topics` CV
+                # We only want to update the ``topics`` CV
                 # skip this entry
                 continue
 
