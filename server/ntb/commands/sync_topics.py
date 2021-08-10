@@ -240,10 +240,10 @@ class SyncTopicsCommand(superdesk.Command):
                 return None
 
         def get_closest_match(search_string) -> Optional[str]:
-            if search_string in entry["exactMatch"]:
-                return extract_code_from_string("exactMatch")
-            elif search_string in entry["closeMatch"]:
-                return extract_code_from_string("closeMatch")
+            for match_type in ["exactMatch", "closeMatch"]:
+                for match in entry[match_type]:  # type: ignore
+                    if search_string in match:
+                        return extract_code_from_string(match)
 
             return None
 
