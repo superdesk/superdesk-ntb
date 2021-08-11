@@ -7,10 +7,10 @@
 # Author  : tomas
 # Creation: 2018-10-26 14:42
 
-from superdesk.commands.data_updates import DataUpdate
+from superdesk.commands.data_updates import BaseDataUpdate
 
 
-class DataUpdate(DataUpdate):
+class DataUpdate(BaseDataUpdate):
 
     resource = 'planning_types'
 

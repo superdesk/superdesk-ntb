@@ -8,13 +8,13 @@
 # AUTHORS and LICENSE files distributed with this source code, or
 # at https://www.sourcefabric.org/superdesk/license
 
-from superdesk.io.feed_parsers.ritzau import RitzauFeedParser
+from superdesk.io.feed_parsers.ritzau import RitzauFeedParser as BaseRitzauFeedParser
 from superdesk.io.registry import register_feed_parser
 from superdesk.errors import ParserError
 from . import utils
 
 
-class RitzauFeedParser(RitzauFeedParser):
+class RitzauFeedParser(BaseRitzauFeedParser):
     """
     Feed Parser which can parse Ritzau XML feed
     """

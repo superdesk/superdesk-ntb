@@ -7,7 +7,7 @@
 # Author  : petr
 # Creation: 2017-06-14 12:52
 
-from superdesk.commands.data_updates import DataUpdate
+from superdesk.commands.data_updates import BaseDataUpdate
 
 SCHEMA = {
     "name": {},
@@ -16,7 +16,7 @@ SCHEMA = {
 }
 
 
-class DataUpdate(DataUpdate):
+class DataUpdate(BaseDataUpdate):
 
     resource = 'vocabularies'
 

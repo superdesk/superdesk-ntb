@@ -8,8 +8,8 @@
 # AUTHORS and LICENSE files distributed with this source code, or
 # at https://www.sourcefabric.org/superdesk/license
 
+from typing import NamedTuple
 import json
-from collections import namedtuple
 from eve.utils import ParsedRequest
 
 import superdesk
@@ -30,7 +30,12 @@ class NTBEventsApiXMLFeedParser(XMLFeedParser):
     """
 
     NAME = 'ntb_events_api_xml'
-    SUPPORTED_ROOT_TAGS = namedtuple('SUPPORTED_ROOT_TAGS', ('RESULT', 'DOCUMENT'))('result', 'document')
+
+    class SupportedRootTags(NamedTuple):
+        RESULT: str
+        DOCUMENT: str
+
+    SUPPORTED_ROOT_TAGS = SupportedRootTags("result", "document")
 
     label = 'NTB Events API XML'
 
