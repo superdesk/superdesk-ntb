@@ -31,7 +31,9 @@ jobs:
 
     - run: flake8
 
-    - run: nosetests ./ntb/tests/
+    - run: mypy .
+
+    - run: nosetests
 
     - run: behave ./features/ --format progress2 --logging-level ERROR
 
