@@ -155,7 +155,7 @@
                 "is_active": true
             },
             {
-                "name": "kunst",
+                "name": "kunst og underholdning",
                 "qcode": "20000002",
                 "parent": "01000000",
                 "wikidata": "Q2018526",
@@ -163,7 +163,7 @@
                 "is_active": true
             },
             {
-                "name": "tegnefilm",
+                "name": "animasjon",
                 "qcode": "20000003",
                 "parent": "20000002",
                 "wikidata": "Q11425",
@@ -291,7 +291,7 @@
                 "is_active": true
             },
             {
-                "name": "musikkinstrumenter",
+                "name": "musikkinstrument",
                 "qcode": "20000019",
                 "parent": "20000018",
                 "wikidata": "Q34379",
@@ -299,7 +299,7 @@
                 "is_active": true
             },
             {
-                "name": "konserter",
+                "name": "konsert",
                 "qcode": "20000020",
                 "parent": "20000018",
                 "wikidata": "Q6942562",
@@ -451,7 +451,7 @@
                 "is_active": true
             },
             {
-                "name": "kulturarbeid",
+                "name": "kulturhistorie",
                 "qcode": "20000039",
                 "parent": "20000038",
                 "wikidata": null,
@@ -563,7 +563,7 @@
                 "is_active": true
             },
             {
-                "name": "biologisk krigføring",
+                "name": "bioterrorisme",
                 "qcode": "20000054",
                 "parent": "20000053",
                 "wikidata": "Q854975",
@@ -643,7 +643,7 @@
                 "is_active": true
             },
             {
-                "name": "krig",
+                "name": "krigsforbrytelse",
                 "qcode": "20000064",
                 "parent": "20000062",
                 "wikidata": "Q135010",
@@ -683,7 +683,7 @@
                 "is_active": true
             },
             {
-                "name": "opprør",
+                "name": "opptøyer",
                 "qcode": "20000069",
                 "parent": "20000065",
                 "wikidata": "Q124757",
@@ -811,7 +811,7 @@
                 "is_active": true
             },
             {
-                "name": "datakriminalitet",
+                "name": "nettkriminalitet",
                 "qcode": "20000086",
                 "parent": "20000082",
                 "wikidata": "Q29137",
@@ -1019,7 +1019,7 @@
                 "is_active": true
             },
             {
-                "name": "prøverett",
+                "name": "varetekt",
                 "qcode": "20000112",
                 "parent": "20000111",
                 "wikidata": "Q4354932",
@@ -1219,7 +1219,7 @@
                 "is_active": true
             },
             {
-                "name": "bot/forelegg",
+                "name": "forelegg",
                 "qcode": "20000136",
                 "parent": "20000134",
                 "wikidata": "Q2842797",
@@ -1499,7 +1499,7 @@
                 "is_active": true
             },
             {
-                "name": "analytikerkommentar",
+                "name": "børskommentar",
                 "qcode": "20000173",
                 "parent": "20000171",
                 "wikidata": null,
@@ -1691,7 +1691,7 @@
                 "is_active": true
             },
             {
-                "name": "fisjon",
+                "name": "spin-off-selskap",
                 "qcode": "20000197",
                 "parent": "20000192",
                 "wikidata": "Q1186164",
@@ -2435,7 +2435,7 @@
                 "is_active": true
             },
             {
-                "name": "skjønnhetspleie",
+                "name": "personlig pleie",
                 "qcode": "20000288",
                 "parent": "20000271",
                 "wikidata": null,
@@ -2443,7 +2443,7 @@
                 "is_active": true
             },
             {
-                "name": "reklame/PR-virksomhet",
+                "name": "trykksakvirksomhet",
                 "qcode": "20000289",
                 "parent": "20000271",
                 "wikidata": "Q47003909",
@@ -2459,7 +2459,7 @@
                 "is_active": true
             },
             {
-                "name": "shipping",
+                "name": "fraktselskap",
                 "qcode": "20000291",
                 "parent": "20000271",
                 "wikidata": "Q1447463",
@@ -2739,7 +2739,7 @@
                 "is_active": true
             },
             {
-                "name": "celluloseproduksjon/papirindustri",
+                "name": "papirindustri",
                 "qcode": "20000326",
                 "parent": "20000322",
                 "wikidata": "Q2283886",
@@ -3371,7 +3371,7 @@
                 "is_active": true
             },
             {
-                "name": "college",
+                "name": "høgskole",
                 "qcode": "20000406",
                 "parent": "20000405",
                 "wikidata": "Q189004",
@@ -3483,7 +3483,7 @@
                 "is_active": true
             },
             {
-                "name": "energisparing",
+                "name": "energiøkonomisering",
                 "qcode": "20000421",
                 "parent": "20000420",
                 "wikidata": "Q380170",
@@ -3763,7 +3763,7 @@
                 "is_active": true
             },
             {
-                "name": "helsetilstand",
+                "name": "sykdom",
                 "qcode": "20000457",
                 "parent": "20000446",
                 "wikidata": "Q12136",
@@ -5555,7 +5555,7 @@
                 "is_active": true
             },
             {
-                "name": "enhetskirken",
+                "name": "Den forente familie",
                 "qcode": "20000686",
                 "parent": "20000657",
                 "wikidata": "Q217059",
@@ -8467,7 +8467,7 @@
                 "is_active": false
             },
             {
-                "name": "villsvinskyting",
+                "name": "løpende blink",
                 "qcode": "20001052",
                 "parent": "20001049",
                 "wikidata": "Q40679812",
@@ -8883,7 +8883,7 @@
                 "is_active": true
             },
             {
-                "name": "idrettsmedisin",
+                "name": "doping",
                 "qcode": "20001104",
                 "parent": "15000000",
                 "wikidata": "Q166376",
@@ -8931,7 +8931,7 @@
                 "is_active": true
             },
             {
-                "name": "europacup",
+                "name": "kontinentalcup",
                 "qcode": "20001110",
                 "parent": "20001108",
                 "wikidata": "Q340966",
@@ -9219,7 +9219,7 @@
                 "is_active": true
             },
             {
-                "name": "Idrettspolitikk",
+                "name": "idrettspolitikk",
                 "qcode": "20001147",
                 "parent": "20000621",
                 "wikidata": null,
@@ -9659,7 +9659,7 @@
                 "is_active": true
             },
             {
-                "name": "forvaring",
+                "name": "betinget dom",
                 "qcode": "20001199",
                 "parent": "20000134",
                 "wikidata": "Q4737759",
@@ -9787,7 +9787,7 @@
                 "is_active": true
             },
             {
-                "name": "uavhengige skoler",
+                "name": "friskoler",
                 "qcode": "20001215",
                 "parent": "20000400",
                 "wikidata": "Q3238833",
@@ -9811,7 +9811,7 @@
                 "is_active": true
             },
             {
-                "name": "pandemisk",
+                "name": "pandemi",
                 "qcode": "20001218",
                 "parent": "20000449",
                 "wikidata": "Q12184",
@@ -10051,7 +10051,7 @@
                 "is_active": true
             },
             {
-                "name": "samler",
+                "name": "samle",
                 "qcode": "20001247",
                 "parent": "20000550",
                 "wikidata": "Q208165",
@@ -10548,7 +10548,7 @@
             },
             {
                 "qcode": "20001320",
-                "name": "torture",
+                "name": "tortur",
                 "parent": "20000082",
                 "iptc_subject": null,
                 "wikidata": "Q132781",
@@ -10556,7 +10556,7 @@
             },
             {
                 "qcode": "20001321",
-                "name": "drowning",
+                "name": "drukning",
                 "parent": "20000139",
                 "iptc_subject": null,
                 "wikidata": "Q506616",
@@ -10564,7 +10564,7 @@
             },
             {
                 "qcode": "20001322",
-                "name": "poisoning",
+                "name": "forgiftning",
                 "parent": "20000446",
                 "iptc_subject": null,
                 "wikidata": "Q114953",
@@ -10572,7 +10572,7 @@
             },
             {
                 "qcode": "20001323",
-                "name": "sports coaching",
+                "name": "idrettstrenere",
                 "parent": "15000000",
                 "iptc_subject": null,
                 "wikidata": "Q106195625",
@@ -10580,7 +10580,7 @@
             },
             {
                 "qcode": "20001324",
-                "name": "sports management and ownership",
+                "name": "lagledelse og eiere",
                 "parent": "15000000",
                 "iptc_subject": null,
                 "wikidata": "Q26481809",
@@ -10588,7 +10588,7 @@
             },
             {
                 "qcode": "20001325",
-                "name": "sports officiating",
+                "name": "dommere",
                 "parent": "15000000",
                 "iptc_subject": null,
                 "wikidata": "Q94271838",
@@ -10596,7 +10596,7 @@
             },
             {
                 "qcode": "20001326",
-                "name": "women's rights",
+                "name": "kvinners rettigheter",
                 "parent": "20000587",
                 "iptc_subject": null,
                 "wikidata": "Q223569",
@@ -10604,7 +10604,7 @@
             },
             {
                 "qcode": "20001327",
-                "name": "women",
+                "name": "kvinner",
                 "parent": "20000788",
                 "iptc_subject": null,
                 "wikidata": "Q467",
@@ -10612,7 +10612,7 @@
             },
             {
                 "qcode": "20001328",
-                "name": "men",
+                "name": "menn",
                 "parent": "20000788",
                 "iptc_subject": null,
                 "wikidata": "Q8441",
@@ -10628,7 +10628,7 @@
             },
             {
                 "qcode": "20001330",
-                "name": "canoe slalom",
+                "name": "slalompadling",
                 "parent": "20000822",
                 "iptc_subject": null,
                 "wikidata": "Q31874",
@@ -10636,7 +10636,7 @@
             },
             {
                 "qcode": "20001331",
-                "name": "canoe sprint",
+                "name": "sprintpadling",
                 "parent": "20000822",
                 "iptc_subject": null,
                 "wikidata": "Q1141850",
@@ -10644,7 +10644,7 @@
             },
             {
                 "qcode": "20001332",
-                "name": "bmx freesytle",
+                "name": "bmx freestyle",
                 "parent": "20000822",
                 "iptc_subject": null,
                 "wikidata": "Q2192643",
@@ -10652,7 +10652,7 @@
             },
             {
                 "qcode": "20001333",
-                "name": "road cycling",
+                "name": "landeveisritt",
                 "parent": "20000822",
                 "iptc_subject": null,
                 "wikidata": "Q3609",
@@ -10660,7 +10660,7 @@
             },
             {
                 "qcode": "20001334",
-                "name": "track cycling",
+                "name": "banesykling",
                 "parent": "20000822",
                 "iptc_subject": null,
                 "wikidata": "Q221635",
@@ -10668,7 +10668,7 @@
             },
             {
                 "qcode": "20001335",
-                "name": "football 5-a-side",
+                "name": "fotball five-a-side",
                 "parent": "20000822",
                 "iptc_subject": null,
                 "wikidata": "Q5465786",
@@ -10676,7 +10676,7 @@
             },
             {
                 "qcode": "20001336",
-                "name": "goalball",
+                "name": "målball",
                 "parent": "20000822",
                 "iptc_subject": null,
                 "wikidata": "Q647559",
