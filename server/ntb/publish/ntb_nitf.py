@@ -107,10 +107,9 @@ class NTBNITFFormatter(NITFFormatter):
         """
         For tree type vocabularies add the parent if a child is present
         """
-        vocabularies = list(get_resource_service('vocabularies').get(None, None))
         fields = {'place': 'place_custom', 'subject': 'subject_custom'}
-        for field in fields:
-            vocabulary = self._get_list_element(vocabularies, '_id', fields[field])
+        for field, scheme in fields.items():
+            vocabulary = get_resource_service('vocabularies').find_one(req=None, _id=scheme)
             if not vocabulary:
                 continue
             vocabulary_items = vocabulary.get('items', [])
@@ -118,10 +117,10 @@ class NTBNITFFormatter(NITFFormatter):
             for value in list(field_values):
                 if not value.get('parent', None):
                     continue
-                parent = self._get_list_element(field_values, 'qcode', value['parent'])
-                if not parent:
-                    parent = self._get_list_element(vocabulary_items, 'qcode', value['parent'])
-                    parent['scheme'] = fields[field]
+                parent = self._get_list_element(field_values, 'qcode', value['parent']) or \
+                    self._get_list_element(vocabulary_items, 'qcode', value['parent'])
+                if parent:
+                    parent['scheme'] = scheme
                     field_values.append(parent)
 
     def _get_list_element(self, items, key, value):
