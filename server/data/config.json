@@ -1,9 +1,0 @@
-[{
-    "_id": "client-settings",
-    "val": {
-        "locale": {
-            "firstDayOfWeek": "monday"
-        }
-    },
-    "init_version": 0
-}]

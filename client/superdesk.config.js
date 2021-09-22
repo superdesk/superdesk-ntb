@@ -26,6 +26,8 @@ module.exports = function(grunt) {
         shortDateFormat: 'HH:mm, DD.MM.YYYY',
         shortWeekFormat: 'HH:mm, DD.MM.YYYY',
 
+        startingDay: '1',
+
         i18n: 'no',
 
         view: {
