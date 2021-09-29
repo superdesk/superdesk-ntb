@@ -3,6 +3,7 @@ import enum
 import logging
 
 from flask import current_app as app, json
+from superdesk.timer import timer
 from superdesk.signals import item_updated
 from superdesk.publish.formatters import NINJSFormatter
 from superdesk.publish.transmitters import AmazonSQSFIFOPublishService
@@ -58,7 +59,8 @@ def push_notification(sender, item, original, **kwargs):
         ),
     )
     transmitter = AmazonSQSFIFOPublishService()
-    transmitter._transmit(queue_item, None)
+    with timer("sqs"):
+        transmitter._transmit(queue_item, None)
 
 
 def init_app(_app) -> None:
