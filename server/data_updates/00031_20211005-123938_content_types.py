@@ -31,7 +31,18 @@ class DataUpdate(BaseDataUpdate):
 
             # update schema for content_type
             original_schema = deepcopy(content_type["schema"])
-            content_type["schema"].update({"subject": None})
+            subject_schema = content_type["schema"].get("subject")
+            if subject_schema:
+                if "nullable" in subject_schema:
+                    del subject_schema["nullable"]
+
+                sub_scheme = subject_schema.get("mandatory_in_list", {}).get("scheme")
+                if sub_scheme:
+                    sub_scheme.update({"subject": None})
+
+                allowed_list = subject_schema.get("schema", {}).get("schema", {}).get("scheme", {}).get("allowed")
+                if self.SUBJECT in allowed_list:
+                    allowed_list.remove(self.SUBJECT)
 
             if original_editor != content_type["editor"] or original_schema != content_type["schema"]:
                 print("Subject is removed from the content profile:", content_type.get("label"))
