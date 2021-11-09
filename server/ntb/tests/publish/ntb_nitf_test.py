@@ -10,7 +10,6 @@
 
 from superdesk.tests import TestCase
 from unittest import mock
-from bson import ObjectId
 from ntb.publish.ntb_nitf import NTBNITFFormatter
 from ntb.publish.ntb_nitf import ENCODING
 from superdesk.publish.formatters import Formatter
@@ -253,24 +252,62 @@ ARTICLE_WITH_IMATRICS_FIELDS = {
             "scheme": "imatrics_topic",
             "source": "imatrics",
         },
+        {
+            "altids": {
+                "medtop": "20001253",
+                "imatrics": "1a8abfa6-b64a-3fe8-82eb-7144e62516ec",
+            },
+            "parent": "20000568",
+            "scheme": "topics",
+            "name": "matlaging",
+            "qcode": "20001253",
+            "source": "imatrics",
+            "original_source": None,
+        },
     ],
     "organisation": [
         {
-            "altids": {"imatrics": "2d824ae1-ab9b-3227-870e-0810be0ebed0"},
+            "altids": {
+                "imatrics": "2d824ae1-ab9b-3227-870e-0810be0ebed0",
+                "wikidata": "Q1",
+            },
             "imatrics": "2d824ae1-ab9b-3227-870e-0810be0ebed0",
             "name": "Stortinget",
             "qcode": "2d824ae1-ab9b-3227-870e-0810be0ebed0",
             "source": "imatrics",
+            "original_source": "wikidata",
         }
     ],
     "person": [
         {
-            "altids": {"imatrics": "211de295-4da5-34b6-9960-cf5b86957e5d"},
+            "altids": {
+                "imatrics": "211de295-4da5-34b6-9960-cf5b86957e5d",
+                "wikidata": "Q2",
+            },
             "imatrics": "211de295-4da5-34b6-9960-cf5b86957e5d",
             "name": "Ola Borten Moe",
             "qcode": "211de295-4da5-34b6-9960-cf5b86957e5d",
             "source": "imatrics",
+            "original_source": "wikidata",
         }
+    ],
+    "place": [
+        {
+            "name": "Oslo",
+            "qcode": "6ea6e497-53dd-3086-928d-158b8c48a22a",
+            "parent": "1edf0e8a-1a64-32a1-9122-74d9f088e46c",
+            "source": "imatrics",
+            "aliases": [
+                "Kristiania",
+                "Christiania"
+            ],
+            "original_source": "1013",
+            "altids": {
+                "imatrics": "6ea6e497-53dd-3086-928d-158b8c48a22a",
+                "wikidata": "Q585"
+            },
+            "description": "hovedstad i Norge"
+        },
     ],
     "versioncreated": NOW,
     "rewrite_sequence": 1,
@@ -291,89 +328,6 @@ class NTBNITFFormatterTest(TestCase):
         super().setUp()
         self.formatter = NTBNITFFormatter()
         self.base_formatter = Formatter()
-        self.app.data.insert(
-            "content_types",
-            [
-                {
-                    "_id": ObjectId("5ba11fec0d6f1301ac3cbd13"),
-                    "label": "nift test",
-                    "editor": {
-                        "slugline": {"order": 2, "sdWidth": "full"},
-                        "headline": {"order": 3, "formatOptions": []},
-                        "subject_custom": {
-                            "order": 7,
-                            "sdWidth": "full",
-                            "required": True,
-                        },
-                        "place_custom": {
-                            "order": 8,
-                            "sdWidth": "full",
-                            "required": True,
-                        },
-                    },
-                    "schema": {
-                        "headline": {
-                            "type": "string",
-                            "required": False,
-                            "maxlength": 64,
-                            "nullable": True,
-                        },
-                        "slugline": {
-                            "type": "string",
-                            "required": False,
-                            "maxlength": 24,
-                            "nullable": True,
-                        },
-                        "subject": {
-                            "type": "list",
-                            "required": True,
-                            "mandatory_in_list": {
-                                "scheme": {
-                                    "subject": "subject_custom",
-                                    "category": "category",
-                                }
-                            },
-                            "schema": {
-                                "type": "dict",
-                                "schema": {
-                                    "name": {},
-                                    "qcode": {},
-                                    "scheme": {
-                                        "type": "string",
-                                        "required": True,
-                                        "allowed": ["subject_custom", "category"],
-                                    },
-                                    "service": {"nullable": True},
-                                    "parent": {"nullable": True},
-                                },
-                            },
-                        },
-                    },
-                },
-                {
-                    "_id": ObjectId("5ba11fec0d6f1301ac3cbd14"),
-                    "label": "nift test",
-                    "editor": {
-                        "slugline": {"order": 2, "sdWidth": "full"},
-                        "headline": {"order": 3, "formatOptions": []},
-                    },
-                    "schema": {
-                        "headline": {
-                            "type": "string",
-                            "required": False,
-                            "maxlength": 64,
-                            "nullable": True,
-                        },
-                        "slugline": {
-                            "type": "string",
-                            "required": False,
-                            "maxlength": 24,
-                            "nullable": True,
-                        },
-                    },
-                },
-            ],
-        )
         init_app(self.app)
         self.tz = pytz.timezone(self.app.config['DEFAULT_TIMEZONE'])
         if self.article is None:
@@ -393,15 +347,19 @@ class NTBNITFFormatterTest(TestCase):
     def test_subject_and_category(self):
         tobject = self.nitf_xml.find("head/tobject")
         self.assertEqual(tobject.get("tobject.type"), "Forskning")
+        self.assertEqual(1, len(tobject.findall("tobject.subject")))
         subject = tobject.find("tobject.subject")
         self.assertEqual(subject.get("tobject.subject.refnum"), "02001003")
         self.assertEqual(subject.get("tobject.subject.matter"), "tyveri og innbrudd")
 
     def test_subject_and_category_with_imatrics(self):
         tobject = self.nitf_xml_imatrics.find("head/tobject")
-        subject = tobject.find("tobject.subject")
-        self.assertEqual(subject.get("tobject.subject.refnum"), "20001243")
-        self.assertEqual(subject.get("tobject.subject.matter"), "olje- og gassindustri")
+        subject = tobject.findall("tobject.subject")
+        self.assertEqual(2, len(subject))
+        self.assertEqual(subject[0].get("tobject.subject.refnum"), "20001243")
+        self.assertEqual(subject[0].get("tobject.subject.matter"), "olje- og gassindustri")
+        self.assertEqual(subject[1].get("tobject.subject.refnum"), "20001253")
+        self.assertEqual(subject[1].get("tobject.subject.matter"), "matlaging")
 
     def test_slugline(self):
         du_key = self.nitf_xml.find('head/docdata/du-key')
@@ -518,7 +476,7 @@ class NTBNITFFormatterTest(TestCase):
         del article['associations']
         article['body_html'] = "<pref:h1><other_pref:body.content><t:t/>toto</other_pref:body.content></pref:h1>"
         expected = (
-            '<body.content><p lede="true" class="lead"/>toto<p class="txt">footer text</p><media media-type="image" cla'
+            '<body.content><p class="lead" lede="true"/>toto<p class="txt">footer text</p><media media-type="image" cla'
             'ss="prs"><media-reference mime-type="image/jpeg" alternate-text="http://www.ntbinfo.no/" source="https://w'
             'ww.example.net/ntb_media_test.jpg"/><media-caption>this is a test ntb media</media-caption></media></body.'
             'content>'
@@ -558,7 +516,7 @@ class NTBNITFFormatterTest(TestCase):
             w:st="on">1500 meter</st1:metricconverter><br></p>
             """
         expected = (
-            '<body.content> <p lede="true" class="lead"/> <p class="txt-ind">Målet i kortbane-VM som nylig ble avslutte'
+            '<body.content> <p class="lead" lede="true"/> <p class="txt-ind">Målet i kortbane-VM som nylig ble avslutte'
             't i den canadiske byen Windsor var personlig rekord på 1500 meter</p> <p class="txt">footer text</p> <medi'
             'a media-type="image" class="illustrasjonsbilde"> <media-reference mime-type="image/jpeg" source="test_id"/'
             '> <media-caption>test feature media</media-caption> </media> <media media-type="image" class="prs"> <media'
@@ -656,7 +614,7 @@ class NTBNITFFormatterTest(TestCase):
         body_content = doc[doc.find(b'<body.content>') - 4:doc.find(b'</body.content>') + 15]
         expected = (b"""\
     <body.content>
-      <p lede="true" class="lead"></p>
+      <p class="lead" lede="true"></p>
       <hl2>test title</hl2>
       <p class="txt">test <em class="bold">strong</em>  </p>
       <p class="txt-ind">
@@ -758,7 +716,7 @@ class NTBNITFFormatterTest(TestCase):
         doc = formatter_output[0]['encoded_item']
         nitf_xml = etree.fromstring(doc)
         expected = (
-            '<body.content> <p lede="true" class="lead">This is the abstract</p> <p class="txt">footer text</p> <media '
+            '<body.content> <p class="lead" lede="true">This is the abstract</p> <p class="txt">footer text</p> <media '
             'media-type="image" class="illustrasjonsbilde"> <media-reference mime-type="image/jpeg" source="test_id"/> '
             '<media-caption>test feature media</media-caption> </media> <media media-type="image" class="prs"> <media-r'
             'eference mime-type="image/jpeg" alternate-text="http://www.ntbinfo.no/" source="https://www.example.net/nt'
