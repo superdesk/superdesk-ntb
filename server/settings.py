@@ -32,6 +32,7 @@ CORE_APPS = [app for app in _CORE_APPS if app != 'apps.auth.db']
 
 INSTALLED_APPS = [
     'apps.auth',
+    'apps.auth.db.commands',
     'superdesk.auth.oauth',
     'superdesk.roles',
     'ntb.scanpix',
