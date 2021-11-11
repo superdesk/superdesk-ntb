@@ -182,9 +182,10 @@ class NTBNITFFormatter(NITFFormatter):
 
     def _format_docdata(self, article, docdata):
         super()._format_docdata(article, docdata)
-        state_prov = "ntb_parent"
-        county_dist = "ntb_qcode"
+        self._format_slugline(article, docdata)
+        self._format_place(article, docdata)
 
+    def _format_slugline(self, article, docdata):
         if "slugline" in article:
             key_list = etree.SubElement(docdata, "key-list")
             etree.SubElement(
@@ -198,71 +199,71 @@ class NTBNITFFormatter(NITFFormatter):
                     "key": self._get_ntb_slugline(article),
                 },
             )
-        if article.get("profile") and get_content_field(article, "place"):
-            state_prov = "name"
-            county_dist = "qcode"
 
+    def _format_place(self, article, docdata):
+        mapping = (
+            ("state-prov", ("ntb_parent", "name")),
+            ("county-dist", ("ntb_qcode", "qcode")),
+        )
         for place in article.get("place", []):
+            if not place:
+                continue
             evloc = etree.SubElement(docdata, "evloc")
-            for key, att in ((state_prov, "state-prov"), (county_dist, "county-dist")):
-                try:
-                    value = place[key]
-                except KeyError:
-                    pass
-                else:
-                    if value is not None:
-                        evloc.attrib[att] = value
+            for attrib, keys in mapping:
+                for key in keys:
+                    if place.get(key):
+                        evloc.attrib[attrib] = place[key]
+                        break
 
     def _format_pubdata(self, article, head):
         pub_date = article['versioncreated'].astimezone(tz).strftime("%Y%m%dT%H%M%S")
         pubdata = etree.SubElement(head, 'pubdata', attrib={'date.publication': pub_date})
         article['pubdata'] = pubdata  # needed to access pubdata when formatting body content
 
+    def _get_topics(self, article):
+        return [
+            s
+            for s in article.get("subject", [])
+            if s.get("scheme") == "topics"
+        ]
+
     def _format_subjects(self, article, tobject):
-        if article.get("profile"):
-            content_type = get_content_field(article, "subject")
-            if (content_type and "subject_custom" in content_type.get("schema")["schema"]["scheme"]["allowed"]):
-                subjects = [
-                    s
-                    for s in article.get("subject", [])
-                    if s.get("scheme") == "subject_custom"
-                ]
-                for subject in subjects:
-                    name_key = (
-                        "tobject.subject.matter"
-                        if subject.get("parent")
-                        else "tobject.subject.type"
-                    )
-                    etree.SubElement(
-                        tobject,
-                        "tobject.subject",
-                        {
-                            "tobject.subject.refnum": subject.get("qcode", ""),
-                            name_key: subject.get("name", ""),
-                        },
-                    )
-            else:
-                topics = [
-                    s
-                    for s in article.get("subject", [])
-                    if s.get("scheme") == "topics" and s.get("source") == "imatrics"
-                ]
-                for topic in topics:
-                    name_key = (
-                        "tobject.subject.matter"
-                        if topic.get("name")
-                        else "tobject.subject.type"
-                    )
-                    etree.SubElement(
-                        tobject,
-                        "tobject.subject",
-                        {
-                            "tobject.subject.refnum": topic.get("altids", {}).get(
-                                "medtop"
-                            ),
-                            name_key: topic.get("name", ""),
-                        },
-                    )
+        if self._get_topics(article):
+            self._format_topics(article, tobject)
+        else:
+            subjects = [
+                s
+                for s in article.get("subject", [])
+                if s.get("scheme") == "subject_custom"
+            ]
+            for subject in subjects:
+                name_key = (
+                    "tobject.subject.matter"
+                    if subject.get("parent")
+                    else "tobject.subject.type"
+                )
+                etree.SubElement(
+                    tobject,
+                    "tobject.subject",
+                    {
+                        "tobject.subject.refnum": subject.get("qcode", ""),
+                        name_key: subject.get("name", ""),
+                    },
+                    None,
+                )
+
+    def _format_topics(self, article, tobject):
+        topics = self._get_topics(article)
+        for topic in topics:
+            etree.SubElement(
+                tobject,
+                "tobject.subject",
+                {
+                    "tobject.subject.refnum": topic.get("qcode"),
+                    "tobject.subject.matter": topic.get("name", ""),
+                },
+                None,
+            )
 
     def _format_datetimes(self, article, head):
         created = article['versioncreated'].astimezone(tz)
