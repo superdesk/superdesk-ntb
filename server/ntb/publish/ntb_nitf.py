@@ -115,7 +115,7 @@ class NTBNITFFormatter(NITFFormatter):
             vocabulary_items = vocabulary.get('items', [])
             field_values = article.get(field, [])
             for value in list(field_values):
-                if not value.get('parent', None):
+                if not value.get('parent', None) or value.get('scheme') != scheme:
                     continue
                 parent = self._get_list_element(field_values, 'qcode', value['parent']) or \
                     self._get_list_element(vocabulary_items, 'qcode', value['parent'])
