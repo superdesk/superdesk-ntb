@@ -40,7 +40,10 @@ class DataUpdate(BaseDataUpdate):
                 if sub_scheme:
                     sub_scheme.update({"subject": None})
 
-                allowed_list = subject_schema.get("schema", {}).get("schema", {}).get("scheme", {}).get("allowed")
+                try:
+                    allowed_list = subject_schema["schema"]["scheme"]["allowed"]
+                except KeyError:
+                    allowed_list = []
                 if self.SUBJECT in allowed_list:
                     allowed_list.remove(self.SUBJECT)
 
