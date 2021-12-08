@@ -10702,105 +10702,90 @@
                 "is_active": true,
                 "name": "Nyhetstjenesten",
                 "qcode": "n",
-                "selection_type": "multi selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "SisteNytt",
                 "qcode": "e",
-                "selection_type": "multi selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "Tikkertjenesten",
                 "qcode": "t",
-                "selection_type": "multi selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "Morgennyheter",
                 "qcode": "m",
-                "selection_type": "single selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "NPKTjenesten",
                 "qcode": "j",
-                "selection_type": "multi selection",
                 "language": "nn-NO"
             },
             {
                 "is_active": true,
                 "name": "NPKSisteNytt",
                 "qcode": "s",
-                "selection_type": "multi selection",
                 "language": "nn-NO"
             },
             {
                 "is_active": true,
                 "name": "NPKTema",
                 "qcode": "a",
-                "selection_type": "single selection",
                 "language": "nn-NO"
             },
             {
                 "is_active": true,
                 "name": "NTBTema",
                 "qcode": "b",
-                "selection_type": "single selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "Kulturtjenesten",
                 "qcode": "k",
-                "selection_type": "single selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "DageniDag",
                 "qcode": "d",
-                "selection_type": "single selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "Omtaletjenesten",
                 "qcode": "o",
-                "selection_type": "single selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "Tipstjenesten",
                 "qcode": "p",
-                "selection_type": "single selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "ForskningNo",
                 "qcode": "f",
-                "selection_type": "single selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "Formidlingstjenester",
                 "qcode": "r",
-                "selection_type": "single selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "Interntjenesten",
                 "qcode": "i",
-                "selection_type": "single selection",
                 "language": "nb-NO"
             }
         ]
