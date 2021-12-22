@@ -3493,7 +3493,7 @@
             {
                 "name": "miljøpolitikk",
                 "qcode": "20000423",
-                "parent": "06000000",
+                "parent": "20000621",
                 "wikidata": "Q5381346",
                 "iptc_subject": "06004000",
                 "is_active": true
@@ -3933,7 +3933,7 @@
             {
                 "name": "helsepolitikk",
                 "qcode": "20000479",
-                "parent": "07000000",
+                "parent": "20000621",
                 "wikidata": "Q1519812",
                 "iptc_subject": "07013000",
                 "is_active": true
@@ -3941,7 +3941,7 @@
             {
                 "name": "helsevesen",
                 "qcode": "20000480",
-                "parent": "20000479",
+                "parent": "07000000",
                 "wikidata": "Q1519138",
                 "iptc_subject": "07011000",
                 "is_active": true
@@ -3965,7 +3965,7 @@
             {
                 "name": "helseforsikring",
                 "qcode": "20000483",
-                "parent": "20000479",
+                "parent": "07000000",
                 "wikidata": "Q334911",
                 "iptc_subject": "14008000",
                 "is_active": true
@@ -3973,7 +3973,7 @@
             {
                 "name": "privat helsevesen",
                 "qcode": "20000484",
-                "parent": "20000479",
+                "parent": "07000000",
                 "wikidata": "Q615678",
                 "iptc_subject": "07012000",
                 "is_active": true
@@ -4094,7 +4094,7 @@
                 "name": "dyr",
                 "qcode": "20000500",
                 "parent": "08000000",
-                "wikidata": null,
+                "wikidata": "Q729",
                 "iptc_subject": "08001000",
                 "is_active": true
             },
@@ -4150,7 +4150,7 @@
                 "name": "plante",
                 "qcode": "20000507",
                 "parent": "08000000",
-                "wikidata": null,
+                "wikidata": "Q756",
                 "iptc_subject": "08008000",
                 "is_active": true
             },
@@ -5403,7 +5403,7 @@
                 "is_active": true
             },
             {
-                "name": "Mennonitter",
+                "name": "mennonitter",
                 "qcode": "20000668",
                 "parent": "20000664",
                 "wikidata": "Q110223",
@@ -5581,7 +5581,7 @@
             {
                 "name": "høytid",
                 "qcode": "20000690",
-                "parent": "20000689",
+                "parent": "12000000",
                 "wikidata": "Q375011",
                 "iptc_subject": "12014000",
                 "is_active": true
@@ -5629,7 +5629,7 @@
             {
                 "name": "religiøs handling",
                 "qcode": "20000696",
-                "parent": "20000689",
+                "parent": "12000000",
                 "wikidata": "Q2110808",
                 "iptc_subject": "12025004",
                 "is_active": true
@@ -9469,7 +9469,7 @@
             {
                 "name": "olympiske leker/OL",
                 "qcode": "20001177",
-                "parent": "20001123",
+                "parent": "20001108",
                 "wikidata": "Q5389",
                 "iptc_subject": "15073000",
                 "is_active": true
@@ -9477,7 +9477,7 @@
             {
                 "name": "paralympics",
                 "qcode": "20001178",
-                "parent": "20001123",
+                "parent": "20001108",
                 "wikidata": "Q73633",
                 "iptc_subject": "15073000",
                 "is_active": true
@@ -9597,7 +9597,7 @@
             {
                 "name": "strømmetjenester",
                 "qcode": "20001293",
-                "parent": "20000045",
+                "parent": "20000304",
                 "wikidata": "Q63241860",
                 "iptc_subject": null,
                 "is_active": true
@@ -9981,7 +9981,7 @@
             {
                 "name": "fysisk trening",
                 "qcode": "20001239",
-                "parent": "10000000",
+                "parent": "20001339",
                 "wikidata": "Q219067",
                 "iptc_subject": "10000000",
                 "is_active": true
@@ -10431,7 +10431,7 @@
                 "name": "kiting",
                 "parent": "20000822",
                 "iptc_subject": null,
-                "wikidata": null,
+                "wikidata": "Q219554",
                 "is_active": true
             },
             {
@@ -10455,7 +10455,7 @@
                 "name": "cheerleading",
                 "parent": "20000822",
                 "iptc_subject": null,
-                "wikidata": null,
+                "wikidata": "Q61391",
                 "is_active": true
             },
             {
@@ -10676,7 +10676,7 @@
             },
             {
                 "qcode": "20001337",
-                "name": "online and remote learning",
+                "name": "nett- og fjernundervisning",
                 "parent": "05000000",
                 "iptc_subject": null,
                 "wikidata": "Q182250",
@@ -10688,6 +10688,126 @@
                 "parent": "20000029",
                 "iptc_subject": "01017001",
                 "wikidata": "Q2743",
+                "is_active": true
+            },
+            {
+                "qcode": "20001338",
+                "name": "utdanningspolitikk",
+                "parent": "05000000",
+                "iptc_subject": null,
+                "wikidata": "Q452348",
+                "is_active": true
+            },
+            {
+                "qcode": "20001339",
+                "name": "velvære",
+                "parent": "10000000",
+                "iptc_subject": null,
+                "wikidata": "Q1077209",
+                "is_active": true
+            },
+            {
+                "qcode": "20001340",
+                "name": "psykisk velvære",
+                "parent": "20001339",
+                "iptc_subject": null,
+                "wikidata": "Q317309",
+                "is_active": true
+            },
+            {
+                "qcode": "20001341",
+                "name": "mesterskap",
+                "parent": "20001108",
+                "iptc_subject": null,
+                "wikidata": "Q27020041",
+                "is_active": true
+            },
+            {
+                "qcode": "20001342",
+                "name": "sluttspill",
+                "parent": "20001108",
+                "iptc_subject": null,
+                "wikidata": "Q1079023",
+                "is_active": true
+            },
+            {
+                "qcode": "20001343",
+                "name": "finale",
+                "parent": "20001108",
+                "iptc_subject": null,
+                "wikidata": "Q1366722",
+                "is_active": true
+            },
+            {
+                "qcode": "20001344",
+                "name": "katolisisme",
+                "parent": "20000659",
+                "iptc_subject": null,
+                "wikidata": "Q1841",
+                "is_active": true
+            },
+            {
+                "qcode": "20001345",
+                "name": "bar og bat mitzva",
+                "parent": "20000696",
+                "iptc_subject": null,
+                "wikidata": "Q75673",
+                "is_active": true
+            },
+            {
+                "qcode": "20001346",
+                "name": "kanonisering",
+                "parent": "20000696",
+                "iptc_subject": null,
+                "wikidata": "Q51621",
+                "is_active": true
+            },
+            {
+                "qcode": "20001347",
+                "name": "shiaislam",
+                "parent": "20000677",
+                "iptc_subject": null,
+                "wikidata": "Q9585",
+                "is_active": true
+            },
+            {
+                "qcode": "20001348",
+                "name": "sunniislam",
+                "parent": "20000677",
+                "iptc_subject": null,
+                "wikidata": "Q483654",
+                "is_active": true
+            },
+            {
+                "qcode": "20001349",
+                "name": "ateisme og agnostisisme",
+                "parent": "20000657",
+                "iptc_subject": null,
+                "wikidata": "Q7066",
+                "is_active": true
+            },
+            {
+                "qcode": "20001350",
+                "name": "eid al-adha",
+                "parent": "20000690",
+                "iptc_subject": null,
+                "wikidata": "Q514400",
+                "is_active": true
+            },
+            {
+                "qcode": "20001351",
+                "name": "hasidisme",
+                "parent": "20000679",
+                "iptc_subject": null,
+                "wikidata": "Q171201",
+                "is_active": true
+            },
+            {
+                "qcode": "20001352",
+                "name": "hanukka",
+                "parent": "20000690",
+                "iptc_subject": null,
+                "wikidata": "Q130881",
                 "is_active": true
             }
         ]
