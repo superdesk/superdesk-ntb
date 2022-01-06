@@ -27,3 +27,4 @@ access_type = "frontend"
 action_type = "direct"
 from_languages = ["nb-NO"]
 to_languages = ["nn-NO"]
+replace_type = "simple-replace"
