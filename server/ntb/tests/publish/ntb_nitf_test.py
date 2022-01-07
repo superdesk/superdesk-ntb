@@ -17,12 +17,12 @@ from superdesk.publish.subscribers import SubscribersService
 from superdesk.publish import init_app
 from lxml import etree
 from flask import json
-import superdesk
 import pathlib
 import datetime
 import uuid
 import pytz
 import copy
+import settings
 
 TEST_ABSTRACT = "This is the abstract"
 TEST_NOT_LEAD = "This should not be lead"
@@ -338,6 +338,7 @@ class NTBNITFFormatterTest(TestCase):
         init_app(self.app)
         self.tz = pytz.timezone(self.app.config['DEFAULT_TIMEZONE'])
         self.app.data.insert("vocabularies", vocabularies)
+        self.app.config.setdefault("MEDIATOPIC_SUBJECTCODE_MAPPING", settings.MEDIATOPIC_SUBJECTCODE_MAPPING)
         if self.article is None:
             # formatting is done once for all tests to save time
             # as long as used attributes are not modified, it's fine
