@@ -16,6 +16,9 @@ from superdesk.publish.formatters import Formatter
 from superdesk.publish.subscribers import SubscribersService
 from superdesk.publish import init_app
 from lxml import etree
+from flask import json
+import superdesk
+import pathlib
 import datetime
 import uuid
 import pytz
@@ -236,11 +239,11 @@ ARTICLE_WITH_IMATRICS_FIELDS = {
     "subject": [
         {
             "name": "olje- og gassindustri",
-            "qcode": "20001243",
+            "qcode": "20000550",
             "source": "imatrics",
             "altids": {
                 "imatrics": "1171f64b-1580-3a9e-add6-27fd59e435d2",
-                "medtop": "20001243",
+                "medtop": "20000550",
             },
             "scheme": "topics",
         },
@@ -316,6 +319,10 @@ ARTICLE_WITH_IMATRICS_FIELDS = {
 }
 
 
+with open(pathlib.Path(__file__).parent.parent.parent.parent / "data" / "vocabularies.json") as f:
+    vocabularies = json.load(f)
+
+
 class NTBNITFFormatterTest(TestCase):
 
     def __init__(self, *args, **kwargs):
@@ -330,6 +337,7 @@ class NTBNITFFormatterTest(TestCase):
         self.base_formatter = Formatter()
         init_app(self.app)
         self.tz = pytz.timezone(self.app.config['DEFAULT_TIMEZONE'])
+        self.app.data.insert("vocabularies", vocabularies)
         if self.article is None:
             # formatting is done once for all tests to save time
             # as long as used attributes are not modified, it's fine
@@ -347,19 +355,21 @@ class NTBNITFFormatterTest(TestCase):
     def test_subject_and_category(self):
         tobject = self.nitf_xml.find("head/tobject")
         self.assertEqual(tobject.get("tobject.type"), "Forskning")
-        self.assertEqual(1, len(tobject.findall("tobject.subject")))
-        subject = tobject.find("tobject.subject")
-        self.assertEqual(subject.get("tobject.subject.refnum"), "02001003")
-        self.assertEqual(subject.get("tobject.subject.matter"), "tyveri og innbrudd")
+        subject = tobject.findall("tobject.subject")
+        self.assertEqual(2, len(subject))
+        self.assertEqual(subject[0].get("tobject.subject.refnum"), "02001003")
+        self.assertEqual(subject[0].get("tobject.subject.matter"), "tyveri og innbrudd")
+        self.assertEqual(subject[1].get("tobject.subject.refnum"), "02000000")
+        self.assertEqual(subject[1].get("tobject.subject.type"), "Kriminalitet og rettsvesen")
 
     def test_subject_and_category_with_imatrics(self):
         tobject = self.nitf_xml_imatrics.find("head/tobject")
         subject = tobject.findall("tobject.subject")
         self.assertEqual(2, len(subject))
-        self.assertEqual(subject[0].get("tobject.subject.refnum"), "20001243")
-        self.assertEqual(subject[0].get("tobject.subject.matter"), "olje- og gassindustri")
-        self.assertEqual(subject[1].get("tobject.subject.refnum"), "20001253")
-        self.assertEqual(subject[1].get("tobject.subject.matter"), "matlaging")
+        self.assertEqual(subject[0].get("tobject.subject.refnum"), "10014000")
+        self.assertEqual(subject[0].get("tobject.subject.matter"), "Bil")
+        self.assertEqual(subject[1].get("tobject.subject.refnum"), "10000000")
+        self.assertEqual(subject[1].get("tobject.subject.type"), "Fritid")
 
     def test_slugline(self):
         du_key = self.nitf_xml.find('head/docdata/du-key')
