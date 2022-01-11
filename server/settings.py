@@ -288,3 +288,6 @@ TANSA_PROFILES = {
     "nb-NO": 18,
     "nn-NO": 108,
 }
+
+# disable google gmail scope
+GOOGLE_GMAIL = False
