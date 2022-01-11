@@ -5,7 +5,6 @@ nb-NO to nn-NO Metadata Macro will perform the following changes to current cont
 
 import requests
 from requests.auth import HTTPBasicAuth
-from superdesk.editor_utils import generate_fields
 
 
 def nob_NO_translate_macro(item, **kwargs):
@@ -18,7 +17,6 @@ def nob_NO_translate_macro(item, **kwargs):
     r = requests.post("http://api.smalldata.no:8080/translate", data=payload, timeout=(10, 30), auth=creds)
     if r.status_code == 200:
         item.update(r.json())
-        generate_fields(item, ["headline", "abstract", "body_html"], force=True)
     return item
 
 
@@ -29,4 +27,3 @@ access_type = "frontend"
 action_type = "direct"
 from_languages = ["nb-NO"]
 to_languages = ["nn-NO"]
-replace_type = "editor_state"
