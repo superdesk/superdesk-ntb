@@ -366,11 +366,15 @@ class NTBNITFFormatterTest(TestCase):
     def test_subject_and_category_with_imatrics(self):
         tobject = self.nitf_xml_imatrics.find("head/tobject")
         subject = tobject.findall("tobject.subject")
-        self.assertEqual(2, len(subject))
+        self.assertEqual(4, len(subject))
         self.assertEqual(subject[0].get("tobject.subject.refnum"), "10014000")
         self.assertEqual(subject[0].get("tobject.subject.matter"), "Bil")
-        self.assertEqual(subject[1].get("tobject.subject.refnum"), "10000000")
-        self.assertEqual(subject[1].get("tobject.subject.type"), "Fritid")
+        self.assertEqual(subject[1].get("tobject.subject.refnum"), "medtop:20000550")
+        self.assertEqual(subject[1].get("tobject.subject.type"), "olje- og gassindustri")
+        self.assertEqual(subject[2].get("tobject.subject.refnum"), "10000000")
+        self.assertEqual(subject[2].get("tobject.subject.type"), "Fritid")
+        self.assertEqual(subject[3].get("tobject.subject.refnum"), "medtop:20001253")
+        self.assertEqual(subject[3].get("tobject.subject.matter"), "matlaging")
 
     def test_slugline(self):
         du_key = self.nitf_xml.find('head/docdata/du-key')

@@ -42,11 +42,6 @@ class NTBNITFMultiServiceFormatter20TestCase(TestCase):
         self.doc = self.formatter_output[0]["encoded_item"]
         self.nitf_xml = etree.fromstring(self.doc, None)
 
-    def test_subject_imatrics(self):
-        tobject = self.nitf_xml.find("head/tobject")
-        subject = tobject.findall("tobject.subject")
-        self.assertEqual(2, len(subject))
-
     def test_imatrics_entities(self):
         keywords = self.nitf_xml.findall("head/docdata/key-list/keyword")
         self.assertEqual(3, len(keywords))

@@ -229,7 +229,7 @@ class NTBNITFFormatter(NITFFormatter):
         return [
             s
             for s in article.get("subject", [])
-            if s.get("scheme") == "topics"
+            if s.get("scheme") == MEDIATOPICS_CV
         ]
 
     def _format_subjects(self, article, tobject):
@@ -251,7 +251,9 @@ class NTBNITFFormatter(NITFFormatter):
                 tobject,
                 "tobject.subject",
                 {
-                    "tobject.subject.refnum": subject.get("qcode", ""),
+                    "tobject.subject.refnum": "medtop:{}".format(subject.get("qcode", ""))
+                                              if subject.get('scheme') == MEDIATOPICS_CV
+                                              else subject.get("qcode", ""),
                     name_key: subject.get("name", ""),
                 },
                 None,
@@ -264,6 +266,7 @@ class NTBNITFFormatter(NITFFormatter):
             subject = mapping.get(topic["qcode"])
             if subject:
                 yield subject
+            yield topic
 
     @cache()
     def _get_topics_mapping(self):
