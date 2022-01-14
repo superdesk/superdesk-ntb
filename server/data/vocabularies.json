@@ -16,7 +16,7 @@
             "all": 1
         },
         "dependent": 0,
-        "init_version": 9,
+        "init_version": 10,
         "items": [
             {
                 "name": "kultur og underholdning",
@@ -3331,7 +3331,7 @@
                 "is_active": true
             },
             {
-                "name": "videreutdannelse",
+                "name": "videreutdanning",
                 "qcode": "20000402",
                 "parent": "20000400",
                 "wikidata": "Q765192",
@@ -3355,7 +3355,7 @@
                 "is_active": true
             },
             {
-                "name": "høyere utdannelse",
+                "name": "høyere utdanning",
                 "qcode": "20000405",
                 "parent": "20000400",
                 "wikidata": "Q136822",
@@ -3667,7 +3667,7 @@
                 "is_active": true
             },
             {
-                "name": "sykdom",
+                "name": "sykdommer og sykdomstilstander",
                 "qcode": "20000446",
                 "parent": "07000000",
                 "wikidata": "Q12136",
@@ -3739,7 +3739,7 @@
                 "is_active": true
             },
             {
-                "name": "sykdom",
+                "name": "øvrig sykdom",
                 "qcode": "20000455",
                 "parent": "20000446",
                 "wikidata": "Q814207",
@@ -3755,7 +3755,7 @@
                 "is_active": true
             },
             {
-                "name": "sykdom",
+                "name": "medisinsk tilstand",
                 "qcode": "20000457",
                 "parent": "20000446",
                 "wikidata": "Q12136",
