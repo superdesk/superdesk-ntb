@@ -24,6 +24,7 @@ from superdesk.publish.formatters.nitf_formatter import NITFFormatter, EraseElem
 from superdesk.publish.publish_service import PublishService
 from superdesk.errors import FormatterError
 from superdesk.cache import cache
+from superdesk.text_utils import get_text
 
 logger = logging.getLogger(__name__)
 tz = None
@@ -480,7 +481,7 @@ class NTBNITFFormatter(NITFFormatter):
                 pass
 
         try:
-            footer_txt = article['body_footer']
+            footer_txt = get_text(article['body_footer']).strip()
         except KeyError:
             pass
         else:

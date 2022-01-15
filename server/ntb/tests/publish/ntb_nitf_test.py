@@ -68,7 +68,7 @@ ARTICLE = {
     'version': 5,
     'rewrite_sequence': 1,
     'language': 'nb-NO',
-    'body_footer': 'footer text',
+    'body_footer': '<p>footer text<br></p>',
     'sign_off': '/'.join(TEST_EMAILS),
     # if you change place, please keep a test with 'parent': None
     # cf SDNTB-290
