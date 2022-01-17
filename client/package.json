@@ -2,5 +2,10 @@
     "dependencies": {
         "superdesk-core": "github:superdesk/superdesk-client-core#hotfix/2.2.2",
         "superdesk-planning": "github:superdesk/superdesk-planning#v2.2.2"
+    },
+    "scripts": {
+        "build": "grunt build",
+        "server": "grunt server",
+        "static": "python3 -m http.server --directory dist 9000"
     }
 }
