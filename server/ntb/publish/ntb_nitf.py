@@ -9,6 +9,7 @@
 # at https://www.sourcefabric.org/superdesk/license
 
 import re
+import ntb
 import pytz
 import logging
 import superdesk
@@ -36,9 +37,6 @@ STRIP_INVALID_CHARS_RE = re.compile('[\x00-\x08\x0B-\x0C\x0E-\x1F\x7F]')
 ENCODING = 'iso-8859-1'
 LANGUAGE = 'nb-NO'  # default language for ntb
 assert ENCODING != 'unicode'  # use e.g. utf-8 for unicode
-
-MEDIATOPICS_CV = "topics"
-SUBJECTCODES_CV = "subject_custom"
 
 
 def _get_rewrite_sequence(article):
@@ -226,22 +224,13 @@ class NTBNITFFormatter(NITFFormatter):
         pubdata = etree.SubElement(head, 'pubdata', attrib={'date.publication': pub_date})
         article['pubdata'] = pubdata  # needed to access pubdata when formatting body content
 
-    def _get_topics(self, article):
-        return [
+    def _format_subjects(self, article, tobject):
+        subjects = [
             s
             for s in article.get("subject", [])
-            if s.get("scheme") == MEDIATOPICS_CV
+            if s.get("scheme") in (ntb.MEDIATOPICS_CV, ntb.SUBJECTCODES_CV)
         ]
 
-    def _format_subjects(self, article, tobject):
-        if self._get_topics(article):
-            subjects = self._get_topics_subjects(article)
-        else:
-            subjects = [
-                s
-                for s in article.get("subject", [])
-                if s.get("scheme") == "subject_custom"
-            ]
         for subject in subjects:
             name_key = (
                 "tobject.subject.matter"
@@ -253,39 +242,12 @@ class NTBNITFFormatter(NITFFormatter):
                 "tobject.subject",
                 {
                     "tobject.subject.refnum": "medtop:{}".format(subject.get("qcode", ""))
-                                              if subject.get('scheme') == MEDIATOPICS_CV
+                                              if subject.get('scheme') == ntb.MEDIATOPICS_CV
                                               else subject.get("qcode", ""),
                     name_key: subject.get("name", ""),
                 },
                 None,
             )
-
-    def _get_topics_subjects(self, article):
-        mapping = self._get_topics_mapping()
-        topics = self._get_topics(article)
-        for topic in topics:
-            subject = mapping.get(topic["qcode"])
-            if subject:
-                yield subject
-            yield topic
-
-    @cache()
-    def _get_topics_mapping(self):
-        if self._topics_mapping is None:
-            self._topics_mapping = {}
-            topics = get_resource_service("vocabularies").get_items(MEDIATOPICS_CV)
-            subjects = get_resource_service("vocabularies").get_items(SUBJECTCODES_CV)
-            for topic in topics:
-                subject_code = app.config["MEDIATOPIC_SUBJECTCODE_MAPPING"].get(topic["qcode"])
-                if not subject_code and topic.get("iptc_subject"):
-                    subject_code = topic["iptc_subject"]
-                if not subject_code:
-                    continue
-                for subject in subjects:
-                    if subject.get("qcode") == subject_code:
-                        self._topics_mapping[topic["qcode"]] = subject
-                        break
-        return self._topics_mapping
 
     def _format_datetimes(self, article, head):
         created = article['versioncreated'].astimezone(tz)

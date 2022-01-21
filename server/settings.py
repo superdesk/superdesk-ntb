@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'ntb.io.feeding_services.newsworthy',
     'ntb.publish',
     'ntb.ping_scanpix',
+    'ntb.mediatopics_to_subject_mapping',
 
     'superdesk.users',
     'superdesk.upload',
