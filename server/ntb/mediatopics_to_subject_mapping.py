@@ -2,7 +2,6 @@ import ntb
 
 from flask import current_app as app
 from superdesk import get_resource_service
-from superdesk.cache import cache
 from superdesk.timer import timer
 from superdesk.signals import item_publish
 from ntb.mediatopics import get_mediatopics
@@ -28,7 +27,6 @@ def populate_subject(sender, item, **kwargs) -> None:
             item["subject"].append(subject)
 
 
-# @cache()
 def _get_topics_mapping():
     _topics_mapping = {}
     topics = get_resource_service("vocabularies").get_items(ntb.MEDIATOPICS_CV)
