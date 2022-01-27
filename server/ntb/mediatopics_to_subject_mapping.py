@@ -6,6 +6,8 @@ from superdesk.timer import timer
 from superdesk.signals import item_publish
 from ntb.mediatopics import get_mediatopics
 
+MAPPING_CONFIG_KEY = "MEDIATOPIC_SUBJECTCODE_MAPPING"
+
 
 def populate_subject(sender, item, **kwargs) -> None:
     topics = get_mediatopics(item)
@@ -32,7 +34,9 @@ def _get_topics_mapping():
     topics = get_resource_service("vocabularies").get_items(ntb.MEDIATOPICS_CV)
     subjects = get_resource_service("vocabularies").get_items(ntb.SUBJECTCODES_CV)
     for topic in topics:
-        subject_code = app.config["MEDIATOPIC_SUBJECTCODE_MAPPING"].get(topic["qcode"])
+        subject_code = app.config[MAPPING_CONFIG_KEY].get(topic["qcode"])
+        if not subject_code and topic["qcode"] in app.config[MAPPING_CONFIG_KEY]:
+            continue
         if not subject_code and topic.get("iptc_subject"):
             subject_code = topic["iptc_subject"]
         if not subject_code:
