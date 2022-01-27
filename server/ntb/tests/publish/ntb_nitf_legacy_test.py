@@ -15,8 +15,10 @@ from superdesk.publish.subscribers import SubscribersService
 from superdesk.publish import init_app
 from superdesk.tests import TestCase
 from ntb.tests.publish.ntb_nitf_test import NTBNITFFormatterTest, ITEM_ID, NOW, ARTICLE
+from ntb.tests.mock import resources
 from lxml import etree
 import pytz
+import copy
 
 
 class NTBNITFMultiFileFormatterTest(NTBNITFFormatterTest):
@@ -25,10 +27,11 @@ class NTBNITFMultiFileFormatterTest(NTBNITFFormatterTest):
         super(NTBNITFMultiFileFormatterTest, self).__init__(*args, **kwargs)
         self.article = None
 
+    @mock.patch.dict("superdesk.resources", resources)
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
     def setUp(self):
         super().setUp()
-        article_legacy = ARTICLE.copy()
+        article_legacy = copy.deepcopy(ARTICLE)
         article_legacy['anpa_category'] = [{'name': 'service1'}, {'name': 'service2'}, {'name': 'service3'}]
         self.formatter = NTBNITFMultiFileFormatter()
         self.base_formatter = Formatter()

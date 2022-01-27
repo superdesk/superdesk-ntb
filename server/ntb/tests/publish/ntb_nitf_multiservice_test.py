@@ -1,10 +1,11 @@
+import copy
 from lxml import etree
 from unittest import mock
 from superdesk.tests import TestCase
 from superdesk.publish import init_app
 from superdesk.publish.subscribers import SubscribersService
 from ntb.publish.ntb_nitf_multiservice import NTBNITFMultiServiceMediaFormatter, NTBNITFMultiServiceFormatter20
-from ntb.tests.publish.ntb_nitf_test import ARTICLE_WITH_IMATRICS_FIELDS, vocabularies
+from ntb.tests.publish.ntb_nitf_test import ARTICLE_WITH_IMATRICS_FIELDS
 
 
 class MultiserviceMediaNITFFormatterTestCase(TestCase):
@@ -32,10 +33,9 @@ class NTBNITFMultiServiceFormatter20TestCase(TestCase):
     )
     def setUp(self):
         super().setUp()
-        self.article_with_imatrics_fields = ARTICLE_WITH_IMATRICS_FIELDS.copy()
+        self.article_with_imatrics_fields = copy.deepcopy(ARTICLE_WITH_IMATRICS_FIELDS)
         self.formatter = NTBNITFMultiServiceFormatter20()
         init_app(self.app)
-        self.app.data.insert("vocabularies", vocabularies)
         self.formatter_output = self.formatter.format(
             self.article_with_imatrics_fields, {"name": "Test NTBNITF"}
         )

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'ntb.io.feeding_services.newsworthy',
     'ntb.publish',
     'ntb.ping_scanpix',
+    'ntb.mediatopics_to_subject_mapping',
 
     'superdesk.users',
     'superdesk.upload',
@@ -280,7 +281,9 @@ MEDIATOPIC_SUBJECTCODE_MAPPING = {
     "20000353": "10017000",
     "20000568": "10003000",
     "20000551": "10005000",
-    "20000550": "10014000",
+    "20000566": "10014000",
+    "20000550": "10004000",
+    "20000538": None,
 }
 
 TANSA_PROFILES = {

@@ -8,21 +8,20 @@
 # AUTHORS and LICENSE files distributed with this source code, or
 # at https://www.sourcefabric.org/superdesk/license
 
-from superdesk.tests import TestCase
+import copy
+import pytz
+import uuid
+import datetime
+
 from unittest import mock
+from superdesk.tests import TestCase
+from ntb.tests.mock import resources
 from ntb.publish.ntb_nitf import NTBNITFFormatter
 from ntb.publish.ntb_nitf import ENCODING
 from superdesk.publish.formatters import Formatter
 from superdesk.publish.subscribers import SubscribersService
 from superdesk.publish import init_app
 from lxml import etree
-from flask import json
-import pathlib
-import datetime
-import uuid
-import pytz
-import copy
-import settings
 
 TEST_ABSTRACT = "This is the abstract"
 TEST_NOT_LEAD = "This should not be lead"
@@ -267,6 +266,12 @@ ARTICLE_WITH_IMATRICS_FIELDS = {
             "source": "imatrics",
             "original_source": None,
         },
+        {
+            'name': 'Fritid',
+            'qcode': '10000000',
+            'parent': None,
+            'scheme': 'subject_custom',
+        },
     ],
     "organisation": [
         {
@@ -319,10 +324,6 @@ ARTICLE_WITH_IMATRICS_FIELDS = {
 }
 
 
-with open(pathlib.Path(__file__).parent.parent.parent.parent / "data" / "vocabularies.json") as f:
-    vocabularies = json.load(f)
-
-
 class NTBNITFFormatterTest(TestCase):
 
     def __init__(self, *args, **kwargs):
@@ -330,6 +331,7 @@ class NTBNITFFormatterTest(TestCase):
         self.article = None
         self.article_with_imatrics_fields = None
 
+    @mock.patch.dict("superdesk.resources", resources)
     @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
     def setUp(self):
         super().setUp()
@@ -337,21 +339,16 @@ class NTBNITFFormatterTest(TestCase):
         self.base_formatter = Formatter()
         init_app(self.app)
         self.tz = pytz.timezone(self.app.config['DEFAULT_TIMEZONE'])
-        self.app.data.insert("vocabularies", vocabularies)
-        self.app.config.setdefault("MEDIATOPIC_SUBJECTCODE_MAPPING", settings.MEDIATOPIC_SUBJECTCODE_MAPPING)
-        if self.article is None:
-            # formatting is done once for all tests to save time
-            # as long as used attributes are not modified, it's fine
-            self.article = ARTICLE
-            self.article_with_imatrics_fields = ARTICLE_WITH_IMATRICS_FIELDS
-            self.formatter_output = self.formatter.format(self.article, {'name': 'Test NTBNITF'})
-            self.doc = self.formatter_output[0]['encoded_item']
-            self.nitf_xml = etree.fromstring(self.doc)
-            self.formatter_output_imatrics = self.formatter.format(
-                self.article_with_imatrics_fields, {"name": "Test NTBNITF"}
-            )
-            self.doc_imatrics = self.formatter_output_imatrics[0]["encoded_item"]
-            self.nitf_xml_imatrics = etree.fromstring(self.doc_imatrics)
+        self.article = copy.deepcopy(ARTICLE)
+        self.article_with_imatrics_fields = copy.deepcopy(ARTICLE_WITH_IMATRICS_FIELDS)
+        self.formatter_output = self.formatter.format(self.article, {'name': 'Test NTBNITF'})
+        self.doc = self.formatter_output[0]['encoded_item']
+        self.nitf_xml = etree.fromstring(self.doc)
+        self.formatter_output_imatrics = self.formatter.format(
+            self.article_with_imatrics_fields, {"name": "Test NTBNITF"}
+        )
+        self.doc_imatrics = self.formatter_output_imatrics[0]["encoded_item"]
+        self.nitf_xml_imatrics = etree.fromstring(self.doc_imatrics)
 
     def test_subject_and_category(self):
         tobject = self.nitf_xml.find("head/tobject")
@@ -366,15 +363,13 @@ class NTBNITFFormatterTest(TestCase):
     def test_subject_and_category_with_imatrics(self):
         tobject = self.nitf_xml_imatrics.find("head/tobject")
         subject = tobject.findall("tobject.subject")
-        self.assertEqual(4, len(subject))
-        self.assertEqual(subject[0].get("tobject.subject.refnum"), "10014000")
-        self.assertEqual(subject[0].get("tobject.subject.matter"), "Bil")
-        self.assertEqual(subject[1].get("tobject.subject.refnum"), "medtop:20000550")
-        self.assertEqual(subject[1].get("tobject.subject.type"), "olje- og gassindustri")
+        self.assertEqual(3, len(subject))
+        self.assertEqual(subject[0].get("tobject.subject.refnum"), "medtop:20000550")
+        self.assertEqual(subject[0].get("tobject.subject.type"), "olje- og gassindustri")
+        self.assertEqual(subject[1].get("tobject.subject.refnum"), "medtop:20001253")
+        self.assertEqual(subject[1].get("tobject.subject.matter"), "matlaging")
         self.assertEqual(subject[2].get("tobject.subject.refnum"), "10000000")
         self.assertEqual(subject[2].get("tobject.subject.type"), "Fritid")
-        self.assertEqual(subject[3].get("tobject.subject.refnum"), "medtop:20001253")
-        self.assertEqual(subject[3].get("tobject.subject.matter"), "matlaging")
 
     def test_slugline(self):
         du_key = self.nitf_xml.find('head/docdata/du-key')
