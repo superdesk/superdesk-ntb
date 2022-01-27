@@ -13,6 +13,7 @@
 import os
 import settings
 
+from elasticapm.contrib.flask import ElasticAPM
 from superdesk.factory import get_app as superdesk_app
 
 
@@ -28,7 +29,20 @@ def get_app(config=None, init_elastic=False):
         if key.isupper():
             config.setdefault(key, getattr(settings, key))
 
-    return superdesk_app(config)
+    app = superdesk_app(config)
+
+    if os.environ.get("APM_SERVER_URL") and os.environ.get("APM_SECRET_TOKEN"):
+        app.config["ELASTIC_APM"] = {
+            "DEBUG": app.debug,
+            "SERVICE_NAME": "Superdesk NTB",
+            "SERVER_URL": os.environ["APM_SERVER_URL"],
+            "SECRET_TOKEN": os.environ["APM_SECRET_TOKEN"],
+            "TRANSACTIONS_IGNORE_PATTERNS": ["^OPTIONS "],
+        }
+
+        ElasticAPM(app)
+
+    return app
 
 
 if __name__ == '__main__':
