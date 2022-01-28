@@ -104,7 +104,6 @@ class NTBNITFFormatter(NITFFormatter):
                      'formatted_item': self.XML_DECLARATION + '\n' + etree.tostring(nitf, encoding="unicode"),
                      'encoded_item': (self.XML_DECLARATION + '\n').encode(ENCODING) + encoded}]
         except Exception as ex:
-            app.sentry.captureException()
             raise FormatterError.nitfFormatterError(ex, subscriber)
 
     def _populate_metadata(self, article):
@@ -113,19 +112,18 @@ class NTBNITFFormatter(NITFFormatter):
         """
         fields = {'place': 'place_custom', 'subject': 'subject_custom'}
         for field, scheme in fields.items():
-            vocabulary = get_resource_service('vocabularies').find_one(req=None, _id=scheme)
-            if not vocabulary:
-                continue
-            vocabulary_items = vocabulary.get('items', [])
-            field_values = article.get(field, [])
-            for value in list(field_values):
-                if not value.get('parent', None) or value.get('scheme') != scheme:
+            vocabulary_items = get_resource_service('vocabularies').get_items(scheme)
+            field_values = [val for val in article.get(field, []) if val.get("scheme") == scheme]
+            for value in field_values:
+                if not value.get('parent'):
                     continue
-                parent = self._get_list_element(field_values, 'qcode', value['parent']) or \
-                    self._get_list_element(vocabulary_items, 'qcode', value['parent'])
+                parent = self._get_list_element(field_values, 'qcode', value['parent'])
+                if parent:  # it's there already
+                    continue
+                parent = self._get_list_element(vocabulary_items, 'qcode', value['parent'])
                 if parent:
                     parent['scheme'] = scheme
-                    field_values.append(parent)
+                    article[field].append(parent)
 
     def _get_list_element(self, items, key, value):
         """
