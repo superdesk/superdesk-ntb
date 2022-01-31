@@ -1,7 +1,9 @@
 import flask
 import pathlib
 
+from unittest.mock import create_autospec
 from superdesk.vocabularies import VocabulariesService
+from superdesk.publish.subscribers import SubscribersService
 
 
 class MockResource:
@@ -26,4 +28,9 @@ class MockVocabulariesService(VocabulariesService):
         return []
 
 
-resources = {"vocabularies": MockResource(MockVocabulariesService())}
+subscribers_service = create_autospec(SubscribersService)
+
+resources = {
+    "vocabularies": MockResource(MockVocabulariesService()),
+    "subscribers": MockResource(subscribers_service),
+}
