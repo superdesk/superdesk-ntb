@@ -5,4 +5,4 @@ openpyxl==3.0.7
 elastic-apm[flask]==6.7.2
 
 -e git+https://github.com/superdesk/superdesk-core.git@c839506#egg=superdesk-core
--e git+https://github.com/superdesk/superdesk-planning.git@v2.2.2#egg=superdesk-planning
+-e git+https://github.com/superdesk/superdesk-planning.git@support/2.2#egg=superdesk-planning
