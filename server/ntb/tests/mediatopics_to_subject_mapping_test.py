@@ -70,7 +70,7 @@ class MediatopicsToSubjectMappingTestCase(TestCase):
         item = copy.deepcopy(self.item)
 
         populate_subject(None, item, foo="bar")
-        self.assertEqual(6, len(item["subject"]))
+        self.assertEqual(7, len(item["subject"]))
 
         self.assertEqual("10004000", item["subject"][4]["qcode"])
         self.assertEqual(ntb.SUBJECTCODES_CV, item["subject"][4]["scheme"])
