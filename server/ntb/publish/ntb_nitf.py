@@ -64,6 +64,7 @@ class NTBNITFFormatter(NITFFormatter):
         NITFFormatter.__init__(self)
         self.HTML2NITF['p']['filter'] = self.p_filter
         self._topics_mapping = None
+        self._places = None
 
     def can_format(self, format_type, article):
         """
@@ -202,6 +203,13 @@ class NTBNITFFormatter(NITFFormatter):
                 },
             )
 
+    @property
+    def places(self):
+        if not self._places:
+            places = get_resource_service('vocabularies').get_items('place_custom')
+            self._places = {p["qcode"]: p for p in places}
+        return self._places
+
     def _format_place(self, article, docdata):
         mapping = (
             ("state-prov", ("ntb_parent", "name")),
@@ -211,10 +219,13 @@ class NTBNITFFormatter(NITFFormatter):
             if not place:
                 continue
             evloc = etree.SubElement(docdata, "evloc")
+            data = place.copy()
+            if place.get("qcode") and self.places.get(place["qcode"]):
+                data.update(self.places[place["qcode"]])
             for attrib, keys in mapping:
                 for key in keys:
-                    if place.get(key):
-                        evloc.attrib[attrib] = place[key]
+                    if data.get(key):
+                        evloc.attrib[attrib] = data[key]
                         break
 
     def _format_pubdata(self, article, head):

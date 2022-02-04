@@ -299,20 +299,19 @@ ARTICLE_WITH_IMATRICS_FIELDS = {
     ],
     "place": [
         {
-            "name": "Oslo",
-            "qcode": "6ea6e497-53dd-3086-928d-158b8c48a22a",
-            "parent": "1edf0e8a-1a64-32a1-9122-74d9f088e46c",
-            "source": "imatrics",
-            "aliases": [
-                "Kristiania",
-                "Christiania"
-            ],
-            "original_source": "1013",
             "altids": {
-                "imatrics": "6ea6e497-53dd-3086-928d-158b8c48a22a",
-                "wikidata": "Q585"
+                "wikidata": "Q57084",
+                "imatrics": "b564b1e1-1a99-324e-b643-88e5398305c6"
             },
-            "description": "hovedstad i Norge"
+            "aliases": [
+                "Gjerdrum kommune"
+            ],
+            "scheme": "place_custom",
+            "name": "Gjerdrum",
+            "description": "kommune i Viken",
+            "qcode": "b564b1e1-1a99-324e-b643-88e5398305c6",
+            "source": "imatrics",
+            "original_source": "1013"
         },
     ],
     "versioncreated": NOW,
@@ -753,3 +752,8 @@ class NTBNITFFormatterTest(TestCase):
         article = copy.deepcopy(self.article)
         article.pop('language')
         self.formatter.format(article, {'name': 'Test NTBNITF'})
+
+    def test_place_imatrics(self):
+        evloc = self.nitf_xml_imatrics.find('head/docdata/evloc')
+        self.assertEqual(evloc.get("county-dist"), "Gjerdrum")
+        self.assertEqual(evloc.get("state-prov"), "Viken")
