@@ -1,15 +1,28 @@
 import lxml
-from unittest import mock
+import flask
+import superdesk
 
-from superdesk.tests import TestCase
+from ntb.tests.mock import MockData, resources
+from unittest import mock, TestCase
+from unittest.mock import MagicMock
 from planning.common import POST_STATE, WORKFLOW_STATE
 from ntb.publish.ntb_event import NTBEventFormatter
 
 
+def mock_contacts_find_one(return_value):
+    superdesk.resources["contacts"].service.find_one = MagicMock(return_value=return_value)
+
+
 class NTBEventTestCase(TestCase):
 
+    @mock.patch.dict("superdesk.resources", resources)
     def setUp(self):
         super(NTBEventTestCase, self).setUp()
+
+        self.app = flask.Flask(__name__)
+        self.app.data = MockData()
+        self.ctx = self.app.app_context()
+        self.ctx.push()
 
         contact = [{
             '_id': '5ab491271d41c88e98ad9336',
@@ -280,12 +293,14 @@ class NTBEventTestCase(TestCase):
         # include only 1st external link
         self.assertEqual(contactweb.text, self.item['links'][0])
 
-    @mock.patch('apps.contacts.service.ContactsService.find_one', return_value={
-        'first_name': 'John',
-        'last_name': 'Smith',
-        'organisation': 'NASA',
-    })
-    def test_contactname_included(self, magic_mock):
+    @mock.patch.dict("superdesk.resources", resources)
+    def test_contactname_included(self):
+        mock_contacts_find_one({
+            'first_name': 'John',
+            'last_name': 'Smith',
+            'organisation': 'NASA',
+        })
+
         self.item['event_contact_info'] = [
             '5b7a8228f7ab23b336d7f84d',
             '7ab23b336d7f84d5b7a8228f',
@@ -308,11 +323,13 @@ class NTBEventTestCase(TestCase):
 
         self.assertIsNone(contactname)
 
-    @mock.patch('apps.contacts.service.ContactsService.find_one', return_value={
-        'first_name': 'John',
-        'last_name': 'Smith',
-    })
-    def test_contactname_format_no_organisation(self, magic_mock):
+    @mock.patch.dict("superdesk.resources", resources)
+    def test_contactname_format_no_organisation(self):
+        mock_contacts_find_one({
+            'first_name': 'John',
+            'last_name': 'Smith',
+        })
+
         self.item['event_contact_info'] = [
             '5b7a8228f7ab23b336d7f84d',
             '7ab23b336d7f84d5b7a8228f',
@@ -325,12 +342,14 @@ class NTBEventTestCase(TestCase):
 
         self.assertEqual(contactname.text, 'John Smith')
 
-    @mock.patch('apps.contacts.service.ContactsService.find_one', return_value={
-        'first_name': 'John',
-        'last_name': 'Smith',
-        'organisation': 'NASA',
-    })
-    def test_contactname_format_organisation(self, magic_mock):
+    @mock.patch.dict("superdesk.resources", resources)
+    def test_contactname_format_organisation(self):
+        mock_contacts_find_one({
+            'first_name': 'John',
+            'last_name': 'Smith',
+            'organisation': 'NASA',
+        })
+
         self.item['event_contact_info'] = [
             '5b7a8228f7ab23b336d7f84d',
             '7ab23b336d7f84d5b7a8228f',
@@ -343,11 +362,13 @@ class NTBEventTestCase(TestCase):
 
         self.assertEqual(contactname.text, 'John Smith, NASA')
 
-    @mock.patch('apps.contacts.service.ContactsService.find_one', return_value={
-        'last_name': 'Smith',
-        'organisation': 'NASA',
-    })
-    def test_contactname_format_no_firstname(self, magic_mock):
+    @mock.patch.dict("superdesk.resources", resources)
+    def test_contactname_format_no_firstname(self):
+        mock_contacts_find_one({
+            'last_name': 'Smith',
+            'organisation': 'NASA',
+        })
+
         self.item['event_contact_info'] = [
             '5b7a8228f7ab23b336d7f84d',
             '7ab23b336d7f84d5b7a8228f',
@@ -360,11 +381,13 @@ class NTBEventTestCase(TestCase):
 
         self.assertEqual(contactname.text, 'Smith, NASA')
 
-    @mock.patch('apps.contacts.service.ContactsService.find_one', return_value={
-        'first_name': 'John',
-        'organisation': 'NASA',
-    })
-    def test_contactname_format_no_lastname(self, magic_mock):
+    @mock.patch.dict("superdesk.resources", resources)
+    def test_contactname_format_no_lastname(self):
+        mock_contacts_find_one({
+            'first_name': 'John',
+            'organisation': 'NASA',
+        })
+
         self.item['event_contact_info'] = [
             '5b7a8228f7ab23b336d7f84d',
             '7ab23b336d7f84d5b7a8228f',
@@ -377,10 +400,12 @@ class NTBEventTestCase(TestCase):
 
         self.assertEqual(contactname.text, 'John, NASA')
 
-    @mock.patch('apps.contacts.service.ContactsService.find_one', return_value={
-        'organisation': 'NASA',
-    })
-    def test_contactname_format_no_names(self, magic_mock):
+    @mock.patch.dict("superdesk.resources", resources)
+    def test_contactname_format_no_names(self):
+        mock_contacts_find_one({
+            'organisation': 'NASA',
+        })
+
         self.item['event_contact_info'] = [
             '5b7a8228f7ab23b336d7f84d',
             '7ab23b336d7f84d5b7a8228f',
@@ -396,7 +421,8 @@ class NTBEventTestCase(TestCase):
     @mock.patch('apps.contacts.service.ContactsService.find_one', return_value={
         'contact_email': ['john.smith@nasa.org']
     })
-    def test_contactmail_included(self, magic_mock):
+    @mock.patch.dict("superdesk.resources", resources)
+    def test_contactmail_included(self, magic_mock, **kwargs):
         self.item['event_contact_info'] = [
             '5b7a8228f7ab23b336d7f84d',
             '7ab23b336d7f84d5b7a8228f',
@@ -411,10 +437,12 @@ class NTBEventTestCase(TestCase):
         self.assertIsNotNone(contactmail)
         self.assertEqual(contactmail_count, 1)
 
-    @mock.patch('apps.contacts.service.ContactsService.find_one', return_value={
-        'contact_email': []
-    })
-    def test_contactmail_not_included(self, magic_mock):
+    @mock.patch.dict("superdesk.resources", resources)
+    def test_contactmail_not_included(self):
+        mock_contacts_find_one({
+            'contact_email': []
+        })
+
         self.item['event_contact_info'] = [
             '5b7a8228f7ab23b336d7f84d',
             '7ab23b336d7f84d5b7a8228f',
@@ -429,10 +457,12 @@ class NTBEventTestCase(TestCase):
         self.assertIsNone(contactmail)
         self.assertEqual(contactmail_count, 0)
 
-    @mock.patch('apps.contacts.service.ContactsService.find_one', return_value={
-        'contact_phone': [{'number': '99999', 'public': True}]
-    })
-    def test_contactphone_included(self, magic_mock):
+    @mock.patch.dict("superdesk.resources", resources)
+    def test_contactphone_included(self):
+        mock_contacts_find_one({
+            'contact_phone': [{'number': '99999', 'public': True}]
+        })
+
         self.item['event_contact_info'] = [
             '5b7a8228f7ab23b336d7f84d',
             '7ab23b336d7f84d5b7a8228f',
@@ -447,10 +477,12 @@ class NTBEventTestCase(TestCase):
         self.assertIsNotNone(contactphone)
         self.assertEqual(contactphone_count, 1)
 
-    @mock.patch('apps.contacts.service.ContactsService.find_one', return_value={
-        'contact_phone': [{'number': '99999', 'public': False}]
-    })
-    def test_contactphone_not_included(self, magic_mock):
+    @mock.patch.dict("superdesk.resources", resources)
+    def test_contactphone_not_included(self):
+        mock_contacts_find_one({
+            'contact_phone': [{'number': '99999', 'public': False}]
+        })
+
         self.item['event_contact_info'] = [
             '5b7a8228f7ab23b336d7f84d',
             '7ab23b336d7f84d5b7a8228f',
@@ -507,6 +539,7 @@ class NTBEventTestCase(TestCase):
         root = lxml.etree.fromstring(output['encoded_item'])
         self.assertEqual('NBRP123456_123456_na_00', root.find('ntbId').text)
 
+    @mock.patch.dict("superdesk.resources", resources)
     def test_ntb_id_rescheduled(self):
         formatter = NTBEventFormatter()
         item = self.item_rescheduled.copy()

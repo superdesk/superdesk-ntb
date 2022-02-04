@@ -11,17 +11,15 @@
 import copy
 import pytz
 import uuid
+import flask
 import datetime
 
-from unittest import mock
-from superdesk.tests import TestCase
+from lxml import etree
+from unittest import mock, TestCase
 from ntb.tests.mock import resources
 from ntb.publish.ntb_nitf import NTBNITFFormatter
 from ntb.publish.ntb_nitf import ENCODING
 from superdesk.publish.formatters import Formatter
-from superdesk.publish.subscribers import SubscribersService
-from superdesk.publish import init_app
-from lxml import etree
 
 TEST_ABSTRACT = "This is the abstract"
 TEST_NOT_LEAD = "This should not be lead"
@@ -332,12 +330,16 @@ class NTBNITFFormatterTest(TestCase):
         self.article_with_imatrics_fields = None
 
     @mock.patch.dict("superdesk.resources", resources)
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
     def setUp(self):
         super().setUp()
+        self.app = flask.Flask(__name__)
+        self.app.config.update({
+            'DEFAULT_TIMEZONE': "Europe/Oslo",
+        })
+        self.ctx = self.app.app_context()
+        self.ctx.push()
         self.formatter = NTBNITFFormatter()
         self.base_formatter = Formatter()
-        init_app(self.app)
         self.tz = pytz.timezone(self.app.config['DEFAULT_TIMEZONE'])
         self.article = copy.deepcopy(ARTICLE)
         self.article_with_imatrics_fields = copy.deepcopy(ARTICLE_WITH_IMATRICS_FIELDS)
@@ -468,7 +470,7 @@ class NTBNITFFormatterTest(TestCase):
             if emails:  # only the last element has not "/" in tail
                 self.assertEqual(a_elem.tail, '/')
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_empty_dateline(self):
         """SDNTB-293 regression test"""
         article = copy.deepcopy(self.article)
@@ -478,7 +480,7 @@ class NTBNITFFormatterTest(TestCase):
         nitf_xml = etree.fromstring(doc)
         self.assertEqual(nitf_xml.find('body/body.head/dateline'), None)
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_prefix_cleaning(self):
         """SDNTB-313 regression test"""
         article = copy.deepcopy(self.article)
@@ -497,7 +499,7 @@ class NTBNITFFormatterTest(TestCase):
         body_content = ' '.join(etree.tostring(nitf_xml.find("body/body.content"), encoding="unicode").split())
         self.assertEqual(body_content, expected)
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_single_counter(self):
         """SDNTB-338 regression test"""
         # media counter should appear once and only once when no image is present
@@ -513,7 +515,7 @@ class NTBNITFFormatterTest(TestCase):
         self.assertEqual(len(media_counters), 1)
         self.assertEqual(media_counters[0].get('content'), '0')
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_351(self):
         """SDNTB-351 regression test
         unbound namespaces must be removed from attributes
@@ -539,7 +541,7 @@ class NTBNITFFormatterTest(TestCase):
         body_content = ' '.join(etree.tostring(nitf_xml.find("body/body.content"), encoding='unicode').split())
         self.assertEqual(body_content, expected)
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_355(self):
         """SDNTB-355 regression test
         formatter should not crash when featuremedia is None
@@ -554,7 +556,7 @@ class NTBNITFFormatterTest(TestCase):
         media_counter = nitf_xml.find('head').find('meta[@name="NTBBilderAntall"]')
         self.assertEqual(media_counter.get('content'), '3')
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_358(self):
         """SDNTB-358 regression test
         invalid characters should be stripped
@@ -569,7 +571,7 @@ class NTBNITFFormatterTest(TestCase):
         # next line will fail if SDNTB-358 is still present
         etree.fromstring(doc)
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_388(self):
         """SDNTB-388 regression test
         check that &nbsp; between 2 words is not resulting in the 2 words being merged
@@ -586,7 +588,7 @@ class NTBNITFFormatterTest(TestCase):
         # there must be a space between the two words
         self.assertEqual(p_content, "word1 word2")
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_390(self):
         """SDNTB-390 regression test
         formatter should not crash when an embedded is None
@@ -601,7 +603,7 @@ class NTBNITFFormatterTest(TestCase):
         # but we check in addition that media counter is as expected (same as for test_355)
         self.assertEqual(media_counter.get('content'), '3')
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_pretty_formatting(self):
         """Check that content is pretty formatted
         we use here a body_html with spaces added on purpose, and check that resulting
@@ -681,7 +683,7 @@ class NTBNITFFormatterTest(TestCase):
         ntb_kilde = head.find('meta[@name="NTBNewsValue"]')
         self.assertEqual(ntb_kilde.get('content'), '2')
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_update_id(self):
         """Check use of family_id on update
         when family id is different from item_id (i.e. on updated item),
@@ -701,7 +703,7 @@ class NTBNITFFormatterTest(TestCase):
         self.assertEqual(doc_id.get('regsrc'), 'NTB')
         self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(family_id, 3))
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_description_text_none(self):
         """Check that parsing is not failing when description_text of an association exists and is None
         SDNTB-396 regression test
@@ -716,7 +718,7 @@ class NTBNITFFormatterTest(TestCase):
         media_counter = nitf_xml.find('head').find('meta[@name="NTBBilderAntall"]')
         self.assertEqual(media_counter.get('content'), '4')
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_body_none(self):
         article = copy.deepcopy(self.article)
         article['body_html'] = None
@@ -736,7 +738,7 @@ class NTBNITFFormatterTest(TestCase):
                                           encoding="unicode").split())
         self.assertEqual(content, expected)
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_rewrite_sequence_none(self):
         article = copy.deepcopy(self.article)
         article['rewrite_sequence'] = None
@@ -746,7 +748,7 @@ class NTBNITFFormatterTest(TestCase):
         doc_id = nitf_xml.find('head/docdata/doc-id')
         self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(article['family_id'], 0))
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_language_empty(self):
         article = copy.deepcopy(self.article)
         article.pop('language')

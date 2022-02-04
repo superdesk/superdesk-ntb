@@ -65,7 +65,7 @@ class MediatopicsToSubjectMappingTestCase(TestCase):
         self.ctx.pop()
         return super().tearDown()
 
-    @patch("superdesk.resources", resources)
+    @patch.dict("superdesk.resources", resources)
     def test_mapping(self, *mocks):
         item = copy.deepcopy(self.item)
 
@@ -78,7 +78,7 @@ class MediatopicsToSubjectMappingTestCase(TestCase):
         self.assertEqual("10000000", item["subject"][5]["qcode"])
         self.assertEqual(ntb.SUBJECTCODES_CV, item["subject"][5]["scheme"])
 
-    @patch("superdesk.resources", resources)
+    @patch.dict("superdesk.resources", resources)
     def test_mapping_to_nitf(self, *mocks):
         item = {
             "subject": [
