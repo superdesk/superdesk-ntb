@@ -293,3 +293,6 @@ TANSA_PROFILES = {
 
 # disable google gmail scope
 GOOGLE_GMAIL = False
+
+INGEST_DEFAULT_URGENCY = 5
+INGEST_DEFAULT_BODY_FOOTER = "(©NTB)"
