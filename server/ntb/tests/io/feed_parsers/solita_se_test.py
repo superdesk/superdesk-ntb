@@ -60,6 +60,7 @@ class STTTestCase(BaseSolitaTestCase):
 
         self.assertEqual(item['ednote'], '*** Dette er en børsmelding formidlet av NTB pva. andre ***')
         self.assertEqual(item['extra']['ntb_pub_name'], 'Cypress Test publisher')
+        self.assertEqual(item['urgency'], 5)
 
 
 class STTTestCase2(BaseSolitaTestCase):

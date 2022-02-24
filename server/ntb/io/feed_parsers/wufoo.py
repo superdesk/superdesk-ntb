@@ -14,6 +14,7 @@ from superdesk.io.registry import register_feed_parser
 from superdesk.io.commands.update_ingest import LAST_INGESTED_ID
 from datetime import datetime, date
 from superdesk.utc import local_to_utc
+from flask import current_app as app
 import html
 import requests
 import logging
@@ -184,6 +185,8 @@ class WufooFeedParser(FeedParser):
             logger.warning("DateCreated has invalid format: {msg}".format(msg=e))
 
         item["sign_off"] = "personalia@ntb.no"
+        item["urgency"] = app.config["INGEST_DEFAULT_URGENCY"]
+        item["body_footer"] = app.config["INGEST_DEFAULT_BODY_FOOTER"]
         return item
 
     def _parse_date(self, value):

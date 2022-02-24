@@ -16,6 +16,7 @@ from superdesk.errors import ParserError
 from superdesk import etree as sd_etree
 from superdesk.utc import utcnow
 from copy import deepcopy
+from flask import current_app as app
 
 logger = logging.getLogger(__name__)
 
@@ -59,7 +60,8 @@ class SolitaSE(NewsMLOneFeedParser):
             'subject': [{'qcode': 'Børsmelding',
                          'name': 'Børsmelding',
                          'scheme': 'category'}],
-            'ednote': '*** Dette er en børsmelding formidlet av NTB pva. andre ***'
+            'ednote': '*** Dette er en børsmelding formidlet av NTB pva. andre ***',
+            'urgency': app.config["INGEST_DEFAULT_URGENCY"],
         }
         self.populate_fields(item)
 
