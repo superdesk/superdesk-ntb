@@ -1,4 +1,6 @@
 import {startApp} from 'superdesk-core/scripts/index';
+import autoTaggingWidget from 'superdesk-core/scripts/extensions/auto-tagging-widget/dist/src/extension';
+import './styles.css';
 
 const planningConfiguration = {
     assignmentsTopBarWidget: true,

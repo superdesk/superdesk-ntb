@@ -8,19 +8,18 @@
 # AUTHORS and LICENSE files distributed with this source code, or
 # at https://www.sourcefabric.org/superdesk/license
 
-from superdesk.tests import TestCase
-from unittest import mock
-from bson import ObjectId
+import copy
+import pytz
+import uuid
+import flask
+import datetime
+
+from lxml import etree
+from unittest import mock, TestCase
+from ntb.tests.mock import resources
 from ntb.publish.ntb_nitf import NTBNITFFormatter
 from ntb.publish.ntb_nitf import ENCODING
 from superdesk.publish.formatters import Formatter
-from superdesk.publish.subscribers import SubscribersService
-from superdesk.publish import init_app
-from lxml import etree
-import datetime
-import uuid
-import pytz
-import copy
 
 TEST_ABSTRACT = "This is the abstract"
 TEST_NOT_LEAD = "This should not be lead"
@@ -29,7 +28,7 @@ ITEM_ID = str(uuid.uuid4())
 NTB_MEDIA_TXT = 'NTBMEDIA TO REMOVE'
 NOW = datetime.datetime.now(datetime.timezone.utc)
 TEST_BODY = """
-<p class="lead" lede="true">""" + TEST_NOT_LEAD + """</p>
+<p lede="true" class="lead">""" + TEST_NOT_LEAD + """</p>
 <p class="txt">line 1</p>
 <p>line 2</p>
 <p class="toto">line 3</p>
@@ -66,7 +65,7 @@ ARTICLE = {
     'version': 5,
     'rewrite_sequence': 1,
     'language': 'nb-NO',
-    'body_footer': 'footer text',
+    'body_footer': '<p>footer text<br></p>',
     'sign_off': '/'.join(TEST_EMAILS),
     # if you change place, please keep a test with 'parent': None
     # cf SDNTB-290
@@ -74,7 +73,7 @@ ARTICLE = {
         {
             'scheme': 'place_custom',
             'parent': None,
-            'ntb_parent': 'Global Parent',
+            'ntb_parent': None,
             'name': 'Global',
             'qcode': 'Global',
             'ntb_qcode': 'Global',
@@ -237,11 +236,11 @@ ARTICLE_WITH_IMATRICS_FIELDS = {
     "subject": [
         {
             "name": "olje- og gassindustri",
-            "qcode": "20001243",
+            "qcode": "20000550",
             "source": "imatrics",
             "altids": {
                 "imatrics": "1171f64b-1580-3a9e-add6-27fd59e435d2",
-                "medtop": "20001243",
+                "medtop": "20000550",
             },
             "scheme": "topics",
         },
@@ -253,24 +252,67 @@ ARTICLE_WITH_IMATRICS_FIELDS = {
             "scheme": "imatrics_topic",
             "source": "imatrics",
         },
+        {
+            "altids": {
+                "medtop": "20001253",
+                "imatrics": "1a8abfa6-b64a-3fe8-82eb-7144e62516ec",
+            },
+            "parent": "20000568",
+            "scheme": "topics",
+            "name": "matlaging",
+            "qcode": "20001253",
+            "source": "imatrics",
+            "original_source": None,
+        },
+        {
+            'name': 'Fritid',
+            'qcode': '10000000',
+            'parent': None,
+            'scheme': 'subject_custom',
+        },
     ],
     "organisation": [
         {
-            "altids": {"imatrics": "2d824ae1-ab9b-3227-870e-0810be0ebed0"},
+            "altids": {
+                "imatrics": "2d824ae1-ab9b-3227-870e-0810be0ebed0",
+                "wikidata": "Q1",
+            },
             "imatrics": "2d824ae1-ab9b-3227-870e-0810be0ebed0",
             "name": "Stortinget",
             "qcode": "2d824ae1-ab9b-3227-870e-0810be0ebed0",
             "source": "imatrics",
+            "original_source": "wikidata",
         }
     ],
     "person": [
         {
-            "altids": {"imatrics": "211de295-4da5-34b6-9960-cf5b86957e5d"},
+            "altids": {
+                "imatrics": "211de295-4da5-34b6-9960-cf5b86957e5d",
+                "wikidata": "Q2",
+            },
             "imatrics": "211de295-4da5-34b6-9960-cf5b86957e5d",
             "name": "Ola Borten Moe",
             "qcode": "211de295-4da5-34b6-9960-cf5b86957e5d",
             "source": "imatrics",
+            "original_source": "wikidata",
         }
+    ],
+    "place": [
+        {
+            "altids": {
+                "wikidata": "Q57084",
+                "imatrics": "b564b1e1-1a99-324e-b643-88e5398305c6"
+            },
+            "aliases": [
+                "Gjerdrum kommune"
+            ],
+            "scheme": "place_custom",
+            "name": "Gjerdrum",
+            "description": "kommune i Viken",
+            "qcode": "b564b1e1-1a99-324e-b643-88e5398305c6",
+            "source": "imatrics",
+            "original_source": "1013"
+        },
     ],
     "versioncreated": NOW,
     "rewrite_sequence": 1,
@@ -286,128 +328,49 @@ class NTBNITFFormatterTest(TestCase):
         self.article = None
         self.article_with_imatrics_fields = None
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def setUp(self):
         super().setUp()
+        self.app = flask.Flask(__name__)
+        self.app.config.update({
+            'DEFAULT_TIMEZONE': "Europe/Oslo",
+        })
+        self.ctx = self.app.app_context()
+        self.ctx.push()
         self.formatter = NTBNITFFormatter()
         self.base_formatter = Formatter()
-        self.app.data.insert(
-            "content_types",
-            [
-                {
-                    "_id": ObjectId("5ba11fec0d6f1301ac3cbd13"),
-                    "label": "nift test",
-                    "editor": {
-                        "slugline": {"order": 2, "sdWidth": "full"},
-                        "headline": {"order": 3, "formatOptions": []},
-                        "subject_custom": {
-                            "order": 7,
-                            "sdWidth": "full",
-                            "required": True,
-                        },
-                        "place_custom": {
-                            "order": 8,
-                            "sdWidth": "full",
-                            "required": True,
-                        },
-                    },
-                    "schema": {
-                        "headline": {
-                            "type": "string",
-                            "required": False,
-                            "maxlength": 64,
-                            "nullable": True,
-                        },
-                        "slugline": {
-                            "type": "string",
-                            "required": False,
-                            "maxlength": 24,
-                            "nullable": True,
-                        },
-                        "subject": {
-                            "type": "list",
-                            "required": True,
-                            "mandatory_in_list": {
-                                "scheme": {
-                                    "subject": "subject_custom",
-                                    "category": "category",
-                                }
-                            },
-                            "schema": {
-                                "type": "dict",
-                                "schema": {
-                                    "name": {},
-                                    "qcode": {},
-                                    "scheme": {
-                                        "type": "string",
-                                        "required": True,
-                                        "allowed": ["subject_custom", "category"],
-                                    },
-                                    "service": {"nullable": True},
-                                    "parent": {"nullable": True},
-                                },
-                            },
-                        },
-                        "place": {
-                            "enabled": True,
-                            "nullable": False,
-                            "required": True,
-                            "type": "list",
-                        },
-                    },
-                },
-                {
-                    "_id": ObjectId("5ba11fec0d6f1301ac3cbd14"),
-                    "label": "nift test",
-                    "editor": {
-                        "slugline": {"order": 2, "sdWidth": "full"},
-                        "headline": {"order": 3, "formatOptions": []},
-                    },
-                    "schema": {
-                        "headline": {
-                            "type": "string",
-                            "required": False,
-                            "maxlength": 64,
-                            "nullable": True,
-                        },
-                        "slugline": {
-                            "type": "string",
-                            "required": False,
-                            "maxlength": 24,
-                            "nullable": True,
-                        },
-                    },
-                },
-            ],
-        )
-        init_app(self.app)
         self.tz = pytz.timezone(self.app.config['DEFAULT_TIMEZONE'])
-        if self.article is None:
-            # formatting is done once for all tests to save time
-            # as long as used attributes are not modified, it's fine
-            self.article = ARTICLE
-            self.article_with_imatrics_fields = ARTICLE_WITH_IMATRICS_FIELDS
-            self.formatter_output = self.formatter.format(self.article, {'name': 'Test NTBNITF'})
-            self.doc = self.formatter_output[0]['encoded_item']
-            self.nitf_xml = etree.fromstring(self.doc)
-            self.formatter_output_imatrics = self.formatter.format(
-                self.article_with_imatrics_fields, {"name": "Test NTBNITF"}
-            )
-            self.doc_imatrics = self.formatter_output_imatrics[0]["encoded_item"]
-            self.nitf_xml_imatrics = etree.fromstring(self.doc_imatrics)
+        self.article = copy.deepcopy(ARTICLE)
+        self.article_with_imatrics_fields = copy.deepcopy(ARTICLE_WITH_IMATRICS_FIELDS)
+        self.formatter_output = self.formatter.format(self.article, {'name': 'Test NTBNITF'})
+        self.doc = self.formatter_output[0]['encoded_item']
+        self.nitf_xml = etree.fromstring(self.doc)
+        self.formatter_output_imatrics = self.formatter.format(
+            self.article_with_imatrics_fields, {"name": "Test NTBNITF"}
+        )
+        self.doc_imatrics = self.formatter_output_imatrics[0]["encoded_item"]
+        self.nitf_xml_imatrics = etree.fromstring(self.doc_imatrics)
 
     def test_subject_and_category(self):
         tobject = self.nitf_xml.find("head/tobject")
         self.assertEqual(tobject.get("tobject.type"), "Forskning")
-        subject = tobject.find("tobject.subject")
-        self.assertEqual(subject.get("tobject.subject.refnum"), "02001003")
-        self.assertEqual(subject.get("tobject.subject.matter"), "tyveri og innbrudd")
+        subject = tobject.findall("tobject.subject")
+        self.assertEqual(2, len(subject))
+        self.assertEqual(subject[0].get("tobject.subject.refnum"), "02001003")
+        self.assertEqual(subject[0].get("tobject.subject.matter"), "tyveri og innbrudd")
+        self.assertEqual(subject[1].get("tobject.subject.refnum"), "02000000")
+        self.assertEqual(subject[1].get("tobject.subject.type"), "Kriminalitet og rettsvesen")
 
     def test_subject_and_category_with_imatrics(self):
         tobject = self.nitf_xml_imatrics.find("head/tobject")
-        subject = tobject.find("tobject.subject")
-        self.assertEqual(subject.get("tobject.subject.refnum"), "20001243")
-        self.assertEqual(subject.get("tobject.subject.matter"), "olje- og gassindustri")
+        subject = tobject.findall("tobject.subject")
+        self.assertEqual(3, len(subject))
+        self.assertEqual(subject[0].get("tobject.subject.refnum"), "medtop:20000550")
+        self.assertEqual(subject[0].get("tobject.subject.type"), "olje- og gassindustri")
+        self.assertEqual(subject[1].get("tobject.subject.refnum"), "medtop:20001253")
+        self.assertEqual(subject[1].get("tobject.subject.matter"), "matlaging")
+        self.assertEqual(subject[2].get("tobject.subject.refnum"), "10000000")
+        self.assertEqual(subject[2].get("tobject.subject.type"), "Fritid")
 
     def test_slugline(self):
         du_key = self.nitf_xml.find('head/docdata/du-key')
@@ -506,7 +469,7 @@ class NTBNITFFormatterTest(TestCase):
             if emails:  # only the last element has not "/" in tail
                 self.assertEqual(a_elem.tail, '/')
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_empty_dateline(self):
         """SDNTB-293 regression test"""
         article = copy.deepcopy(self.article)
@@ -516,7 +479,7 @@ class NTBNITFFormatterTest(TestCase):
         nitf_xml = etree.fromstring(doc)
         self.assertEqual(nitf_xml.find('body/body.head/dateline'), None)
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_prefix_cleaning(self):
         """SDNTB-313 regression test"""
         article = copy.deepcopy(self.article)
@@ -535,7 +498,7 @@ class NTBNITFFormatterTest(TestCase):
         body_content = ' '.join(etree.tostring(nitf_xml.find("body/body.content"), encoding="unicode").split())
         self.assertEqual(body_content, expected)
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_single_counter(self):
         """SDNTB-338 regression test"""
         # media counter should appear once and only once when no image is present
@@ -551,7 +514,7 @@ class NTBNITFFormatterTest(TestCase):
         self.assertEqual(len(media_counters), 1)
         self.assertEqual(media_counters[0].get('content'), '0')
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_351(self):
         """SDNTB-351 regression test
         unbound namespaces must be removed from attributes
@@ -577,7 +540,7 @@ class NTBNITFFormatterTest(TestCase):
         body_content = ' '.join(etree.tostring(nitf_xml.find("body/body.content"), encoding='unicode').split())
         self.assertEqual(body_content, expected)
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_355(self):
         """SDNTB-355 regression test
         formatter should not crash when featuremedia is None
@@ -592,7 +555,7 @@ class NTBNITFFormatterTest(TestCase):
         media_counter = nitf_xml.find('head').find('meta[@name="NTBBilderAntall"]')
         self.assertEqual(media_counter.get('content'), '3')
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_358(self):
         """SDNTB-358 regression test
         invalid characters should be stripped
@@ -607,7 +570,7 @@ class NTBNITFFormatterTest(TestCase):
         # next line will fail if SDNTB-358 is still present
         etree.fromstring(doc)
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_388(self):
         """SDNTB-388 regression test
         check that &nbsp; between 2 words is not resulting in the 2 words being merged
@@ -624,7 +587,7 @@ class NTBNITFFormatterTest(TestCase):
         # there must be a space between the two words
         self.assertEqual(p_content, "word1 word2")
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_390(self):
         """SDNTB-390 regression test
         formatter should not crash when an embedded is None
@@ -639,7 +602,7 @@ class NTBNITFFormatterTest(TestCase):
         # but we check in addition that media counter is as expected (same as for test_355)
         self.assertEqual(media_counter.get('content'), '3')
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_pretty_formatting(self):
         """Check that content is pretty formatted
         we use here a body_html with spaces added on purpose, and check that resulting
@@ -719,7 +682,7 @@ class NTBNITFFormatterTest(TestCase):
         ntb_kilde = head.find('meta[@name="NTBNewsValue"]')
         self.assertEqual(ntb_kilde.get('content'), '2')
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_update_id(self):
         """Check use of family_id on update
         when family id is different from item_id (i.e. on updated item),
@@ -739,7 +702,7 @@ class NTBNITFFormatterTest(TestCase):
         self.assertEqual(doc_id.get('regsrc'), 'NTB')
         self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(family_id, 3))
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_description_text_none(self):
         """Check that parsing is not failing when description_text of an association exists and is None
         SDNTB-396 regression test
@@ -754,7 +717,7 @@ class NTBNITFFormatterTest(TestCase):
         media_counter = nitf_xml.find('head').find('meta[@name="NTBBilderAntall"]')
         self.assertEqual(media_counter.get('content'), '4')
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_body_none(self):
         article = copy.deepcopy(self.article)
         article['body_html'] = None
@@ -774,7 +737,7 @@ class NTBNITFFormatterTest(TestCase):
                                           encoding="unicode").split())
         self.assertEqual(content, expected)
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_rewrite_sequence_none(self):
         article = copy.deepcopy(self.article)
         article['rewrite_sequence'] = None
@@ -784,8 +747,13 @@ class NTBNITFFormatterTest(TestCase):
         doc_id = nitf_xml.find('head/docdata/doc-id')
         self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(article['family_id'], 0))
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def test_language_empty(self):
         article = copy.deepcopy(self.article)
         article.pop('language')
         self.formatter.format(article, {'name': 'Test NTBNITF'})
+
+    def test_place_imatrics(self):
+        evloc = self.nitf_xml_imatrics.find('head/docdata/evloc')
+        self.assertEqual(evloc.get("county-dist"), "Gjerdrum")
+        self.assertEqual(evloc.get("state-prov"), "Viken")

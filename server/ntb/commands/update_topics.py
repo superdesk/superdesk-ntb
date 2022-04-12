@@ -12,9 +12,9 @@ def get_topics_lookup():
     }
 
 
-def get_item_topics(item, topics):
+def get_item_topics(subject, topics):
     item_topics = []
-    for subj in item['subject']:
+    for subj in subject:
         topic = topics.get(subj['qcode'])
         if topic:
             item_topics.append({
@@ -30,17 +30,22 @@ class UpdateTopicsScript():
     def __init__(self):
         self._topics = None
 
+    @property
+    def topics(self):
+        if self._topics is None:
+            self._topics = get_topics_lookup()
+        return self._topics
+
     def __call__(self, item, updates):
         if not item.get("subject"):
             return
-        for subj in item["subject"]:
+        subject = [subj for subj in item["subject"] if subj]  # filter out None
+        for subj in subject:
             if subj.get("scheme") == TOPICS_ID:
                 return
-        if self._topics is None:
-            self._topics = get_topics_lookup()
         try:
-            item_topics = get_item_topics(item, self._topics)
+            item_topics = get_item_topics(subject, self.topics)
         except KeyError:
             return
         if item_topics:
-            updates.update({'subject': item['subject'] + item_topics})
+            updates.update({'subject': subject + item_topics})

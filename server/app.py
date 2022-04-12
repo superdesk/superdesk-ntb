@@ -28,7 +28,9 @@ def get_app(config=None, init_elastic=False):
         if key.isupper():
             config.setdefault(key, getattr(settings, key))
 
-    return superdesk_app(config)
+    app = superdesk_app(config)
+
+    return app
 
 
 if __name__ == '__main__':

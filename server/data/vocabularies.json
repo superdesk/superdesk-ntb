@@ -16,7 +16,7 @@
             "all": 1
         },
         "dependent": 0,
-        "init_version": 7,
+        "init_version": 10,
         "items": [
             {
                 "name": "kultur og underholdning",
@@ -365,7 +365,7 @@
             {
                 "name": "opera",
                 "qcode": "20000028",
-                "parent": "20000030",
+                "parent": "20000029",
                 "wikidata": "Q1344",
                 "iptc_subject": "01017001",
                 "is_active": true
@@ -376,14 +376,6 @@
                 "parent": "20000002",
                 "wikidata": "Q11635",
                 "iptc_subject": "01017000",
-                "is_active": true
-            },
-            {
-                "name": "musikal",
-                "qcode": "20000030",
-                "parent": "20000029",
-                "wikidata": "Q2743",
-                "iptc_subject": "01017001",
                 "is_active": true
             },
             {
@@ -1517,7 +1509,7 @@
             {
                 "name": "gjenkjøp",
                 "qcode": "20000175",
-                "parent": "20000171",
+                "parent": "20000183",
                 "wikidata": "Q939290",
                 "iptc_subject": "04016009",
                 "is_active": true
@@ -1549,7 +1541,7 @@
             {
                 "name": "resultatprognose",
                 "qcode": "20000179",
-                "parent": "20000178",
+                "parent": "20000171",
                 "wikidata": "Q5449712",
                 "iptc_subject": "04016016",
                 "is_active": true
@@ -1589,7 +1581,7 @@
             {
                 "name": "restrukturering",
                 "qcode": "20000184",
-                "parent": "20000171",
+                "parent": "20000183",
                 "wikidata": "Q1376796",
                 "iptc_subject": "04016039",
                 "is_active": true
@@ -1605,7 +1597,7 @@
             {
                 "name": "aksjebevegelse",
                 "qcode": "20000186",
-                "parent": "20000171",
+                "parent": "20000183",
                 "wikidata": null,
                 "iptc_subject": "04016041",
                 "is_active": true
@@ -2774,7 +2766,7 @@
                 "name": "tobakk",
                 "qcode": "20000330",
                 "parent": "20000322",
-                "wikidata": "Q1566",
+                "wikidata": "Q907703",
                 "iptc_subject": "04013008",
                 "is_active": true
             },
@@ -3339,7 +3331,7 @@
                 "is_active": true
             },
             {
-                "name": "videreutdannelse",
+                "name": "videreutdanning",
                 "qcode": "20000402",
                 "parent": "20000400",
                 "wikidata": "Q765192",
@@ -3349,7 +3341,7 @@
             {
                 "name": "voksenopplæring",
                 "qcode": "20000403",
-                "parent": "20000402",
+                "parent": "20000400",
                 "wikidata": "Q1319035",
                 "iptc_subject": "05001000",
                 "is_active": true
@@ -3363,7 +3355,7 @@
                 "is_active": true
             },
             {
-                "name": "høyere utdannelse",
+                "name": "høyere utdanning",
                 "qcode": "20000405",
                 "parent": "20000400",
                 "wikidata": "Q136822",
@@ -3421,7 +3413,7 @@
             {
                 "name": "læreplan",
                 "qcode": "20000412",
-                "parent": "20000411",
+                "parent": "05000000",
                 "wikidata": "Q207137",
                 "iptc_subject": "05010003",
                 "is_active": true
@@ -3429,7 +3421,7 @@
             {
                 "name": "eksamen",
                 "qcode": "20000413",
-                "parent": "20000411",
+                "parent": "05000000",
                 "wikidata": "Q27318",
                 "iptc_subject": "05010004",
                 "is_active": true
@@ -3437,7 +3429,7 @@
             {
                 "name": "opptaksprøve",
                 "qcode": "20000414",
-                "parent": "20000413",
+                "parent": "05000000",
                 "wikidata": "Q759860",
                 "iptc_subject": "05009000",
                 "is_active": true
@@ -3445,7 +3437,7 @@
             {
                 "name": "student",
                 "qcode": "20000415",
-                "parent": "20000411",
+                "parent": "05000000",
                 "wikidata": "Q48282",
                 "iptc_subject": "05010001",
                 "is_active": true
@@ -3453,7 +3445,7 @@
             {
                 "name": "lærer",
                 "qcode": "20000416",
-                "parent": "20000411",
+                "parent": "05000000",
                 "wikidata": "Q37226",
                 "iptc_subject": "05010002",
                 "is_active": true
@@ -3501,7 +3493,7 @@
             {
                 "name": "miljøpolitikk",
                 "qcode": "20000423",
-                "parent": "06000000",
+                "parent": "20000621",
                 "wikidata": "Q5381346",
                 "iptc_subject": "06004000",
                 "is_active": true
@@ -3675,7 +3667,7 @@
                 "is_active": true
             },
             {
-                "name": "sykdom",
+                "name": "sykdommer og sykdomstilstander",
                 "qcode": "20000446",
                 "parent": "07000000",
                 "wikidata": "Q12136",
@@ -3747,7 +3739,7 @@
                 "is_active": true
             },
             {
-                "name": "sykdom",
+                "name": "øvrig sykdom",
                 "qcode": "20000455",
                 "parent": "20000446",
                 "wikidata": "Q814207",
@@ -3763,7 +3755,7 @@
                 "is_active": true
             },
             {
-                "name": "sykdom",
+                "name": "medisinsk tilstand",
                 "qcode": "20000457",
                 "parent": "20000446",
                 "wikidata": "Q12136",
@@ -3941,7 +3933,7 @@
             {
                 "name": "helsepolitikk",
                 "qcode": "20000479",
-                "parent": "07000000",
+                "parent": "20000621",
                 "wikidata": "Q1519812",
                 "iptc_subject": "07013000",
                 "is_active": true
@@ -3949,7 +3941,7 @@
             {
                 "name": "helsevesen",
                 "qcode": "20000480",
-                "parent": "20000479",
+                "parent": "07000000",
                 "wikidata": "Q1519138",
                 "iptc_subject": "07011000",
                 "is_active": true
@@ -3973,7 +3965,7 @@
             {
                 "name": "helseforsikring",
                 "qcode": "20000483",
-                "parent": "20000479",
+                "parent": "07000000",
                 "wikidata": "Q334911",
                 "iptc_subject": "14008000",
                 "is_active": true
@@ -3981,7 +3973,7 @@
             {
                 "name": "privat helsevesen",
                 "qcode": "20000484",
-                "parent": "20000479",
+                "parent": "07000000",
                 "wikidata": "Q615678",
                 "iptc_subject": "07012000",
                 "is_active": true
@@ -4085,7 +4077,7 @@
             {
                 "name": "utmerkelse",
                 "qcode": "20000498",
-                "parent": "20000497",
+                "parent": "08000000",
                 "wikidata": "Q618779",
                 "iptc_subject": "08006000",
                 "is_active": true
@@ -4093,7 +4085,7 @@
             {
                 "name": "rekord",
                 "qcode": "20000499",
-                "parent": "20000497",
+                "parent": "08000000",
                 "wikidata": "Q1241356",
                 "iptc_subject": "08006001",
                 "is_active": true
@@ -4102,7 +4094,7 @@
                 "name": "dyr",
                 "qcode": "20000500",
                 "parent": "08000000",
-                "wikidata": null,
+                "wikidata": "Q729",
                 "iptc_subject": "08001000",
                 "is_active": true
             },
@@ -4125,7 +4117,7 @@
             {
                 "name": "menneskelig feil",
                 "qcode": "20000503",
-                "parent": "20000502",
+                "parent": "08000000",
                 "wikidata": "Q5937752",
                 "iptc_subject": "08003004",
                 "is_active": true
@@ -4133,7 +4125,7 @@
             {
                 "name": "overklasse",
                 "qcode": "20000504",
-                "parent": "20000502",
+                "parent": "08000000",
                 "wikidata": "Q17126676",
                 "iptc_subject": "08005000",
                 "is_active": true
@@ -4141,7 +4133,7 @@
             {
                 "name": "kjendis",
                 "qcode": "20000505",
-                "parent": "20000504",
+                "parent": "08000000",
                 "wikidata": "Q211236",
                 "iptc_subject": "08003002",
                 "is_active": true
@@ -4158,7 +4150,7 @@
                 "name": "plante",
                 "qcode": "20000507",
                 "parent": "08000000",
-                "wikidata": null,
+                "wikidata": "Q756",
                 "iptc_subject": "08008000",
                 "is_active": true
             },
@@ -4942,7 +4934,7 @@
                 "name": "offentlig finansiering",
                 "qcode": "20000608",
                 "parent": "20000607",
-                "wikidata": "Q274490",
+                "wikidata": "Q1929688",
                 "iptc_subject": "11013001",
                 "is_active": true
             },
@@ -5411,7 +5403,7 @@
                 "is_active": true
             },
             {
-                "name": "Mennonitter",
+                "name": "mennonitter",
                 "qcode": "20000668",
                 "parent": "20000664",
                 "wikidata": "Q110223",
@@ -5589,7 +5581,7 @@
             {
                 "name": "høytid",
                 "qcode": "20000690",
-                "parent": "20000689",
+                "parent": "12000000",
                 "wikidata": "Q375011",
                 "iptc_subject": "12014000",
                 "is_active": true
@@ -5637,7 +5629,7 @@
             {
                 "name": "religiøs handling",
                 "qcode": "20000696",
-                "parent": "20000689",
+                "parent": "12000000",
                 "wikidata": "Q2110808",
                 "iptc_subject": "12025004",
                 "is_active": true
@@ -6606,7 +6598,7 @@
                 "name": "veldedighet",
                 "qcode": "20000818",
                 "parent": "20000817",
-                "wikidata": "Q456673",
+                "wikidata": "Q1077064",
                 "iptc_subject": "14002000",
                 "is_active": true
             },
@@ -7149,7 +7141,7 @@
             {
                 "name": "sportsklatring",
                 "qcode": "20000887",
-                "parent": "20000884",
+                "parent": "20000822",
                 "wikidata": "Q1541373",
                 "iptc_subject": "15016002",
                 "is_active": true
@@ -9109,7 +9101,7 @@
             {
                 "name": "musikal",
                 "qcode": "20001133",
-                "parent": "20000030",
+                "parent": "20000029",
                 "wikidata": "Q2743",
                 "iptc_subject": "01017001",
                 "is_active": true
@@ -9117,7 +9109,7 @@
             {
                 "name": "operette",
                 "qcode": "20001134",
-                "parent": "20000030",
+                "parent": "20000029",
                 "wikidata": "Q170384",
                 "iptc_subject": "20001134",
                 "is_active": true
@@ -9230,7 +9222,7 @@
                 "name": "overgang",
                 "qcode": "20001148",
                 "parent": "15000000",
-                "wikidata": "Q56072650",
+                "wikidata": "Q18515440",
                 "iptc_subject": "15000000",
                 "is_active": true
             },
@@ -9398,7 +9390,7 @@
                 "name": "medisinsk utstyr",
                 "qcode": "20001167",
                 "parent": "20000322",
-                "wikidata": "Q6657015",
+                "wikidata": "Q63383285",
                 "iptc_subject": "04013000",
                 "is_active": true
             },
@@ -9477,7 +9469,7 @@
             {
                 "name": "olympiske leker/OL",
                 "qcode": "20001177",
-                "parent": "20001123",
+                "parent": "20001108",
                 "wikidata": "Q5389",
                 "iptc_subject": "15073000",
                 "is_active": true
@@ -9485,7 +9477,7 @@
             {
                 "name": "paralympics",
                 "qcode": "20001178",
-                "parent": "20001123",
+                "parent": "20001108",
                 "wikidata": "Q73633",
                 "iptc_subject": "15073000",
                 "is_active": true
@@ -9494,7 +9486,7 @@
                 "name": "TV-serier",
                 "qcode": "20001179",
                 "parent": "20000002",
-                "wikidata": "Q20937557",
+                "wikidata": "Q7725310",
                 "iptc_subject": "01000000",
                 "is_active": true
             },
@@ -9589,7 +9581,7 @@
             {
                 "name": "kabaret",
                 "qcode": "20001191",
-                "parent": "20000030",
+                "parent": "20000029",
                 "wikidata": "Q27976507",
                 "iptc_subject": "01017000",
                 "is_active": true
@@ -9605,7 +9597,7 @@
             {
                 "name": "strømmetjenester",
                 "qcode": "20001293",
-                "parent": "20000045",
+                "parent": "20000304",
                 "wikidata": "Q63241860",
                 "iptc_subject": null,
                 "is_active": true
@@ -9669,7 +9661,7 @@
             {
                 "name": "henleggelse",
                 "qcode": "20001200",
-                "parent": "20000118",
+                "parent": "20000131",
                 "wikidata": "Q178146",
                 "iptc_subject": "02009000",
                 "is_active": true
@@ -9805,7 +9797,7 @@
             {
                 "name": "karaktersystem",
                 "qcode": "20001217",
-                "parent": "20000411",
+                "parent": "05000000",
                 "wikidata": "Q18185",
                 "iptc_subject": "05010000",
                 "is_active": true
@@ -9981,7 +9973,7 @@
             {
                 "name": "fødselsdag",
                 "qcode": "20001238",
-                "parent": "20000502",
+                "parent": "08000000",
                 "wikidata": "Q47223",
                 "iptc_subject": "08003000",
                 "is_active": true
@@ -9989,7 +9981,7 @@
             {
                 "name": "fysisk trening",
                 "qcode": "20001239",
-                "parent": "10000000",
+                "parent": "20001339",
                 "wikidata": "Q219067",
                 "iptc_subject": "10000000",
                 "is_active": true
@@ -9997,7 +9989,7 @@
             {
                 "name": "kroppsbygging",
                 "qcode": "20001240",
-                "parent": "15000000",
+                "parent": "20000822",
                 "wikidata": "Q124100",
                 "iptc_subject": "10000000",
                 "is_active": true
@@ -10439,7 +10431,7 @@
                 "name": "kiting",
                 "parent": "20000822",
                 "iptc_subject": null,
-                "wikidata": null,
+                "wikidata": "Q219554",
                 "is_active": true
             },
             {
@@ -10463,7 +10455,7 @@
                 "name": "cheerleading",
                 "parent": "20000822",
                 "iptc_subject": null,
-                "wikidata": null,
+                "wikidata": "Q61391",
                 "is_active": true
             },
             {
@@ -10681,6 +10673,142 @@
                 "iptc_subject": null,
                 "wikidata": "Q647559",
                 "is_active": true
+            },
+            {
+                "qcode": "20001337",
+                "name": "nett- og fjernundervisning",
+                "parent": "05000000",
+                "iptc_subject": null,
+                "wikidata": "Q182250",
+                "is_active": true
+            },
+            {
+                "qcode": "20000030",
+                "name": "musikal",
+                "parent": "20000029",
+                "iptc_subject": "01017001",
+                "wikidata": "Q2743",
+                "is_active": true
+            },
+            {
+                "qcode": "20001338",
+                "name": "utdanningspolitikk",
+                "parent": "05000000",
+                "iptc_subject": null,
+                "wikidata": "Q452348",
+                "is_active": true
+            },
+            {
+                "qcode": "20001339",
+                "name": "velvære",
+                "parent": "10000000",
+                "iptc_subject": null,
+                "wikidata": "Q1077209",
+                "is_active": true
+            },
+            {
+                "qcode": "20001340",
+                "name": "psykisk velvære",
+                "parent": "20001339",
+                "iptc_subject": null,
+                "wikidata": "Q317309",
+                "is_active": true
+            },
+            {
+                "qcode": "20001341",
+                "name": "mesterskap",
+                "parent": "20001108",
+                "iptc_subject": null,
+                "wikidata": "Q27020041",
+                "is_active": true
+            },
+            {
+                "qcode": "20001342",
+                "name": "sluttspill",
+                "parent": "20001108",
+                "iptc_subject": null,
+                "wikidata": "Q1079023",
+                "is_active": true
+            },
+            {
+                "qcode": "20001343",
+                "name": "finale",
+                "parent": "20001108",
+                "iptc_subject": null,
+                "wikidata": "Q1366722",
+                "is_active": true
+            },
+            {
+                "qcode": "20001344",
+                "name": "katolisisme",
+                "parent": "20000659",
+                "iptc_subject": null,
+                "wikidata": "Q1841",
+                "is_active": true
+            },
+            {
+                "qcode": "20001345",
+                "name": "bar og bat mitzva",
+                "parent": "20000696",
+                "iptc_subject": null,
+                "wikidata": "Q75673",
+                "is_active": true
+            },
+            {
+                "qcode": "20001346",
+                "name": "kanonisering",
+                "parent": "20000696",
+                "iptc_subject": null,
+                "wikidata": "Q51621",
+                "is_active": true
+            },
+            {
+                "qcode": "20001347",
+                "name": "shiaislam",
+                "parent": "20000677",
+                "iptc_subject": null,
+                "wikidata": "Q9585",
+                "is_active": true
+            },
+            {
+                "qcode": "20001348",
+                "name": "sunniislam",
+                "parent": "20000677",
+                "iptc_subject": null,
+                "wikidata": "Q483654",
+                "is_active": true
+            },
+            {
+                "qcode": "20001349",
+                "name": "ateisme og agnostisisme",
+                "parent": "20000657",
+                "iptc_subject": null,
+                "wikidata": "Q7066",
+                "is_active": true
+            },
+            {
+                "qcode": "20001350",
+                "name": "eid al-adha",
+                "parent": "20000690",
+                "iptc_subject": null,
+                "wikidata": "Q514400",
+                "is_active": true
+            },
+            {
+                "qcode": "20001351",
+                "name": "hasidisme",
+                "parent": "20000679",
+                "iptc_subject": null,
+                "wikidata": "Q171201",
+                "is_active": true
+            },
+            {
+                "qcode": "20001352",
+                "name": "hanukka",
+                "parent": "20000690",
+                "iptc_subject": null,
+                "wikidata": "Q130881",
+                "is_active": true
             }
         ]
     },
@@ -10694,105 +10822,90 @@
                 "is_active": true,
                 "name": "Nyhetstjenesten",
                 "qcode": "n",
-                "selection_type": "multi selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "SisteNytt",
                 "qcode": "e",
-                "selection_type": "multi selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "Tikkertjenesten",
                 "qcode": "t",
-                "selection_type": "multi selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "Morgennyheter",
                 "qcode": "m",
-                "selection_type": "single selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "NPKTjenesten",
                 "qcode": "j",
-                "selection_type": "multi selection",
                 "language": "nn-NO"
             },
             {
                 "is_active": true,
                 "name": "NPKSisteNytt",
                 "qcode": "s",
-                "selection_type": "multi selection",
                 "language": "nn-NO"
             },
             {
                 "is_active": true,
                 "name": "NPKTema",
                 "qcode": "a",
-                "selection_type": "single selection",
                 "language": "nn-NO"
             },
             {
                 "is_active": true,
                 "name": "NTBTema",
                 "qcode": "b",
-                "selection_type": "single selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "Kulturtjenesten",
                 "qcode": "k",
-                "selection_type": "single selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "DageniDag",
                 "qcode": "d",
-                "selection_type": "single selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "Omtaletjenesten",
                 "qcode": "o",
-                "selection_type": "single selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "Tipstjenesten",
                 "qcode": "p",
-                "selection_type": "single selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "ForskningNo",
                 "qcode": "f",
-                "selection_type": "single selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "Formidlingstjenester",
                 "qcode": "r",
-                "selection_type": "single selection",
                 "language": "nb-NO"
             },
             {
                 "is_active": true,
                 "name": "Interntjenesten",
                 "qcode": "i",
-                "selection_type": "single selection",
                 "language": "nb-NO"
             }
         ]

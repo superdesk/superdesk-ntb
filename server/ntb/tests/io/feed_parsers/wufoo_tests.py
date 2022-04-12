@@ -65,7 +65,10 @@ class Wufoo(TestCase):
                       '\nGodkjent: Ja\nEpost: email_test@example.net\nTlf: 123456789',
             'versioncreated': datetime.datetime(2017, 2, 20, 11, 55, 57, tzinfo=utc),
             'firstcreated': datetime.datetime(2017, 2, 20, 11, 55, 57, tzinfo=utc),
-            'sign_off': 'personalia@ntb.no'}
+            'sign_off': 'personalia@ntb.no',
+            'urgency': 5,
+            'body_footer': '(©NTB)',
+        }
 
     def test_parsing(self):
         with patch('ntb.io.feed_parsers.wufoo.date') as mock_date:

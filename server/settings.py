@@ -32,6 +32,7 @@ CORE_APPS = [app for app in _CORE_APPS if app != 'apps.auth.db']
 
 INSTALLED_APPS = [
     'apps.auth',
+    'apps.auth.db.commands',
     'superdesk.auth.oauth',
     'superdesk.roles',
     'ntb.scanpix',
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'ntb.io.feeding_services.newsworthy',
     'ntb.publish',
     'ntb.ping_scanpix',
+    'ntb.mediatopics_to_subject_mapping',
 
     'superdesk.users',
     'superdesk.upload',
@@ -277,3 +279,28 @@ AMAZON_SQS_ENDPOINT_URL = env("AMAZON_SQS_ENDPOINT_URL")
 AMAZON_SQS_ACCESS_KEY_ID = env("AMAZON_SQS_ACCESS_KEY_ID")
 AMAZON_SQS_SECRET_ACCESS_KEY = env("AMAZON_SQS_SECRET_ACCESS_KEY")
 AMAZON_SQS_MESSAGE_GROUP_ID = env("AMAZON_SQS_MESSAGE_GROUP_ID")
+
+PAGINATION_LIMIT = 500
+PAGINATION_DEFAULT = PAGINATION_LIMIT
+
+MEDIATOPIC_SUBJECTCODE_MAPPING = {
+    "20000570": "10009000",
+    "20000780": "14006000",
+    "20000353": "10017000",
+    "20000568": "10003000",
+    "20000538": "10010000",
+    "20000551": "10005000",
+    "20000566": "10014000",
+    "20000550": "10004000",
+}
+
+TANSA_PROFILES = {
+    "nb-NO": 18,
+    "nn-NO": 108,
+}
+
+# disable google gmail scope
+GOOGLE_GMAIL = False
+
+INGEST_DEFAULT_URGENCY = 5
+INGEST_DEFAULT_BODY_FOOTER = "(©NTB)"

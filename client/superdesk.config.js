@@ -152,8 +152,8 @@ module.exports = function(grunt) {
 
         planning_allow_freetext_location: true,
         
-        iMatricsFields: {
-            entities: {
+		iMatricsFields: {
+			entities: {
 				organisation: {
 					name: 'Organisations',
 					order: 1,
@@ -185,6 +185,6 @@ module.exports = function(grunt) {
 					order: 4,
 				}
 			}
-        }
+		}
     };
 };

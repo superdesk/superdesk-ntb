@@ -11,12 +11,13 @@
 from unittest import mock
 from ntb.publish.ntb_nitf_multifile import NTBNITFMultiFileFormatter
 from superdesk.publish.formatters import Formatter
-from superdesk.publish.subscribers import SubscribersService
 from superdesk.publish import init_app
 from superdesk.tests import TestCase
 from ntb.tests.publish.ntb_nitf_test import NTBNITFFormatterTest, ITEM_ID, NOW, ARTICLE
+from ntb.tests.mock import resources
 from lxml import etree
 import pytz
+import copy
 
 
 class NTBNITFMultiFileFormatterTest(NTBNITFFormatterTest):
@@ -25,14 +26,13 @@ class NTBNITFMultiFileFormatterTest(NTBNITFFormatterTest):
         super(NTBNITFMultiFileFormatterTest, self).__init__(*args, **kwargs)
         self.article = None
 
-    @mock.patch.object(SubscribersService, 'generate_sequence_number', lambda self, subscriber: 1)
+    @mock.patch.dict("superdesk.resources", resources)
     def setUp(self):
         super().setUp()
-        article_legacy = ARTICLE.copy()
+        article_legacy = copy.deepcopy(ARTICLE)
         article_legacy['anpa_category'] = [{'name': 'service1'}, {'name': 'service2'}, {'name': 'service3'}]
         self.formatter = NTBNITFMultiFileFormatter()
         self.base_formatter = Formatter()
-        init_app(self.app)
         self.tz = pytz.timezone(self.app.config['DEFAULT_TIMEZONE'])
         # formatting is done once for all tests to save time
         # as long as used attributes are not modified, it's fine

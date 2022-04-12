@@ -9,6 +9,7 @@
 # at https://www.sourcefabric.org/superdesk/license
 
 import re
+import ntb
 import pytz
 import logging
 import superdesk
@@ -23,6 +24,8 @@ from superdesk.metadata.item import ITEM_TYPE, CONTENT_TYPE
 from superdesk.publish.formatters.nitf_formatter import NITFFormatter, EraseElement
 from superdesk.publish.publish_service import PublishService
 from superdesk.errors import FormatterError
+from superdesk.cache import cache
+from superdesk.text_utils import get_text
 
 logger = logging.getLogger(__name__)
 tz = None
@@ -60,6 +63,8 @@ class NTBNITFFormatter(NITFFormatter):
     def __init__(self):
         NITFFormatter.__init__(self)
         self.HTML2NITF['p']['filter'] = self.p_filter
+        self._topics_mapping = None
+        self._places = None
 
     def can_format(self, format_type, article):
         """
@@ -100,29 +105,26 @@ class NTBNITFFormatter(NITFFormatter):
                      'formatted_item': self.XML_DECLARATION + '\n' + etree.tostring(nitf, encoding="unicode"),
                      'encoded_item': (self.XML_DECLARATION + '\n').encode(ENCODING) + encoded}]
         except Exception as ex:
-            app.sentry.captureException()
             raise FormatterError.nitfFormatterError(ex, subscriber)
 
     def _populate_metadata(self, article):
         """
         For tree type vocabularies add the parent if a child is present
         """
-        vocabularies = list(get_resource_service('vocabularies').get(None, None))
         fields = {'place': 'place_custom', 'subject': 'subject_custom'}
-        for field in fields:
-            vocabulary = self._get_list_element(vocabularies, '_id', fields[field])
-            if not vocabulary:
-                continue
-            vocabulary_items = vocabulary.get('items', [])
-            field_values = article.get(field, [])
-            for value in list(field_values):
-                if not value.get('parent', None):
+        for field, scheme in fields.items():
+            vocabulary_items = get_resource_service('vocabularies').get_items(scheme)
+            field_values = [val for val in article.get(field, []) if val.get("scheme") == scheme]
+            for value in field_values:
+                if not value.get('parent'):
                     continue
                 parent = self._get_list_element(field_values, 'qcode', value['parent'])
-                if not parent:
-                    parent = self._get_list_element(vocabulary_items, 'qcode', value['parent'])
-                    parent['scheme'] = fields[field]
-                    field_values.append(parent)
+                if parent:  # it's there already
+                    continue
+                parent = self._get_list_element(vocabulary_items, 'qcode', value['parent'])
+                if parent:
+                    parent['scheme'] = scheme
+                    article[field].append(parent)
 
     def _get_list_element(self, items, key, value):
         """
@@ -183,9 +185,10 @@ class NTBNITFFormatter(NITFFormatter):
 
     def _format_docdata(self, article, docdata):
         super()._format_docdata(article, docdata)
-        state_prov = "name"
-        county_dist = "qcode"
+        self._format_slugline(article, docdata)
+        self._format_place(article, docdata)
 
+    def _format_slugline(self, article, docdata):
         if "slugline" in article:
             key_list = etree.SubElement(docdata, "key-list")
             etree.SubElement(
@@ -200,23 +203,30 @@ class NTBNITFFormatter(NITFFormatter):
                 },
             )
 
-        if article.get("profile") and get_content_field(article, "place"):
-            places = [place for place in article.get("place", []) if place.get("scheme") == "place_custom"]
-            state_prov = "ntb_parent"
-            county_dist = "ntb_qcode"
-        else:
-            places = [place for place in article.get("place", []) if place.get("source") == "imatrics"]
+    @property
+    def places(self):
+        if not self._places:
+            places = get_resource_service('vocabularies').get_items('place_custom')
+            self._places = {p["qcode"]: p for p in places}
+        return self._places
 
-        for place in places:
+    def _format_place(self, article, docdata):
+        mapping = (
+            ("state-prov", ("ntb_parent", "name")),
+            ("county-dist", ("ntb_qcode", "qcode")),
+        )
+        for place in article.get("place", []):
+            if not place:
+                continue
             evloc = etree.SubElement(docdata, "evloc")
-            for key, att in ((state_prov, "state-prov"), (county_dist, "county-dist")):
-                try:
-                    value = place[key]
-                except KeyError:
-                    pass
-                else:
-                    if value is not None:
-                        evloc.attrib[att] = value
+            data = place.copy()
+            if place.get("qcode") and self.places.get(place["qcode"]):
+                data.update(self.places[place["qcode"]])
+            for attrib, keys in mapping:
+                for key in keys:
+                    if data.get(key):
+                        evloc.attrib[attrib] = data[key]
+                        break
 
     def _format_pubdata(self, article, head):
         pub_date = article['versioncreated'].astimezone(tz).strftime("%Y%m%dT%H%M%S")
@@ -224,50 +234,29 @@ class NTBNITFFormatter(NITFFormatter):
         article['pubdata'] = pubdata  # needed to access pubdata when formatting body content
 
     def _format_subjects(self, article, tobject):
-        if article.get("profile"):
-            content_type = get_content_field(article, "subject")
-            if (content_type and "subject_custom" in content_type.get("schema")["schema"]["scheme"]["allowed"]):
-                subjects = [
-                    s
-                    for s in article.get("subject", [])
-                    if s.get("scheme") == "subject_custom"
-                ]
-                for subject in subjects:
-                    name_key = (
-                        "tobject.subject.matter"
-                        if subject.get("parent")
-                        else "tobject.subject.type"
-                    )
-                    etree.SubElement(
-                        tobject,
-                        "tobject.subject",
-                        {
-                            "tobject.subject.refnum": subject.get("qcode", ""),
-                            name_key: subject.get("name", ""),
-                        },
-                    )
-            else:
-                topics = [
-                    s
-                    for s in article.get("subject", [])
-                    if s.get("scheme") == "topics" and s.get("source") == "imatrics"
-                ]
-                for topic in topics:
-                    name_key = (
-                        "tobject.subject.matter"
-                        if topic.get("name")
-                        else "tobject.subject.type"
-                    )
-                    etree.SubElement(
-                        tobject,
-                        "tobject.subject",
-                        {
-                            "tobject.subject.refnum": topic.get("altids", {}).get(
-                                "medtop"
-                            ),
-                            name_key: topic.get("name", ""),
-                        },
-                    )
+        subjects = [
+            s
+            for s in article.get("subject", [])
+            if s.get("scheme") in (ntb.MEDIATOPICS_CV, ntb.SUBJECTCODES_CV)
+        ]
+
+        for subject in subjects:
+            name_key = (
+                "tobject.subject.matter"
+                if subject.get("parent")
+                else "tobject.subject.type"
+            )
+            etree.SubElement(
+                tobject,
+                "tobject.subject",
+                {
+                    "tobject.subject.refnum": "medtop:{}".format(subject.get("qcode", ""))
+                                              if subject.get('scheme') == ntb.MEDIATOPICS_CV
+                                              else subject.get("qcode", ""),
+                    name_key: subject.get("name", ""),
+                },
+                None,
+            )
 
     def _format_datetimes(self, article, head):
         created = article['versioncreated'].astimezone(tz)
@@ -463,7 +452,7 @@ class NTBNITFFormatter(NITFFormatter):
                 pass
 
         try:
-            footer_txt = article['body_footer']
+            footer_txt = get_text(article['body_footer']).strip()
         except KeyError:
             pass
         else:
