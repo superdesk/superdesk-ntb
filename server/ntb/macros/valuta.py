@@ -9,9 +9,10 @@ Version 0.9
 Corrected fetching data from ebc and corrected decimals
 """
 
-import xml.etree.cElementTree as ElementTree
 import urllib3
 import datetime
+import xml.etree.cElementTree as ElementTree
+from superdesk.editor_utils import generate_fields
 
 currencies = [
     {'currency': 'USD', 'name': 'US dollar', 'multiplication': 1},
@@ -71,8 +72,12 @@ def get_currency(today_date):
         xpath_euro_string = ".//eurofxref:Cube[@time='{date}']/eurofxref:Cube[@currency='NOK']"
 
         euro_query = doc.find(xpath_euro_string.format(date=today_date.date()), namespaces)
+
         if euro_query is None:
-            return ['Dagens valutakurser ikke klare ennå']
+            euro_query = doc.find(xpath_euro_string.format(date=yesterday_date.date()), namespaces)
+
+        if euro_query is None:
+            return ["<tr><td>Dagens valutakurser ikke klare ennå</td></tr>"]
 
         euro = euro_query.attrib["rate"]
 
@@ -129,10 +134,15 @@ def ntb_currency_macro(item, **kwargs):
     headline = "Valutakurser {} ({})"
     headline = headline.format(today_date.strftime("%d.%m"), yesterday_date.strftime("%d.%m"))
     abstract = "Representative markedskurser for valuta fra Norges Bank"
+    headline = "Valutakurser {} ({})"
+    headline = headline.format(today_date.strftime("%d.%m"), yesterday_date.date().strftime("%d.%m"))
+    abstract = "Representative markedskurser for valuta fra Norges Bank"
 
     item['headline'] = headline
     item['abstract'] = abstract
     item['body_html'] = '<table>' + ''.join(line for line in get_currency(today_date)) + '</table>'
+
+    generate_fields(item, ["headline", "abstract", "body_html"], force=True, reload=True)
 
     return item
 
@@ -151,3 +161,6 @@ access_type = 'frontend'
 
 # Define the action type
 action_type = 'direct'
+
+# Define the replace type
+replace_type = "editor_state"
