@@ -9,7 +9,7 @@ from .nob_NO_translate_macro import nob_NO_translate_macro
 
 def editor3_Nob_NO_translate_macro(item, **kwargs):
     item = nob_NO_translate_macro(item, **kwargs)
-    breakpoint()
+    generate_fields(item, ["headline", "abstract", "body_html"], force=True)
     return item
 
 
