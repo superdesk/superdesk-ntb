@@ -1,7 +1,7 @@
 {
     "dependencies": {
         "@superdesk/build-tools": "^1.0.14",
-        "superdesk-core": "github:superdesk/superdesk-client-core#v2.4.1-rc2",
+        "superdesk-core": "github:superdesk/superdesk-client-core#develop",
         "superdesk-planning": "github:superdesk/superdesk-planning#v2.4.0"
     },
     "scripts": {
