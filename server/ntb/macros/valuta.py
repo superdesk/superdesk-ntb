@@ -134,9 +134,6 @@ def ntb_currency_macro(item, **kwargs):
     headline = "Valutakurser {} ({})"
     headline = headline.format(today_date.strftime("%d.%m"), yesterday_date.strftime("%d.%m"))
     abstract = "Representative markedskurser for valuta fra Norges Bank"
-    headline = "Valutakurser {} ({})"
-    headline = headline.format(today_date.strftime("%d.%m"), yesterday_date.date().strftime("%d.%m"))
-    abstract = "Representative markedskurser for valuta fra Norges Bank"
 
     item['headline'] = headline
     item['abstract'] = abstract
