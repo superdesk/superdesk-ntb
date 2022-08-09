@@ -23,6 +23,9 @@ class NTBNINJSFormatter(NINJS2Formatter):
         super().__init__()
         self.format_type = "ntb_ninjs"
 
+    def format(self, article, subscriber, codes=None):
+        return super().format(article, subscriber, codes)
+
     def _transform_to_ninjs(self, article, subscriber, recursive=True):
         ninjs = super()._transform_to_ninjs(article, subscriber, recursive)
         ninjs["version"] = str(article.get("correction_sequence", 1))
@@ -31,8 +34,8 @@ class NTBNINJSFormatter(NINJS2Formatter):
         if article.get("person"):
             ninjs["people"] = self.format_people(article)
 
-        if article.get("organisations"):
-            ninjs["organisations"] = self.format_organisations(article)
+        if article.get("organisation"):
+            ninjs["organisations"] = self.format_organisation(article)
 
         return ninjs
 
@@ -50,9 +53,9 @@ class NTBNINJSFormatter(NINJS2Formatter):
             )
         return peoples
 
-    def format_organisations(self, article):
+    def format_organisation(self, article):
         organisations = []
-        items = article["organisations"]
+        items = article["organisation"]
         for item in items:
             organisations.append(
                 {
