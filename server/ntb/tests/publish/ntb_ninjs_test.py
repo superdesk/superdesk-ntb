@@ -104,7 +104,14 @@ class Ninjs2FormatterTest(TestCase):
         "versioncreated": "2022-08-09T13:38:58+0000",
         "rewrite_sequence": 1,
         "language": "nb-NO",
-        "body_footer": "footer text",
+        "priority": 6,
+        "urgency": 3,
+        "sign_off": "admin@example.com",
+        "language": "nb-NO",
+        "operation": "publish",
+        "version_creator": "ObjectId(" "5640a5eef40235008465242b" ")",
+        "abstract": "<p>abstract thi sis</p>",
+        "body_html": "<p>Test body html field</p>",
     }
 
     def setUp(self):
@@ -123,33 +130,18 @@ class Ninjs2FormatterTest(TestCase):
             "type": "text",
             "versioncreated": "2022-08-09T13:38:58+0000",
             "language": "nb-NO",
-            "headline": "custom media field multi",
+            "urgency": 3,
             "slugline": "test custom media2",
-            "rewrite_sequence": 1,
             "place": [
                 {"name": "Gjerdrum", "code": "b564b1e1-1a99-324e-b643-88e5398305c6"}
             ],
             "profile": "5ba11fec0d6f1301ac3cbd14",
-            "priority": 5,
-            "subject": [
-                {
-                    "code": "20000550",
-                    "name": "olje- og gassindustri",
-                    "scheme": "topics",
-                },
-                {
-                    "code": "66417b95-3ad5-35c3-8b5a-6dec0d4e0946",
-                    "name": "Olje",
-                    "scheme": "imatrics_topic",
-                },
-                {"code": "20001253", "name": "matlaging", "scheme": "topics"},
-                {"code": "10000000", "name": "Fritid", "scheme": "subject_custom"},
-            ],
+            "priority": 6,
             "people": [
                 {
                     "name": "Hanjigeer",
                     "rel": "Ming dynasty person CBDB = 124590",
-                    "qcode": "f1d109e7-a5ae-3f7c-8a1d-5bce4a70bf64",
+                    "qcode": "Q45489119",
                     "source": "imatrics",
                 }
             ],
@@ -157,9 +149,25 @@ class Ninjs2FormatterTest(TestCase):
                 {
                     "name": "Events DC",
                     "rel": "Events DC is a semi-public company in Washington, D",
-                    "qcode": "4e42b5e7-bfbe-3c2b-9188-d263e8a147e2",
+                    "qcode": "Q16837590",
                     "source": "imatrics",
                 }
             ],
+            "headlines": [{"value": "custom media field multi"}],
+            "descriptions": [{"value": "abstract thi sis"}],
+            "bodies": [
+                {
+                    "charcount": 20,
+                    "wordcount": 4,
+                    "value": "<p>Test body html field</p>",
+                }
+            ],
+            "subjects": [
+                {"name": "olje- og gassindustri", "uri": "20000550"},
+                {"name": "Olje", "uri": "66417b95-3ad5-35c3-8b5a-6dec0d4e0946"},
+                {"name": "matlaging", "uri": "20001253"},
+                {"name": "Fritid", "uri": "10000000"},
+            ],
         }
+
         self.assertEqual(ninjs, expected_item)
