@@ -101,6 +101,34 @@ class Ninjs2FormatterTest(TestCase):
                 "original_source": "1013",
             },
         ],
+        "object": [
+            {
+                "name": "Tata LPT 613",
+                "description": "kjøretøymodell",
+                "qcode": "9227b7fa-92c0-3593-a3b7-96a84deedf75",
+                "source": "imatrics",
+                "altids": {
+                    "imatrics": "9227b7fa-92c0-3593-a3b7-96a84deedf75",
+                    "wikidata": "Q12072602",
+                },
+                "aliases": [],
+                "original_source": "wikidata",
+            }
+        ],
+        "event": [
+            {
+                "name": "Noise Eve",
+                "description": "An event for testing",
+                "qcode": "23333-4ff44ff-fkkf4-kfkk444",
+                "source": "imatrics",
+                "altids": {
+                    "imatrics": "23333-4ff44ff-fkkf4-kfkk444",
+                    "wikidata": "Q72065689",
+                },
+                "aliases": [],
+                "original_source": "wikidata",
+            }
+        ],
         "versioncreated": "2022-08-09T13:38:58+0000",
         "rewrite_sequence": 1,
         "language": "nb-NO",
@@ -121,7 +149,6 @@ class Ninjs2FormatterTest(TestCase):
         self.assertEqual("ntb_ninjs", self.formatter.format_type)
 
     def test_format_item(self):
-        self.maxDiff = None
         seq, doc = self.formatter.format(self.article, {"name": "Test Subscriber"})[0]
         ninjs = json.loads(doc)
         expected_item = {
@@ -132,41 +159,59 @@ class Ninjs2FormatterTest(TestCase):
             "language": "nb-NO",
             "urgency": 3,
             "slugline": "test custom media2",
-            "place": [
-                {"name": "Gjerdrum", "code": "b564b1e1-1a99-324e-b643-88e5398305c6"}
-            ],
             "profile": "5ba11fec0d6f1301ac3cbd14",
-            "priority": 6,
             "people": [
                 {
                     "name": "Hanjigeer",
                     "rel": "Ming dynasty person CBDB = 124590",
-                    "qcode": "Q45489119",
-                    "source": "imatrics",
+                    "literal": "f1d109e7-a5ae-3f7c-8a1d-5bce4a70bf64",
+                    "uri": "http://www.wikidata.org/entity/Q45489119",
                 }
             ],
             "organisations": [
                 {
                     "name": "Events DC",
                     "rel": "Events DC is a semi-public company in Washington, D",
-                    "qcode": "Q16837590",
-                    "source": "imatrics",
+                    "literal": "4e42b5e7-bfbe-3c2b-9188-d263e8a147e2",
+                    "uri": "http://www.wikidata.org/entity/Q16837590",
                 }
             ],
-            "headlines": [{"value": "custom media field multi"}],
-            "descriptions": [{"value": "abstract thi sis"}],
+            "events": [
+                {
+                    "name": "Noise Eve",
+                    "rel": "An event for testing",
+                    "literal": "23333-4ff44ff-fkkf4-kfkk444",
+                    "uri": "http://www.wikidata.org/entity/Q72065689",
+                }
+            ],
+            "objects": [
+                {
+                    "name": "Tata LPT 613",
+                    "rel": "kjøretøymodell",
+                    "literal": "9227b7fa-92c0-3593-a3b7-96a84deedf75",
+                    "uri": "http://www.wikidata.org/entity/Q12072602",
+                }
+            ],
+            "headlines": [
+                {"value": "custom media field multi", "content_type": "text"}
+            ],
+            "descriptions": [{"value": "abstract thi sis", "content_type": "text"}],
             "bodies": [
                 {
                     "charcount": 20,
                     "wordcount": 4,
                     "value": "<p>Test body html field</p>",
+                    "content_type": "text",
                 }
             ],
             "subjects": [
-                {"name": "olje- og gassindustri", "uri": "20000550"},
-                {"name": "Olje", "uri": "66417b95-3ad5-35c3-8b5a-6dec0d4e0946"},
-                {"name": "matlaging", "uri": "20001253"},
-                {"name": "Fritid", "uri": "10000000"},
+                {"name": "olje- og gassindustri", "uri": "topics:20000550"},
+                {
+                    "name": "Olje",
+                    "uri": "imatrics_topic:66417b95-3ad5-35c3-8b5a-6dec0d4e0946",
+                },
+                {"name": "matlaging", "uri": "topics:20001253"},
+                {"name": "Fritid", "uri": "subject_custom:10000000"},
             ],
         }
 

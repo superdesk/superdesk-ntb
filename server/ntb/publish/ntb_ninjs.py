@@ -20,9 +20,14 @@ class NTBNINJSFormatter(NINJSFormatter):
     def _transform_to_ninjs(self, article, subscriber, recursive=True):
         ninjs = super()._transform_to_ninjs(article, subscriber, recursive)
 
-        ninjs["people"] = self.format_people(article)
-
-        ninjs["organisations"] = self.format_organisations(article)
+        imatrics_fields = {
+            "people": "person",
+            "organisations": "organisation",
+            "events": "event",
+            "objects": "object",
+        }
+        for field, value in imatrics_fields.items():
+            ninjs[field] = self.format_imatrics(article, value)
 
         if ninjs.get("headline"):
             ninjs["headlines"] = self.format_headlines(article)
@@ -36,63 +41,76 @@ class NTBNINJSFormatter(NINJSFormatter):
         if ninjs.get("subject"):
             ninjs["subjects"] = self.format_subjects(ninjs)
 
-        # removable items which mapped according to Ninjs v2
-        removable_items = [
-            "body_html",
-            "description_html",
-            "description_text",
-            "charcount",
-            "wordcount",
-            "readtime",
-            "headline",
-            "subject",
+        # removed items which mapped according to Ninjs v2 properties
+        ninjs_properties = [
+            "headlines",
+            "uri",
+            "type",
+            "profile",
+            "version",
+            "firstcreated",
+            "versioncreated",
+            "pubstatus",
+            "contentcreated",
+            "embargoed",
+            "urgency",
+            "copyrightholder",
+            "copyrightnotice",
+            "usageterms",
+            "ednote",
+            "guid",
+            "language",
+            "descriptions",
+            "bodies",
+            "headlines",
+            "people",
+            "organisations",
+            "places",
+            "subjects",
+            "events",
+            "objects",
+            "title",
+            "by",
+            "slugline",
+            "located",
+            "renditions",
+            "associations",
+            "altids",
+            "trustindicators",
+            "standard",
+            "genres",
+            "rightsinfo",
         ]
-        for item in removable_items:
-            ninjs.pop(item)
+        for key in list(ninjs.keys()):
+            if key not in ninjs_properties:
+                ninjs.pop(key)
 
         return ninjs
 
-    def format_people(self, article):
-        peoples = []
-        if article.get("person"):
-            persons = article["person"]
+    def format_imatrics(self, article, value):
+        fields_data = []
+        if article.get(value):
+            persons = article[value]
             for item in persons:
                 altids = item.get("altids")
-                peoples.append(
-                    {
-                        "name": item.get("name"),
-                        "rel": item.get("description"),
-                        "qcode": item.get("qcode")
-                        if altids.get("wikidata") is None
-                        else altids["wikidata"],
-                        "source": item.get("source"),
-                    }
-                )
-            return peoples
-
-    def format_organisations(self, article):
-        organisations = []
-        if article.get("organisation"):
-            items = article["organisation"]
-            for item in items:
-                altids = item.get("altids")
-                organisations.append(
-                    {
-                        "name": item.get("name"),
-                        "rel": item.get("description"),
-                        "qcode": item.get("qcode")
-                        if altids.get("wikidata") is None
-                        else altids["wikidata"],
-                        "source": item.get("source"),
-                    }
-                )
-            return organisations
+                data = {
+                    "name": item.get("name"),
+                    "rel": item.get("description"),
+                    "literal": item.get("qcode"),
+                }
+                if altids.get("wikidata"):
+                    id = altids["wikidata"]
+                    data["uri"] = f"http://www.wikidata.org/entity/{id}"
+                else:
+                    data["imatrics"] = item.get("qcode")
+                fields_data.append(data)
+            return fields_data
 
     def format_headlines(self, article):
-        return [{"value": article.get("headline")}]
+        return [{"value": article.get("headline"), "content_type": "text"}]
 
     def format_descriptions(self, ninjs):
-        return [{"value": ninjs.get("description_text")}]
+        return [{"value": ninjs.get("description_text"), "content_type": "text"}]
 
     def format_bodies(self, ninjs):
         return [
@@ -100,11 +118,19 @@ class NTBNINJSFormatter(NINJSFormatter):
                 "charcount": ninjs.get("charcount"),
                 "wordcount": ninjs.get("wordcount"),
                 "value": ninjs.get("body_html"),
+                "content_type": "text",
             }
         ]
 
     def format_subjects(self, ninjs):
         subjects = []
         for item in ninjs["subject"]:
-            subjects.append({"name": item["name"], "uri": item["code"]})
+            subjects.append(
+                {
+                    "name": item["name"],
+                    "uri": "{scheme}:{code}".format(
+                        scheme=item["scheme"], code=item["code"]
+                    ),
+                }
+            )
         return subjects
