@@ -317,6 +317,34 @@ ARTICLE_WITH_IMATRICS_FIELDS = {
             "original_source": "1013",
         },
     ],
+    "object": [
+        {
+            "name": "Tata LPT 613",
+            "description": "kjøretøymodell",
+            "qcode": "9227b7fa-92c0-3593-a3b7-96a84deedf75",
+            "source": "imatrics",
+            "altids": {
+                "imatrics": "9227b7fa-92c0-3593-a3b7-96a84deedf75",
+                "wikidata": "Q12072602",
+            },
+            "aliases": [],
+            "original_source": "wikidata",
+        }
+    ],
+    "event": [
+        {
+            "name": "Noise Eve",
+            "description": "An event for testing",
+            "qcode": "23333-4ff44ff-fkkf4-kfkk444",
+            "source": "imatrics",
+            "altids": {
+                "imatrics": "23333-4ff44ff-fkkf4-kfkk444",
+                "wikidata": "Q72065689",
+            },
+            "aliases": [],
+            "original_source": "wikidata",
+        }
+    ],
     "versioncreated": NOW,
     "rewrite_sequence": 1,
     "language": "nb-NO",
@@ -372,19 +400,23 @@ class NTBNITFFormatterTest(TestCase):
     def test_subject_and_category_with_imatrics(self):
         tobject = self.nitf_xml_imatrics.find("head/tobject")
         subject = tobject.findall("tobject.subject")
-        self.assertEqual(5, len(subject))
+        self.assertEqual(7, len(subject))
         self.assertEqual(subject[0].get("tobject.subject.refnum"), "person:Q20000")
         self.assertEqual(subject[0].get("tobject.subject.matter"), "Ola Borten Moe")
         self.assertEqual(subject[1].get("tobject.subject.refnum"), "organisation:Q1000")
         self.assertEqual(subject[1].get("tobject.subject.matter"), "Stortinget")
-        self.assertEqual(subject[2].get("tobject.subject.refnum"), "medtop:20000550")
+        self.assertEqual(subject[2].get("tobject.subject.refnum"), "object:Q12072602")
+        self.assertEqual(subject[2].get("tobject.subject.matter"), "Tata LPT 613")
+        self.assertEqual(subject[3].get("tobject.subject.refnum"), "event:Q72065689")
+        self.assertEqual(subject[3].get("tobject.subject.matter"), "Noise Eve")
+        self.assertEqual(subject[4].get("tobject.subject.refnum"), "medtop:20000550")
         self.assertEqual(
-            subject[2].get("tobject.subject.type"), "olje- og gassindustri"
+            subject[4].get("tobject.subject.type"), "olje- og gassindustri"
         )
-        self.assertEqual(subject[3].get("tobject.subject.refnum"), "medtop:20001253")
-        self.assertEqual(subject[3].get("tobject.subject.matter"), "matlaging")
-        self.assertEqual(subject[4].get("tobject.subject.refnum"), "10000000")
-        self.assertEqual(subject[4].get("tobject.subject.type"), "Fritid")
+        self.assertEqual(subject[5].get("tobject.subject.refnum"), "medtop:20001253")
+        self.assertEqual(subject[5].get("tobject.subject.matter"), "matlaging")
+        self.assertEqual(subject[6].get("tobject.subject.refnum"), "10000000")
+        self.assertEqual(subject[6].get("tobject.subject.type"), "Fritid")
 
     def test_slugline(self):
         du_key = self.nitf_xml.find("head/docdata/du-key")
