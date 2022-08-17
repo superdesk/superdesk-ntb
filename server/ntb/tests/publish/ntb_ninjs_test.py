@@ -193,15 +193,15 @@ class Ninjs2FormatterTest(TestCase):
                 }
             ],
             "headlines": [
-                {"value": "custom media field multi", "content_type": "text"}
+                {"value": "custom media field multi", "contenttype": "text/plain"}
             ],
-            "descriptions": [{"value": "abstract thi sis", "content_type": "text"}],
+            "descriptions": [{"value": "abstract thi sis", "contenttype": "text/plain"}],
             "bodies": [
                 {
                     "charcount": 20,
                     "wordcount": 4,
                     "value": "<p>Test body html field</p>",
-                    "content_type": "text",
+                    "contenttype": "text/plain",
                 }
             ],
             "subjects": [

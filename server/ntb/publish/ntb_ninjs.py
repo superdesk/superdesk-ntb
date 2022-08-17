@@ -108,10 +108,10 @@ class NTBNINJSFormatter(NINJSFormatter):
             return fields_data
 
     def format_headlines(self, article):
-        return [{"value": article.get("headline"), "content_type": "text"}]
+        return [{"value": article.get("headline"), "contenttype": "text/plain"}]
 
     def format_descriptions(self, ninjs):
-        return [{"value": ninjs.get("description_text"), "content_type": "text"}]
+        return [{"value": ninjs.get("description_text"), "contenttype": "text/plain"}]
 
     def format_bodies(self, ninjs):
         return [
@@ -119,7 +119,7 @@ class NTBNINJSFormatter(NINJSFormatter):
                 "charcount": ninjs.get("charcount"),
                 "wordcount": ninjs.get("wordcount"),
                 "value": ninjs.get("body_html"),
-                "content_type": "text",
+                "contenttype": "text/plain",
             }
         ]
 
