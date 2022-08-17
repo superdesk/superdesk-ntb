@@ -90,8 +90,8 @@ class NTBNINJSFormatter(NINJSFormatter):
     def format_imatrics(self, article, value):
         fields_data = []
         if article.get(value):
-            persons = article[value]
-            for item in persons:
+            article_data = article[value]
+            for item in article_data:
                 altids = item.get("altids")
                 data = {
                     "name": item.get("name"),
@@ -102,7 +102,8 @@ class NTBNINJSFormatter(NINJSFormatter):
                     id = altids["wikidata"]
                     data["uri"] = f"http://www.wikidata.org/entity/{id}"
                 else:
-                    data["imatrics"] = item.get("qcode")
+                    qcode = item["qcode"]
+                    data["uri"] = f"imatrics:{qcode}"
                 fields_data.append(data)
             return fields_data
 

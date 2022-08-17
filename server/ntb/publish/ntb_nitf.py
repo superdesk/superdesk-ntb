@@ -323,7 +323,10 @@ class NTBNITFFormatter(NITFFormatter):
                     "tobject.subject",
                     {
                         "tobject.subject.refnum": "{}:{}".format(
-                            field, altids.get("wikidata")
+                            field,
+                            altids.get("wikidata")
+                            if altids and altids.get("wikidata")
+                            else data.get("qcode"),
                         ),
                         name_key: data.get("name"),
                     },
