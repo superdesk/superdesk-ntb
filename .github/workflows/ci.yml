@@ -18,7 +18,7 @@ jobs:
 
     - uses: actions/setup-python@v2
       with:
-        python-version: 3.6
+        python-version: '3.8'
 
     - run: sudo apt-get update
     - run: sudo apt-get -y install libxmlsec1-dev
@@ -59,4 +59,4 @@ jobs:
 
     - run: npm test
 
-    - run: node --max_old_space_size=4098 ./node_modules/.bin/grunt build
+    - run: npm run build

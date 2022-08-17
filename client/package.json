@@ -1,11 +1,10 @@
 {
     "dependencies": {
-        "superdesk-core": "github:superdesk/superdesk-client-core#hotfix/2.2.2",
-        "superdesk-planning": "github:superdesk/superdesk-planning#0f24f91"
+        "@superdesk/build-tools": "^1.0.14",
+        "superdesk-core": "github:superdesk/superdesk-client-core#develop",
+        "superdesk-planning": "github:superdesk/superdesk-planning#v2.4.0"
     },
     "scripts": {
-        "build": "grunt build",
-        "server": "grunt server",
-        "static": "python3 -m http.server --directory dist 9000"
+        "build": "npx @superdesk/build-tools build-root-repo ./"
     }
 }
