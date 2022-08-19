@@ -23,12 +23,15 @@ from superdesk.publish.formatters import Formatter
 
 TEST_ABSTRACT = "This is the abstract"
 TEST_NOT_LEAD = "This should not be lead"
-TEST_EMAILS = ('test1@test.tld', 'test2@example.net', 'test3@example.org')
+TEST_EMAILS = ("test1@test.tld", "test2@example.net", "test3@example.org")
 ITEM_ID = str(uuid.uuid4())
-NTB_MEDIA_TXT = 'NTBMEDIA TO REMOVE'
+NTB_MEDIA_TXT = "NTBMEDIA TO REMOVE"
 NOW = datetime.datetime.now(datetime.timezone.utc)
-TEST_BODY = """
-<p lede="true" class="lead">""" + TEST_NOT_LEAD + """</p>
+TEST_BODY = (
+    """
+<p lede="true" class="lead">"""
+    + TEST_NOT_LEAD
+    + """</p>
 <p class="txt">line 1</p>
 <p>line 2</p>
 <p class="toto">line 3</p>
@@ -40,74 +43,78 @@ following a general election in Madrid, Spain, July 19, 2016. REUTERS/Andrea Com
 </figure><!-- EMBED END Image {id: "embedded18237840351"} -->
 <h3>intermediate line</h3>
 <p>this element should have a txt class</p>
-<p class="ntb-media"><a url="http://example.net/something.jpg">test</a>""" + NTB_MEDIA_TXT + """</p>
+<p class="ntb-media"><a url="http://example.net/something.jpg">test</a>"""
+    + NTB_MEDIA_TXT
+    + """</p>
 <!-- EMBED START Video {id: "embedded10005446043"} --><figure>
 <video controls="controls">
 </video>
 <figcaption>SCRIPT TO FOLLOW</figcaption>
 </figure><!-- EMBED END Video {id: "embedded10005446043"} -->
 """
+)
 ARTICLE = {
-    'headline': 'test headline',
-    'abstract': TEST_ABSTRACT,
-    'body_html': TEST_BODY,
-    'type': 'text',
-    'profile': '5ba11fec0d6f1301ac3cbd13',
-    'priority': '2',
-    '_id': 'urn:localhost.abc',
-    'item_id': ITEM_ID,
-    'family_id': ITEM_ID,
+    "headline": "test headline",
+    "abstract": TEST_ABSTRACT,
+    "body_html": TEST_BODY,
+    "type": "text",
+    "profile": "5ba11fec0d6f1301ac3cbd13",
+    "priority": "2",
+    "_id": "urn:localhost.abc",
+    "item_id": ITEM_ID,
+    "family_id": ITEM_ID,
     # we use non latin1 chars in slugline to test encoding
     "slugline": "this is the slugline œ:?–",
-    'urgency': 2,
-    'versioncreated': NOW,
-    '_current_version': 5,
-    'version': 5,
-    'rewrite_sequence': 1,
-    'language': 'nb-NO',
-    'body_footer': '<p>footer text<br></p>',
-    'sign_off': '/'.join(TEST_EMAILS),
+    "urgency": 2,
+    "versioncreated": NOW,
+    "_current_version": 5,
+    "version": 5,
+    "rewrite_sequence": 1,
+    "language": "nb-NO",
+    "body_footer": "<p>footer text<br></p>",
+    "sign_off": "/".join(TEST_EMAILS),
     # if you change place, please keep a test with 'parent': None
     # cf SDNTB-290
-    'place': [
+    "place": [
         {
-            'scheme': 'place_custom',
-            'parent': None,
-            'ntb_parent': None,
-            'name': 'Global',
-            'qcode': 'Global',
-            'ntb_qcode': 'Global',
+            "scheme": "place_custom",
+            "parent": None,
+            "ntb_parent": None,
+            "name": "Global",
+            "qcode": "Global",
+            "ntb_qcode": "Global",
         }
     ],
-    'dateline': {
-        'located': {
-            'dateline': 'city',
-            'tz': 'Europe/Oslo',
-            'city': 'Hammerfest',
-            'state': 'Finnmark',
-            'alt_name': '',
-            'country': 'Norway',
-            'state_code': 'NO.20',
-            'country_code': 'NO',
-            'city_code': 'Hammerfest'},
-        'source': 'NTB',
-        'text': 'HAMMERFEST, Sep 13  -'},
-    'subject': [
+    "dateline": {
+        "located": {
+            "dateline": "city",
+            "tz": "Europe/Oslo",
+            "city": "Hammerfest",
+            "state": "Finnmark",
+            "alt_name": "",
+            "country": "Norway",
+            "state_code": "NO.20",
+            "country_code": "NO",
+            "city_code": "Hammerfest",
+        },
+        "source": "NTB",
+        "text": "HAMMERFEST, Sep 13  -",
+    },
+    "subject": [
         {
-            'scheme': 'category',
-            'qcode': 'Forskning',
-            'service': {'f': 1, 'i': 1},
-            'name': 'Forskning',
+            "scheme": "category",
+            "qcode": "Forskning",
+            "service": {"f": 1, "i": 1},
+            "name": "Forskning",
         },
         {
-            'scheme': 'subject_custom',
-            'qcode': '02001003',
-            'parent': '02000000',
-            'name': 'tyveri og innbrudd',
+            "scheme": "subject_custom",
+            "qcode": "02001003",
+            "parent": "02000000",
+            "name": "tyveri og innbrudd",
         },
     ],
     "associations": {
-
         "featuremedia": {
             "_id": "test_id",
             "guid": "test_id",
@@ -124,31 +131,31 @@ ARTICLE = {
                 },
                 "viewImage": {
                     "href": "http://scanpix.no/spWebApp/previewimage/sdl/preview/test_id.jpg"
-                }},
+                },
+            },
             "source": "feature_source",
             "fetch_endpoint": "scanpix",
             "type": "picture",
             "versioncreated": NOW,
-            "description_text": "test feature media"
+            "description_text": "test feature media",
         },
-
         "embedded01": None,
         "embedded10005446043": {
             "firstcreated": "2016-07-19T16:23:11+0000",
             "original_source": "Reuters DV",
             "_updated": "1970-01-01T00:00:00+0000",
-                        "mimetype": "video/mpeg",
-                        "renditions": {
-                            "viewImage": {
-                                "href": "http://scanpix.no/spWebApp/previewimage/sdl/preview/tb42bf38.jpg"
-                            },
-                            "baseImage": {
-                                "href": "http://scanpix.no/spWebApp/previewimage/sdl/preview/tb42bf38.jpg"
-                            },
-                            "thumbnail": {
-                                "href": "http://preview.scanpix.no/thumbs/tb/4/2b/tb42bf38.jpg"
-                            }
-                        },
+            "mimetype": "video/mpeg",
+            "renditions": {
+                "viewImage": {
+                    "href": "http://scanpix.no/spWebApp/previewimage/sdl/preview/tb42bf38.jpg"
+                },
+                "baseImage": {
+                    "href": "http://scanpix.no/spWebApp/previewimage/sdl/preview/tb42bf38.jpg"
+                },
+                "thumbnail": {
+                    "href": "http://preview.scanpix.no/thumbs/tb/4/2b/tb42bf38.jpg"
+                },
+            },
             "_etag": "85294f12036b2bb9f97cb9e421961dd330cd1d3d",
             "pubstatus": "usable",
             "source": "Reuters DV",
@@ -163,26 +170,25 @@ ARTICLE = {
             "_type": "externalsource",
             "ingest_provider": "577148e1cc3a2d5ab90f5d9c",
             "_links": {
-                "self": {
-                    "href": "scanpix(desk)/tb42bf38",
-                    "title": "Scanpix(desk)"}},
-            "headline": "Hollande meets Portugal president"
+                "self": {"href": "scanpix(desk)/tb42bf38", "title": "Scanpix(desk)"}
+            },
+            "headline": "Hollande meets Portugal president",
         },
         "embedded18237840351": {
             "firstcreated": "2016-07-19T16:23:17+0000",
             "original_source": "Reuters",
             "_updated": "1970-01-01T00:00:00+0000",
-                        "renditions": {
-                            "viewImage": {
-                                "href": "http://scanpix.no/spWebApp/previewimage/sdl/preview/tb42bf43.jpg"
-                            },
-                            "baseImage": {
-                                "href": "http://scanpix.no/spWebApp/previewimage/sdl/preview_big/tb42bf43.jpg"
-                            },
-                            "thumbnail": {
-                                "href": "http://preview.scanpix.no/thumbs/tb/4/2b/tb42bf43.jpg"
-                            }
-                        },
+            "renditions": {
+                "viewImage": {
+                    "href": "http://scanpix.no/spWebApp/previewimage/sdl/preview/tb42bf43.jpg"
+                },
+                "baseImage": {
+                    "href": "http://scanpix.no/spWebApp/previewimage/sdl/preview_big/tb42bf43.jpg"
+                },
+                "thumbnail": {
+                    "href": "http://preview.scanpix.no/thumbs/tb/4/2b/tb42bf43.jpg"
+                },
+            },
             "pubstatus": "usable",
             "_etag": "238529c614736dc314165bca1f0da523b82a2d2a",
             "source": "Reuters",
@@ -200,11 +206,10 @@ ARTICLE = {
             "_type": "externalsource",
             "ingest_provider": "577148e1cc3a2d5ab90f5d9c",
             "_links": {
-                "self": {
-                    "href": "scanpix(desk)/tb42bf43",
-                    "title": "Scanpix(desk)"}},
+                "self": {"href": "scanpix(desk)/tb42bf43", "title": "Scanpix(desk)"}
+            },
             "headline": "New parliament speaker Ana Pastor speaks on her phone during the first session o"
-                        "f parliament following a general election in Madrid"
+            "f parliament following a general election in Madrid",
         },
         "embedded03": None,
     },
@@ -215,9 +220,9 @@ ARTICLE = {
                 "id": "1234",
                 "url": "https://www.example.net/ntb_media_test.jpg",
                 "mime_type": "image/jpeg",
-                "description_text": "this is a test ntb media"
+                "description_text": "this is a test ntb media",
             }
-        ]
+        ],
     },
 }
 
@@ -265,17 +270,17 @@ ARTICLE_WITH_IMATRICS_FIELDS = {
             "original_source": None,
         },
         {
-            'name': 'Fritid',
-            'qcode': '10000000',
-            'parent': None,
-            'scheme': 'subject_custom',
+            "name": "Fritid",
+            "qcode": "10000000",
+            "parent": None,
+            "scheme": "subject_custom",
         },
     ],
     "organisation": [
         {
             "altids": {
                 "imatrics": "2d824ae1-ab9b-3227-870e-0810be0ebed0",
-                "wikidata": "Q1",
+                "wikidata": "Q1000",
             },
             "imatrics": "2d824ae1-ab9b-3227-870e-0810be0ebed0",
             "name": "Stortinget",
@@ -288,7 +293,7 @@ ARTICLE_WITH_IMATRICS_FIELDS = {
         {
             "altids": {
                 "imatrics": "211de295-4da5-34b6-9960-cf5b86957e5d",
-                "wikidata": "Q2",
+                "wikidata": "Q20000",
             },
             "imatrics": "211de295-4da5-34b6-9960-cf5b86957e5d",
             "name": "Ola Borten Moe",
@@ -301,18 +306,44 @@ ARTICLE_WITH_IMATRICS_FIELDS = {
         {
             "altids": {
                 "wikidata": "Q57084",
-                "imatrics": "b564b1e1-1a99-324e-b643-88e5398305c6"
+                "imatrics": "b564b1e1-1a99-324e-b643-88e5398305c6",
             },
-            "aliases": [
-                "Gjerdrum kommune"
-            ],
+            "aliases": ["Gjerdrum kommune"],
             "scheme": "place_custom",
             "name": "Gjerdrum",
             "description": "kommune i Viken",
             "qcode": "b564b1e1-1a99-324e-b643-88e5398305c6",
             "source": "imatrics",
-            "original_source": "1013"
+            "original_source": "1013",
         },
+    ],
+    "object": [
+        {
+            "name": "Tata LPT 613",
+            "description": "kjøretøymodell",
+            "qcode": "9227b7fa-92c0-3593-a3b7-96a84deedf75",
+            "source": "imatrics",
+            "altids": {
+                "imatrics": "9227b7fa-92c0-3593-a3b7-96a84deedf75",
+                "wikidata": "Q12072602",
+            },
+            "aliases": [],
+            "original_source": "wikidata",
+        }
+    ],
+    "event": [
+        {
+            "name": "Noise Eve",
+            "description": "An event for testing",
+            "qcode": "23333-4ff44ff-fkkf4-kfkk444",
+            "source": "imatrics",
+            "altids": {
+                "imatrics": "23333-4ff44ff-fkkf4-kfkk444",
+                "wikidata": "Q72065689",
+            },
+            "aliases": [],
+            "original_source": "wikidata",
+        }
     ],
     "versioncreated": NOW,
     "rewrite_sequence": 1,
@@ -322,7 +353,6 @@ ARTICLE_WITH_IMATRICS_FIELDS = {
 
 
 class NTBNITFFormatterTest(TestCase):
-
     def __init__(self, *args, **kwargs):
         super(NTBNITFFormatterTest, self).__init__(*args, **kwargs)
         self.article = None
@@ -332,18 +362,22 @@ class NTBNITFFormatterTest(TestCase):
     def setUp(self):
         super().setUp()
         self.app = flask.Flask(__name__)
-        self.app.config.update({
-            'DEFAULT_TIMEZONE': "Europe/Oslo",
-        })
+        self.app.config.update(
+            {
+                "DEFAULT_TIMEZONE": "Europe/Oslo",
+            }
+        )
         self.ctx = self.app.app_context()
         self.ctx.push()
         self.formatter = NTBNITFFormatter()
         self.base_formatter = Formatter()
-        self.tz = pytz.timezone(self.app.config['DEFAULT_TIMEZONE'])
+        self.tz = pytz.timezone(self.app.config["DEFAULT_TIMEZONE"])
         self.article = copy.deepcopy(ARTICLE)
         self.article_with_imatrics_fields = copy.deepcopy(ARTICLE_WITH_IMATRICS_FIELDS)
-        self.formatter_output = self.formatter.format(self.article, {'name': 'Test NTBNITF'})
-        self.doc = self.formatter_output[0]['encoded_item']
+        self.formatter_output = self.formatter.format(
+            self.article, {"name": "Test NTBNITF"}
+        )
+        self.doc = self.formatter_output[0]["encoded_item"]
         self.nitf_xml = etree.fromstring(self.doc)
         self.formatter_output_imatrics = self.formatter.format(
             self.article_with_imatrics_fields, {"name": "Test NTBNITF"}
@@ -359,38 +393,50 @@ class NTBNITFFormatterTest(TestCase):
         self.assertEqual(subject[0].get("tobject.subject.refnum"), "02001003")
         self.assertEqual(subject[0].get("tobject.subject.matter"), "tyveri og innbrudd")
         self.assertEqual(subject[1].get("tobject.subject.refnum"), "02000000")
-        self.assertEqual(subject[1].get("tobject.subject.type"), "Kriminalitet og rettsvesen")
+        self.assertEqual(
+            subject[1].get("tobject.subject.type"), "Kriminalitet og rettsvesen"
+        )
 
     def test_subject_and_category_with_imatrics(self):
         tobject = self.nitf_xml_imatrics.find("head/tobject")
         subject = tobject.findall("tobject.subject")
-        self.assertEqual(3, len(subject))
-        self.assertEqual(subject[0].get("tobject.subject.refnum"), "medtop:20000550")
-        self.assertEqual(subject[0].get("tobject.subject.type"), "olje- og gassindustri")
-        self.assertEqual(subject[1].get("tobject.subject.refnum"), "medtop:20001253")
-        self.assertEqual(subject[1].get("tobject.subject.matter"), "matlaging")
-        self.assertEqual(subject[2].get("tobject.subject.refnum"), "10000000")
-        self.assertEqual(subject[2].get("tobject.subject.type"), "Fritid")
+        self.assertEqual(7, len(subject))
+        self.assertEqual(subject[0].get("tobject.subject.refnum"), "person:Q20000")
+        self.assertEqual(subject[0].get("tobject.subject.matter"), "Ola Borten Moe")
+        self.assertEqual(subject[1].get("tobject.subject.refnum"), "organisation:Q1000")
+        self.assertEqual(subject[1].get("tobject.subject.matter"), "Stortinget")
+        self.assertEqual(subject[2].get("tobject.subject.refnum"), "object:Q12072602")
+        self.assertEqual(subject[2].get("tobject.subject.matter"), "Tata LPT 613")
+        self.assertEqual(subject[3].get("tobject.subject.refnum"), "event:Q72065689")
+        self.assertEqual(subject[3].get("tobject.subject.matter"), "Noise Eve")
+        self.assertEqual(subject[4].get("tobject.subject.refnum"), "medtop:20000550")
+        self.assertEqual(
+            subject[4].get("tobject.subject.type"), "olje- og gassindustri"
+        )
+        self.assertEqual(subject[5].get("tobject.subject.refnum"), "medtop:20001253")
+        self.assertEqual(subject[5].get("tobject.subject.matter"), "matlaging")
+        self.assertEqual(subject[6].get("tobject.subject.refnum"), "10000000")
+        self.assertEqual(subject[6].get("tobject.subject.type"), "Fritid")
 
     def test_slugline(self):
-        du_key = self.nitf_xml.find('head/docdata/du-key')
-        self.assertEqual(du_key.get('key'), 'this is the slugline ----')
+        du_key = self.nitf_xml.find("head/docdata/du-key")
+        self.assertEqual(du_key.get("key"), "this is the slugline ----")
 
     def test_doc_id(self):
-        doc_id = self.nitf_xml.find('head/docdata/doc-id')
-        self.assertEqual(doc_id.get('regsrc'), 'NTB')
-        self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(ITEM_ID, 1))
+        doc_id = self.nitf_xml.find("head/docdata/doc-id")
+        self.assertEqual(doc_id.get("regsrc"), "NTB")
+        self.assertEqual(doc_id.get("id-string"), "NTB{}_{:02}".format(ITEM_ID, 1))
 
     def test_pubdata(self):
-        pubdata = self.nitf_xml.find('head/pubdata')
+        pubdata = self.nitf_xml.find("head/pubdata")
         expected = NOW.astimezone(self.tz).strftime("%Y%m%dT%H%M%S")
-        self.assertEqual(pubdata.get('date.publication'), expected)
-        self.assertEqual(pubdata.get('item-length'), '121')
-        self.assertEqual(pubdata.get('unit-of-measure'), "character")
+        self.assertEqual(pubdata.get("date.publication"), expected)
+        self.assertEqual(pubdata.get("item-length"), "121")
+        self.assertEqual(pubdata.get("unit-of-measure"), "character")
 
     def test_dateline(self):
-        dateline = self.nitf_xml.find('body/body.head/dateline')
-        self.assertEqual(dateline.text, 'Hammerfest')
+        dateline = self.nitf_xml.find("body/body.head/dateline")
+        self.assertEqual(dateline.text, "Hammerfest")
 
     def test_body(self):
         # body content
@@ -400,7 +446,7 @@ class NTBNITFFormatterTest(TestCase):
         # "txt" or "txt-ind", so we use NTB_MEDIA_TXT to check if element is here
         p_ntb_media_elem = body_content.xpath('p[text()="{}"]'.format(NTB_MEDIA_TXT))
         self.assertEqual(p_ntb_media_elem, [])
-        p_elems = iter(body_content.findall('p'))
+        p_elems = iter(body_content.findall("p"))
         lead = next(p_elems)
         self.assertEqual(lead.get("class"), "lead")
         self.assertEqual(lead.text, TEST_ABSTRACT)
@@ -420,7 +466,7 @@ class NTBNITFFormatterTest(TestCase):
         self.assertEqual(p_encoding.text, "test encoding: –")
         self.assertNotIn("style", p_encoding.attrib)
 
-        hl2 = body_content.find('hl2')
+        hl2 = body_content.find("hl2")
         self.assertEqual(hl2.text, "intermediate line")
 
         p_cls_txt = next(p_elems)
@@ -429,7 +475,7 @@ class NTBNITFFormatterTest(TestCase):
 
         # all embedded must be removed from body's HTML,
         # they are put in <media/> elements
-        self.assertNotIn(b'EMBED', etree.tostring(body_content))
+        self.assertNotIn(b"EMBED", etree.tostring(body_content))
 
         # medias
 
@@ -442,9 +488,11 @@ class NTBNITFFormatterTest(TestCase):
         image = medias[1]
         self.assertEqual(image.get("media-type"), "image")
         self.assertEqual(image.find("media-reference").get("source"), "tb42bf43")
-        self.assertEqual(image.find("media-caption").text,
-                         "New parliament speaker Ana Pastor speaks on her phone during the first session of parliament"
-                         " following a general election in Madrid, Spain, July 19, 2016. REUTERS/Andrea Comas")
+        self.assertEqual(
+            image.find("media-caption").text,
+            "New parliament speaker Ana Pastor speaks on her phone during the first session of parliament"
+            " following a general election in Madrid, Spain, July 19, 2016. REUTERS/Andrea Comas",
+        )
         video = medias[2]
         self.assertEqual(video.get("media-type"), "video")
         self.assertEqual(video.find("media-reference").get("mime-type"), "video/mpeg")
@@ -454,9 +502,17 @@ class NTBNITFFormatterTest(TestCase):
         ntb_media = medias[3]
         self.assertEqual(ntb_media.get("media-type"), "image")
         self.assertEqual(ntb_media.get("class"), "prs")
-        self.assertEqual(ntb_media.find("media-reference").get("source"), "https://www.example.net/ntb_media_test.jpg")
-        self.assertEqual(ntb_media.find("media-reference").get("alternate-text"), "http://www.ntbinfo.no/")
-        self.assertEqual(ntb_media.find("media-caption").text, "this is a test ntb media")
+        self.assertEqual(
+            ntb_media.find("media-reference").get("source"),
+            "https://www.example.net/ntb_media_test.jpg",
+        )
+        self.assertEqual(
+            ntb_media.find("media-reference").get("alternate-text"),
+            "http://www.ntbinfo.no/",
+        )
+        self.assertEqual(
+            ntb_media.find("media-caption").text, "this is a test ntb media"
+        )
 
     def test_sign_off(self):
         a_elems = self.nitf_xml.findall("body/body.end/tagline/a")
@@ -464,38 +520,44 @@ class NTBNITFFormatterTest(TestCase):
         emails = list(TEST_EMAILS)
         for a_elem in a_elems:
             email = emails.pop(0)
-            self.assertEqual(a_elem.get('href'), 'mailto:{}'.format(email))
+            self.assertEqual(a_elem.get("href"), "mailto:{}".format(email))
             self.assertEqual(a_elem.text, email)
             if emails:  # only the last element has not "/" in tail
-                self.assertEqual(a_elem.tail, '/')
+                self.assertEqual(a_elem.tail, "/")
 
     @mock.patch.dict("superdesk.resources", resources)
     def test_empty_dateline(self):
         """SDNTB-293 regression test"""
         article = copy.deepcopy(self.article)
-        article['dateline'] = {'located': None}
-        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
-        doc = formatter_output[0]['encoded_item']
+        article["dateline"] = {"located": None}
+        formatter_output = self.formatter.format(article, {"name": "Test NTBNITF"})
+        doc = formatter_output[0]["encoded_item"]
         nitf_xml = etree.fromstring(doc)
-        self.assertEqual(nitf_xml.find('body/body.head/dateline'), None)
+        self.assertEqual(nitf_xml.find("body/body.head/dateline"), None)
 
     @mock.patch.dict("superdesk.resources", resources)
     def test_prefix_cleaning(self):
         """SDNTB-313 regression test"""
         article = copy.deepcopy(self.article)
-        article['abstract'] = ''
-        del article['associations']
-        article['body_html'] = "<pref:h1><other_pref:body.content><t:t/>toto</other_pref:body.content></pref:h1>"
+        article["abstract"] = ""
+        del article["associations"]
+        article[
+            "body_html"
+        ] = "<pref:h1><other_pref:body.content><t:t/>toto</other_pref:body.content></pref:h1>"
         expected = (
             '<body.content><p lede="true" class="lead"/>toto<p class="txt">footer text</p><media media-type="image" cla'
             'ss="prs"><media-reference mime-type="image/jpeg" alternate-text="http://www.ntbinfo.no/" source="https://w'
             'ww.example.net/ntb_media_test.jpg"/><media-caption>this is a test ntb media</media-caption></media></body.'
-            'content>'
+            "content>"
         )
-        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
-        doc = formatter_output[0]['encoded_item']
+        formatter_output = self.formatter.format(article, {"name": "Test NTBNITF"})
+        doc = formatter_output[0]["encoded_item"]
         nitf_xml = etree.fromstring(doc)
-        body_content = ' '.join(etree.tostring(nitf_xml.find("body/body.content"), encoding="unicode").split())
+        body_content = " ".join(
+            etree.tostring(
+                nitf_xml.find("body/body.content"), encoding="unicode"
+            ).split()
+        )
         self.assertEqual(body_content, expected)
 
     @mock.patch.dict("superdesk.resources", resources)
@@ -503,16 +565,16 @@ class NTBNITFFormatterTest(TestCase):
         """SDNTB-338 regression test"""
         # media counter should appear once and only once when no image is present
         article = copy.deepcopy(self.article)
-        article['body_html'] = "<p/>"
-        del article['associations']
-        del article['extra']
-        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
-        doc = formatter_output[0]['encoded_item']
+        article["body_html"] = "<p/>"
+        del article["associations"]
+        del article["extra"]
+        formatter_output = self.formatter.format(article, {"name": "Test NTBNITF"})
+        doc = formatter_output[0]["encoded_item"]
         nitf_xml = etree.fromstring(doc)
-        head = nitf_xml.find('head')
+        head = nitf_xml.find("head")
         media_counters = head.findall('meta[@name="NTBBilderAntall"]')
         self.assertEqual(len(media_counters), 1)
-        self.assertEqual(media_counters[0].get('content'), '0')
+        self.assertEqual(media_counters[0].get("content"), "0")
 
     @mock.patch.dict("superdesk.resources", resources)
     def test_351(self):
@@ -520,8 +582,10 @@ class NTBNITFFormatterTest(TestCase):
         unbound namespaces must be removed from attributes
         """
         article = copy.deepcopy(self.article)
-        article['abstract'] = ""
-        article['body_html'] = """\
+        article["abstract"] = ""
+        article[
+            "body_html"
+        ] = """\
             <p class="BrdtekstInnrykk">Målet i kortbane-VM som nylig ble avsluttet
             i den canadiske byen Windsor var personlig rekord på <st1:metricconverter productid="1500 meter"
             w:st="on">1500 meter</st1:metricconverter><br></p>
@@ -534,10 +598,14 @@ class NTBNITFFormatterTest(TestCase):
             '-reference mime-type="image/jpeg" alternate-text="http://www.ntbinfo.no/" source="https://www.example.net/'
             'ntb_media_test.jpg"/> <media-caption>this is a test ntb media</media-caption> </media> </body.content>'
         )
-        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
-        doc = formatter_output[0]['encoded_item']
+        formatter_output = self.formatter.format(article, {"name": "Test NTBNITF"})
+        doc = formatter_output[0]["encoded_item"]
         nitf_xml = etree.fromstring(doc)
-        body_content = ' '.join(etree.tostring(nitf_xml.find("body/body.content"), encoding='unicode').split())
+        body_content = " ".join(
+            etree.tostring(
+                nitf_xml.find("body/body.content"), encoding="unicode"
+            ).split()
+        )
         self.assertEqual(body_content, expected)
 
     @mock.patch.dict("superdesk.resources", resources)
@@ -546,14 +614,14 @@ class NTBNITFFormatterTest(TestCase):
         formatter should not crash when featuremedia is None
         """
         article = copy.deepcopy(self.article)
-        article['associations']['featuremedia'] = None
-        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
-        doc = formatter_output[0]['encoded_item']
+        article["associations"]["featuremedia"] = None
+        formatter_output = self.formatter.format(article, {"name": "Test NTBNITF"})
+        doc = formatter_output[0]["encoded_item"]
         nitf_xml = etree.fromstring(doc)
         # the test will raise an exception during self.formatter.format if SDNTB-355 bug is still present
         # but we check in addition that media counter is as expected
-        media_counter = nitf_xml.find('head').find('meta[@name="NTBBilderAntall"]')
-        self.assertEqual(media_counter.get('content'), '3')
+        media_counter = nitf_xml.find("head").find('meta[@name="NTBBilderAntall"]')
+        self.assertEqual(media_counter.get("content"), "3")
 
     @mock.patch.dict("superdesk.resources", resources)
     def test_358(self):
@@ -562,11 +630,13 @@ class NTBNITFFormatterTest(TestCase):
         """
         article = copy.deepcopy(self.article)
         bad_char_txt = "SKJÆ\x12R I SJØEN: Kirken Gospa od Skrpjela"
-        article['associations']['embedded10005446043']["description_text"] = bad_char_txt
-        article['body_html'] += bad_char_txt
+        article["associations"]["embedded10005446043"][
+            "description_text"
+        ] = bad_char_txt
+        article["body_html"] += bad_char_txt
         # formatting in next line will fail with body_html if invalid chars are not stripped
-        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
-        doc = formatter_output[0]['encoded_item']
+        formatter_output = self.formatter.format(article, {"name": "Test NTBNITF"})
+        doc = formatter_output[0]["encoded_item"]
         # next line will fail if SDNTB-358 is still present
         etree.fromstring(doc)
 
@@ -576,12 +646,12 @@ class NTBNITFFormatterTest(TestCase):
         check that &nbsp; between 2 words is not resulting in the 2 words being merged
         """
         article = copy.deepcopy(self.article)
-        article['abstract'] = ''
-        del article['associations']
-        del article['body_footer']
-        article['body_html'] = "<p>word1&nbsp;word2</p>"
-        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
-        doc = formatter_output[0]['encoded_item']
+        article["abstract"] = ""
+        del article["associations"]
+        del article["body_footer"]
+        article["body_html"] = "<p>word1&nbsp;word2</p>"
+        formatter_output = self.formatter.format(article, {"name": "Test NTBNITF"})
+        doc = formatter_output[0]["encoded_item"]
         nitf_xml = etree.fromstring(doc)
         p_content = nitf_xml.find("body/body.content/p[@class='txt-ind']").text
         # there must be a space between the two words
@@ -593,14 +663,14 @@ class NTBNITFFormatterTest(TestCase):
         formatter should not crash when an embedded is None
         """
         article = copy.deepcopy(self.article)
-        article['associations']['embedded18237840351'] = None
-        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
-        doc = formatter_output[0]['encoded_item']
+        article["associations"]["embedded18237840351"] = None
+        formatter_output = self.formatter.format(article, {"name": "Test NTBNITF"})
+        doc = formatter_output[0]["encoded_item"]
         nitf_xml = etree.fromstring(doc)
-        media_counter = nitf_xml.find('head').find('meta[@name="NTBBilderAntall"]')
+        media_counter = nitf_xml.find("head").find('meta[@name="NTBBilderAntall"]')
         # the test will raise an exception during self.formatter.format if SDNTB-390 bug is still present
         # but we check in addition that media counter is as expected (same as for test_355)
-        self.assertEqual(media_counter.get('content'), '3')
+        self.assertEqual(media_counter.get("content"), "3")
 
     @mock.patch.dict("superdesk.resources", resources)
     def test_pretty_formatting(self):
@@ -610,8 +680,10 @@ class NTBNITFFormatterTest(TestCase):
         """
 
         article = copy.deepcopy(self.article)
-        article['abstract'] = ""
-        article['body_html'] = """\
+        article["abstract"] = ""
+        article[
+            "body_html"
+        ] = """\
             <div><div class="outer"> <h1>test title</h1>
         <p>test <strong>strong</strong>  </p> <div><p>
         <ul> <li> item 1</li>     <li>item 2</li>   <li>item 3</li>  </p>
@@ -619,11 +691,14 @@ class NTBNITFFormatterTest(TestCase):
         <p>foo<br></p>
         <p>bar</p>
             """
-        article['associations'] = {}
-        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
-        doc = formatter_output[0]['encoded_item']
-        body_content = doc[doc.find(b'<body.content>') - 4:doc.find(b'</body.content>') + 15]
-        expected = (b"""\
+        article["associations"] = {}
+        formatter_output = self.formatter.format(article, {"name": "Test NTBNITF"})
+        doc = formatter_output[0]["encoded_item"]
+        body_content = doc[
+            doc.find(b"<body.content>") - 4 : doc.find(b"</body.content>") + 15
+        ]
+        expected = (
+            b"""\
     <body.content>
       <p lede="true" class="lead"></p>
       <hl2>test title</hl2>
@@ -640,47 +715,51 @@ class NTBNITFFormatterTest(TestCase):
       <p class="txt">footer text</p>
       <media media-type="image" class="prs">
         <media-reference mime-type="image/jpeg" alternate-text="http://www.ntbinfo.no/" source"""
-                    b"""="https://www.example.net/ntb_media_test.jpg"/>
+            b"""="https://www.example.net/ntb_media_test.jpg"/>
         <media-caption>this is a test ntb media</media-caption>
       </media>
-    </body.content>""")
-        self.assertEqual(body_content, expected, body_content.decode('utf-8'))
+    </body.content>"""
+        )
+        self.assertEqual(body_content, expected, body_content.decode("utf-8"))
 
     def test_filename(self):
         filename = self.nitf_xml.find('head/meta[@name="filename"]')
         datetime = NOW.astimezone(self.tz).strftime("%Y-%m-%d_%H-%M-%S")
-        self.assertEqual(filename.get('content'), datetime + "__Forskning_ny1-this-is-the-slugline-----.xml")
+        self.assertEqual(
+            filename.get("content"),
+            datetime + "__Forskning_ny1-this-is-the-slugline-----.xml",
+        )
 
     def test_encoding(self):
-        encoded = self.formatter_output[0]['encoded_item']
-        formatted = self.formatter_output[0]['formatted_item']
-        manually_encoded = formatted.encode(ENCODING, 'xmlcharrefreplace')
-        self.assertEqual(b''.join(encoded.split()), b''.join(manually_encoded.split()))
-        header = formatted[:formatted.find('>') + 1]
+        encoded = self.formatter_output[0]["encoded_item"]
+        formatted = self.formatter_output[0]["formatted_item"]
+        manually_encoded = formatted.encode(ENCODING, "xmlcharrefreplace")
+        self.assertEqual(b"".join(encoded.split()), b"".join(manually_encoded.split()))
+        header = formatted[: formatted.find(">") + 1]
         self.assertIn('encoding="{}"'.format(ENCODING), header)
 
     def test_place(self):
-        evloc = self.nitf_xml.find('head/docdata/evloc')
-        self.assertEqual(evloc.get('county-dist'), "Global")
+        evloc = self.nitf_xml.find("head/docdata/evloc")
+        self.assertEqual(evloc.get("county-dist"), "Global")
 
     def test_meta(self):
-        head = self.nitf_xml.find('head')
+        head = self.nitf_xml.find("head")
 
         media_counter = head.find('meta[@name="NTBBilderAntall"]')
-        self.assertEqual(media_counter.get('content'), '4')
+        self.assertEqual(media_counter.get("content"), "4")
         editor = head.find('meta[@name="NTBEditor"]')
-        self.assertEqual(editor.get('content'), 'Superdesk')
+        self.assertEqual(editor.get("content"), "Superdesk")
         kode = head.find('meta[@name="NTBDistribusjonsKode"]')
-        self.assertEqual(kode.get('content'), 'ALL')
+        self.assertEqual(kode.get("content"), "ALL")
         kanal = head.find('meta[@name="NTBKanal"]')
-        self.assertEqual(kanal.get('content'), 'A')
+        self.assertEqual(kanal.get("content"), "A")
         ntb_id = head.find('meta[@name="NTBID"]')
-        self.assertEqual(ntb_id.get('content'), 'NTB' + ITEM_ID)
+        self.assertEqual(ntb_id.get("content"), "NTB" + ITEM_ID)
         ntb_kilde = head.find('meta[@name="NTBKilde"]')
-        self.assertEqual(ntb_kilde.get('content'), 'test ntb_pub_name')
+        self.assertEqual(ntb_kilde.get("content"), "test ntb_pub_name")
         # priority
         ntb_kilde = head.find('meta[@name="NTBNewsValue"]')
-        self.assertEqual(ntb_kilde.get('content'), '2')
+        self.assertEqual(ntb_kilde.get("content"), "2")
 
     @mock.patch.dict("superdesk.resources", resources)
     def test_update_id(self):
@@ -690,17 +769,17 @@ class NTBNITFFormatterTest(TestCase):
         """
         article = copy.deepcopy(self.article)
         family_id = "test_family_id"
-        article['family_id'] = family_id
-        article['rewrite_sequence'] = 3
-        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
-        doc = formatter_output[0]['encoded_item']
+        article["family_id"] = family_id
+        article["rewrite_sequence"] = 3
+        formatter_output = self.formatter.format(article, {"name": "Test NTBNITF"})
+        doc = formatter_output[0]["encoded_item"]
         nitf_xml = etree.fromstring(doc)
-        head = nitf_xml.find('head')
+        head = nitf_xml.find("head")
         ntb_id = head.find('meta[@name="NTBID"]')
-        self.assertEqual(ntb_id.get('content'), 'NTB' + family_id)
-        doc_id = nitf_xml.find('head/docdata/doc-id')
-        self.assertEqual(doc_id.get('regsrc'), 'NTB')
-        self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(family_id, 3))
+        self.assertEqual(ntb_id.get("content"), "NTB" + family_id)
+        doc_id = nitf_xml.find("head/docdata/doc-id")
+        self.assertEqual(doc_id.get("regsrc"), "NTB")
+        self.assertEqual(doc_id.get("id-string"), "NTB{}_{:02}".format(family_id, 3))
 
     @mock.patch.dict("superdesk.resources", resources)
     def test_description_text_none(self):
@@ -708,23 +787,23 @@ class NTBNITFFormatterTest(TestCase):
         SDNTB-396 regression test
         """
         article = copy.deepcopy(self.article)
-        article['associations']['featuremedia']['description_text'] = None
-        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
-        doc = formatter_output[0]['encoded_item']
+        article["associations"]["featuremedia"]["description_text"] = None
+        formatter_output = self.formatter.format(article, {"name": "Test NTBNITF"})
+        doc = formatter_output[0]["encoded_item"]
         nitf_xml = etree.fromstring(doc)
         # the test will raise an exception during self.formatter.format if SDNTB-396 bug is still present
         # but we check in addition that media counter is as expected (same as for test_355)
-        media_counter = nitf_xml.find('head').find('meta[@name="NTBBilderAntall"]')
-        self.assertEqual(media_counter.get('content'), '4')
+        media_counter = nitf_xml.find("head").find('meta[@name="NTBBilderAntall"]')
+        self.assertEqual(media_counter.get("content"), "4")
 
     @mock.patch.dict("superdesk.resources", resources)
     def test_body_none(self):
         article = copy.deepcopy(self.article)
-        article['body_html'] = None
-        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
+        article["body_html"] = None
+        formatter_output = self.formatter.format(article, {"name": "Test NTBNITF"})
         # the test will raise an exception during self.formatter.format if SDNTB-420 bug is still present
         # but we also check that body.content is there
-        doc = formatter_output[0]['encoded_item']
+        doc = formatter_output[0]["encoded_item"]
         nitf_xml = etree.fromstring(doc)
         expected = (
             '<body.content> <p lede="true" class="lead">This is the abstract</p> <p class="txt">footer text</p> <media '
@@ -733,27 +812,32 @@ class NTBNITFFormatterTest(TestCase):
             'eference mime-type="image/jpeg" alternate-text="http://www.ntbinfo.no/" source="https://www.example.net/nt'
             'b_media_test.jpg"/> <media-caption>this is a test ntb media</media-caption> </media> </body.content>'
         )
-        content = ' '.join(etree.tostring(nitf_xml.find('body/body.content'),
-                                          encoding="unicode").split())
+        content = " ".join(
+            etree.tostring(
+                nitf_xml.find("body/body.content"), encoding="unicode"
+            ).split()
+        )
         self.assertEqual(content, expected)
 
     @mock.patch.dict("superdesk.resources", resources)
     def test_rewrite_sequence_none(self):
         article = copy.deepcopy(self.article)
-        article['rewrite_sequence'] = None
-        formatter_output = self.formatter.format(article, {'name': 'Test NTBNITF'})
-        doc = formatter_output[0]['encoded_item']
+        article["rewrite_sequence"] = None
+        formatter_output = self.formatter.format(article, {"name": "Test NTBNITF"})
+        doc = formatter_output[0]["encoded_item"]
         nitf_xml = etree.fromstring(doc)
-        doc_id = nitf_xml.find('head/docdata/doc-id')
-        self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(article['family_id'], 0))
+        doc_id = nitf_xml.find("head/docdata/doc-id")
+        self.assertEqual(
+            doc_id.get("id-string"), "NTB{}_{:02}".format(article["family_id"], 0)
+        )
 
     @mock.patch.dict("superdesk.resources", resources)
     def test_language_empty(self):
         article = copy.deepcopy(self.article)
-        article.pop('language')
-        self.formatter.format(article, {'name': 'Test NTBNITF'})
+        article.pop("language")
+        self.formatter.format(article, {"name": "Test NTBNITF"})
 
     def test_place_imatrics(self):
-        evloc = self.nitf_xml_imatrics.find('head/docdata/evloc')
+        evloc = self.nitf_xml_imatrics.find("head/docdata/evloc")
         self.assertEqual(evloc.get("county-dist"), "Gjerdrum")
         self.assertEqual(evloc.get("state-prov"), "Viken")
