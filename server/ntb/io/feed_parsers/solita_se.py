@@ -59,7 +59,7 @@ class SolitaSE(NewsMLOneFeedParser):
             'subject': [{'qcode': 'Børsmelding',
                          'name': 'Børsmelding',
                          'scheme': 'category'}],
-            'ednote': '*** Dette er en børsmelding formidlet av NTB pva. andre ***'
+            'ednote': 'Dette er en børsmelding formidlet av NTB for tredjepart. NTB skal ikke siteres.'
         }
         self.populate_fields(item)
 
