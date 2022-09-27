@@ -11716,7 +11716,7 @@
         "display_name": "Subscriber Types",
         "type": "unmanageable",
         "selection_type": "do not show",
-        "init_version": 3.1,
+        "init_version": 4,
         "items": [
             {
                 "is_active": true,
