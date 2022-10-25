@@ -102,6 +102,8 @@ INSTALLED_APPS = [
 
     'ntb.macros',
     'ntb.push_content_notification',
+
+    'superdesk.text_checkers.ai.imatrics',
 ]
 
 RENDITIONS = {
