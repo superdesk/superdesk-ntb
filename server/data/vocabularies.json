@@ -16,7 +16,7 @@
             "all": 1
         },
         "dependent": 0,
-        "init_version": 11,
+        "init_version": 12,
         "items": [
             {
                 "name": "kultur, underholdning og medier",
@@ -2051,7 +2051,7 @@
                 "is_active": true
             },
             {
-                "name": "forbruksvare",
+                "name": "forbruksvarer",
                 "qcode": "20000243",
                 "parent": "20000209",
                 "wikidata": "Q868404",
@@ -2115,7 +2115,7 @@
                 "is_active": true
             },
             {
-                "name": "dagligvare",
+                "name": "dagligvarer",
                 "qcode": "20000251",
                 "parent": "20000243",
                 "wikidata": "Q1681365",
@@ -10620,7 +10620,7 @@
             },
             {
                 "qcode": "20001330",
-                "name": "slalompadling",
+                "name": "slalåmpadling",
                 "parent": "20000822",
                 "iptc_subject": null,
                 "wikidata": "Q31874",
@@ -10693,7 +10693,7 @@
             {
                 "qcode": "20001338",
                 "name": "utdanningspolitikk",
-                "parent": "05000000",
+                "parent": "20000621",
                 "iptc_subject": null,
                 "wikidata": "Q452348",
                 "is_active": true
@@ -10863,7 +10863,47 @@
                 "name": "graviditet og fødsel",
                 "parent": "20000780",
                 "iptc_subject": null,
-                "wikidata": null,
+                "wikidata": "Q11995",
+                "is_active": true
+            },
+            {
+                "qcode": "20001360",
+                "name": "fraternal and community group",
+                "parent": "20000768",
+                "iptc_subject": null,
+                "wikidata": "Q996839",
+                "is_active": true
+            },
+            {
+                "qcode": "20001361",
+                "name": "cyber warfare",
+                "parent": "16000000",
+                "iptc_subject": null,
+                "wikidata": "Q849340",
+                "is_active": true
+            },
+            {
+                "qcode": "20001362",
+                "name": "public transport",
+                "parent": "20000337",
+                "iptc_subject": null,
+                "wikidata": "Q178512",
+                "is_active": true
+            },
+            {
+                "qcode": "20001363",
+                "name": "taxi and ride-hailing",
+                "parent": "20000337",
+                "iptc_subject": null,
+                "wikidata": "Q82650",
+                "is_active": true
+            },
+            {
+                "qcode": "20001364",
+                "name": "shared transport",
+                "parent": "20000337",
+                "iptc_subject": null,
+                "wikidata": "Q7489559",
                 "is_active": true
             }
         ]
