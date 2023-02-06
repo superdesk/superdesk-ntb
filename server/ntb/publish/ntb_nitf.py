@@ -27,6 +27,8 @@ from superdesk.errors import FormatterError
 from superdesk.cache import cache
 from superdesk.text_utils import get_text
 
+from . import utils
+
 logger = logging.getLogger(__name__)
 tz = None
 
@@ -40,10 +42,6 @@ STRIP_INVALID_CHARS_RE = re.compile("[\x00-\x08\x0B-\x0C\x0E-\x1F\x7F]")
 ENCODING = "iso-8859-1"
 LANGUAGE = "nb-NO"  # default language for ntb
 assert ENCODING != "unicode"  # use e.g. utf-8 for unicode
-
-
-def _get_rewrite_sequence(article):
-    return int(article.get("rewrite_sequence") or 0)
 
 
 def _get_language(article):
@@ -182,7 +180,7 @@ class NTBNITFFormatter(NITFFormatter):
         return ""
 
     def _get_ntb_subject(self, article):
-        update = _get_rewrite_sequence(article)
+        update = utils.get_rewrite_sequence(article)
         subject_prefix = "ny{}-".format(update) if update else ""
         return subject_prefix + self._get_ntb_slugline(article)
 
@@ -208,11 +206,8 @@ class NTBNITFFormatter(NITFFormatter):
         )
 
     def _format_docdata_doc_id(self, article, docdata):
-        doc_id = "NTB{family_id}_{version:02}".format(
-            family_id=article["family_id"], version=_get_rewrite_sequence(article)
-        )
         etree.SubElement(
-            docdata, "doc-id", attrib={"regsrc": "NTB", "id-string": doc_id}
+            docdata, "doc-id", attrib={"regsrc": "NTB", "id-string": utils.get_doc_id(article)}
         )
 
     def _format_date_expire(self, article, docdata):
@@ -233,7 +228,7 @@ class NTBNITFFormatter(NITFFormatter):
                 docdata,
                 "du-key",
                 attrib={
-                    "version": str(_get_rewrite_sequence(article) + 1),
+                    "version": str(utils.get_rewrite_sequence(article) + 1),
                     "key": self._get_ntb_slugline(article),
                 },
             )
@@ -403,7 +398,7 @@ class NTBNITFFormatter(NITFFormatter):
         etree.SubElement(
             head,
             "meta",
-            {"name": "NTBID", "content": "NTB{}".format(article["family_id"])},
+            {"name": "NTBID", "content": utils.get_ntb_id(article)},
         )
 
         # these static values never change
