@@ -164,7 +164,7 @@ ENABLE_PROFILING = False
 
 NO_TAKES = True
 
-FTP_TIMEOUT = 30
+FTP_TIMEOUT = int(env('SUPERDESK_FTP_TIMEOUT', 10))
 
 #: after how many minutes consider content to be too old for ingestion
 INGEST_OLD_CONTENT_MINUTES = 1
