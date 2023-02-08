@@ -1,4 +1,7 @@
+from typing import Dict, List
 from superdesk.publish.formatters.ninjs_formatter import NINJSFormatter
+
+from . import utils
 
 
 class NTBNINJSFormatter(NINJSFormatter):
@@ -26,6 +29,7 @@ class NTBNINJSFormatter(NINJSFormatter):
             "events": "event",
             "objects": "object",
         }
+
         for field, value in imatrics_fields.items():
             ninjs[field] = self.format_imatrics(article, value)
 
@@ -40,6 +44,9 @@ class NTBNINJSFormatter(NINJSFormatter):
 
         if ninjs.get("subject"):
             ninjs["subjects"] = self.format_subjects(ninjs)
+
+        if ninjs.get("place"):
+            ninjs["places"] = ninjs["place"]
 
         # removed items which mapped according to Ninjs v2 properties
         ninjs_properties = [
@@ -81,11 +88,37 @@ class NTBNINJSFormatter(NINJSFormatter):
             "genres",
             "rightsinfo",
         ]
+
         for key in list(ninjs.keys()):
             if key not in ninjs_properties:
                 ninjs.pop(key)
 
+        ninjs["altids"] = [
+            {"role": "GUID", "value": article["guid"]},
+            {"role": "NTB-ID", "value": utils.get_ntb_id(article)},
+            {"role": "DOC-ID", "value": utils.get_doc_id(article)},
+        ]
+
+        ninjs["taglines"] = []
+        if article.get("sign_off"):
+            for tagline in article["sign_off"].split("/"):
+                ninjs["taglines"].append(tagline.strip())
+
         return ninjs
+
+    def _format_place(self, article) -> List[Dict]:
+        places = []
+        for place in article["place"]:
+            ninjs_place = {
+                "name": place.get("name"),
+                "literal": place.get("qcode"),
+                "countydist": place.get("ntb_qcode") or place.get("qcode"),
+            }
+
+            if place.get("altids") and place["altids"].get("wikidata"):
+                ninjs_place["uri"] = "http://www.wikidata.org/entity/{}".format(place["altids"]["wikidata"])
+            places.append(ninjs_place)
+        return places
 
     def format_imatrics(self, article, value):
         fields_data = []
