@@ -408,14 +408,15 @@ class NTBNITFFormatter(NITFFormatter):
         etree.SubElement(head, "meta", {"name": "NTBKanal", "content": "A"})
 
         # daily counter
-        day_start = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-        pub_queue = get_resource_service("publish_queue")
-        daily_count = (
-            pub_queue.find({"transmit_started_at": {"$gte": day_start}}).count() + 1
-        )
-        etree.SubElement(
-            head, "meta", {"name": "NTBIPTCSequence", "content": str(daily_count)}
-        )
+        if app.config.get("NTB_IPTC_SEQUENCE"):
+            day_start = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+            pub_queue = get_resource_service("publish_queue")
+            daily_count = (
+                pub_queue.find({"transmit_started_at": {"$gte": day_start}}).count() + 1
+            )
+            etree.SubElement(
+                head, "meta", {"name": "NTBIPTCSequence", "content": str(daily_count)}
+            )
 
         # name
         try:
