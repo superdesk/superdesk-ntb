@@ -1,4 +1,5 @@
 import json
+import pathlib
 
 from unittest import mock
 from ntb.publish.ntb_ninjs import NTBNINJSFormatter
@@ -101,7 +102,6 @@ class Ninjs2FormatterTest(TestCase):
                 "aliases": ["Gjerdrum kommune"],
                 "scheme": "place_custom",
                 "name": "Gjerdrum",
-                "ntb_qcode": "Gjerdrum",
                 "description": "kommune i Viken",
                 "qcode": "b564b1e1-1a99-324e-b643-88e5398305c6",
                 "source": "imatrics",
@@ -109,11 +109,8 @@ class Ninjs2FormatterTest(TestCase):
             },
             {
                 "scheme": "place_custom",
-                "parent": None,
-                "ntb_parent": None,
                 "name": "Global",
                 "qcode": "Global",
-                "ntb_qcode": "County",
             },
         ],
         "object": [
@@ -178,6 +175,11 @@ class Ninjs2FormatterTest(TestCase):
         self.assertEqual("ntb_ninjs", self.formatter.format_type)
 
     def test_format_item(self):
+        with open(pathlib.Path(__file__).parent.parent.parent.parent.joinpath("data/vocabularies.json")) as json_file:
+            json_cvs = json.load(json_file)
+            for cv in json_cvs:
+                if cv.get("_id") == "place_custom":
+                    self.app.data.insert("vocabularies", [cv])
         seq, doc = self.formatter.format(self.article, {"name": "Test Subscriber"})[0]
         ninjs = json.loads(doc)
         expected_item = {
@@ -259,7 +261,6 @@ class Ninjs2FormatterTest(TestCase):
                 {
                     "name": "Global",
                     "literal": "Global",
-                    "countydist": "County",
                 },
             ],
             "taglines": [

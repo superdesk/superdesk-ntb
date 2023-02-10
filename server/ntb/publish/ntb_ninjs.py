@@ -1,4 +1,5 @@
 from typing import Dict, List
+from superdesk import get_resource_service
 from superdesk.publish.formatters.ninjs_formatter import NINJSFormatter
 
 from . import utils
@@ -19,6 +20,7 @@ class NTBNINJSFormatter(NINJSFormatter):
     def __init__(self):
         super().__init__()
         self.format_type = "ntb_ninjs"
+        self._places = None
 
     def _transform_to_ninjs(self, article, subscriber, recursive=True):
         ninjs = super()._transform_to_ninjs(article, subscriber, recursive)
@@ -112,8 +114,11 @@ class NTBNINJSFormatter(NINJSFormatter):
             ninjs_place = {
                 "name": place.get("name"),
                 "literal": place.get("qcode"),
-                "countydist": place.get("ntb_qcode") or place.get("qcode"),
             }
+
+            cv_place = self.places.get(place["qcode"])
+            if cv_place and cv_place.get("ntb_qcode"):
+                ninjs_place["countydist"] = cv_place["ntb_qcode"]
 
             if place.get("altids") and place["altids"].get("wikidata"):
                 ninjs_place["uri"] = "http://www.wikidata.org/entity/{}".format(place["altids"]["wikidata"])
@@ -168,3 +173,10 @@ class NTBNINJSFormatter(NINJSFormatter):
                 }
             )
         return subjects
+
+    @property
+    def places(self):
+        if self._places is None:
+            places = get_resource_service("vocabularies").get_items("place_custom")
+            self._places = {p["qcode"]: p for p in places}
+        return self._places
