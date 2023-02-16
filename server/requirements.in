@@ -3,5 +3,5 @@ honcho
 feedgen==0.7.0
 openpyxl==3.0.7
 
-git+https://github.com/superdesk/superdesk-core.git@708d137#egg=superdesk-core
-git+https://github.com/superdesk/superdesk-planning.git@bc8a715#egg=superdesk-planning
+git+https://github.com/superdesk/superdesk-core.git@d0d5027#egg=superdesk-core
+git+https://github.com/superdesk/superdesk-planning.git@46e51be#egg=superdesk-planning
