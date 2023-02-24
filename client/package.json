@@ -1,7 +1,7 @@
 {
     "dependencies": {
-        "superdesk-core": "github:superdesk/superdesk-client-core#561353b",
-        "superdesk-planning": "github:superdesk/superdesk-planning#46e51be"
+        "superdesk-core": "github:petrjasek/superdesk-client-core#hotfix/2.2.2",
+        "superdesk-planning": "github:superdesk/superdesk-planning#bc8a715"
     },
     "scripts": {
         "build": "grunt build",
