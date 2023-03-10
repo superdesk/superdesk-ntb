@@ -198,6 +198,14 @@ class Ninjs2FormatterTest(TestCase):
                 "type": "picture",
                 "versioncreated": datetime(2023, 3, 1, 12, 10, 0),
                 "description_text": "test feature media",
+                "subject": [
+                    {
+                        "parent": "05000000",
+                        "scheme": None,
+                        "name": "further education",
+                        "qcode": "05002000"
+                    },
+                ],
             },
         },
     }
@@ -338,4 +346,7 @@ class Ninjs2FormatterTest(TestCase):
             "type": "picture",
             "version": "1",
             "versioncreated": "2023-03-01T12:10:00+0000",
+            "subjects": [
+                {"name": "further education", "uri": "topics:05002000"},
+            ],
         }])

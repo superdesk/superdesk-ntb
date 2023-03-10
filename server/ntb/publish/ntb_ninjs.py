@@ -203,7 +203,7 @@ class NTBNINJSFormatter(NINJSFormatter):
                 {
                     "name": item["name"],
                     "uri": "{scheme}:{code}".format(
-                        scheme=item["scheme"], code=item["code"]
+                        scheme=item.get("scheme") or "topics", code=item["code"]
                     ),
                 }
             )
