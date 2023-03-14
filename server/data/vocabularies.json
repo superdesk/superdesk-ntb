@@ -16,10 +16,10 @@
             "all": 1
         },
         "dependent": 0,
-        "init_version": 10,
+        "init_version": 12,
         "items": [
             {
-                "name": "kultur og underholdning",
+                "name": "kultur, underholdning og medier",
                 "qcode": "01000000",
                 "parent": null,
                 "wikidata": null,
@@ -27,7 +27,7 @@
                 "is_active": true
             },
             {
-                "name": "kriminalitet og rettsvesen",
+                "name": "kriminalitet, rett og rettsvesen",
                 "qcode": "02000000",
                 "parent": null,
                 "wikidata": "Q146491",
@@ -67,7 +67,7 @@
                 "is_active": true
             },
             {
-                "name": "medisin og helse",
+                "name": "helse og medisin",
                 "qcode": "07000000",
                 "parent": null,
                 "wikidata": "Q12147",
@@ -75,7 +75,7 @@
                 "is_active": true
             },
             {
-                "name": "kuriosa og kjendiser",
+                "name": "folk og fe",
                 "qcode": "08000000",
                 "parent": null,
                 "wikidata": "Q361306",
@@ -123,7 +123,7 @@
                 "is_active": true
             },
             {
-                "name": "sosiale forhold",
+                "name": "samfunn",
                 "qcode": "14000000",
                 "parent": null,
                 "wikidata": "Q8425",
@@ -507,7 +507,7 @@
                 "is_active": true
             },
             {
-                "name": "dagspresse",
+                "name": "avis",
                 "qcode": "20000047",
                 "parent": "20000045",
                 "wikidata": "Q11032",
@@ -515,7 +515,7 @@
                 "is_active": true
             },
             {
-                "name": "nettaviser",
+                "name": "nettmedier",
                 "qcode": "20000048",
                 "parent": "20000045",
                 "wikidata": "Q1153191",
@@ -523,7 +523,7 @@
                 "is_active": true
             },
             {
-                "name": "ukepresse",
+                "name": "tidsskrift",
                 "qcode": "20000049",
                 "parent": "20000045",
                 "wikidata": "Q1002697",
@@ -595,7 +595,7 @@
                 "is_active": true
             },
             {
-                "name": "fredsoperasjoner",
+                "name": "fredsstyrke",
                 "qcode": "20000059",
                 "parent": "20000058",
                 "wikidata": "Q1456930",
@@ -707,7 +707,7 @@
                 "is_active": true
             },
             {
-                "name": "fredsbygging",
+                "name": "fredsprosess",
                 "qcode": "20000073",
                 "parent": "16000000",
                 "wikidata": "Q2632158",
@@ -851,7 +851,7 @@
                 "is_active": true
             },
             {
-                "name": "konkurranselovbrudd",
+                "name": "handelshindring",
                 "qcode": "20000092",
                 "parent": "20000087",
                 "wikidata": "Q7316269",
@@ -979,7 +979,7 @@
                 "is_active": true
             },
             {
-                "name": "ankerett",
+                "name": "anke (domstol)",
                 "qcode": "20000108",
                 "parent": "20000107",
                 "wikidata": "Q329777",
@@ -1083,7 +1083,7 @@
                 "is_active": true
             },
             {
-                "name": "lovverk",
+                "name": "lov og rett",
                 "qcode": "20000121",
                 "parent": "02000000",
                 "wikidata": "Q7748",
@@ -1099,7 +1099,7 @@
                 "is_active": true
             },
             {
-                "name": "konkurranselov",
+                "name": "konkurranserett",
                 "qcode": "20000123",
                 "parent": "20000124",
                 "wikidata": "Q326498",
@@ -1107,7 +1107,7 @@
                 "is_active": true
             },
             {
-                "name": "regulering",
+                "name": "reguleringer",
                 "qcode": "20000124",
                 "parent": "20000122",
                 "wikidata": "Q428148",
@@ -1171,7 +1171,7 @@
                 "is_active": true
             },
             {
-                "name": "savnet",
+                "name": "savnet person",
                 "qcode": "20000132",
                 "parent": "20000131",
                 "wikidata": "Q388505",
@@ -1211,7 +1211,7 @@
                 "is_active": true
             },
             {
-                "name": "forelegg",
+                "name": "bøter og forelegg",
                 "qcode": "20000136",
                 "parent": "20000134",
                 "wikidata": "Q2842797",
@@ -1275,7 +1275,7 @@
                 "is_active": true
             },
             {
-                "name": "skipsulykker",
+                "name": "maritime ulykker",
                 "qcode": "20000145",
                 "parent": "20000143",
                 "wikidata": "Q2235325",
@@ -1307,7 +1307,7 @@
                 "is_active": true
             },
             {
-                "name": "sult",
+                "name": "hungersnød",
                 "qcode": "20000149",
                 "parent": "20000148",
                 "wikidata": "Q168247",
@@ -1379,7 +1379,7 @@
                 "is_active": true
             },
             {
-                "name": "syklon",
+                "name": "storm",
                 "qcode": "20000158",
                 "parent": "20000157",
                 "wikidata": "Q148942",
@@ -1427,7 +1427,7 @@
                 "is_active": false
             },
             {
-                "name": "maritim ulykke",
+                "name": "maritim hendelse",
                 "qcode": "20000164",
                 "parent": "20000162",
                 "wikidata": null,
@@ -1459,7 +1459,7 @@
                 "is_active": false
             },
             {
-                "name": "nødhjelp",
+                "name": "katastrofeinnsats",
                 "qcode": "20000168",
                 "parent": "03000000",
                 "wikidata": "Q55692637",
@@ -1467,7 +1467,7 @@
                 "is_active": true
             },
             {
-                "name": "regnskap og resultater",
+                "name": "selskapsinformasjon",
                 "qcode": "20000170",
                 "parent": "04000000",
                 "wikidata": "Q1391314",
@@ -1523,7 +1523,7 @@
                 "is_active": true
             },
             {
-                "name": "utbytte",
+                "name": "kunngjøring av utbytte",
                 "qcode": "20000177",
                 "parent": "20000171",
                 "wikidata": "Q181201",
@@ -1571,7 +1571,7 @@
                 "is_active": true
             },
             {
-                "name": "aksjeutvidelse",
+                "name": "selskapsfinansiering",
                 "qcode": "20000183",
                 "parent": "20000171",
                 "wikidata": "Q1134763",
@@ -1595,7 +1595,7 @@
                 "is_active": true
             },
             {
-                "name": "aksjebevegelse",
+                "name": "børsmeldinger",
                 "qcode": "20000186",
                 "parent": "20000183",
                 "wikidata": null,
@@ -1611,7 +1611,7 @@
                 "is_active": true
             },
             {
-                "name": "menneskelige ressurser",
+                "name": "menneskelige ressurser (HR)",
                 "qcode": "20000188",
                 "parent": "20000170",
                 "wikidata": "Q1920785",
@@ -1619,7 +1619,7 @@
                 "is_active": true
             },
             {
-                "name": "permittering og nedbemanning",
+                "name": "permitteringer og nedbemanning",
                 "qcode": "20000189",
                 "parent": "20000188",
                 "wikidata": "Q13634065",
@@ -1627,7 +1627,7 @@
                 "is_active": true
             },
             {
-                "name": "næringslivsleder",
+                "name": "selskapsledelse",
                 "qcode": "20000190",
                 "parent": "20000188",
                 "wikidata": "Q2462658",
@@ -1635,7 +1635,7 @@
                 "is_active": true
             },
             {
-                "name": "opsjon",
+                "name": "aksjeopsjon",
                 "qcode": "20000191",
                 "parent": "20000188",
                 "wikidata": "Q187860",
@@ -1643,7 +1643,7 @@
                 "is_active": true
             },
             {
-                "name": "markedsføring",
+                "name": "strategi og markedsføring",
                 "qcode": "20000192",
                 "parent": "20000170",
                 "wikidata": "Q39809",
@@ -1675,7 +1675,7 @@
                 "is_active": true
             },
             {
-                "name": "kommersiell kontrakt",
+                "name": "forretningsavtale",
                 "qcode": "20000196",
                 "parent": "20000192",
                 "wikidata": null,
@@ -1699,7 +1699,7 @@
                 "is_active": true
             },
             {
-                "name": "selskapsledelse",
+                "name": "selskaps- og eierstyring",
                 "qcode": "20000199",
                 "parent": "20000192",
                 "wikidata": "Q2920921",
@@ -1707,7 +1707,7 @@
                 "is_active": true
             },
             {
-                "name": "fellesforetak",
+                "name": "fellesforetak (joint venture)",
                 "qcode": "20000200",
                 "parent": "20000192",
                 "wikidata": "Q489209",
@@ -1755,7 +1755,7 @@
                 "is_active": true
             },
             {
-                "name": "patenter, rettigheter og merkevare",
+                "name": "patent, opphavsrett og merkevare",
                 "qcode": "20000206",
                 "parent": "20000192",
                 "wikidata": "Q131257",
@@ -1763,7 +1763,7 @@
                 "is_active": true
             },
             {
-                "name": "tilbakekalling",
+                "name": "tilbakekalling av produkt",
                 "qcode": "20000207",
                 "parent": "20000192",
                 "wikidata": "Q359495",
@@ -1803,7 +1803,7 @@
                 "is_active": true
             },
             {
-                "name": "dyrket mark",
+                "name": "åkerbruk",
                 "qcode": "20000212",
                 "parent": "20000210",
                 "wikidata": "Q51075346",
@@ -1835,7 +1835,7 @@
                 "is_active": true
             },
             {
-                "name": "vindyrking",
+                "name": "vinproduksjon",
                 "qcode": "20000216",
                 "parent": "20000210",
                 "wikidata": "Q3560277",
@@ -1853,7 +1853,7 @@
             {
                 "name": "bioteknologibransjen",
                 "qcode": "20000218",
-                "parent": "20000217",
+                "parent": "20001354",
                 "wikidata": "Q90298876",
                 "iptc_subject": "04002001",
                 "is_active": true
@@ -1893,13 +1893,13 @@
             {
                 "name": "farmasøytisk industri",
                 "qcode": "20000223",
-                "parent": "20000217",
+                "parent": "20001354",
                 "wikidata": "Q507443",
                 "iptc_subject": "04002006",
                 "is_active": true
             },
             {
-                "name": "plast- og komposittmaterialer",
+                "name": "plastkjemikalier og syntetiske kjemikalier",
                 "qcode": "20000224",
                 "parent": "20000217",
                 "wikidata": null,
@@ -1907,7 +1907,7 @@
                 "is_active": true
             },
             {
-                "name": "databehandling",
+                "name": "informasjonsteknologi",
                 "qcode": "20000225",
                 "parent": "20000209",
                 "wikidata": "Q179310",
@@ -2011,7 +2011,7 @@
                 "is_active": false
             },
             {
-                "name": "store byggprosjekter",
+                "name": "store byggeprosjekter",
                 "qcode": "20000238",
                 "parent": "20000235",
                 "wikidata": null,
@@ -2035,7 +2035,7 @@
                 "is_active": true
             },
             {
-                "name": "eiendom",
+                "name": "fast eiendom",
                 "qcode": "20000241",
                 "parent": "20000235",
                 "wikidata": "Q10494269",
@@ -2043,7 +2043,7 @@
                 "is_active": true
             },
             {
-                "name": "oppussing",
+                "name": "oppussing og ombygging",
                 "qcode": "20000242",
                 "parent": "20000235",
                 "wikidata": "Q2144402",
@@ -2051,7 +2051,7 @@
                 "is_active": true
             },
             {
-                "name": "forbruksvare",
+                "name": "forbruksvarer",
                 "qcode": "20000243",
                 "parent": "20000209",
                 "wikidata": "Q868404",
@@ -2115,7 +2115,7 @@
                 "is_active": true
             },
             {
-                "name": "dagligvare",
+                "name": "dagligvarer",
                 "qcode": "20000251",
                 "parent": "20000243",
                 "wikidata": "Q1681365",
@@ -2171,7 +2171,7 @@
                 "is_active": true
             },
             {
-                "name": "olje og energi",
+                "name": "energi og kraftressurser",
                 "qcode": "20000256",
                 "parent": "20000209",
                 "wikidata": "Q2151621",
@@ -2203,7 +2203,7 @@
                 "is_active": true
             },
             {
-                "name": "kraftverk og kraftforsyning",
+                "name": "kraftforsyning",
                 "qcode": "20000260",
                 "parent": "20000256",
                 "wikidata": "Q2316331",
@@ -2299,7 +2299,7 @@
                 "is_active": true
             },
             {
-                "name": "regnskap",
+                "name": "bokføring og revisjon",
                 "qcode": "20000272",
                 "parent": "20000271",
                 "wikidata": "Q4116214",
@@ -2347,9 +2347,9 @@
                 "is_active": true
             },
             {
-                "name": "helsevesen/helsepersonell",
+                "name": "helsetjenestetilbyder",
                 "qcode": "20000278",
-                "parent": "20000271",
+                "parent": "20001354",
                 "wikidata": "Q55645123",
                 "iptc_subject": "04006005",
                 "is_active": true
@@ -2363,7 +2363,7 @@
                 "is_active": true
             },
             {
-                "name": "finansrådgivere",
+                "name": "finansrådgivning",
                 "qcode": "20000280",
                 "parent": "20000271",
                 "wikidata": "Q557705",
@@ -2371,7 +2371,7 @@
                 "is_active": true
             },
             {
-                "name": "renhold",
+                "name": "renholdstjenester",
                 "qcode": "20000281",
                 "parent": "20000271",
                 "wikidata": "Q6735317",
@@ -2387,7 +2387,7 @@
                 "is_active": true
             },
             {
-                "name": "markedsundersøkelse",
+                "name": "markedsundersøkelser",
                 "qcode": "20000283",
                 "parent": "20000271",
                 "wikidata": "Q913709",
@@ -2411,7 +2411,7 @@
                 "is_active": true
             },
             {
-                "name": "inntekt",
+                "name": "personlig inntekt",
                 "qcode": "20000286",
                 "parent": "20000271",
                 "wikidata": "Q7170591",
@@ -2435,7 +2435,7 @@
                 "is_active": true
             },
             {
-                "name": "trykksakvirksomhet",
+                "name": "trykketjenester",
                 "qcode": "20000289",
                 "parent": "20000271",
                 "wikidata": "Q47003909",
@@ -2459,7 +2459,7 @@
                 "is_active": true
             },
             {
-                "name": "aksjemegling",
+                "name": "aksjemekling",
                 "qcode": "20000292",
                 "parent": "20000271",
                 "wikidata": "Q2073644",
@@ -2467,7 +2467,7 @@
                 "is_active": true
             },
             {
-                "name": "bryllupsservice",
+                "name": "bryllupstjenester",
                 "qcode": "20000293",
                 "parent": "20000271",
                 "wikidata": "Q25421835",
@@ -2475,7 +2475,7 @@
                 "is_active": true
             },
             {
-                "name": "industriproduksjon",
+                "name": "verkstedindustri",
                 "qcode": "20000294",
                 "parent": "20000209",
                 "wikidata": "Q187939",
@@ -2483,7 +2483,7 @@
                 "is_active": true
             },
             {
-                "name": "luft- og romfartsindustri",
+                "name": "fly- og romfartsindustri",
                 "qcode": "20000295",
                 "parent": "20000294",
                 "wikidata": "Q3477363",
@@ -2603,7 +2603,7 @@
                 "is_active": true
             },
             {
-                "name": "aviser og blader",
+                "name": "aviser og magasiner",
                 "qcode": "20000310",
                 "parent": "20000304",
                 "wikidata": "Q3579160",
@@ -2611,7 +2611,7 @@
                 "is_active": true
             },
             {
-                "name": "audiovisuelle medier",
+                "name": "nettmediebransjen",
                 "qcode": "20000311",
                 "parent": "20000304",
                 "wikidata": "Q1076968",
@@ -2619,7 +2619,7 @@
                 "is_active": true
             },
             {
-                "name": "PR-bransjen",
+                "name": "pr-bransjen",
                 "qcode": "20000312",
                 "parent": "20000304",
                 "wikidata": "Q133080",
@@ -2627,7 +2627,7 @@
                 "is_active": true
             },
             {
-                "name": "radiofabrikker",
+                "name": "radiobransjen",
                 "qcode": "20000313",
                 "parent": "20000304",
                 "wikidata": "Q7281175",
@@ -2635,7 +2635,7 @@
                 "is_active": true
             },
             {
-                "name": "Satellitt- og kabel-tv leverandør",
+                "name": "tv-distribusjonsbransjen",
                 "qcode": "20000314",
                 "parent": "20000304",
                 "wikidata": "Q11058702",
@@ -2651,7 +2651,7 @@
                 "is_active": true
             },
             {
-                "name": "metaller og mineraler",
+                "name": "metallurgisk industri",
                 "qcode": "20000316",
                 "parent": "20000209",
                 "wikidata": "Q11467",
@@ -2659,7 +2659,7 @@
                 "is_active": true
             },
             {
-                "name": "byggematerialer",
+                "name": "byggevarebransjen",
                 "qcode": "20000317",
                 "parent": "20000316",
                 "wikidata": "Q56887369",
@@ -2691,7 +2691,7 @@
                 "is_active": true
             },
             {
-                "name": "ikke-jernholdig metall",
+                "name": "ikke-jernholdige metaller",
                 "qcode": "20000321",
                 "parent": "20000316",
                 "wikidata": "Q56574140",
@@ -2699,7 +2699,7 @@
                 "is_active": true
             },
             {
-                "name": "industriproduksjon",
+                "name": "prosessindustri",
                 "qcode": "20000322",
                 "parent": "20000209",
                 "wikidata": "Q15991203",
@@ -2707,7 +2707,7 @@
                 "is_active": true
             },
             {
-                "name": "alkoholproduksjon",
+                "name": "destilleri og bryggeri",
                 "qcode": "20000323",
                 "parent": "20000322",
                 "wikidata": "Q3150593",
@@ -2731,7 +2731,7 @@
                 "is_active": true
             },
             {
-                "name": "papirindustri",
+                "name": "papir- og emballasjeindustri",
                 "qcode": "20000326",
                 "parent": "20000322",
                 "wikidata": "Q2283886",
@@ -2771,7 +2771,7 @@
                 "is_active": true
             },
             {
-                "name": "turisme",
+                "name": "reiselivsbransjen",
                 "qcode": "20000331",
                 "parent": "20000209",
                 "wikidata": "Q11630521",
@@ -2787,7 +2787,7 @@
                 "is_active": true
             },
             {
-                "name": "reiselivsbransjen",
+                "name": "hotellbransjen",
                 "qcode": "20000333",
                 "parent": "20000331",
                 "wikidata": "Q1495452",
@@ -2955,7 +2955,7 @@
                 "is_active": true
             },
             {
-                "name": "gjeld",
+                "name": "kreditt og gjeld",
                 "qcode": "20000354",
                 "parent": "20000346",
                 "wikidata": "Q3196867",
@@ -2995,7 +2995,7 @@
                 "is_active": true
             },
             {
-                "name": "brutto nasjonalprodukt",
+                "name": "bruttonasjonalprodukt",
                 "qcode": "20000359",
                 "parent": "20000358",
                 "wikidata": "Q12638",
@@ -3011,7 +3011,7 @@
                 "is_active": true
             },
             {
-                "name": "beholdning",
+                "name": "lagerbeholdning",
                 "qcode": "20000361",
                 "parent": "20000358",
                 "wikidata": "Q815410",
@@ -3027,7 +3027,7 @@
                 "is_active": true
             },
             {
-                "name": "økonomiorganisasjon",
+                "name": "næringsorganisasjon",
                 "qcode": "20000363",
                 "parent": "20000346",
                 "wikidata": null,
@@ -3059,7 +3059,7 @@
                 "is_active": true
             },
             {
-                "name": "statsstøtte",
+                "name": "stat-til-stat-bistand",
                 "qcode": "20000367",
                 "parent": "20000346",
                 "wikidata": "Q12002754",
@@ -3163,7 +3163,7 @@
                 "is_active": true
             },
             {
-                "name": "lån",
+                "name": "boliglån",
                 "qcode": "20000380",
                 "parent": "20000346",
                 "wikidata": "Q1210094",
@@ -3171,7 +3171,7 @@
                 "is_active": true
             },
             {
-                "name": "investeringsselskap",
+                "name": "fond",
                 "qcode": "20000381",
                 "parent": "20000346",
                 "wikidata": "Q791974",
@@ -3203,7 +3203,7 @@
                 "is_active": true
             },
             {
-                "name": "børs",
+                "name": "børs og marked",
                 "qcode": "20000385",
                 "parent": "04000000",
                 "wikidata": "Q179076",
@@ -3251,7 +3251,7 @@
                 "is_active": true
             },
             {
-                "name": "valutahandel",
+                "name": "valutamarked",
                 "qcode": "20000391",
                 "parent": "20000385",
                 "wikidata": "Q66076",
@@ -3299,7 +3299,7 @@
                 "is_active": true
             },
             {
-                "name": "skoleorganisasjoner",
+                "name": "foreldregruppe",
                 "qcode": "20000398",
                 "parent": "05000000",
                 "wikidata": "Q706242",
@@ -3379,7 +3379,7 @@
                 "is_active": true
             },
             {
-                "name": "middelskole",
+                "name": "ungdomsskole",
                 "qcode": "20000408",
                 "parent": "20000400",
                 "wikidata": "Q149566",
@@ -3395,7 +3395,7 @@
                 "is_active": true
             },
             {
-                "name": "sosial opplæring",
+                "name": "oppdragelse",
                 "qcode": "20000410",
                 "parent": "05000000",
                 "wikidata": "Q2305519",
@@ -3403,7 +3403,7 @@
                 "is_active": true
             },
             {
-                "name": "læring og utdanning",
+                "name": "undervisning og læring",
                 "qcode": "20000411",
                 "parent": "05000000",
                 "wikidata": "Q8434",
@@ -3419,7 +3419,7 @@
                 "is_active": true
             },
             {
-                "name": "eksamen",
+                "name": "eksamen og prøver",
                 "qcode": "20000413",
                 "parent": "05000000",
                 "wikidata": "Q27318",
@@ -3435,7 +3435,7 @@
                 "is_active": true
             },
             {
-                "name": "student",
+                "name": "elever og studenter",
                 "qcode": "20000415",
                 "parent": "05000000",
                 "wikidata": "Q48282",
@@ -3635,7 +3635,7 @@
                 "is_active": true
             },
             {
-                "name": "natur",
+                "name": "naturen",
                 "qcode": "20000441",
                 "parent": "06000000",
                 "wikidata": "Q7860",
@@ -3651,7 +3651,7 @@
                 "is_active": true
             },
             {
-                "name": "sterkt truet",
+                "name": "truede arter",
                 "qcode": "20000443",
                 "parent": "20000441",
                 "wikidata": "Q11394",
@@ -3683,7 +3683,7 @@
                 "is_active": true
             },
             {
-                "name": "infeksjonssykdom",
+                "name": "smittsomme sykdommer",
                 "qcode": "20000448",
                 "parent": "20000446",
                 "wikidata": "Q18123741",
@@ -3691,7 +3691,7 @@
                 "is_active": true
             },
             {
-                "name": "epidemi",
+                "name": "epidemier og pandemier",
                 "qcode": "20000449",
                 "parent": "20000448",
                 "wikidata": "Q44512",
@@ -3763,7 +3763,7 @@
                 "is_active": true
             },
             {
-                "name": "psykiske lidelser/atferdsvansker",
+                "name": "psykisk helse",
                 "qcode": "20000458",
                 "parent": "20000446",
                 "wikidata": "Q30085742",
@@ -3781,13 +3781,13 @@
             {
                 "name": "fedme",
                 "qcode": "20000460",
-                "parent": "20000446",
+                "parent": "20000457",
                 "wikidata": "Q12174",
                 "iptc_subject": "07017003",
                 "is_active": true
             },
             {
-                "name": "helsevesen",
+                "name": "helsefasiliteter",
                 "qcode": "20000461",
                 "parent": "07000000",
                 "wikidata": "Q4260475",
@@ -3835,7 +3835,7 @@
                 "is_active": true
             },
             {
-                "name": "legemiddel",
+                "name": "reseptfrie legemidler",
                 "qcode": "20000467",
                 "parent": "20000464",
                 "wikidata": "Q12140",
@@ -3843,15 +3843,15 @@
                 "is_active": true
             },
             {
-                "name": "reseptbelagte legemiddel",
+                "name": "reseptbelagte legemidler",
                 "qcode": "20000468",
-                "parent": "20000467",
+                "parent": "20000464",
                 "wikidata": "Q1643563",
                 "iptc_subject": "07003001",
                 "is_active": true
             },
             {
-                "name": "medisinsk behandling",
+                "name": "medisinsk testing",
                 "qcode": "20000469",
                 "parent": "20000464",
                 "wikidata": "Q796194",
@@ -3859,7 +3859,7 @@
                 "is_active": true
             },
             {
-                "name": "medisin",
+                "name": "medisinske retninger",
                 "qcode": "20000470",
                 "parent": "20000464",
                 "wikidata": "Q11190",
@@ -3883,7 +3883,7 @@
                 "is_active": true
             },
             {
-                "name": "tradisjonell kinesisk medisin",
+                "name": "kinesisk medisin",
                 "qcode": "20000473",
                 "parent": "20000470",
                 "wikidata": "Q200253",
@@ -3899,7 +3899,7 @@
                 "is_active": true
             },
             {
-                "name": "trim og trening",
+                "name": "fysisk kondisjon",
                 "qcode": "20000475",
                 "parent": "20000464",
                 "wikidata": "Q309252",
@@ -3917,13 +3917,13 @@
             {
                 "name": "vaksine",
                 "qcode": "20000477",
-                "parent": "20000476",
+                "parent": "20000464",
                 "wikidata": "Q134808",
                 "iptc_subject": "07008001",
                 "is_active": true
             },
             {
-                "name": "behandling",
+                "name": "terapi",
                 "qcode": "20000478",
                 "parent": "20000464",
                 "wikidata": "Q179661",
@@ -4027,7 +4027,7 @@
                 "is_active": true
             },
             {
-                "name": "reproduksjonsmedisin",
+                "name": "reproduktiv helse",
                 "qcode": "20000491",
                 "parent": "20000487",
                 "wikidata": "Q351870",
@@ -4035,7 +4035,7 @@
                 "is_active": true
             },
             {
-                "name": "medisinsk personell",
+                "name": "helsepersonell",
                 "qcode": "20000492",
                 "parent": "20000485",
                 "wikidata": "Q69948433",
@@ -4053,7 +4053,7 @@
             {
                 "name": "dyresykdommer",
                 "qcode": "20000494",
-                "parent": "20000493",
+                "parent": "20000500",
                 "wikidata": "Q9190427",
                 "iptc_subject": "07001007",
                 "is_active": true
@@ -4061,7 +4061,7 @@
             {
                 "name": "plantesykdommer",
                 "qcode": "20000495",
-                "parent": "20000493",
+                "parent": "20000507",
                 "wikidata": "Q2662845",
                 "iptc_subject": "07001008",
                 "is_active": true
@@ -4075,7 +4075,7 @@
                 "is_active": true
             },
             {
-                "name": "utmerkelse",
+                "name": "priser og utmerkelser",
                 "qcode": "20000498",
                 "parent": "08000000",
                 "wikidata": "Q618779",
@@ -4083,7 +4083,7 @@
                 "is_active": true
             },
             {
-                "name": "rekord",
+                "name": "rekorder",
                 "qcode": "20000499",
                 "parent": "08000000",
                 "wikidata": "Q1241356",
@@ -4093,7 +4093,7 @@
             {
                 "name": "dyr",
                 "qcode": "20000500",
-                "parent": "08000000",
+                "parent": "20000441",
                 "wikidata": "Q729",
                 "iptc_subject": "08001000",
                 "is_active": true
@@ -4107,7 +4107,7 @@
                 "is_active": true
             },
             {
-                "name": "folkeslag",
+                "name": "personlige fortellinger",
                 "qcode": "20000502",
                 "parent": "08000000",
                 "wikidata": "Q2472587",
@@ -4115,7 +4115,7 @@
                 "is_active": true
             },
             {
-                "name": "menneskelig feil",
+                "name": "tabber og uhell",
                 "qcode": "20000503",
                 "parent": "08000000",
                 "wikidata": "Q5937752",
@@ -4123,7 +4123,7 @@
                 "is_active": true
             },
             {
-                "name": "overklasse",
+                "name": "sosieteten",
                 "qcode": "20000504",
                 "parent": "08000000",
                 "wikidata": "Q17126676",
@@ -4139,7 +4139,7 @@
                 "is_active": true
             },
             {
-                "name": "kongehus",
+                "name": "kongelige",
                 "qcode": "20000506",
                 "parent": "20000504",
                 "wikidata": null,
@@ -4147,9 +4147,9 @@
                 "is_active": true
             },
             {
-                "name": "plante",
+                "name": "planter og blomster",
                 "qcode": "20000507",
-                "parent": "08000000",
+                "parent": "20000441",
                 "wikidata": "Q756",
                 "iptc_subject": "08008000",
                 "is_active": true
@@ -4219,7 +4219,7 @@
                 "is_active": false
             },
             {
-                "name": "beskjeftigelse",
+                "name": "yrke",
                 "qcode": "20000517",
                 "parent": "20000509",
                 "wikidata": "Q12737077",
@@ -4235,7 +4235,7 @@
                 "is_active": true
             },
             {
-                "name": "frynsegode",
+                "name": "frynsegoder",
                 "qcode": "20000519",
                 "parent": "20000518",
                 "wikidata": "Q678774",
@@ -4275,7 +4275,7 @@
                 "is_active": true
             },
             {
-                "name": "ansettelsesforhold",
+                "name": "partene i arbeidslivet",
                 "qcode": "20000524",
                 "parent": "09000000",
                 "wikidata": "Q608190",
@@ -4331,7 +4331,7 @@
                 "is_active": true
             },
             {
-                "name": "pensjon",
+                "name": "pensjonisttilværelse",
                 "qcode": "20000531",
                 "parent": "09000000",
                 "wikidata": "Q946865",
@@ -4355,7 +4355,7 @@
                 "is_active": true
             },
             {
-                "name": "permittering",
+                "name": "oppsigelser",
                 "qcode": "20000534",
                 "parent": "20000533",
                 "wikidata": "Q1462531",
@@ -4467,7 +4467,7 @@
                 "is_active": true
             },
             {
-                "name": "gambling",
+                "name": "pengespill og lotteri",
                 "qcode": "20000549",
                 "parent": "20000538",
                 "wikidata": "Q11416",
@@ -4483,7 +4483,7 @@
                 "is_active": true
             },
             {
-                "name": "ferie",
+                "name": "fri- og høytidsdager",
                 "qcode": "20000551",
                 "parent": "20000538",
                 "wikidata": "Q116213",
@@ -4555,7 +4555,7 @@
                 "is_active": true
             },
             {
-                "name": "rekreasjon",
+                "name": "utendørsaktiviteter",
                 "qcode": "20000560",
                 "parent": "20000538",
                 "wikidata": "Q184872",
@@ -4651,7 +4651,7 @@
                 "is_active": true
             },
             {
-                "name": "moter",
+                "name": "trender",
                 "qcode": "20000572",
                 "parent": "20000565",
                 "wikidata": "Q28972120",
@@ -4707,7 +4707,7 @@
                 "is_active": true
             },
             {
-                "name": "politisk kampanje",
+                "name": "valgkamp",
                 "qcode": "20000580",
                 "parent": "20000574",
                 "wikidata": "Q847301",
@@ -4763,7 +4763,7 @@
                 "is_active": true
             },
             {
-                "name": "grunnrettigheter",
+                "name": "basisrettigheter",
                 "qcode": "20000587",
                 "parent": "11000000",
                 "wikidata": "Q3237872",
@@ -4811,7 +4811,7 @@
                 "is_active": true
             },
             {
-                "name": "styresmakt",
+                "name": "styresmakter",
                 "qcode": "20000593",
                 "parent": "11000000",
                 "wikidata": "Q7188",
@@ -4827,7 +4827,7 @@
                 "is_active": true
             },
             {
-                "name": "funksjonær",
+                "name": "offentlig ansatte",
                 "qcode": "20000595",
                 "parent": "20000594",
                 "wikidata": "Q212238",
@@ -4835,7 +4835,7 @@
                 "is_active": true
             },
             {
-                "name": "byråkrat",
+                "name": "folkevalgte og embetspersoner",
                 "qcode": "20000596",
                 "parent": "20000594",
                 "wikidata": "Q599151",
@@ -4867,7 +4867,7 @@
                 "is_active": true
             },
             {
-                "name": "krigsveteraner",
+                "name": "forsvarsveteraner",
                 "qcode": "20000600",
                 "parent": "20000599",
                 "wikidata": "Q7923600",
@@ -4891,7 +4891,7 @@
                 "is_active": true
             },
             {
-                "name": "sivilforsvar",
+                "name": "sikkerhetstiltak (forsvar)",
                 "qcode": "20000603",
                 "parent": "20000598",
                 "wikidata": "Q852008",
@@ -4899,7 +4899,7 @@
                 "is_active": true
             },
             {
-                "name": "sikkerhetspolitikk",
+                "name": "rikets sikkerhet",
                 "qcode": "20000604",
                 "parent": "20000603",
                 "wikidata": "Q258307",
@@ -4907,7 +4907,7 @@
                 "is_active": true
             },
             {
-                "name": "spionasje",
+                "name": "etterretning og spionasje",
                 "qcode": "20000605",
                 "parent": "20000593",
                 "wikidata": "Q165950",
@@ -4931,7 +4931,7 @@
                 "is_active": true
             },
             {
-                "name": "offentlig finansiering",
+                "name": "offentlige midler",
                 "qcode": "20000608",
                 "parent": "20000607",
                 "wikidata": "Q1929688",
@@ -4979,7 +4979,7 @@
                 "is_active": true
             },
             {
-                "name": "nasjonal regjering",
+                "name": "nasjonale myndigheter",
                 "qcode": "20000614",
                 "parent": "20000593",
                 "wikidata": "Q1320217",
@@ -4987,7 +4987,7 @@
                 "is_active": true
             },
             {
-                "name": "parlament",
+                "name": "nasjonalforsamling/parlament",
                 "qcode": "20000615",
                 "parent": "20000593",
                 "wikidata": "Q35749",
@@ -5011,7 +5011,7 @@
                 "is_active": true
             },
             {
-                "name": "regionalregjering",
+                "name": "regionale myndigheter",
                 "qcode": "20000618",
                 "parent": "20000593",
                 "wikidata": "Q1802419",
@@ -5027,7 +5027,7 @@
                 "is_active": true
             },
             {
-                "name": "skatt",
+                "name": "skattepolitikk",
                 "qcode": "20000620",
                 "parent": "20000621",
                 "wikidata": "Q8161",
@@ -5035,7 +5035,7 @@
                 "is_active": true
             },
             {
-                "name": "offentlig politikk",
+                "name": "regjeringsplattform",
                 "qcode": "20000621",
                 "parent": "11000000",
                 "wikidata": "Q546113",
@@ -5067,7 +5067,7 @@
                 "is_active": true
             },
             {
-                "name": "økonomiske insentiver",
+                "name": "statsstøtte",
                 "qcode": "20001292",
                 "parent": "20000345",
                 "wikidata": "Q5333369",
@@ -5083,7 +5083,7 @@
                 "is_active": true
             },
             {
-                "name": "datasikkerhets policy",
+                "name": "datasikkerhetspolicy",
                 "qcode": "20000627",
                 "parent": "20000626",
                 "wikidata": "Q23647168",
@@ -5091,7 +5091,7 @@
                 "is_active": true
             },
             {
-                "name": "byplanlegging",
+                "name": "by- og boligplanlegging",
                 "qcode": "20000628",
                 "parent": "20000626",
                 "wikidata": "Q69883",
@@ -5107,7 +5107,7 @@
                 "is_active": true
             },
             {
-                "name": "sosialpolitikk",
+                "name": "velferds- og sosialpolitikk",
                 "qcode": "20000630",
                 "parent": "20000626",
                 "wikidata": "Q828395",
@@ -5115,7 +5115,7 @@
                 "is_active": true
             },
             {
-                "name": "personvern policy",
+                "name": "personvernpolicy",
                 "qcode": "20000631",
                 "parent": "20000626",
                 "wikidata": "Q1999831",
@@ -5155,7 +5155,7 @@
                 "is_active": true
             },
             {
-                "name": "industriregulering",
+                "name": "næringspolitikk",
                 "qcode": "20000636",
                 "parent": "20000621",
                 "wikidata": null,
@@ -5163,7 +5163,7 @@
                 "is_active": true
             },
             {
-                "name": "matvarepolitikk",
+                "name": "næringsmiddelpolitikk",
                 "qcode": "20000637",
                 "parent": "20000636",
                 "wikidata": null,
@@ -5187,7 +5187,7 @@
                 "is_active": true
             },
             {
-                "name": "toppmøte",
+                "name": "toppmøter",
                 "qcode": "20000640",
                 "parent": "20000639",
                 "wikidata": "Q1072326",
@@ -5227,7 +5227,7 @@
                 "is_active": true
             },
             {
-                "name": "flyktning",
+                "name": "flyktninger",
                 "qcode": "20000645",
                 "parent": "20000638",
                 "wikidata": "Q131572",
@@ -5235,7 +5235,7 @@
                 "is_active": true
             },
             {
-                "name": "ikke-statlig organisasjon",
+                "name": "ikke-statlig organisasjon (NGO)",
                 "qcode": "20000646",
                 "parent": "11000000",
                 "wikidata": "Q79913",
@@ -5267,7 +5267,7 @@
                 "is_active": true
             },
             {
-                "name": "korridorpolitikk",
+                "name": "lobbyvirksomhet",
                 "qcode": "20000650",
                 "parent": "20000649",
                 "wikidata": "Q187117",
@@ -5275,7 +5275,7 @@
                 "is_active": true
             },
             {
-                "name": "politisk parti",
+                "name": "partier og politiske bevegelser",
                 "qcode": "20000651",
                 "parent": "20000649",
                 "wikidata": "Q7278",
@@ -5315,7 +5315,7 @@
                 "is_active": true
             },
             {
-                "name": "religiøs tro",
+                "name": "trosretning",
                 "qcode": "20000657",
                 "parent": "12000000",
                 "wikidata": "Q2728698",
@@ -5355,7 +5355,7 @@
                 "is_active": true
             },
             {
-                "name": "Den gammelkatolske kirke",
+                "name": "gammelkatolisisme",
                 "qcode": "20000662",
                 "parent": "20000659",
                 "wikidata": "Q5169816",
@@ -5363,7 +5363,7 @@
                 "is_active": true
             },
             {
-                "name": "Den ortodokse kirke",
+                "name": "ortodoks kristendom",
                 "qcode": "20000663",
                 "parent": "20000659",
                 "wikidata": "Q3333484",
@@ -5379,7 +5379,7 @@
                 "is_active": true
             },
             {
-                "name": "Den anglikanske kirke",
+                "name": "den anglikanske kirke",
                 "qcode": "20000665",
                 "parent": "20000664",
                 "wikidata": "Q6423963",
@@ -5395,7 +5395,7 @@
                 "is_active": true
             },
             {
-                "name": "Den evangelisk-lutherske kirke",
+                "name": "den evangelisk-lutherske kirke",
                 "qcode": "20000667",
                 "parent": "20000664",
                 "wikidata": "Q75809",
@@ -5427,7 +5427,7 @@
                 "is_active": true
             },
             {
-                "name": "Den romersk-katolske kirke",
+                "name": "den romersk-katolske kirke",
                 "qcode": "20000671",
                 "parent": "20000659",
                 "wikidata": "Q9592",
@@ -5451,7 +5451,7 @@
                 "is_active": true
             },
             {
-                "name": "kult",
+                "name": "kulter og sekter",
                 "qcode": "20000674",
                 "parent": "20000657",
                 "wikidata": "Q11038979",
@@ -5555,7 +5555,7 @@
                 "is_active": true
             },
             {
-                "name": "interreligiøsitet",
+                "name": "religionsdialog",
                 "qcode": "20000687",
                 "parent": "12000000",
                 "wikidata": "Q1304214",
@@ -5563,7 +5563,7 @@
                 "is_active": true
             },
             {
-                "name": "religiøs konflikt/uenighet",
+                "name": "religiøs konflikt",
                 "qcode": "20000688",
                 "parent": "12000000",
                 "wikidata": "Q7311342",
@@ -5627,7 +5627,7 @@
                 "is_active": true
             },
             {
-                "name": "religiøs handling",
+                "name": "riter og ritualer",
                 "qcode": "20000696",
                 "parent": "12000000",
                 "wikidata": "Q2110808",
@@ -5635,7 +5635,7 @@
                 "is_active": true
             },
             {
-                "name": "religiøst bygg",
+                "name": "gudshus",
                 "qcode": "20000697",
                 "parent": "12000000",
                 "wikidata": "Q24398318",
@@ -5675,7 +5675,7 @@
                 "is_active": true
             },
             {
-                "name": "forholdet mellom religiøse institusjoner og stat",
+                "name": "livssynspolitikk",
                 "qcode": "20000702",
                 "parent": "12000000",
                 "wikidata": "Q753623",
@@ -5723,7 +5723,7 @@
                 "is_active": true
             },
             {
-                "name": "Torah",
+                "name": "Toraen",
                 "qcode": "20000708",
                 "parent": "20000705",
                 "wikidata": "Q34990",
@@ -5731,7 +5731,7 @@
                 "is_active": true
             },
             {
-                "name": "biomedisinsk vitenskap",
+                "name": "biomedisin",
                 "qcode": "20000710",
                 "parent": "13000000",
                 "wikidata": "Q16745563",
@@ -5747,7 +5747,7 @@
                 "is_active": true
             },
             {
-                "name": "odontologi",
+                "name": "tannpleie",
                 "qcode": "20000712",
                 "parent": "20000487",
                 "wikidata": "Q12128",
@@ -5955,7 +5955,7 @@
                 "is_active": true
             },
             {
-                "name": "vitenskapelig utforskning",
+                "name": "vitenskapelig ekspedisjon",
                 "qcode": "20000738",
                 "parent": "20000735",
                 "wikidata": "Q6502154",
@@ -5963,7 +5963,7 @@
                 "is_active": true
             },
             {
-                "name": "romforskning",
+                "name": "romferd",
                 "qcode": "20000739",
                 "parent": "20000738",
                 "wikidata": "Q180046",
@@ -5979,7 +5979,7 @@
                 "is_active": true
             },
             {
-                "name": "forskningsinstitutt",
+                "name": "forskningsinstitusjon",
                 "qcode": "20000741",
                 "parent": "13000000",
                 "wikidata": "Q31855",
@@ -6011,7 +6011,7 @@
                 "is_active": true
             },
             {
-                "name": "samfunnsøkonomi",
+                "name": "økonomisk vitenskap",
                 "qcode": "20000745",
                 "parent": "20000742",
                 "wikidata": "Q8134",
@@ -6091,7 +6091,7 @@
                 "is_active": true
             },
             {
-                "name": "internasjonale standarder",
+                "name": "vitenskapelige standarder",
                 "qcode": "20000755",
                 "parent": "13000000",
                 "wikidata": "Q1334738",
@@ -6099,7 +6099,7 @@
                 "is_active": true
             },
             {
-                "name": "teknologi",
+                "name": "ingeniørvitenskap",
                 "qcode": "20000756",
                 "parent": "13000000",
                 "wikidata": "Q11016",
@@ -6107,7 +6107,7 @@
                 "is_active": true
             },
             {
-                "name": "luft- og romfartsindustri",
+                "name": "fly- og romfartsvitenskap",
                 "qcode": "20000757",
                 "parent": "20000756",
                 "wikidata": "Q3798668",
@@ -6115,7 +6115,7 @@
                 "is_active": true
             },
             {
-                "name": "rakettindustri",
+                "name": "raketteknologi",
                 "qcode": "20000758",
                 "parent": "20000757",
                 "wikidata": "Q23064627",
@@ -6147,7 +6147,7 @@
                 "is_active": true
             },
             {
-                "name": "automatisk identifisering",
+                "name": "identifiseringsteknologi",
                 "qcode": "20000762",
                 "parent": "20000756",
                 "wikidata": "Q787282",
@@ -6155,7 +6155,7 @@
                 "is_active": true
             },
             {
-                "name": "informasjons- og kommunikasjonsteknologi",
+                "name": "informatikk",
                 "qcode": "20000763",
                 "parent": "20000756",
                 "wikidata": "Q11661",
@@ -6203,7 +6203,7 @@
                 "is_active": true
             },
             {
-                "name": "sosialt nettverk",
+                "name": "sosiale nettverk",
                 "qcode": "20000769",
                 "parent": "20000768",
                 "wikidata": "Q19368491",
@@ -6235,7 +6235,7 @@
                 "is_active": true
             },
             {
-                "name": "ulovlig innvandrer",
+                "name": "ulovlig innvandring",
                 "qcode": "20000773",
                 "parent": "20000771",
                 "wikidata": "Q2368859",
@@ -6243,7 +6243,7 @@
                 "is_active": true
             },
             {
-                "name": "befolkning (og folketelling)",
+                "name": "befolkning og folketelling",
                 "qcode": "20000774",
                 "parent": "20000770",
                 "wikidata": "Q39825",
@@ -6275,7 +6275,7 @@
                 "is_active": true
             },
             {
-                "name": "religiøs diskriminering",
+                "name": "trosdiskriminering",
                 "qcode": "20000778",
                 "parent": "20000775",
                 "wikidata": "Q2029282",
@@ -6307,7 +6307,7 @@
                 "is_active": true
             },
             {
-                "name": "dating",
+                "name": "dating og kjæresteforhold",
                 "qcode": "20000782",
                 "parent": "20000780",
                 "wikidata": "Q376596",
@@ -6347,7 +6347,7 @@
                 "is_active": true
             },
             {
-                "name": "foreldre og barn",
+                "name": "foreldreskap",
                 "qcode": "20000787",
                 "parent": "20000780",
                 "wikidata": "Q5362237",
@@ -6363,7 +6363,7 @@
                 "is_active": true
             },
             {
-                "name": "voksen",
+                "name": "voksne",
                 "qcode": "20000789",
                 "parent": "20000788",
                 "wikidata": "Q9584157",
@@ -6387,7 +6387,7 @@
                 "is_active": true
             },
             {
-                "name": "LHBT(Q)",
+                "name": "LHBT+",
                 "qcode": "20000792",
                 "parent": "20000788",
                 "wikidata": "Q17884",
@@ -6395,7 +6395,7 @@
                 "is_active": true
             },
             {
-                "name": "sosialt kjønn",
+                "name": "kjønn",
                 "qcode": "20000793",
                 "parent": "20000788",
                 "wikidata": "Q48277",
@@ -6435,7 +6435,7 @@
                 "is_active": true
             },
             {
-                "name": "tenåring",
+                "name": "tenåringer",
                 "qcode": "20000798",
                 "parent": "20000788",
                 "wikidata": "Q1492760",
@@ -6451,7 +6451,7 @@
                 "is_active": true
             },
             {
-                "name": "bostedsløs",
+                "name": "hjemløshet",
                 "qcode": "20000800",
                 "parent": "20000799",
                 "wikidata": "Q131327",
@@ -6467,7 +6467,7 @@
                 "is_active": true
             },
             {
-                "name": "sosialt problem",
+                "name": "sosiale problemer",
                 "qcode": "20000802",
                 "parent": "14000000",
                 "wikidata": "Q1920219",
@@ -6531,7 +6531,7 @@
                 "is_active": false
             },
             {
-                "name": "død",
+                "name": "terminalfase og død",
                 "qcode": "20000810",
                 "parent": "20000808",
                 "wikidata": "Q4",
@@ -6587,7 +6587,7 @@
                 "is_active": true
             },
             {
-                "name": "velferd",
+                "name": "sosialhjelp",
                 "qcode": "20000817",
                 "parent": "14000000",
                 "wikidata": "Q180043",
@@ -6619,7 +6619,7 @@
                 "is_active": true
             },
             {
-                "name": "idrettsdisiplin",
+                "name": "idrettsgren",
                 "qcode": "20000822",
                 "parent": "15000000",
                 "wikidata": "Q2312410",
@@ -6779,7 +6779,7 @@
                 "is_active": true
             },
             {
-                "name": "stafett",
+                "name": "stafettløp",
                 "qcode": "20000842",
                 "parent": "20000827",
                 "wikidata": "Q12469953",
@@ -6843,7 +6843,7 @@
                 "is_active": true
             },
             {
-                "name": "softball",
+                "name": "japansk baseball",
                 "qcode": "20000850",
                 "parent": "20000849",
                 "wikidata": "Q171038",
@@ -7051,7 +7051,7 @@
                 "is_active": true
             },
             {
-                "name": "canadisk fotball",
+                "name": "kanadisk fotball",
                 "qcode": "20000876",
                 "parent": "20000822",
                 "wikidata": "Q248534",
@@ -7171,7 +7171,7 @@
                 "is_active": true
             },
             {
-                "name": "Isstokk",
+                "name": "isstokk",
                 "qcode": "20000891",
                 "parent": "20000890",
                 "wikidata": "Q1070325",
@@ -7235,7 +7235,7 @@
                 "is_active": false
             },
             {
-                "name": "forfølgelsesritt",
+                "name": "forfølgelsesritt (sykling)",
                 "qcode": "20000899",
                 "parent": "20000892",
                 "wikidata": "Q1307101",
@@ -7243,7 +7243,7 @@
                 "is_active": false
             },
             {
-                "name": "temporitt",
+                "name": "temporitt (sykling)",
                 "qcode": "20000900",
                 "parent": "20000892",
                 "wikidata": "Q2266066",
@@ -7275,7 +7275,7 @@
                 "is_active": true
             },
             {
-                "name": "poengløp sykkel",
+                "name": "poengløp (sykling)",
                 "qcode": "20000904",
                 "parent": "20000892",
                 "wikidata": "Q2597988",
@@ -7283,7 +7283,7 @@
                 "is_active": false
             },
             {
-                "name": "landeveisritt",
+                "name": "landeveisritt (sykling)",
                 "qcode": "20000905",
                 "parent": "20000892",
                 "wikidata": "Q3609",
@@ -7291,7 +7291,7 @@
                 "is_active": false
             },
             {
-                "name": "etapperitt",
+                "name": "etapperitt (sykling)",
                 "qcode": "20000906",
                 "parent": "20000892",
                 "wikidata": "Q1318941",
@@ -7307,7 +7307,7 @@
                 "is_active": false
             },
             {
-                "name": "forfølgesesritt sykkel, lag",
+                "name": "forfølgesesritt, lag (sykling)",
                 "qcode": "20000908",
                 "parent": "20000892",
                 "wikidata": "Q1820070",
@@ -7331,7 +7331,7 @@
                 "is_active": false
             },
             {
-                "name": "dans",
+                "name": "sportsdans",
                 "qcode": "20000911",
                 "parent": "20000822",
                 "wikidata": "Q1415387",
@@ -7339,7 +7339,7 @@
                 "is_active": true
             },
             {
-                "name": "darts",
+                "name": "dart",
                 "qcode": "20000912",
                 "parent": "20000822",
                 "wikidata": "Q131471",
@@ -7355,7 +7355,7 @@
                 "is_active": true
             },
             {
-                "name": "tårnstuping",
+                "name": "tårnstup",
                 "qcode": "20000914",
                 "parent": "20000913",
                 "wikidata": "Q16014286",
@@ -7363,7 +7363,7 @@
                 "is_active": true
             },
             {
-                "name": "sviktstuping",
+                "name": "sviktstup",
                 "qcode": "20000915",
                 "parent": "20000913",
                 "wikidata": "Q16014295",
@@ -7371,7 +7371,7 @@
                 "is_active": true
             },
             {
-                "name": "synkronstuping",
+                "name": "synkronstup",
                 "qcode": "20000916",
                 "parent": "20000913",
                 "wikidata": "Q638269",
@@ -7787,7 +7787,7 @@
                 "is_active": true
             },
             {
-                "name": "jai alai",
+                "name": "jai alai (pelota)",
                 "qcode": "20000968",
                 "parent": "20000822",
                 "wikidata": "Q1193361",
@@ -7875,7 +7875,7 @@
                 "is_active": true
             },
             {
-                "name": "padling",
+                "name": "kajakkpadling",
                 "qcode": "20000979",
                 "parent": "20000822",
                 "wikidata": "Q2094083",
@@ -8147,7 +8147,7 @@
                 "is_active": true
             },
             {
-                "name": "fallskjermhopping",
+                "name": "fallskjermhopping (presisjon)",
                 "qcode": "20001013",
                 "parent": "20000822",
                 "wikidata": "Q193210",
@@ -8171,7 +8171,7 @@
                 "is_active": true
             },
             {
-                "name": "båtrace",
+                "name": "powerboating",
                 "qcode": "20001016",
                 "parent": "20000822",
                 "wikidata": "Q1545308",
@@ -8235,7 +8235,7 @@
                 "is_active": true
             },
             {
-                "name": "Innridning av hest med sal",
+                "name": "innridning av hest med sal",
                 "qcode": "20001024",
                 "parent": "20001017",
                 "wikidata": null,
@@ -8323,7 +8323,7 @@
                 "is_active": false
             },
             {
-                "name": "rugby",
+                "name": "13-mannsrugby",
                 "qcode": "20001035",
                 "parent": "20001176",
                 "wikidata": "Q10962",
@@ -8331,7 +8331,7 @@
                 "is_active": true
             },
             {
-                "name": "rugby union",
+                "name": "15-mannsrugby",
                 "qcode": "20001036",
                 "parent": "20001176",
                 "wikidata": "Q5849",
@@ -8339,7 +8339,7 @@
                 "is_active": true
             },
             {
-                "name": "sjumannsrugby",
+                "name": "7-mannsrugby",
                 "qcode": "20001037",
                 "parent": "20001176",
                 "wikidata": "Q270102",
@@ -8419,7 +8419,7 @@
                 "is_active": false
             },
             {
-                "name": "Sepak takraw",
+                "name": "sepak takraw",
                 "qcode": "20001047",
                 "parent": "20000822",
                 "wikidata": "Q188818",
@@ -8491,7 +8491,7 @@
                 "is_active": true
             },
             {
-                "name": "ski",
+                "name": "skisport",
                 "qcode": "20001056",
                 "parent": "20000822",
                 "wikidata": "Q130949",
@@ -8539,7 +8539,7 @@
                 "is_active": true
             },
             {
-                "name": "fallskjermhopping",
+                "name": "fallskjermhopping (fritt fall)",
                 "qcode": "20001062",
                 "parent": "20000822",
                 "wikidata": "Q193210",
@@ -8595,7 +8595,7 @@
                 "is_active": true
             },
             {
-                "name": "sumo",
+                "name": "sumobryting",
                 "qcode": "20001069",
                 "parent": "20000822",
                 "wikidata": "Q40561",
@@ -8875,7 +8875,7 @@
                 "is_active": true
             },
             {
-                "name": "doping",
+                "name": "idrettsmedisin",
                 "qcode": "20001104",
                 "parent": "15000000",
                 "wikidata": "Q166376",
@@ -8955,7 +8955,7 @@
                 "is_active": true
             },
             {
-                "name": "internasjonale leker",
+                "name": "Internasjonale leker",
                 "qcode": "20001114",
                 "parent": "20001108",
                 "wikidata": null,
@@ -9187,7 +9187,7 @@
                 "is_active": true
             },
             {
-                "name": "siviltjeneste",
+                "name": "frivillig samfunnstjeneste",
                 "qcode": "20001144",
                 "parent": "20000594",
                 "wikidata": "Q702635",
@@ -9203,7 +9203,7 @@
                 "is_active": true
             },
             {
-                "name": "sosial integrering",
+                "name": "integreringspolitikk",
                 "qcode": "20001146",
                 "parent": "20000626",
                 "wikidata": "Q370735",
@@ -9243,7 +9243,7 @@
                 "is_active": true
             },
             {
-                "name": "kortbaneløp",
+                "name": "kortbane (skøyter)",
                 "qcode": "20001151",
                 "parent": "20000822",
                 "wikidata": "Q193654",
@@ -9275,7 +9275,7 @@
                 "is_active": true
             },
             {
-                "name": "rulleskøyter",
+                "name": "rullesporter",
                 "qcode": "20001155",
                 "parent": "20000822",
                 "wikidata": "Q2164355",
@@ -9291,7 +9291,7 @@
                 "is_active": true
             },
             {
-                "name": "kampkunst",
+                "name": "kampsport",
                 "qcode": "20001157",
                 "parent": "20000822",
                 "wikidata": "Q11417",
@@ -9307,7 +9307,7 @@
                 "is_active": true
             },
             {
-                "name": "offentlig kontrakt / offentlig anbud",
+                "name": "offentlig kontrakt",
                 "qcode": "20001159",
                 "parent": "20000192",
                 "wikidata": "Q529458",
@@ -9315,7 +9315,7 @@
                 "is_active": true
             },
             {
-                "name": "outsourcing",
+                "name": "utsetting (outsourcing)",
                 "qcode": "20001295",
                 "parent": "20000192",
                 "wikidata": "Q61515",
@@ -9379,7 +9379,7 @@
                 "is_active": true
             },
             {
-                "name": "jernbanemateriell",
+                "name": "jernbaneindustri",
                 "qcode": "20001166",
                 "parent": "20000294",
                 "wikidata": "Q2995256",
@@ -9395,7 +9395,7 @@
                 "is_active": true
             },
             {
-                "name": "kjæledyrprodukter og tjenester",
+                "name": "kjæledyrprodukter og -tjenester",
                 "qcode": "20001168",
                 "parent": "20000322",
                 "wikidata": "Q85792903",
@@ -9435,7 +9435,7 @@
                 "is_active": true
             },
             {
-                "name": "tilsynsorgan",
+                "name": "tilsynsmyndighet",
                 "qcode": "20001173",
                 "parent": "20000593",
                 "wikidata": "Q55875130",
@@ -9467,7 +9467,7 @@
                 "is_active": true
             },
             {
-                "name": "olympiske leker/OL",
+                "name": "olympiske leker (OL)",
                 "qcode": "20001177",
                 "parent": "20001108",
                 "wikidata": "Q5389",
@@ -9483,7 +9483,7 @@
                 "is_active": true
             },
             {
-                "name": "TV-serier",
+                "name": "tv-serier",
                 "qcode": "20001179",
                 "parent": "20000002",
                 "wikidata": "Q7725310",
@@ -9531,7 +9531,7 @@
                 "is_active": true
             },
             {
-                "name": "rhythm and blues",
+                "name": "r&b",
                 "qcode": "20001185",
                 "parent": "20000021",
                 "wikidata": "Q45981",
@@ -9827,7 +9827,7 @@
                 "is_active": true
             },
             {
-                "name": "akuttmottak",
+                "name": "akuttbehandling",
                 "qcode": "20001221",
                 "parent": "20000464",
                 "wikidata": "Q67323460",
@@ -9851,7 +9851,7 @@
                 "is_active": true
             },
             {
-                "name": "røntgen",
+                "name": "radiologi",
                 "qcode": "20001224",
                 "parent": "20000487",
                 "wikidata": "Q77604",
@@ -9891,7 +9891,7 @@
                 "is_active": true
             },
             {
-                "name": "helseklinikk",
+                "name": "primærhelsetjeneste",
                 "qcode": "20001229",
                 "parent": "20000461",
                 "wikidata": "Q1774898",
@@ -9899,7 +9899,7 @@
                 "is_active": true
             },
             {
-                "name": "virksomhetens sosiale ansvar",
+                "name": "bedriftens samfunnsansvar",
                 "qcode": "20001230",
                 "parent": "20000170",
                 "wikidata": "Q218600",
@@ -9907,7 +9907,7 @@
                 "is_active": true
             },
             {
-                "name": "mixed martial arts",
+                "name": "mixed martial arts (MMA)",
                 "qcode": "20001231",
                 "parent": "20001157",
                 "wikidata": "Q114466",
@@ -9939,7 +9939,7 @@
                 "is_active": true
             },
             {
-                "name": "avgangseksamen",
+                "name": "vitnemålsseremoni",
                 "qcode": "20001234",
                 "parent": "20000501",
                 "wikidata": "Q1054021",
@@ -10027,7 +10027,7 @@
                 "is_active": true
             },
             {
-                "name": "infrastrukturprosjekter",
+                "name": "samferdselsprosjekter",
                 "qcode": "20001245",
                 "parent": "20000235",
                 "wikidata": null,
@@ -10035,7 +10035,7 @@
                 "is_active": true
             },
             {
-                "name": "bygging av forretningslokaler",
+                "name": "bygging av næringseiendom",
                 "qcode": "20001246",
                 "parent": "20000235",
                 "wikidata": null,
@@ -10043,7 +10043,7 @@
                 "is_active": true
             },
             {
-                "name": "samle",
+                "name": "samling",
                 "qcode": "20001247",
                 "parent": "20000550",
                 "wikidata": "Q208165",
@@ -10179,7 +10179,7 @@
                 "is_active": true
             },
             {
-                "name": "infrastrukturpolitikk",
+                "name": "samferdselspolitikk",
                 "qcode": "20001264",
                 "parent": "20000626",
                 "wikidata": null,
@@ -10436,7 +10436,7 @@
             },
             {
                 "qcode": "20001307",
-                "name": "brettpadling, sup",
+                "name": "brettpadling (SUP)",
                 "parent": "20000822",
                 "iptc_subject": null,
                 "wikidata": "Q2035123",
@@ -10476,7 +10476,7 @@
             },
             {
                 "qcode": "20001312",
-                "name": "partileder (politisk)",
+                "name": "partiledelse",
                 "parent": "20000651",
                 "iptc_subject": null,
                 "wikidata": "Q1553195",
@@ -10484,7 +10484,7 @@
             },
             {
                 "qcode": "20001313",
-                "name": "skyteepisode",
+                "name": "skyting",
                 "parent": "20000082",
                 "iptc_subject": null,
                 "wikidata": "Q2252077",
@@ -10492,7 +10492,7 @@
             },
             {
                 "qcode": "20001314",
-                "name": "overgrep mot dyr",
+                "name": "dyremishandling",
                 "parent": "20000082",
                 "iptc_subject": null,
                 "wikidata": "Q40053",
@@ -10508,7 +10508,7 @@
             },
             {
                 "qcode": "20001316",
-                "name": "grensekonflikt",
+                "name": "grensekonflikter",
                 "parent": "20000638",
                 "iptc_subject": null,
                 "wikidata": "Q1078001",
@@ -10524,8 +10524,8 @@
             },
             {
                 "qcode": "20001318",
-                "name": "landeplager, ødeleggende insektsvermer",
-                "parent": "20000441",
+                "name": "skadedyr",
+                "parent": "20000500",
                 "iptc_subject": null,
                 "wikidata": "Q219174",
                 "is_active": true
@@ -10564,7 +10564,7 @@
             },
             {
                 "qcode": "20001323",
-                "name": "idrettstrenere",
+                "name": "trenere og lagledere",
                 "parent": "15000000",
                 "iptc_subject": null,
                 "wikidata": "Q106195625",
@@ -10572,7 +10572,7 @@
             },
             {
                 "qcode": "20001324",
-                "name": "lagledelse og eiere",
+                "name": "klubbledelse og -eiere",
                 "parent": "15000000",
                 "iptc_subject": null,
                 "wikidata": "Q26481809",
@@ -10620,7 +10620,7 @@
             },
             {
                 "qcode": "20001330",
-                "name": "slalompadling",
+                "name": "slalåmpadling",
                 "parent": "20000822",
                 "iptc_subject": null,
                 "wikidata": "Q31874",
@@ -10644,7 +10644,7 @@
             },
             {
                 "qcode": "20001333",
-                "name": "landeveisritt",
+                "name": "landeveisritt (sykling)",
                 "parent": "20000822",
                 "iptc_subject": null,
                 "wikidata": "Q3609",
@@ -10660,7 +10660,7 @@
             },
             {
                 "qcode": "20001335",
-                "name": "fotball five-a-side",
+                "name": "femmerfotball",
                 "parent": "20000822",
                 "iptc_subject": null,
                 "wikidata": "Q5465786",
@@ -10693,7 +10693,7 @@
             {
                 "qcode": "20001338",
                 "name": "utdanningspolitikk",
-                "parent": "05000000",
+                "parent": "20000621",
                 "iptc_subject": null,
                 "wikidata": "Q452348",
                 "is_active": true
@@ -10716,7 +10716,7 @@
             },
             {
                 "qcode": "20001341",
-                "name": "mesterskap",
+                "name": "seriespill og ranking",
                 "parent": "20001108",
                 "iptc_subject": null,
                 "wikidata": "Q27020041",
@@ -10764,7 +10764,7 @@
             },
             {
                 "qcode": "20001347",
-                "name": "shiaislam",
+                "name": "sjiaislam",
                 "parent": "20000677",
                 "iptc_subject": null,
                 "wikidata": "Q9585",
@@ -10808,6 +10808,102 @@
                 "parent": "20000690",
                 "iptc_subject": null,
                 "wikidata": "Q130881",
+                "is_active": true
+            },
+            {
+                "qcode": "20001353",
+                "name": "tsunami",
+                "parent": "20000151",
+                "iptc_subject": null,
+                "wikidata": "Q8070",
+                "is_active": true
+            },
+            {
+                "qcode": "20001354",
+                "name": "helseleverandører",
+                "parent": "20000209",
+                "iptc_subject": null,
+                "wikidata": "Q15067276",
+                "is_active": true
+            },
+            {
+                "qcode": "20001355",
+                "name": "utviklingsforstyrrelse",
+                "parent": "20000446",
+                "iptc_subject": null,
+                "wikidata": "Q15067276",
+                "is_active": true
+            },
+            {
+                "qcode": "20001356",
+                "name": "depresjon",
+                "parent": "20000458",
+                "iptc_subject": null,
+                "wikidata": "Q4340209",
+                "is_active": true
+            },
+            {
+                "qcode": "20001357",
+                "name": "angst og stresslidelser",
+                "parent": "20000458",
+                "iptc_subject": null,
+                "wikidata": "Q544006",
+                "is_active": true
+            },
+            {
+                "qcode": "20001358",
+                "name": "folkehelse",
+                "parent": "07000000",
+                "iptc_subject": null,
+                "wikidata": "Q189603",
+                "is_active": true
+            },
+            {
+                "qcode": "20001359",
+                "name": "graviditet og fødsel",
+                "parent": "20000780",
+                "iptc_subject": null,
+                "wikidata": "Q11995",
+                "is_active": true
+            },
+            {
+                "qcode": "20001360",
+                "name": "fraternal and community group",
+                "parent": "20000768",
+                "iptc_subject": null,
+                "wikidata": "Q996839",
+                "is_active": true
+            },
+            {
+                "qcode": "20001361",
+                "name": "cyber warfare",
+                "parent": "16000000",
+                "iptc_subject": null,
+                "wikidata": "Q849340",
+                "is_active": true
+            },
+            {
+                "qcode": "20001362",
+                "name": "public transport",
+                "parent": "20000337",
+                "iptc_subject": null,
+                "wikidata": "Q178512",
+                "is_active": true
+            },
+            {
+                "qcode": "20001363",
+                "name": "taxi and ride-hailing",
+                "parent": "20000337",
+                "iptc_subject": null,
+                "wikidata": "Q82650",
+                "is_active": true
+            },
+            {
+                "qcode": "20001364",
+                "name": "shared transport",
+                "parent": "20000337",
+                "iptc_subject": null,
+                "wikidata": "Q7489559",
                 "is_active": true
             }
         ]
@@ -11660,7 +11756,7 @@
         "display_name": "Subscriber Types",
         "type": "unmanageable",
         "selection_type": "do not show",
-        "init_version": 3,
+        "init_version": 5,
         "items": [
             {
                 "is_active": true,
@@ -11730,6 +11826,10 @@
                     {
                         "name": "iMatrics",
                         "qcode": "imatrics"
+                    },
+                    {
+                        "name": "NTB NINJS",
+                        "qcode": "ntb_ninjs"
                     }
                 ]
             },
@@ -11805,6 +11905,10 @@
                     {
                         "name": "iMatrics",
                         "qcode": "imatrics"
+                    },
+                    {
+                        "name": "NTB NINJS",
+                        "qcode": "ntb_ninjs"
                     }
                 ]
             },
@@ -11880,6 +11984,10 @@
                     {
                         "name": "iMatrics",
                         "qcode": "imatrics"
+                    },
+                    {
+                        "name": "NTB NINJS",
+                        "qcode": "ntb_ninjs"
                     }
                 ]
             }

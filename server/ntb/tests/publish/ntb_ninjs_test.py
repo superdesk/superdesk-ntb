@@ -1,7 +1,13 @@
+import json
+import pathlib
+
 from unittest import mock
 from ntb.publish.ntb_ninjs import NTBNINJSFormatter
 from superdesk.tests import TestCase
-import json
+from datetime import datetime
+
+
+FAMILY_ID = "abcd"
 
 
 @mock.patch(
@@ -9,9 +15,11 @@ import json
     lambda self, subscriber: 1,
 )
 class Ninjs2FormatterTest(TestCase):
+    maxDiff = None
     article = {
         "_id": "5ba1224e0d6f13056bd82d50",
-        "family_id": "5ba1224e0d6f13056bd82d50",
+        "family_id": FAMILY_ID,
+        "rewrite_sequence": 3,
         "type": "text",
         "version": 1,
         "profile": "5ba11fec0d6f1301ac3cbd14",
@@ -100,6 +108,11 @@ class Ninjs2FormatterTest(TestCase):
                 "source": "imatrics",
                 "original_source": "1013",
             },
+            {
+                "scheme": "place_custom",
+                "name": "Global",
+                "qcode": "Global",
+            },
         ],
         "object": [
             {
@@ -130,16 +143,71 @@ class Ninjs2FormatterTest(TestCase):
             }
         ],
         "versioncreated": "2022-08-09T13:38:58+0000",
-        "rewrite_sequence": 1,
         "language": "nb-NO",
         "priority": 6,
         "urgency": 3,
-        "sign_off": "admin@example.com",
+        "sign_off": "admin@example.com/foo@bar.com",
         "language": "nb-NO",
         "operation": "publish",
         "version_creator": "ObjectId(" "5640a5eef40235008465242b" ")",
         "abstract": "<p>abstract thi sis</p>",
         "body_html": "<p>Test body html field</p>",
+        "dateline": {
+            "located": {
+                "dateline": "city",
+                "tz": "Europe/Oslo",
+                "city": "Hammerfest",
+                "state": "Finnmark",
+                "alt_name": "",
+                "country": "Norway",
+                "state_code": "NO.20",
+                "country_code": "NO",
+                "city_code": "Hammerfest",
+            },
+            "source": "NTB",
+            "text": "HAMMERFEST, Sep 13  -",
+        },
+        "genre": [
+            {"qcode": "genre code", "name": "genre name"},
+        ],
+        "anpa_category": [
+            {"name": "Omtaletjenesten", "qcode": "o", "language": "nb-NO"},
+        ],
+        "associations": {
+            "featuremedia": {
+                "_id": "test_id",
+                "guid": "test_id",
+                "headline": "feature headline",
+                "ingest_provider": "fdsfdsfsdfs",
+                "original_source": "feature_source",
+                "pubstatus": "usable",
+                "renditions": {
+                    "original": {
+                        "href": "http://scanpix.no/spWebApp/previewimage/sdl/preview_big/test_id.jpg",
+                        "mimetype": "image/jpeg",
+                    },
+                    "thumbnail": {
+                        "href": "http://preview.scanpix.no/thumbs/tb/4/33/test_id.jpg"
+                    },
+                    "viewImage": {
+                        "href": "http://scanpix.no/spWebApp/previewimage/sdl/preview/test_id.jpg"
+                    },
+                },
+                "source": "feature_source",
+                "fetch_endpoint": "scanpix",
+                "type": "picture",
+                "versioncreated": datetime(2023, 3, 1, 12, 10, 0),
+                "description_text": "test feature media",
+                "subject": [
+                    {
+                        "parent": "05000000",
+                        "scheme": None,
+                        "name": "further education",
+                        "qcode": "05002000"
+                    },
+                ],
+            },
+        },
     }
 
     def setUp(self):
@@ -149,8 +217,14 @@ class Ninjs2FormatterTest(TestCase):
         self.assertEqual("ntb_ninjs", self.formatter.format_type)
 
     def test_format_item(self):
+        with open(pathlib.Path(__file__).parent.parent.parent.parent.joinpath("data/vocabularies.json")) as json_file:
+            json_cvs = json.load(json_file)
+            for cv in json_cvs:
+                if cv.get("_id") == "place_custom":
+                    self.app.data.insert("vocabularies", [cv])
         seq, doc = self.formatter.format(self.article, {"name": "Test Subscriber"})[0]
         ninjs = json.loads(doc)
+        assoc = ninjs.pop("associations")
         expected_item = {
             "guid": "123",
             "version": "1",
@@ -215,6 +289,64 @@ class Ninjs2FormatterTest(TestCase):
                 {"name": "matlaging", "uri": "topics:20001253"},
                 {"name": "Fritid", "uri": "subject_custom:10000000"},
             ],
+            "altids": [
+                {"role": "GUID", "value": self.article["guid"]},
+                {"role": "NTB-ID", "value": "NTB{}".format(FAMILY_ID)},
+                {"role": "DOC-ID", "value": "NTB{}_03".format(FAMILY_ID)},
+            ],
+            "places": [
+                {
+                    "name": "Gjerdrum",
+                    "uri": "http://www.wikidata.org/entity/Q57084",
+                    "literal": "b564b1e1-1a99-324e-b643-88e5398305c6",
+                    "county-dist": "Gjerdrum",
+                    "state-prov": "Viken",
+                },
+                {
+                    "name": "Global",
+                    "literal": "Global",
+                },
+            ],
+            "taglines": [
+                "admin@example.com",
+                "foo@bar.com",
+            ],
+            "located": "Hammerfest",
+            "genre": [
+                {"code": "genre code", "name": "genre name"},
+            ],
+            "service": [
+                {"name": "Omtaletjenesten", "code": "o"},
+            ],
         }
 
         self.assertEqual(ninjs, expected_item)
+
+        self.assertEqual(assoc, [{
+            "name": "featuremedia",
+            "altids": [
+                {"role": "GUID", "value": "test_id"},
+            ],
+            "descriptions": [
+                {"contenttype": "text/plain", "value": "test feature media"},
+            ],
+            "guid": "test_id",
+            "headlines": [
+                {"contenttype": "text/plain", "value": "feature headline"},
+            ],
+            "renditions": [
+                {
+                    "name": "original",
+                    "href": "http://scanpix.no/spWebApp/previewimage/sdl/preview_big/test_id.jpg",
+                    "contenttype": "image/jpeg",
+                },
+            ],
+            "pubstatus": "usable",
+            "taglines": [],
+            "type": "picture",
+            "version": "1",
+            "versioncreated": "2023-03-01T12:10:00+0000",
+            "subjects": [
+                {"name": "further education", "uri": "topics:05002000"},
+            ],
+        }])

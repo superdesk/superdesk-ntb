@@ -63,6 +63,7 @@ def _convert_iptc_to_cv(entry: IPTCTopicJSON, existing_topics: Dict[str, CVItem]
 
     def get_name() -> str:
         return entry["prefLabel"].get("no") or \
+            entry["prefLabel"].get("no-NB") or \
             entry["prefLabel"].get("en") or \
             entry["prefLabel"].get("en-US") or \
             entry["prefLabel"].get("en-GB") or ""
