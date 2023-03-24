@@ -181,15 +181,23 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
 
     def get_query(self):
         query = """
-            query MyQuery($channel: [String]!, $topicCodes: [String]!, $cursor: String!, $dateRange: String!) {
+        query MyQuery($channel: [String]!, $topicCodes: [String]!, $cursor: String!, $dateRange: String!) {
             currentUser {
                 email
             }
-            search(filter: {channel: $channel, topicCodes: $topicCodes, dateRange: $dateRange}, cursor: $cursor, limit: 100) {
+            search(
+                filter: {
+                    channel: $channel,
+                    topicCodes: $topicCodes,
+                    dateRange: $dateRange
+                },
+                cursor: $cursor,
+                limit: 100
+            ) {
                 totalHits
                 pageInfo {
-                hasNextPage
-                endCursor
+                    hasNextPage
+                    endCursor
                 }
                 items {
                     uri
@@ -209,8 +217,8 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
                     }
                 }
             }
-            }
-        """
+        }
+    """
         return query
 
 

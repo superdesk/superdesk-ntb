@@ -48,7 +48,7 @@ class NTBReutersFeedParser(FeedParser):
                     "firstcreated": self.datetime(item.get("firstCreated")),
                     "language": item.get("language"),
                     "subject": self.parse_subjects(item),
-                    "urgency" : item.get("urgency", 0)
+                    "urgency": item.get("urgency", 0)
                 }
                 parsed_items.append(_item)
 
