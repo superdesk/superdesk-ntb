@@ -42,19 +42,16 @@ class NTBReutersFeedParser(FeedParser):
                     "guid": item.get("uri"),
                     ITEM_TYPE: item.get("type"),
                     "state": CONTENT_STATE.INGESTED,
-                    "headline": item.get("headline"),
+                    "headline": item.get("headLine"),
                     "slugline": item.get("slug"),
                     "versioncreated": self.datetime(item.get("versionCreated")),
-                    "firstcreated": self.datetime(item.get("versionCreated")),
+                    "firstcreated": self.datetime(item.get("firstCreated")),
                     "language": item.get("language"),
                     "subject": self.parse_subjects(item),
+                    "urgency" : item.get("urgency", 0)
                 }
-                try:
-                    parsed_items.append(_item)
-                except SuperdeskIngestError:
-                    logger.info("Ignoring embargoed event %s", item["uri"])
-                except (KeyError, IndexError, TypeError) as error:
-                    logger.exception("error %s ingesting event %s", error, item)
+                parsed_items.append(_item)
+
             return parsed_items
 
         except Exception as ex:

@@ -9,6 +9,8 @@
 # at https://www.sourcefabric.org/superdesk/license
 
 import superdesk
+import logging
+import datetime
 import requests
 from superdesk.errors import IngestApiError
 import json
@@ -17,6 +19,8 @@ from superdesk.io.registry import (
     register_feeding_service_parser,
 )
 from superdesk.io.feeding_services.http_service import HTTPFeedingService
+
+logger = logging.getLogger(__name__)
 
 
 class NTBReutersHTTPFeedingService(HTTPFeedingService):
@@ -83,20 +87,25 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
         self.session = requests.Session()
         provider_config = self.provider.get("config")
 
-        if not provider_config.get("token"):
+        if not provider_config.get("token") or self.is_token_expired(provider_config):
             self.auth(provider, provider_config)
 
         headers = {
             "Authorization": f'Bearer {provider_config.get("token")}',
             "Content-Type": "application/json",
         }
+
         cursor = ""
+
         while True:
             try:
                 variables = {
                     "channel": provider_config.get("channel", ""),
                     "topicCodes": provider_config.get("topic", ""),
                     "cursor": cursor,
+                    "dateRange": provider.get(
+                        "last_updated", datetime.datetime.now
+                    ).strftime("%Y.%m.%d"),
                 }
                 response = self.session.post(
                     provider_config.get("url"),
@@ -108,8 +117,9 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
                 )
                 response.raise_for_status()
                 data = response.json()
+
             except requests.exceptions.HTTPError as e:
-                print(f"HTTP Error: {e}")
+                logger.error(e)
                 return
 
             parser = self.get_feed_parser(provider)
@@ -150,19 +160,32 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
         if response.status_code == 200:
             data = response.json()
             provider_config.setdefault("token", data.get("access_token"))
+            provider_config.setdefault(
+                "expires_at",
+                int(datetime.datetime.now().timestamp()) + int(data.get("expires_in")),
+            )
             superdesk.get_resource_service("ingest_providers").update(
                 provider.get("_id"), self.provider, provider
             )
         else:
             raise IngestApiError.apiAuthError()
 
+    def is_token_expired(self, provider_config):
+        """
+        Check whether the token has expired.
+        """
+        current_time = datetime.datetime.now(datetime.timezone.utc).timestamp()
+        expires_at = provider_config.get("expires_at", datetime.datetime.min)
+
+        return current_time >= expires_at
+
     def get_query(self):
         query = """
-            query MyQuery($channel: [String]!, $topicCodes: [String]!, $cursor: String!) {
+            query MyQuery($channel: [String]!, $topicCodes: [String]!, $cursor: String!, $dateRange: String!) {
             currentUser {
                 email
             }
-            search(filter: {channel: $channel, topicCodes: $topicCodes}, cursor: $cursor, limit: 100) {
+            search(filter: {channel: $channel, topicCodes: $topicCodes, dateRange: $dateRange}, cursor: $cursor, limit: 100) {
                 totalHits
                 pageInfo {
                 hasNextPage
@@ -178,7 +201,8 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
                     byLine
                     caption
                     headLine
-                    contentTimestamp
+                    urgency
+                    firstCreated
                     subject {
                         name
                         code
