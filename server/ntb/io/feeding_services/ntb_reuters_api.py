@@ -18,6 +18,7 @@ from superdesk.io.registry import (
 )
 from superdesk.io.feeding_services.http_service import HTTPFeedingService
 
+
 class NTBReutersHTTPFeedingService(HTTPFeedingService):
     """
     Feeding Service class which can read article(s) using HTTP provided by NTB-Reuters.
@@ -35,7 +36,6 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
     ]
 
     label = "NTB Reuters feed API"
-
 
     fields = [
         {
@@ -101,7 +101,9 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
                 response = self.session.post(
                     provider_config.get("url"),
                     headers=headers,
-                    data=json.dumps({"query": self.get_query(), "variables": variables}),
+                    data=json.dumps(
+                        {"query": self.get_query(), "variables": variables}
+                    ),
                     timeout=30,
                 )
                 response.raise_for_status()
@@ -121,13 +123,11 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
                     break
             else:
                 break
-        
 
         if isinstance(items, list):
             yield items
         else:
             yield [items]
-
 
     def auth(self, provider, provider_config):
         provider_config.setdefault(
