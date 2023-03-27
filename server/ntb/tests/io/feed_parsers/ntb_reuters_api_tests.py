@@ -57,7 +57,7 @@ class NTBReutersFeedParserTests(TestCase):
                     "qcode": "06000000",
                     "scheme": "subject_custom",
                 },
-                {"name": "Fotball", "qcode": "15054000", "scheme": "subject_custom"},
-                {"qcode": "Sport", "name": "Sport", "scheme": "category"},
+                {"name": "Fotball", "qcode": "15054000", "scheme": "subject_custom"}
             ],
         )
+        self.assertEqual(item["anpa_category"], [{'name': 'Sport', 'qcode': 'Sport', 'scheme': 'category'}])

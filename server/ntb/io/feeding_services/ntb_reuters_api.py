@@ -85,6 +85,7 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
         items = []
         self.provider = provider
         self.session = requests.Session()
+        parser = self.get_feed_parser(provider)
         provider_config = self.provider.get("config")
 
         if not provider_config.get("token") or self.is_token_expired(provider_config):
@@ -96,6 +97,7 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
         }
 
         cursor = ""
+        default_last_updated = datetime.datetime.now() - datetime.timedelta(hours=1)
 
         while True:
             try:
@@ -104,8 +106,8 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
                     "topicCodes": provider_config.get("topic", ""),
                     "cursor": cursor,
                     "dateRange": provider.get(
-                        "last_updated", datetime.datetime.now
-                    ).strftime("%Y.%m.%d"),
+                        "last_updated", default_last_updated
+                    ).strftime("%Y.%m.%d.%H.%M.%S"),
                 }
                 response = self.session.post(
                     provider_config.get("url"),
@@ -122,7 +124,6 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
                 logger.error(e)
                 return
 
-            parser = self.get_feed_parser(provider)
             items.extend(parser.parse(data, provider))
 
             val = data.get("data", {}).get("search", {})
