@@ -115,7 +115,7 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
                     "dateRange": provider.get(
                         "last_updated", default_last_updated
                     ).strftime("%Y.%m.%d.%H.%M.%S"),
-                    "query": provider.get("query", "")
+                    "query": provider.get("query", ""),
                 }
                 response = self.session.post(
                     provider_config.get("url"),
@@ -191,7 +191,7 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
     def get_query(self):
         query = """
         query MyQuery(
-            $channel: [String]!, $topicCodes: [String]!, $cursor: String!, $dateRange: String!, $query: String!) 
+            $channel: [String]!, $topicCodes: [String]!, $cursor: String!, $dateRange: String!, $query: String!)
             {
             currentUser {
                 email
