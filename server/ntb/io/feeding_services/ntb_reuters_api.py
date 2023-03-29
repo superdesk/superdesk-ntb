@@ -74,7 +74,14 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
             "id": "channel",
             "type": "text",
             "label": "channel",
-            "placeholder": "channel",
+            "placeholder": "Channel",
+            "required": False,
+        },
+        {
+            "id": "query",
+            "type": "text",
+            "label": "query",
+            "placeholder": "Query",
             "required": False,
         },
     ]
@@ -108,6 +115,7 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
                     "dateRange": provider.get(
                         "last_updated", default_last_updated
                     ).strftime("%Y.%m.%d.%H.%M.%S"),
+                    "query": provider.get("query", "")
                 }
                 response = self.session.post(
                     provider_config.get("url"),
@@ -182,7 +190,9 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
 
     def get_query(self):
         query = """
-        query MyQuery($channel: [String]!, $topicCodes: [String]!, $cursor: String!, $dateRange: String!) {
+        query MyQuery(
+            $channel: [String]!, $topicCodes: [String]!, $cursor: String!, $dateRange: String!, $query: String!) 
+            {
             currentUser {
                 email
             }
@@ -193,7 +203,8 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
                     dateRange: $dateRange
                 },
                 cursor: $cursor,
-                limit: 100
+                limit: 100,
+                query: $query
             ) {
                 totalHits
                 pageInfo {
