@@ -28,7 +28,7 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
     Feeding Service class which can read article(s) using HTTP provided by NTB-Reuters.
     """
 
-    NAME = "NTB_reuters_http"
+    NAME = "ntb_reuters_http"
 
     ERRORS = [
         IngestApiError.apiTimeoutError().get_error_description(),
@@ -64,25 +64,18 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
             "required": True,
         },
         {
-            "id": "topic",
-            "type": "text",
-            "label": "topic",
-            "placeholder": "Topic",
-            "required": False,
-        },
-        {
             "id": "channel",
             "type": "text",
             "label": "channel",
             "placeholder": "Channel",
-            "required": False,
+            "required": True,
         },
         {
             "id": "query",
             "type": "text",
             "label": "query",
             "placeholder": "Query",
-            "required": False,
+            "required": True,
         },
     ]
 
@@ -104,18 +97,17 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
         }
 
         cursor = ""
-        default_last_updated = datetime.datetime.now() - datetime.timedelta(hours=1)
+        default_last_updated = datetime.datetime.utcnow() - datetime.timedelta(hours=1)
 
         while True:
             try:
                 variables = {
-                    "channel": provider_config.get("channel", ""),
-                    "topicCodes": provider_config.get("topic", ""),
+                    "channel": provider_config.get("channel", "STK567"),
                     "cursor": cursor,
                     "dateRange": provider.get(
                         "last_updated", default_last_updated
                     ).strftime("%Y.%m.%d.%H.%M.%S"),
-                    "query": provider.get("query", ""),
+                    "query": provider_config.get("query", ""),
                 }
                 response = self.session.post(
                     provider_config.get("url"),
@@ -129,8 +121,11 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
                 data = response.json()
 
             except requests.exceptions.HTTPError as e:
-                logger.error(e)
-                return
+                if e.response.status_code == 401:
+                    self.auth(provider, provider_config)
+                else:
+                    logger.error(e)
+                    return
 
             items.extend(parser.parse(data, provider))
 
@@ -190,22 +185,16 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
 
     def get_query(self):
         query = """
-        query MyQuery(
-            $channel: [String]!, $topicCodes: [String]!, $cursor: String!, $dateRange: String!, $query: String!)
-            {
-            currentUser {
-                email
-            }
+        query MyQuery($channel: [String]!, $cursor: String!, $dateRange: String!, $query: String!)
+            {currentUser {email}
             search(
                 filter: {
                     channel: $channel,
-                    topicCodes: $topicCodes,
                     dateRange: $dateRange
                 },
                 cursor: $cursor,
                 limit: 100,
-                query: $query
-            ) {
+                query: $query) {
                 totalHits
                 pageInfo {
                     hasNextPage
@@ -235,4 +224,4 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
 
 
 register_feeding_service(NTBReutersHTTPFeedingService)
-register_feeding_service_parser(NTBReutersHTTPFeedingService.NAME, "NTB_reuters_http")
+register_feeding_service_parser(NTBReutersHTTPFeedingService.NAME, "ntb_reuters_http")
