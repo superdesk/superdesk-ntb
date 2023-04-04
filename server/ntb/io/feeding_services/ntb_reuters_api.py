@@ -68,14 +68,14 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
             "type": "text",
             "label": "channel",
             "placeholder": "Channel",
-            "required": True,
+            "required": False,
         },
         {
             "id": "query",
             "type": "text",
             "label": "query",
             "placeholder": "Query",
-            "required": True,
+            "required": False,
         },
     ]
 
@@ -102,18 +102,25 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
         while True:
             try:
                 variables = {
-                    "channel": provider_config.get("channel", "STK567"),
                     "cursor": cursor,
                     "dateRange": provider.get(
                         "last_updated", default_last_updated
                     ).strftime("%Y.%m.%d.%H.%M.%S"),
-                    "query": provider_config.get("query", ""),
                 }
+                if provider_config.get("query", ""):
+                    variables["query"] = provider_config["query"]
+
+                if provider_config.get("channel", ""):
+                    variables["channel"] = provider_config["channel"]
+
                 response = self.session.post(
                     provider_config.get("url"),
                     headers=headers,
                     data=json.dumps(
-                        {"query": self.get_query(), "variables": variables}
+                        {
+                            "query": self.get_query(provider_config),
+                            "variables": variables,
+                        }
                     ),
                     timeout=30,
                 )
@@ -183,24 +190,36 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
 
         return current_time >= expires_at
 
-    def get_query(self):
+    def get_query(self, provider_config):
+        query_params = {
+            "cursor": "$cursor: String!",
+            "dateRange": "$dateRange: String!",
+        }
+        if provider_config.get("channel", ""):
+            query_params["channel"] = "$channel: [String]!"
+        if provider_config.get("query", ""):
+            query_params["query"] = "$query: String!"
+
         query = """
-        query MyQuery($channel: [String]!, $cursor: String!, $dateRange: String!, $query: String!)
-            {currentUser {email}
+        query MyQuery({}) {{
+            currentUser {{
+                email
+            }}
             search(
-                filter: {
-                    channel: $channel,
+                filter: {{
                     dateRange: $dateRange
-                },
+                    {}
+                }},
                 cursor: $cursor,
-                limit: 100,
-                query: $query) {
+                limit: 100
+                {}
+            ) {{
                 totalHits
-                pageInfo {
+                pageInfo {{
                     hasNextPage
                     endCursor
-                }
-                items {
+                }}
+                items {{
                     uri
                     type
                     usn
@@ -212,14 +231,19 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
                     headLine
                     urgency
                     firstCreated
-                    subject {
+                    subject {{
                         name
                         code
-                    }
-                }
-            }
-        }
-    """
+                    }}
+                }}
+            }}
+        }}
+        """.format(
+            ", ".join(query_params.values()),
+            "channel: $channel," if provider_config.get("channel", "") else "",
+            "query: $query," if provider_config.get("query", "") else "",
+        )
+
         return query
 
 
