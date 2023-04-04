@@ -18,6 +18,7 @@ import datetime
 from superdesk.utc import utc
 import re
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -27,7 +28,7 @@ class NTBReutersFeedParser(FeedParser):
     Feed Parser which can parse an NTB Reuters API data
     """
 
-    NAME = "NTB_reuters_http"
+    NAME = "ntb_reuters_http"
     label = "NTB Reuters Parser"
 
     def can_parse(self, article):
@@ -50,7 +51,10 @@ class NTBReutersFeedParser(FeedParser):
                     "subject": self.parse_subjects(item),
                     "urgency": item.get("urgency", 0),
                 }
-                _item.setdefault("anpa_category", [self.ingest_category_from_subject(_item["subject"])])
+                _item.setdefault(
+                    "anpa_category",
+                    [self.ingest_category_from_subject(_item["subject"])],
+                )
                 parsed_items.append(_item)
 
             return parsed_items

@@ -28,7 +28,7 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
     Feeding Service class which can read article(s) using HTTP provided by NTB-Reuters.
     """
 
-    NAME = "NTB_reuters_http"
+    NAME = "ntb_reuters_http"
 
     ERRORS = [
         IngestApiError.apiTimeoutError().get_error_description(),
@@ -64,13 +64,6 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
             "required": True,
         },
         {
-            "id": "topic",
-            "type": "text",
-            "label": "topic",
-            "placeholder": "Topic",
-            "required": False,
-        },
-        {
             "id": "channel",
             "type": "text",
             "label": "channel",
@@ -104,24 +97,30 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
         }
 
         cursor = ""
-        default_last_updated = datetime.datetime.now() - datetime.timedelta(hours=1)
+        default_last_updated = datetime.datetime.utcnow() - datetime.timedelta(hours=1)
 
         while True:
             try:
                 variables = {
-                    "channel": provider_config.get("channel", ""),
-                    "topicCodes": provider_config.get("topic", ""),
                     "cursor": cursor,
                     "dateRange": provider.get(
                         "last_updated", default_last_updated
                     ).strftime("%Y.%m.%d.%H.%M.%S"),
-                    "query": provider.get("query", ""),
                 }
+                if provider_config.get("query", ""):
+                    variables["query"] = provider_config["query"]
+
+                if provider_config.get("channel", ""):
+                    variables["channel"] = provider_config["channel"]
+
                 response = self.session.post(
                     provider_config.get("url"),
                     headers=headers,
                     data=json.dumps(
-                        {"query": self.get_query(), "variables": variables}
+                        {
+                            "query": self.get_query(provider_config),
+                            "variables": variables,
+                        }
                     ),
                     timeout=30,
                 )
@@ -129,8 +128,11 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
                 data = response.json()
 
             except requests.exceptions.HTTPError as e:
-                logger.error(e)
-                return
+                if e.response.status_code == 401:
+                    self.auth(provider, provider_config)
+                else:
+                    logger.error(e)
+                    return
 
             items.extend(parser.parse(data, provider))
 
@@ -188,30 +190,45 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
 
         return current_time >= expires_at
 
-    def get_query(self):
-        query = """
-        query MyQuery(
-            $channel: [String]!, $topicCodes: [String]!, $cursor: String!, $dateRange: String!, $query: String!)
-            {
-            currentUser {
+    def get_query(self, provider_config):
+        query_params = {
+            "cursor": "String!",
+            "dateRange": "String!",
+        }
+        if provider_config.get("channel", ""):
+            query_params["channel"] = "[String]!"
+        if provider_config.get("query", ""):
+            query_params["query"] = "String!"
+
+        query_params_str = ", ".join(
+            f"${key}: {value}" for key, value in query_params.items()
+        )
+
+        channel_param = (
+            "channel: $channel," if provider_config.get("channel", "") else ""
+        )
+        query_param = "query: $query," if provider_config.get("query", "") else ""
+
+        query = f"""
+        query MyQuery({query_params_str}) {{
+            currentUser {{
                 email
-            }
+            }}
             search(
-                filter: {
-                    channel: $channel,
-                    topicCodes: $topicCodes,
+                filter: {{
+                    {channel_param}
                     dateRange: $dateRange
-                },
+                }},
+                {query_param}
                 cursor: $cursor,
-                limit: 100,
-                query: $query
-            ) {
+                limit: 100
+            ) {{
                 totalHits
-                pageInfo {
+                pageInfo {{
                     hasNextPage
                     endCursor
-                }
-                items {
+                }}
+                items {{
                     uri
                     type
                     usn
@@ -223,16 +240,16 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
                     headLine
                     urgency
                     firstCreated
-                    subject {
+                    subject {{
                         name
                         code
-                    }
-                }
-            }
-        }
-    """
+                    }}
+                }}
+            }}
+        }}
+        """
         return query
 
 
 register_feeding_service(NTBReutersHTTPFeedingService)
-register_feeding_service_parser(NTBReutersHTTPFeedingService.NAME, "NTB_reuters_http")
+register_feeding_service_parser(NTBReutersHTTPFeedingService.NAME, "ntb_reuters_http")
