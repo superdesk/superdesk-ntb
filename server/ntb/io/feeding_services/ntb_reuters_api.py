@@ -192,27 +192,36 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
 
     def get_query(self, provider_config):
         query_params = {
-            "cursor": "$cursor: String!",
-            "dateRange": "$dateRange: String!",
+            "cursor": "String!",
+            "dateRange": "String!",
         }
         if provider_config.get("channel", ""):
-            query_params["channel"] = "$channel: [String]!"
+            query_params["channel"] = "[String]!"
         if provider_config.get("query", ""):
-            query_params["query"] = "$query: String!"
+            query_params["query"] = "String!"
 
-        query = """
-        query MyQuery({}) {{
+        query_params_str = ", ".join(
+            f"${key}: {value}" for key, value in query_params.items()
+        )
+
+        channel_param = (
+            "channel: $channel," if provider_config.get("channel", "") else ""
+        )
+        query_param = "query: $query," if provider_config.get("query", "") else ""
+
+        query = f"""
+        query MyQuery({query_params_str}) {{
             currentUser {{
                 email
             }}
             search(
                 filter: {{
+                    {channel_param}
                     dateRange: $dateRange
-                    {}
                 }},
+                {query_param}
                 cursor: $cursor,
                 limit: 100
-                {}
             ) {{
                 totalHits
                 pageInfo {{
@@ -238,12 +247,7 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
                 }}
             }}
         }}
-        """.format(
-            ", ".join(query_params.values()),
-            "channel: $channel," if provider_config.get("channel", "") else "",
-            "query: $query," if provider_config.get("query", "") else "",
-        )
-
+        """
         return query
 
 
