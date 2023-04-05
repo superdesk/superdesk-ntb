@@ -53,7 +53,7 @@ class NTBReutersFeedParser(FeedParser):
                 }
                 _item.setdefault(
                     "anpa_category",
-                    [self.ingest_category_from_subject(_item["subject"])],
+                    self.ingest_category_from_subject(_item["subject"]),
                 )
                 parsed_items.append(_item)
 
@@ -103,7 +103,8 @@ class NTBReutersFeedParser(FeedParser):
             [True for subject in subjects if subject.get("qcode", "").startswith("15")]
         ):
             cat = "Sport"
-            return {"qcode": cat, "name": cat, "scheme": "category"}
+            return [{"qcode": cat, "name": cat, "scheme": "category"}]
+        return []
 
     def _get_cv(self, _id):
         return superdesk.get_resource_service("vocabularies").find_one(
