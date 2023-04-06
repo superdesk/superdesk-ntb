@@ -38,6 +38,7 @@ class NTBReutersFeedParserTests(TestCase):
             item["headline"],
             "Footsteps are seen in a landfill contaminated with arsenic, in the village of Lojane",
         )
+
         self.assertEqual(item["slugline"], "NORTH MACEDONIA-POLLUTION/")
         self.assertEqual(
             item["versioncreated"],
@@ -57,7 +58,7 @@ class NTBReutersFeedParserTests(TestCase):
                     "qcode": "06000000",
                     "scheme": "subject_custom",
                 },
-                {"name": "Fotball", "qcode": "15054000", "scheme": "subject_custom"}
+                {"name": "Fotball", "qcode": "15054000", "scheme": "subject_custom"},
+                {"name": "Sport", "qcode": "Sport", "scheme": "category"},
             ],
         )
-        self.assertEqual(item["anpa_category"], [{'name': 'Sport', 'qcode': 'Sport', 'scheme': 'category'}])
