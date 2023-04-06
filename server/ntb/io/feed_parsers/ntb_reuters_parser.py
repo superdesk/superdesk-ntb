@@ -51,10 +51,7 @@ class NTBReutersFeedParser(FeedParser):
                     "subject": self.parse_subjects(item),
                     "urgency": item.get("urgency", 0),
                 }
-                _item.setdefault(
-                    "anpa_category",
-                    [self.ingest_category_from_subject(_item["subject"])],
-                )
+
                 parsed_items.append(_item)
 
             return parsed_items
@@ -93,17 +90,17 @@ class NTBReutersFeedParser(FeedParser):
                                 "scheme": "subject_custom",
                             }
                         )
-        return next_subjects
 
-    def ingest_category_from_subject(self, subjects):
-        """Get default or sport category based on given subjects."""
-        if not subjects:
-            subjects
         if any(
-            [True for subject in subjects if subject.get("qcode", "").startswith("15")]
+            [
+                True
+                for subject in next_subjects
+                if subject.get("qcode", "").startswith("15")
+            ]
         ):
             cat = "Sport"
-            return {"qcode": cat, "name": cat, "scheme": "category"}
+            next_subjects.append({"qcode": cat, "name": cat, "scheme": "category"})
+        return next_subjects
 
     def _get_cv(self, _id):
         return superdesk.get_resource_service("vocabularies").find_one(

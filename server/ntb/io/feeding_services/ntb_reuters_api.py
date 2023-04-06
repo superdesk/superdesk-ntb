@@ -98,7 +98,7 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
 
         cursor = ""
         default_last_updated = datetime.datetime.utcnow() - datetime.timedelta(hours=1)
-
+        data = {}
         while True:
             try:
                 variables = {
@@ -170,13 +170,22 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
         response.raise_for_status()
         if response.status_code == 200:
             data = response.json()
-            provider_config.setdefault("token", data.get("access_token"))
-            provider_config.setdefault(
-                "expires_at",
-                int(datetime.datetime.now().timestamp()) + int(data.get("expires_in")),
-            )
+            if "token" in provider_config:
+                provider_config["token"] = data.get("access_token")
+            else:
+                provider_config.setdefault("token", data.get("access_token"))
+            if "expires_at" in provider_config:
+                provider_config["expires_at"] = int(
+                    datetime.datetime.now().timestamp()
+                ) + int(data.get("expires_in"))
+            else:
+                provider_config.setdefault(
+                    "expires_at",
+                    int(datetime.datetime.now().timestamp())
+                    + int(data.get("expires_in")),
+                )
             superdesk.get_resource_service("ingest_providers").update(
-                provider.get("_id"), self.provider, provider
+                provider.get("_id"), provider_config, provider
             )
         else:
             raise IngestApiError.apiAuthError()
