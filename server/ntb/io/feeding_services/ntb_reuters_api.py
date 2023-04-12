@@ -249,6 +249,7 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
                     headLine
                     urgency
                     firstCreated
+                    fragment
                     subject {{
                         name
                         code

@@ -8,7 +8,6 @@ from superdesk import utc
 
 
 class NTBReutersFeedParserTests(TestCase):
-
     filename = "reutersapi_item.json"
 
     def setUp(self):
@@ -61,4 +60,12 @@ class NTBReutersFeedParserTests(TestCase):
                 {"name": "Fotball", "qcode": "15054000", "scheme": "subject_custom"},
                 {"name": "Sport", "qcode": "Sport", "scheme": "category"},
             ],
+        )
+        self.assertEqual(
+            item["body_html"],
+            (
+                "Landfill contaminated with arsenic, "
+                "in the village of Lojane, North Macedonia March 9, 2023"
+                ". REUTERS/Ognen Teofilovski in the village of Lojane"
+            ),
         )

@@ -50,6 +50,7 @@ class NTBReutersFeedParser(FeedParser):
                     "language": item.get("language"),
                     "subject": self.parse_subjects(item),
                     "urgency": item.get("urgency", 0),
+                    "body_html": item.get("fragment", ""),
                 }
 
                 parsed_items.append(_item)
