@@ -17,6 +17,7 @@ from superdesk.metadata.item import ITEM_TYPE, CONTENT_STATE
 import datetime
 from superdesk.utc import utc
 import re
+from lxml import html
 
 
 logger = logging.getLogger(__name__)
@@ -48,7 +49,9 @@ class NTBReutersFeedParser(FeedParser):
                     "language": data.get("language"),
                     "subject": self.parse_subjects(data),
                     "urgency": data.get("urgency", 0),
-                    "body_html": data.get("bodyXhtml", ""),
+                    "body_html": html.fromstring(
+                        data.get("bodyXhtml", "")
+                    ).text_content(),
                     "byline": data.get("byLine"),
                 }
                 return _item
