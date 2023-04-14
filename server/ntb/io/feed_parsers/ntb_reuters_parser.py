@@ -35,30 +35,28 @@ class NTBReutersFeedParser(FeedParser):
         return super().can_parse(article)
 
     def parse(self, content, provider=None):
-        data = content.get("data", {}).get("search", {}).get("items", [])
-        try:
-            parsed_items = []
-            for item in data:
+        data = content.get("data", {}).get("item", [])
+        if data:
+            try:
                 _item = {
-                    "guid": item.get("uri"),
-                    ITEM_TYPE: item.get("type"),
+                    "guid": data.get("uri"),
+                    ITEM_TYPE: data.get("type"),
                     "state": CONTENT_STATE.INGESTED,
-                    "headline": item.get("headLine"),
-                    "slugline": item.get("slug"),
-                    "versioncreated": self.datetime(item.get("versionCreated")),
-                    "firstcreated": self.datetime(item.get("firstCreated")),
-                    "language": item.get("language"),
-                    "subject": self.parse_subjects(item),
-                    "urgency": item.get("urgency", 0),
-                    "body_html": item.get("fragment", ""),
+                    "headline": data.get("headLine"),
+                    "versioncreated": self.datetime(data.get("versionCreated")),
+                    "firstcreated": self.datetime(data.get("firstCreated")),
+                    "language": data.get("language"),
+                    "subject": self.parse_subjects(data),
+                    "urgency": data.get("urgency", 0),
+                    "body_html": data.get("bodyXhtml", ""),
+                    "byline": data.get("byLine"),
                 }
+                return _item
 
-                parsed_items.append(_item)
+            except Exception as ex:
+                raise ParserError.parseMessageError(ex, provider)
 
-            return parsed_items
-
-        except Exception as ex:
-            raise ParserError.parseMessageError(ex, provider)
+        return {}
 
     def datetime(self, string):
         try:

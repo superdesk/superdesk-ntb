@@ -127,14 +127,24 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
                 response.raise_for_status()
                 data = response.json()
 
+                for id in self.get_items_id(data):
+                    detailed_query = self.get_detailed_query(id)
+                    response = self.session.post(
+                        provider_config.get("url"),
+                        headers=headers,
+                        data=json.dumps({"query": detailed_query}),
+                        timeout=30,
+                    )
+                    response.raise_for_status()
+                    detailed_data = response.json()
+                    items.append(parser.parse(detailed_data, provider))
+
             except requests.exceptions.HTTPError as e:
                 if e.response.status_code == 401:
                     self.auth(provider, provider_config)
                 else:
                     logger.error(e)
                     return
-
-            items.extend(parser.parse(data, provider))
 
             val = data.get("data", {}).get("search", {})
             if val:
@@ -239,26 +249,40 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
                 }}
                 items {{
                     uri
-                    type
-                    usn
-                    versionCreated
-                    slug
-                    language
-                    byLine
-                    caption
-                    headLine
-                    urgency
-                    firstCreated
-                    fragment
-                    subject {{
-                        name
-                        code
-                    }}
                 }}
             }}
         }}
         """
         return query
+
+    def get_detailed_query(self, id):
+        return f"""
+        query MyQuery($id: ID = "{id.get("id")}") {{
+            item(id: $id) {{
+                uri
+                type
+                versionCreated
+                language
+                byLine
+                urgency
+                firstCreated
+                bodyXhtml
+                credit
+                subject {{
+                name
+                code
+                }}
+            }}
+        }}
+        """
+
+    def get_items_id(self, content):
+        item_ids = []
+        data = content.get("data", {}).get("search", {}).get("items", [])
+        for item in data:
+            item_ids.append({"id": item.get("uri", "")})
+
+        return item_ids
 
 
 register_feeding_service(NTBReutersHTTPFeedingService)
