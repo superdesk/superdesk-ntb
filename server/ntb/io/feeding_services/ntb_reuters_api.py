@@ -262,6 +262,7 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
                 uri
                 type
                 versionCreated
+                headLine
                 language
                 byLine
                 urgency
