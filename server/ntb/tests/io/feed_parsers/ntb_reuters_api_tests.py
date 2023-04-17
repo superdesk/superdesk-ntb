@@ -63,8 +63,8 @@ class NTBReutersFeedParserTests(TestCase):
         self.assertEqual(
             item["body_html"],
             (
-                "April 14 (Reuters) - Liverpool have been fined 37,500\n"
-                "pounds ($46,908.75) by the Football Association after their"
+                "<p>April 14 (Reuters) - Liverpool have been fined 37,500\n"
+                "pounds ($46,908.75) by the Football Association after their</p>"
             ),
         )
         self.assertEqual(item["byline"], "OGNEN TEOFILOVSKI")
