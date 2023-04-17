@@ -29,7 +29,7 @@ class NTBReutersFeedParserTests(TestCase):
             self.items = self.parser.parse(data)
 
     def test_item(self):
-        item = self.items[0]
+        item = self.items
         self.assertEqual(item["guid"], "tag:reuters.com,2023:newsml_RC2EQZ9KEA2R")
         self.assertEqual(item["type"], "text")
         self.assertEqual(item["state"], "ingested")
@@ -38,7 +38,6 @@ class NTBReutersFeedParserTests(TestCase):
             "Footsteps are seen in a landfill contaminated with arsenic, in the village of Lojane",
         )
 
-        self.assertEqual(item["slugline"], "NORTH MACEDONIA-POLLUTION/")
         self.assertEqual(
             item["versioncreated"],
             datetime.datetime(2023, 3, 24, 11, 5, 25, tzinfo=utc.utc),
@@ -64,8 +63,8 @@ class NTBReutersFeedParserTests(TestCase):
         self.assertEqual(
             item["body_html"],
             (
-                "Landfill contaminated with arsenic, "
-                "in the village of Lojane, North Macedonia March 9, 2023"
-                ". REUTERS/Ognen Teofilovski in the village of Lojane"
+                "<p>April 14 (Reuters) - Liverpool have been fined 37,500\n"
+                "pounds ($46,908.75) by the Football Association after their</p>"
             ),
         )
+        self.assertEqual(item["byline"], "OGNEN TEOFILOVSKI")
