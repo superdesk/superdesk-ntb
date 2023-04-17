@@ -49,7 +49,7 @@ class NTBReutersFeedParser(FeedParser):
                     "language": data.get("language"),
                     "subject": self.parse_subjects(data),
                     "urgency": data.get("urgency", 0),
-                    "body_html": self.parse_bodyhtml(data.get("bodyXhtml", "")),
+                    "body_html": self.parse_bodyhtml(data),
                     "byline": data.get("byLine"),
                 }
                 return _item
@@ -108,12 +108,13 @@ class NTBReutersFeedParser(FeedParser):
         )
 
     def parse_bodyhtml(self, data):
-        doc = html.fromstring(data)
-        p_tags = doc.xpath("//p")
-        result = ""
-        for p in p_tags:
-            result += html.tostring(p).decode()
-        return result
+        if data.get("bodyXhtml"):
+            doc = html.fromstring(data.get("bodyXhtml"))
+            p_tags = doc.xpath("//p")
+            result = ""
+            for p in p_tags:
+                result += html.tostring(p).decode()
+            return result
 
 
 register_feed_parser(NTBReutersFeedParser.NAME, NTBReutersFeedParser())
