@@ -31,8 +31,8 @@ Feature: Ingest NTB Events api
             "_items": [
                 {
                     "dates": {
-                        "end": "2018-09-29T19:30:00+0000",
                         "start": "2018-09-29T16:30:00+0000",
+                        "end": "2018-09-29T19:30:00+0000",
                         "tz": "Europe/Oslo"
                     },
                     "state": "ingested",
@@ -40,8 +40,8 @@ Feature: Ingest NTB Events api
                 },
                 {
                     "dates": {
-                        "end": "2018-10-24T18:45:00+0000",
                         "start": "2018-10-24T16:15:00+0000",
+                        "end": "2018-10-24T18:45:00+0000",
                         "tz": "Europe/Oslo"
                     },
                     "state": "ingested",
@@ -49,8 +49,8 @@ Feature: Ingest NTB Events api
                 },
                 {
                     "dates": {
-                        "end": "2018-10-26T12:00:00+0000",
                         "start": "2018-10-26T10:30:00+0000",
+                        "end": "2018-10-26T12:00:00+0000",
                         "tz": "Europe/Oslo"
                     },
                     "state": "ingested",
@@ -58,8 +58,8 @@ Feature: Ingest NTB Events api
                 },
                 {
                     "dates": {
-                        "end": "2018-10-27T12:00:00+0000",
                         "start": "2018-10-27T10:30:00+0000",
+                        "end": "2018-10-27T12:00:00+0000",
                         "tz": "Europe/Oslo"
                     },
                     "state": "ingested",
@@ -67,8 +67,8 @@ Feature: Ingest NTB Events api
                 },
                 {
                     "dates": {
-                        "end": "2018-10-27T16:30:00+0000",
                         "start": "2018-10-27T15:00:00+0000",
+                        "end": "2018-10-27T16:30:00+0000",
                         "tz": "Europe/Oslo"
                     },
                     "state": "ingested",
@@ -76,8 +76,8 @@ Feature: Ingest NTB Events api
                 },
                 {
                     "dates": {
-                        "end": "2018-10-28T12:15:00+0000",
                         "start": "2018-10-28T10:45:00+0000",
+                        "end": "2018-10-28T12:15:00+0000",
                         "tz": "Europe/Oslo"
                     },
                     "state": "ingested",
@@ -85,8 +85,8 @@ Feature: Ingest NTB Events api
                 },
                 {
                     "dates": {
-                        "end": "2018-10-28T18:30:00+0000",
                         "start": "2018-10-28T15:00:00+0000",
+                        "end": "2018-10-28T18:30:00+0000",
                         "tz": "Europe/Oslo"
                     },
                     "state": "ingested",
@@ -94,8 +94,8 @@ Feature: Ingest NTB Events api
                 },
                 {
                     "dates": {
-                        "end": "2018-11-10T12:00:00+0000",
                         "start": "2018-11-10T11:00:00+0000",
+                        "end": "2018-11-10T12:00:00+0000",
                         "tz": "Europe/Oslo"
                     },
                     "state": "ingested",

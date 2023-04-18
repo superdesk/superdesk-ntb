@@ -6,7 +6,7 @@
         <service>newscalendar</service>
         <title>ISHOCKEY: Eliteserien menn (18. runde):</title>
         <priority>5</priority>
-        <time>2018-10-29T18:30:00.000+0100</time>
+        <time>2028-10-29T18:35:00.000+0100</time>
         <startDate>2018-09-29T18:25:00.000+0100</startDate>
         <stopDate>2018-09-29T21:25:00.000+0100</stopDate>
         <messageType></messageType>
@@ -43,7 +43,7 @@
         <service>newscalendar</service>
         <title>LANGRENN: Lansering av boka om Oddvar Brå – Et skiløperliv.</title>
         <priority>5</priority>
-        <time>2018-11-11T12:00:00.000+0200</time>
+        <time>2028-11-11T12:05:00.000+0200</time>
         <startDate>2018-11-11T12:00:00.000+0200</startDate>
         <stopDate>2018-11-11T13:00:00.000+0200</stopDate>
         <messageType></messageType>

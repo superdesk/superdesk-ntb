@@ -60,7 +60,7 @@ class NTBEventsFileFeedingServiceTestCase(TestCase):
         xml = ET.fromstring("""<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
             <document>
             <guid>NTB-123456</guid>
-            <time>2016-08-10T15:02:02</time>
+            <time>2026-08-10T15:02:02</time>
             <publiseres>True</publiseres>
             <ntbId>NBRP160810_144545_ja_00</ntbId>
             <service>newscalendar</service>

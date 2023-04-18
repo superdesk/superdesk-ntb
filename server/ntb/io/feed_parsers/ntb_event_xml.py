@@ -9,8 +9,10 @@
 # at https://www.sourcefabric.org/superdesk/license
 
 import logging
+from typing import Optional
 import xml.etree.ElementTree as ET
 
+from datetime import datetime
 from superdesk.errors import ParserError
 from superdesk.io.feed_parsers import XMLFeedParser
 from superdesk.io.registry import register_feed_parser
@@ -51,6 +53,11 @@ class NTBEventXMLFeedParser(XMLFeedParser):
         xml = ET.fromstring(content)
         return self.parse(xml, provider)
 
+    def parse_datetime(self, value: str) -> Optional[datetime]:
+        if value:
+            return datetime.fromisoformat(value)
+        return None
+
     def parse(self, xml, provider=None, content=None):
         items = []
         try:
@@ -69,8 +76,8 @@ class NTBEventXMLFeedParser(XMLFeedParser):
             item['definition_short'] = xml.find('title').text
             item['definition_long'] = xml.find('content').text
             item['dates'] = {
-                'start': xml.find('timeStart').text,
-                'end': xml.find('timeEnd').text,
+                'start': self.parse_datetime(xml.find('timeStart').text),
+                'end': self.parse_datetime(xml.find('timeEnd').text),
                 'tz': ''
             }
             # add location
