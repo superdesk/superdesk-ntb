@@ -1,0 +1,42 @@
+{
+  "data": {
+    "item":
+      {
+        "keyword": null,
+        "uri": "tag:reuters.com,2023:newsml_RC2EQZ9KEA2R",
+        "type": "text",
+        "usn": "RC2EQZ9KEA2R",
+        "versionCreated": "2023-03-24T11:05:25.000Z",
+        "slug": "NORTH MACEDONIA-POLLUTION/",
+        "language": "en",
+        "byLine": "OGNEN TEOFILOVSKI",
+        "caption": "Footsteps are seen in a landfill contaminated with arsenic, in the village of Lojane, North Macedonia March 9, 2023. REUTERS/Ognen Teofilovski",
+        "headLine": "Footsteps are seen in a landfill contaminated with arsenic, in the village of Lojane",
+        "bodyXhtml": "<html xmlns=\"http://www.w3.org/1999/xhtml\"><head><title/></head><body><p>April 14 (Reuters) - Liverpool have been fined 37,500\npounds ($46,908.75) by the Football Association after their</p></body></html>",
+        "urgency": 4,
+        "firstCreated": "2023-03-24T11:05:25.000Z",
+        "subject": [
+          {
+            "name": null,
+            "code": "MCC:I"
+          },
+          {
+            "name": "Environment",
+            "code": "N2:ENV"
+          },
+          {
+            "name": "Europe",
+            "code": "N2:EUROP"
+          },
+          {
+            "name": null,
+            "code": "subj:06000000"
+          },
+          {
+            "name": null,
+            "code": "subj:15054000"
+          }
+        ]
+      }
+  }
+}
