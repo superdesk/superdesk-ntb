@@ -5,9 +5,22 @@ from unittest import mock
 from ntb.publish.ntb_ninjs import NTBNINJSFormatter
 from superdesk.tests import TestCase
 from datetime import datetime
+from .ntb_nitf_test import TEST_BODY
 
 
 FAMILY_ID = "abcd"
+
+TEST_BODY_EXPECTED = """
+<p>This should not be lead</p>
+<p>line 1</p>
+<p>line 2</p>
+<p>line 3</p>
+<p>test encoding: –</p>
+
+<h3>intermediate line</h3>
+<p>this element should have a txt class</p>
+<p><a>test</a>NTBMEDIA TO REMOVE</p>
+""".strip()
 
 
 @mock.patch(
@@ -151,8 +164,8 @@ class Ninjs2FormatterTest(TestCase):
         "language": "nb-NO",
         "operation": "publish",
         "version_creator": "ObjectId(" "5640a5eef40235008465242b" ")",
-        "abstract": "<p>abstract thi sis</p>",
-        "body_html": "<p>Test body html field</p>",
+        "abstract": "<p>abstract this is</p>",
+        "body_html": TEST_BODY,
         "dateline": {
             "located": {
                 "dateline": "city",
@@ -231,7 +244,7 @@ class Ninjs2FormatterTest(TestCase):
         ninjs = self.format()
         assoc = ninjs.pop("associations")
         expected_item = {
-            "guid": "123",
+            "uri": "123",
             "version": "1",
             "type": "text",
             "versioncreated": "2022-08-09T13:38:58+0000",
@@ -275,14 +288,14 @@ class Ninjs2FormatterTest(TestCase):
                 {"value": "custom media field multi", "contenttype": "text/plain"}
             ],
             "descriptions": [
-                {"value": "abstract thi sis", "contenttype": "text/plain"}
+                {"value": "abstract this is", "contenttype": "text/plain"}
             ],
             "bodies": [
                 {
-                    "charcount": 20,
-                    "wordcount": 4,
-                    "value": "<p>Test body html field</p>",
-                    "contenttype": "text/plain",
+                    "charcount": 132,
+                    "wordcount": 25,
+                    "value": TEST_BODY_EXPECTED,
+                    "contenttype": "text/html",
                 }
             ],
             "subjects": [
@@ -323,6 +336,7 @@ class Ninjs2FormatterTest(TestCase):
             "service": [
                 {"name": "Omtaletjenesten", "code": "o"},
             ],
+            "infosources": [{"name": "NTB"}],
         }
 
         self.assertEqual(ninjs, expected_item)
@@ -335,16 +349,9 @@ class Ninjs2FormatterTest(TestCase):
             "descriptions": [
                 {"contenttype": "text/plain", "value": "test feature media"},
             ],
-            "guid": "test_id",
+            "uri": "test_id",
             "headlines": [
                 {"contenttype": "text/plain", "value": "feature headline"},
-            ],
-            "renditions": [
-                {
-                    "name": "original",
-                    "href": "http://scanpix.no/spWebApp/previewimage/sdl/preview_big/test_id.jpg",
-                    "contenttype": "image/jpeg",
-                },
             ],
             "pubstatus": "usable",
             "taglines": [],
