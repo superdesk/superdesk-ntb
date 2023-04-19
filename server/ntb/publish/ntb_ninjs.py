@@ -1,3 +1,4 @@
+from flask import g
 from typing import Dict, List
 from superdesk import get_resource_service
 from superdesk.publish.formatters.ninjs_formatter import NINJSFormatter
@@ -122,6 +123,9 @@ class NTBNINJSFormatter(NINJSFormatter):
                 {"role": "DOC-ID", "value": utils.get_doc_id(article)},
             ])
 
+        if article.get("assignment_id"):
+            self._format_planning_ids(ninjs, article)
+
         ninjs["taglines"] = []
         if article.get("sign_off"):
             for tagline in article["sign_off"].split("/"):
@@ -210,7 +214,21 @@ class NTBNINJSFormatter(NINJSFormatter):
 
     @property
     def places(self):
-        if self._places is None:
+        if getattr(g, "_places", None) is None:
             places = get_resource_service("vocabularies").get_items("place_custom")
-            self._places = {p["qcode"]: p for p in places}
-        return self._places
+            g._places = {p["qcode"]: p for p in places}
+        return getattr(g, "_places")
+
+    def _format_planning_ids(self, ninjs, article):
+        assignment = get_resource_service("assignments").find_one(req=None, _id=article["assignment_id"])
+        if assignment and assignment.get("planning_item"):
+            ninjs.setdefault("altids", []).append({
+                "role": "PLANNING-ID",
+                "value": assignment["planning_item"],
+            })
+            planning = get_resource_service("planning").find_one(req=None, _id=assignment["planning_item"])
+            if planning and planning.get("event_item"):
+                ninjs["altids"].append({
+                    "role": "EVENT-ID",
+                    "value": planning["event_item"],
+                })

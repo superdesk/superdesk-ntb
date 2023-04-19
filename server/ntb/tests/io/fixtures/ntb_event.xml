@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
 <document>
-    <time>2016-08-10T15:02:02</time>
+    <time>2026-08-10T15:02:02</time>
     <publiseres>True</publiseres>
     <ntbId>NBRP160810_144545_ja_00</ntbId>
     <service>newscalendar</service>
     <title>MARKS XML TEST</title>
-    <location>Fr. Nansens plass 17, Tromsø, Troms</location>
+    <location>Fr. Nansens plass 17, TromsÃ¸, Troms</location>
     <timeStart>2016-09-05T09:00:00</timeStart>
     <timeEnd>2016-09-16T16:00:00</timeEnd>
     <alldayevent>False</alldayevent>

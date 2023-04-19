@@ -19,6 +19,7 @@ class Ninjs2FormatterTest(TestCase):
     article = {
         "_id": "5ba1224e0d6f13056bd82d50",
         "family_id": FAMILY_ID,
+        "assignment_id": "assignment-id",
         "rewrite_sequence": 3,
         "type": "text",
         "version": 1,
@@ -211,19 +212,23 @@ class Ninjs2FormatterTest(TestCase):
     }
 
     def setUp(self):
+        super().setUp()
         self.formatter = NTBNINJSFormatter()
-
-    def test_format_type(self):
-        self.assertEqual("ntb_ninjs", self.formatter.format_type)
-
-    def test_format_item(self):
         with open(pathlib.Path(__file__).parent.parent.parent.parent.joinpath("data/vocabularies.json")) as json_file:
             json_cvs = json.load(json_file)
             for cv in json_cvs:
                 if cv.get("_id") == "place_custom":
                     self.app.data.insert("vocabularies", [cv])
-        seq, doc = self.formatter.format(self.article, {"name": "Test Subscriber"})[0]
-        ninjs = json.loads(doc)
+
+    def format(self):
+        _, doc = self.formatter.format(self.article, {"name": "Test Subscriber"})[0]
+        return json.loads(doc)
+
+    def test_format_type(self):
+        self.assertEqual("ntb_ninjs", self.formatter.format_type)
+
+    def test_format_item(self):
+        ninjs = self.format()
         assoc = ninjs.pop("associations")
         expected_item = {
             "guid": "123",
@@ -350,3 +355,23 @@ class Ninjs2FormatterTest(TestCase):
                 {"name": "further education", "uri": "topics:05002000"},
             ],
         }])
+
+    def test_planning_ids(self):
+        self.app.data.insert("assignments", [
+            {"_id": "assignment-id", "coverage_item": self.article["guid"], "planning_item": "planning-id"},
+        ])
+        self.app.data.insert("planning", [
+            {"_id": "planning-id", "event_item": "event-id"},
+        ])
+
+        ninjs = self.format()
+
+        self.assertIn(
+            {"role": "PLANNING-ID", "value": "planning-id"},
+            ninjs["altids"],
+        )
+
+        self.assertIn(
+            {"role": "EVENT-ID", "value": "event-id"},
+            ninjs["altids"],
+        )

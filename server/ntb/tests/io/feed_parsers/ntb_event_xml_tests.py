@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 from ntb.io.feed_parsers.ntb_event_xml import NTBEventXMLFeedParser
 
+from datetime import datetime
 from . import XMLParserTestCase
 
 
@@ -19,5 +20,10 @@ class NTBEventXMLFeedParserTestCase(XMLParserTestCase):
         self.assertEqual('MARKS XML TEST', self.item[0].get('name'))
         self.assertEqual('MARKS XML TEST.', self.item[0].get('definition_long'))
         self.assertEqual(
-            {'end': '2016-09-16T16:00:00', 'tz': '', 'start': '2016-09-05T09:00:00'},
-            self.item[0].get('dates'))
+            {
+                'start': datetime.fromisoformat('2016-09-05T09:00:00'),
+                'end': datetime.fromisoformat('2016-09-16T16:00:00'),
+                'tz': '',
+            },
+            self.item[0].get('dates'),
+        )

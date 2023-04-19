@@ -6,7 +6,7 @@
         <service>newscalendar</service>
         <title>HÅNDBALL: Landslagsturnering menn ungdom (LM00) i Turda, Romania (1. runde):</title>
         <priority>5</priority>
-        <time>2018-10-26T12:30:00.000+0200</time>
+        <time>2028-10-26T12:30:00.000+0200</time>
         <startDate>2018-10-26T12:30:00.000+0200</startDate>
         <stopDate>2018-10-26T14:00:00.000+0200</stopDate>
         <messageType></messageType>
@@ -48,7 +48,7 @@ Sveits &amp;#8211; Norge 12.30.&lt;/p&gt;
         <service>newscalendar</service>
         <title>HÅNDBALL: Landslagsturnering menn ungdom (LM00) i Turda, Romania (3. runde):</title>
         <priority>5</priority>
-        <time>2018-10-28T11:45:00.000+0100</time>
+        <time>2028-10-28T11:45:00.000+0100</time>
         <startDate>2018-10-28T11:45:00.000+0100</startDate>
         <stopDate>2018-10-28T13:15:00.000+0100</stopDate>
         <messageType></messageType>
