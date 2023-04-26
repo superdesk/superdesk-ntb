@@ -146,6 +146,8 @@ class NTBNINJSFormatter(NINJSFormatter):
         if recursive:  # should only run at the end, so do this on top level item only
             convert_dicts_to_lists(ninjs)
 
+        ninjs["copyrightholder"] = "NTB"
+
         return ninjs
 
     def _format_place(self, article) -> List[Dict]:

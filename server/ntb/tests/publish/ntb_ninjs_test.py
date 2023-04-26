@@ -337,6 +337,7 @@ class Ninjs2FormatterTest(TestCase):
                 {"name": "Omtaletjenesten", "code": "o"},
             ],
             "infosources": [{"name": "NTB"}],
+            "copyrightholder": "NTB",
         }
 
         self.assertEqual(ninjs, expected_item)
@@ -361,6 +362,7 @@ class Ninjs2FormatterTest(TestCase):
             "subjects": [
                 {"name": "further education", "uri": "topics:05002000"},
             ],
+            "copyrightholder": "NTB",
         }])
 
     def test_planning_ids(self):
