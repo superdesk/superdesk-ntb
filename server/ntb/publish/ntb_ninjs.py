@@ -143,6 +143,9 @@ class NTBNINJSFormatter(NINJSFormatter):
                 {"name": utils.get_distributor(article)},
             ]
 
+        if article.get("byline"):
+            ninjs["by"] = article["byline"]
+
         if recursive:  # should only run at the end, so do this on top level item only
             convert_dicts_to_lists(ninjs)
 

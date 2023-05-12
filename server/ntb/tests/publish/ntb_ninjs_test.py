@@ -41,6 +41,7 @@ class Ninjs2FormatterTest(TestCase):
         "template": "5ba11fec0d6f1301ac3cbd15",
         "headline": "custom media field multi",
         "slugline": "test custom media2",
+        "byline": "byline",
         "guid": "123",
         "subject": [
             {
@@ -338,6 +339,7 @@ class Ninjs2FormatterTest(TestCase):
             ],
             "infosources": [{"name": "NTB"}],
             "copyrightholder": "NTB",
+            "by": "byline",
         }
 
         self.assertEqual(ninjs, expected_item)
