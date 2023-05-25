@@ -4,4 +4,4 @@ feedgen==0.7.0
 openpyxl==3.0.7
 
 git+https://github.com/superdesk/superdesk-core.git@hotfix/2.6.5#egg=superdesk-core
-git+https://github.com/superdesk/superdesk-planning.git@hotfix/2.6.2#egg=superdesk-planning
+git+https://github.com/superdesk/superdesk-planning.git@v2.6.2#egg=superdesk-planning

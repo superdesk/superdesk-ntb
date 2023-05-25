@@ -26,9 +26,9 @@ blinker==1.4
     #   flask-mail
     #   raven
     #   superdesk-core
-boto3==1.26.119
+boto3==1.26.140
     # via superdesk-core
-botocore==1.29.119
+botocore==1.29.140
     # via
     #   boto3
     #   s3transfer
@@ -40,7 +40,7 @@ cerberus==1.3.4
     # via
     #   eve
     #   superdesk-core
-certifi==2022.12.7
+certifi==2023.5.7
     # via
     #   elastic-apm
     #   elasticsearch
@@ -221,13 +221,13 @@ pyyaml==5.4.1
     # via superdesk-core
 raven[flask]==6.10.0
     # via superdesk-core
-redis==4.5.4
+redis==4.5.5
     # via
     #   celery
     #   superdesk-core
 regex==2020.7.14
     # via superdesk-core
-requests==2.28.2
+requests==2.31.0
     # via
     #   python-twitter
     #   requests-oauthlib
@@ -236,7 +236,7 @@ requests-oauthlib==1.3.1
     # via python-twitter
 rsa==4.9
     # via oauth2client
-s3transfer==0.6.0
+s3transfer==0.6.1
     # via boto3
 sgmllib3k==1.0.0
     # via feedparser
@@ -251,9 +251,9 @@ six==1.16.0
     #   python-dateutil
 superdesk-core @ git+https://github.com/superdesk/superdesk-core.git@hotfix/2.6.5
     # via -r requirements.in
-superdesk-planning @ git+https://github.com/superdesk/superdesk-planning.git@hotfix/2.6.2
+superdesk-planning @ git+https://github.com/superdesk/superdesk-planning.git@v2.6.2
     # via -r requirements.in
-typing-extensions==4.5.0
+typing-extensions==4.6.2
     # via superdesk-core
 tzlocal==2.1
     # via superdesk-core
