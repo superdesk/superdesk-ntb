@@ -51,6 +51,8 @@ class NTBNITFFormatter(NITFFormatter):
 
     XML_DECLARATION = '<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>'
     FORMAT_TYPE = "ntbnitf10"
+    type = FORMAT_TYPE
+    name = "NTB NITF 1.0"
 
     def __init__(self):
         NITFFormatter.__init__(self)

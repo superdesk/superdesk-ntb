@@ -15,6 +15,8 @@ class NTBEventFormatter(Formatter):
     SERVICE = 'newscalendar'
     TIMEZONE = 'Europe/Oslo'
     PRIORITY = '5'
+    type = "ntb_event"
+    name = "NTB Event"
 
     def can_format(self, format_type, article):
         return format_type == 'ntb_event' and article.get('type') == 'event'
