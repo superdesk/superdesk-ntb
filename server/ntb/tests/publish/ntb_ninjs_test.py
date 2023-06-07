@@ -234,8 +234,11 @@ class Ninjs2FormatterTest(TestCase):
                 if cv.get("_id") == "place_custom":
                     self.app.data.insert("vocabularies", [cv])
 
-    def format(self):
-        _, doc = self.formatter.format(self.article, {"name": "Test Subscriber"})[0]
+    def format(self, updates=None):
+        article = self.article.copy()
+        if updates:
+            article.update(updates)
+        _, doc = self.formatter.format(article, {"name": "Test Subscriber"})[0]
         return json.loads(doc)
 
     def test_format_type(self):
@@ -386,3 +389,7 @@ class Ninjs2FormatterTest(TestCase):
             {"role": "EVENT-ID", "value": "event-id"},
             ninjs["altids"],
         )
+
+    def test_empty_assocations_renditions(self):
+        ninjs = self.format({"associations": {"foo": None}})
+        assert "associations" not in ninjs, ninjs.get("associations")

@@ -26,6 +26,8 @@ def convert_dicts_to_lists(ninjs):
                 for key, value
                 in ninjs[field].items()
             ]
+        elif field in ninjs:
+            ninjs.pop(field)
 
 
 class NTBNINJSFormatter(NINJSFormatter):
