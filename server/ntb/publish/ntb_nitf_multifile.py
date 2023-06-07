@@ -16,6 +16,8 @@ class NTBNITFMultiFileFormatter(NTBNITFFormatter):
     """This formatter version generates 1 file for each service."""
 
     FORMAT_TYPE = 'ntbnitfmultifile'
+    type = FORMAT_TYPE
+    name = "NTB NITF Multi File"
 
     def format(self, original_article, subscriber, codes=None, encoding="us-ascii"):
         """For every service create a article nitf format."""
