@@ -48,7 +48,7 @@ class NTBNITFMultiServiceFormatter20TestCase(TestCase):
         self.nitf_xml = etree.fromstring(self.doc, None)
 
     def test_imatrics_entities(self):
-        keywords = self.nitf_xml.findall("head/docdata/key-list/keyword")
+        keywords = self.nitf_xml.findall(".//keyword")
         self.assertEqual(4, len(keywords))
         self.assertEqual(keywords[0].get("key"), "Olje")
         self.assertEqual(keywords[1].get("key"), "Stortinget")
