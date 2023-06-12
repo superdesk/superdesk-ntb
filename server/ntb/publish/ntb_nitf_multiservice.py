@@ -48,10 +48,6 @@ class NTBNITF2Mixin():
         """Avoid slugline in key-list."""
         pass
 
-    def _format_docdata(self, article, docdata):
-        super()._format_docdata(article, docdata)
-        self._format_imatrics_entities(article, docdata)
-
     def _format_imatrics_entities(self, article, docdata):
         imatrics_topics = [
             s

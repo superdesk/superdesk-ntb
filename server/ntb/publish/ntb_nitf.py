@@ -78,7 +78,7 @@ class NTBNITFFormatter(NITFFormatter):
         if tz is None:
             # first time this method is launched
             # we set timezone and NTB specific filter
-            tz = pytz.timezone(app.config["DEFAULT_TIMEZONE"])
+            tz = pytz.timezone(app.config.get("DEFAULT_TIMEZONE", "Europe/Oslo"))
         try:
             if article.get("body_html"):
                 article["body_html"] = article["body_html"].replace("<br>", "<br />")
