@@ -1,0 +1,1036 @@
+{
+  "type": "text",
+  "version": 1,
+  "headline": "Valutakurser 13.06 (12.06)",
+  "slugline": "test-macro",
+  "abstract": "<p>Representative markedskurser for valuta fra Norges Bank</p>",
+  "flags": {
+    "marked_for_not_publication": false,
+    "marked_for_legal": false,
+    "marked_archived_only": false,
+    "marked_for_sms": false
+  },
+  "profile": "Standard",
+  "pubstatus": "usable",
+  "body_html": "<table><tbody><tr><td><p>US dollar&nbsp;(USD)</p></td><td></td><td><p>(10,8072)</p></td></tr><tr><td><p>Euro&nbsp;(EUR)</p></td><td></td><td><p>(11,634)</p></td></tr><tr><td><p>Sveitsiske franc&nbsp;(CHF)</p></td><td></td><td><p>(1193,1084)</p></td></tr><tr><td><p>Danske kroner&nbsp;(DKK)</p></td><td></td><td><p>(156,1192)</p></td></tr><tr><td><p>Britiske pund&nbsp;(GBP)</p></td><td></td><td><p>(13,5787)</p></td></tr><tr><td><p>Svenske kroner&nbsp;(SEK)</p></td><td></td><td><p>(100,1334)</p></td></tr><tr><td><p>Canadiske dollar&nbsp;(CAD)</p></td><td></td><td><p>(8,1034)</p></td></tr><tr><td><p>Japanske yen&nbsp;(JPY)</p></td><td></td><td><p>(7,7544)</p></td></tr></tbody></table>",
+  "format": "HTML",
+  "sign_off": "admin@example.com",
+  "template": "6463e358276dedb76cf7ab42",
+  "task": {
+    "desk": "56c5dd686c1fcd304c314eee",
+    "stage": "1e7d899b7b3048d5a5aec309",
+    "user": "5640a5eef40235008465242b"
+  },
+  "_updated": "2023-06-13T09:21:30+0000",
+  "_created": "2023-06-13T09:21:30+0000",
+  "_current_version": 3,
+  "firstcreated": "2023-06-13T09:21:05+0000",
+  "versioncreated": "2023-06-13T09:21:30+0000",
+  "original_creator": "5640a5eef40235008465242b",
+  "guid": "c5befaa6-7c1b-4707-bd4c-cd8344457885",
+  "unique_id": 37,
+  "unique_name": "#37",
+  "family_id": "c5befaa6-7c1b-4707-bd4c-cd8344457885",
+  "event_id": "c24167da-3701-40cd-9a51-9312d0323014",
+  "state": "published",
+  "source": "NTB",
+  "priority": 6,
+  "urgency": 3,
+  "genre": [],
+  "place": [
+    {
+      "parent": "34336f68-f133-3e22-8612-88bac74c560f",
+      "ntb_parent": "Agder",
+      "scheme": "place_custom",
+      "name": "Arendal",
+      "qcode": "1dde70fd-0d33-3c05-9026-9646325ef859",
+      "wikidata": "Q57919",
+      "ntb_qcode": "Arendal"
+    }
+  ],
+  "language": "nb-NO",
+  "operation": "publish",
+  "version_creator": "5640a5eef40235008465242b",
+  "expiry": "2023-06-20T09:21:30+0000",
+  "schedule_settings": {
+    "utc_publish_schedule": null,
+    "time_zone": null,
+    "utc_embargo": null
+  },
+  "_etag": "5049a1e307980011f2bc2174a8a413f64bb4f09e",
+  "annotations": [],
+  "fields_meta": {
+    "headline": {
+      "draftjsState": [
+        {
+          "entityMap": {},
+          "blocks": [
+            {
+              "depth": 0,
+              "data": {
+                "MULTIPLE_HIGHLIGHTS": {}
+              },
+              "inlineStyleRanges": [],
+              "text": "Valutakurser 13.06 (12.06)",
+              "type": "unstyled",
+              "key": "97687fcf-5963-4e43-92a1-ab7c29e47f14",
+              "entityRanges": []
+            }
+          ]
+        }
+      ]
+    },
+    "abstract": {
+      "draftjsState": [
+        {
+          "entityMap": {},
+          "blocks": [
+            {
+              "depth": 0,
+              "data": {
+                "MULTIPLE_HIGHLIGHTS": {}
+              },
+              "inlineStyleRanges": [],
+              "text": "Representative markedskurser for valuta fra Norges Bank",
+              "type": "unstyled",
+              "key": "e59170c0-8b0d-49c8-977f-5b41e82f3673",
+              "entityRanges": []
+            }
+          ]
+        }
+      ]
+    },
+    "body_html": {
+      "draftjsState": [
+        {
+          "entityMap": {
+            "0": {
+              "data": {
+                "data": {
+                  "cells": {
+                    "0": {
+                      "0": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "US dollar (USD)",
+                            "type": "unstyled",
+                            "key": "668881af-202c-4473-96b2-cefe55f9004d",
+                            "entityRanges": []
+                          }
+                        ]
+                      },
+                      "1": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "",
+                            "type": "unstyled",
+                            "key": "d98855b6-8028-446c-8f98-847651bb4ce5",
+                            "entityRanges": []
+                          }
+                        ]
+                      },
+                      "2": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "(10,8072)",
+                            "type": "unstyled",
+                            "key": "59fea37d-4170-485f-b257-c300bf027158",
+                            "entityRanges": []
+                          }
+                        ]
+                      }
+                    },
+                    "1": {
+                      "0": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "Euro (EUR)",
+                            "type": "unstyled",
+                            "key": "09b9fb8b-5de5-4538-897f-6c905f867fa6",
+                            "entityRanges": []
+                          }
+                        ]
+                      },
+                      "1": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "",
+                            "type": "unstyled",
+                            "key": "16bb4bcb-7f3e-439a-801c-061a6699aa9c",
+                            "entityRanges": []
+                          }
+                        ]
+                      },
+                      "2": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "(11,634)",
+                            "type": "unstyled",
+                            "key": "98d64243-2721-45a9-af8f-40c84b19c5b6",
+                            "entityRanges": []
+                          }
+                        ]
+                      }
+                    },
+                    "2": {
+                      "0": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "Sveitsiske franc (CHF)",
+                            "type": "unstyled",
+                            "key": "553f883c-19db-4107-8a55-aff9574904c1",
+                            "entityRanges": []
+                          }
+                        ]
+                      },
+                      "1": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "",
+                            "type": "unstyled",
+                            "key": "663847fe-a2d1-4c09-a30c-966e60ad6a69",
+                            "entityRanges": []
+                          }
+                        ]
+                      },
+                      "2": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "(1193,1084)",
+                            "type": "unstyled",
+                            "key": "6cab5d7b-4169-4be8-8c62-f1002a93b51e",
+                            "entityRanges": []
+                          }
+                        ]
+                      }
+                    },
+                    "3": {
+                      "0": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "Danske kroner (DKK)",
+                            "type": "unstyled",
+                            "key": "92a91d8f-fa07-4f3d-ac94-f6ed161365b9",
+                            "entityRanges": []
+                          }
+                        ]
+                      },
+                      "1": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "",
+                            "type": "unstyled",
+                            "key": "2e9ae18a-798f-4fd4-9672-9eb5735ecf2f",
+                            "entityRanges": []
+                          }
+                        ]
+                      },
+                      "2": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "(156,1192)",
+                            "type": "unstyled",
+                            "key": "0f8a5c99-f801-4cbc-9734-3551dbe4ac5f",
+                            "entityRanges": []
+                          }
+                        ]
+                      }
+                    },
+                    "4": {
+                      "0": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "Britiske pund (GBP)",
+                            "type": "unstyled",
+                            "key": "24765caf-c691-4126-ad1c-2c1c3883710c",
+                            "entityRanges": []
+                          }
+                        ]
+                      },
+                      "1": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "",
+                            "type": "unstyled",
+                            "key": "3db8eef0-a7ea-42d2-a063-18eb663866d6",
+                            "entityRanges": []
+                          }
+                        ]
+                      },
+                      "2": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "(13,5787)",
+                            "type": "unstyled",
+                            "key": "1b7486d8-040d-4242-90ea-b29debfbf1c4",
+                            "entityRanges": []
+                          }
+                        ]
+                      }
+                    },
+                    "5": {
+                      "0": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "Svenske kroner (SEK)",
+                            "type": "unstyled",
+                            "key": "a637e30b-d9ad-418d-8e52-8331557940b5",
+                            "entityRanges": []
+                          }
+                        ]
+                      },
+                      "1": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "",
+                            "type": "unstyled",
+                            "key": "fea390a9-e5d2-4dbc-a3de-27b78db1c01d",
+                            "entityRanges": []
+                          }
+                        ]
+                      },
+                      "2": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "(100,1334)",
+                            "type": "unstyled",
+                            "key": "0ef0d5eb-9e93-4f12-b30d-8150311829ed",
+                            "entityRanges": []
+                          }
+                        ]
+                      }
+                    },
+                    "6": {
+                      "0": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "Canadiske dollar (CAD)",
+                            "type": "unstyled",
+                            "key": "6d96f471-8b06-441e-ae52-2cc4e503a312",
+                            "entityRanges": []
+                          }
+                        ]
+                      },
+                      "1": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "",
+                            "type": "unstyled",
+                            "key": "658ceb3b-cfa1-4d52-9bf5-f3912e5211eb",
+                            "entityRanges": []
+                          }
+                        ]
+                      },
+                      "2": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "(8,1034)",
+                            "type": "unstyled",
+                            "key": "b30f84b0-8342-4360-bad0-8de08bd5266b",
+                            "entityRanges": []
+                          }
+                        ]
+                      }
+                    },
+                    "7": {
+                      "0": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "Japanske yen (JPY)",
+                            "type": "unstyled",
+                            "key": "a3c10f1d-21ab-4bf3-bbc7-a84f15f2ffa0",
+                            "entityRanges": []
+                          }
+                        ]
+                      },
+                      "1": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "",
+                            "type": "unstyled",
+                            "key": "9955abb3-792c-459d-a248-74665bd74224",
+                            "entityRanges": []
+                          }
+                        ]
+                      },
+                      "2": {
+                        "entityMap": {},
+                        "blocks": [
+                          {
+                            "depth": 0,
+                            "data": {},
+                            "inlineStyleRanges": [],
+                            "text": "(7,7544)",
+                            "type": "unstyled",
+                            "key": "64a6e29f-4244-4853-8d38-2c27e0490ece",
+                            "entityRanges": []
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "numRows": 8,
+                  "withHeader": false,
+                  "numCols": 3
+                }
+              },
+              "mutability": "MUTABLE",
+              "type": "TABLE"
+            }
+          },
+          "blocks": [
+            {
+              "depth": 0,
+              "data": {
+                "MULTIPLE_HIGHLIGHTS": {}
+              },
+              "inlineStyleRanges": [],
+              "text": " ",
+              "type": "atomic",
+              "key": "3f2229de-fc42-4672-9705-a1d292cf330e",
+              "entityRanges": [
+                {
+                  "offset": 0,
+                  "length": 1,
+                  "key": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "word_count": 23,
+  "publish_schedule": null,
+  "firstpublished": "2023-06-13T09:21:30+0000",
+  "last_published_version": true,
+  "queue_state": "queued",
+  "is_take_item": false,
+  "moved_to_legal": false,
+  "item_id": "6488351a9f156cc69babfce8",
+  "publish_sequence_no": 11,
+  "last_queue_event": "2023-06-13T09:21:30+0000",
+  "_id": "c5befaa6-7c1b-4707-bd4c-cd8344457885",
+  "_type": "published",
+  "lock_user": null,
+  "lock_time": null,
+  "lock_action": null,
+  "lock_session": null,
+  "archive_item": {
+    "_id": "c5befaa6-7c1b-4707-bd4c-cd8344457885",
+    "type": "text",
+    "version": 1,
+    "headline": "Valutakurser 13.06 (12.06)",
+    "slugline": "test-macro",
+    "abstract": "<p>Representative markedskurser for valuta fra Norges Bank</p>",
+    "flags": {
+      "marked_for_not_publication": false,
+      "marked_for_legal": false,
+      "marked_archived_only": false,
+      "marked_for_sms": false
+    },
+    "profile": "Standard",
+    "pubstatus": "usable",
+    "body_html": "<table><tbody><tr><td><p>US dollar&nbsp;(USD)</p></td><td></td><td><p>(10,8072)</p></td></tr><tr><td><p>Euro&nbsp;(EUR)</p></td><td></td><td><p>(11,634)</p></td></tr><tr><td><p>Sveitsiske franc&nbsp;(CHF)</p></td><td></td><td><p>(1193,1084)</p></td></tr><tr><td><p>Danske kroner&nbsp;(DKK)</p></td><td></td><td><p>(156,1192)</p></td></tr><tr><td><p>Britiske pund&nbsp;(GBP)</p></td><td></td><td><p>(13,5787)</p></td></tr><tr><td><p>Svenske kroner&nbsp;(SEK)</p></td><td></td><td><p>(100,1334)</p></td></tr><tr><td><p>Canadiske dollar&nbsp;(CAD)</p></td><td></td><td><p>(8,1034)</p></td></tr><tr><td><p>Japanske yen&nbsp;(JPY)</p></td><td></td><td><p>(7,7544)</p></td></tr></tbody></table>",
+    "format": "HTML",
+    "sign_off": "admin@example.com",
+    "template": "6463e358276dedb76cf7ab42",
+    "task": {
+      "desk": "56c5dd686c1fcd304c314eee",
+      "stage": "1e7d899b7b3048d5a5aec309",
+      "user": "5640a5eef40235008465242b"
+    },
+    "_updated": "2023-06-13T09:21:30+0000",
+    "_created": "2023-06-13T09:21:05+0000",
+    "_current_version": 3,
+    "firstcreated": "2023-06-13T09:21:05+0000",
+    "versioncreated": "2023-06-13T09:21:28+0000",
+    "original_creator": "5640a5eef40235008465242b",
+    "guid": "c5befaa6-7c1b-4707-bd4c-cd8344457885",
+    "unique_id": 37,
+    "unique_name": "#37",
+    "family_id": "c5befaa6-7c1b-4707-bd4c-cd8344457885",
+    "event_id": "c24167da-3701-40cd-9a51-9312d0323014",
+    "state": "published",
+    "source": "NTB",
+    "priority": 6,
+    "urgency": 3,
+    "genre": [],
+    "place": [
+      {
+        "name": "Arendal",
+        "wikidata": "Q57919",
+        "ntb_parent": "Agder",
+        "ntb_qcode": "Arendal",
+        "qcode": "1dde70fd-0d33-3c05-9026-9646325ef859",
+        "parent": "34336f68-f133-3e22-8612-88bac74c560f",
+        "scheme": "place_custom"
+      }
+    ],
+    "language": "nb-NO",
+    "operation": "publish",
+    "version_creator": "5640a5eef40235008465242b",
+    "expiry": "2023-06-20T09:21:30+0000",
+    "schedule_settings": {
+      "utc_publish_schedule": null,
+      "time_zone": null,
+      "utc_embargo": null
+    },
+    "_etag": "3fd42d0be2612ef7e6746585ce577b4518585dc6",
+    "lock_user": null,
+    "lock_session": null,
+    "lock_time": null,
+    "lock_action": null,
+    "annotations": [],
+    "fields_meta": {
+      "headline": {
+        "draftjsState": [
+          {
+            "blocks": [
+              {
+                "key": "97687fcf-5963-4e43-92a1-ab7c29e47f14",
+                "text": "Valutakurser 13.06 (12.06)",
+                "type": "unstyled",
+                "depth": 0,
+                "inlineStyleRanges": [],
+                "entityRanges": [],
+                "data": {
+                  "MULTIPLE_HIGHLIGHTS": {}
+                }
+              }
+            ],
+            "entityMap": {}
+          }
+        ]
+      },
+      "abstract": {
+        "draftjsState": [
+          {
+            "blocks": [
+              {
+                "key": "e59170c0-8b0d-49c8-977f-5b41e82f3673",
+                "text": "Representative markedskurser for valuta fra Norges Bank",
+                "type": "unstyled",
+                "depth": 0,
+                "inlineStyleRanges": [],
+                "entityRanges": [],
+                "data": {
+                  "MULTIPLE_HIGHLIGHTS": {}
+                }
+              }
+            ],
+            "entityMap": {}
+          }
+        ]
+      },
+      "body_html": {
+        "draftjsState": [
+          {
+            "blocks": [
+              {
+                "key": "3f2229de-fc42-4672-9705-a1d292cf330e",
+                "text": " ",
+                "type": "atomic",
+                "depth": 0,
+                "inlineStyleRanges": [],
+                "entityRanges": [
+                  {
+                    "offset": 0,
+                    "length": 1,
+                    "key": 0
+                  }
+                ],
+                "data": {
+                  "MULTIPLE_HIGHLIGHTS": {}
+                }
+              }
+            ],
+            "entityMap": {
+              "0": {
+                "type": "TABLE",
+                "mutability": "MUTABLE",
+                "data": {
+                  "data": {
+                    "numCols": 3,
+                    "numRows": 8,
+                    "withHeader": false,
+                    "cells": {
+                      "0": {
+                        "0": {
+                          "blocks": [
+                            {
+                              "key": "668881af-202c-4473-96b2-cefe55f9004d",
+                              "text": "US dollar (USD)",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        },
+                        "1": {
+                          "blocks": [
+                            {
+                              "key": "d98855b6-8028-446c-8f98-847651bb4ce5",
+                              "text": "",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        },
+                        "2": {
+                          "blocks": [
+                            {
+                              "key": "59fea37d-4170-485f-b257-c300bf027158",
+                              "text": "(10,8072)",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        }
+                      },
+                      "1": {
+                        "0": {
+                          "blocks": [
+                            {
+                              "key": "09b9fb8b-5de5-4538-897f-6c905f867fa6",
+                              "text": "Euro (EUR)",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        },
+                        "1": {
+                          "blocks": [
+                            {
+                              "key": "16bb4bcb-7f3e-439a-801c-061a6699aa9c",
+                              "text": "",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        },
+                        "2": {
+                          "blocks": [
+                            {
+                              "key": "98d64243-2721-45a9-af8f-40c84b19c5b6",
+                              "text": "(11,634)",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        }
+                      },
+                      "2": {
+                        "0": {
+                          "blocks": [
+                            {
+                              "key": "553f883c-19db-4107-8a55-aff9574904c1",
+                              "text": "Sveitsiske franc (CHF)",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        },
+                        "1": {
+                          "blocks": [
+                            {
+                              "key": "663847fe-a2d1-4c09-a30c-966e60ad6a69",
+                              "text": "",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        },
+                        "2": {
+                          "blocks": [
+                            {
+                              "key": "6cab5d7b-4169-4be8-8c62-f1002a93b51e",
+                              "text": "(1193,1084)",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        }
+                      },
+                      "3": {
+                        "0": {
+                          "blocks": [
+                            {
+                              "key": "92a91d8f-fa07-4f3d-ac94-f6ed161365b9",
+                              "text": "Danske kroner (DKK)",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        },
+                        "1": {
+                          "blocks": [
+                            {
+                              "key": "2e9ae18a-798f-4fd4-9672-9eb5735ecf2f",
+                              "text": "",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        },
+                        "2": {
+                          "blocks": [
+                            {
+                              "key": "0f8a5c99-f801-4cbc-9734-3551dbe4ac5f",
+                              "text": "(156,1192)",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        }
+                      },
+                      "4": {
+                        "0": {
+                          "blocks": [
+                            {
+                              "key": "24765caf-c691-4126-ad1c-2c1c3883710c",
+                              "text": "Britiske pund (GBP)",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        },
+                        "1": {
+                          "blocks": [
+                            {
+                              "key": "3db8eef0-a7ea-42d2-a063-18eb663866d6",
+                              "text": "",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        },
+                        "2": {
+                          "blocks": [
+                            {
+                              "key": "1b7486d8-040d-4242-90ea-b29debfbf1c4",
+                              "text": "(13,5787)",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        }
+                      },
+                      "5": {
+                        "0": {
+                          "blocks": [
+                            {
+                              "key": "a637e30b-d9ad-418d-8e52-8331557940b5",
+                              "text": "Svenske kroner (SEK)",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        },
+                        "1": {
+                          "blocks": [
+                            {
+                              "key": "fea390a9-e5d2-4dbc-a3de-27b78db1c01d",
+                              "text": "",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        },
+                        "2": {
+                          "blocks": [
+                            {
+                              "key": "0ef0d5eb-9e93-4f12-b30d-8150311829ed",
+                              "text": "(100,1334)",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        }
+                      },
+                      "6": {
+                        "0": {
+                          "blocks": [
+                            {
+                              "key": "6d96f471-8b06-441e-ae52-2cc4e503a312",
+                              "text": "Canadiske dollar (CAD)",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        },
+                        "1": {
+                          "blocks": [
+                            {
+                              "key": "658ceb3b-cfa1-4d52-9bf5-f3912e5211eb",
+                              "text": "",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        },
+                        "2": {
+                          "blocks": [
+                            {
+                              "key": "b30f84b0-8342-4360-bad0-8de08bd5266b",
+                              "text": "(8,1034)",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        }
+                      },
+                      "7": {
+                        "0": {
+                          "blocks": [
+                            {
+                              "key": "a3c10f1d-21ab-4bf3-bbc7-a84f15f2ffa0",
+                              "text": "Japanske yen (JPY)",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        },
+                        "1": {
+                          "blocks": [
+                            {
+                              "key": "9955abb3-792c-459d-a248-74665bd74224",
+                              "text": "",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        },
+                        "2": {
+                          "blocks": [
+                            {
+                              "key": "64a6e29f-4244-4853-8d38-2c27e0490ece",
+                              "text": "(7,7544)",
+                              "type": "unstyled",
+                              "depth": 0,
+                              "inlineStyleRanges": [],
+                              "entityRanges": [],
+                              "data": {}
+                            }
+                          ],
+                          "entityMap": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "word_count": 23,
+    "publish_schedule": null,
+    "firstpublished": "2023-06-13T09:21:30+0000"
+  },
+  "_links": {
+    "self": {
+      "title": "published",
+      "href": "/published/c5befaa6-7c1b-4707-bd4c-cd8344457885"
+    },
+    "related": {
+      "original_creator": {
+        "title": "User",
+        "href": "users/5640a5eef40235008465242b"
+      },
+      "version_creator": {
+        "title": "User",
+        "href": "users/5640a5eef40235008465242b"
+      },
+      "template": {
+        "title": "Content_template",
+        "href": "content_templates/6463e358276dedb76cf7ab42"
+      }
+    }
+  }
+}
