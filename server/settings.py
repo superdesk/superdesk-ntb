@@ -264,7 +264,7 @@ HIGH_PRIORITY_QUEUE_ENABLED = True
 
 PLANNING_EVENT_TEMPLATES_ENABLED = True
 
-HTML_TAGS_WHITELIST = _HTML_TAGS_WHITELIST + ('a', )
+HTML_TAGS_WHITELIST = _HTML_TAGS_WHITELIST + ('a', 'table', 'tbody', 'tr', 'td', 'th')
 
 # if google auth is not configured enable password auth
 google_confs = [os.environ.get(conf) for conf in ('GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET')]

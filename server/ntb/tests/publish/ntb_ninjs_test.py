@@ -1,6 +1,6 @@
-import json
 import pathlib
 
+from flask import json
 from unittest import mock
 from ntb.publish.ntb_ninjs import NTBNINJSFormatter
 from superdesk.tests import TestCase
@@ -21,6 +21,9 @@ TEST_BODY_EXPECTED = """
 <p>this element should have a txt class</p>
 <p><a>test</a>NTBMEDIA TO REMOVE</p>
 """.strip()
+
+with open(pathlib.Path(__file__).parent.joinpath("fixtures", "text-item-with-table.json")) as f:
+    text_item_with_table = json.load(f)
 
 
 @mock.patch(
@@ -393,3 +396,11 @@ class Ninjs2FormatterTest(TestCase):
     def test_empty_assocations_renditions(self):
         ninjs = self.format({"associations": {"foo": None}})
         assert "associations" not in ninjs, ninjs.get("associations")
+
+    def test_publish_table(self):
+        ninjs = self.format({
+            "fields_meta": text_item_with_table["fields_meta"],
+            "body_html": text_item_with_table["body_html"],
+        })
+        assert "<table>" in ninjs["bodies"][0]["value"]
+        assert text_item_with_table["body_html"].replace("&nbsp;", " ") == ninjs["bodies"][0]["value"]
