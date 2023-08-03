@@ -172,6 +172,7 @@ class NTBNINJSFormatter(NINJSFormatter):
 
             if place.get("altids") and place["altids"].get("wikidata"):
                 ninjs_place["uri"] = "http://www.wikidata.org/entity/{}".format(place["altids"]["wikidata"])
+                ninjs_place["literal"] = place["altids"]["wikidata"]
             places.append(ninjs_place)
         return places
 
