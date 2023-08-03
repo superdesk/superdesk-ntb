@@ -323,7 +323,7 @@ class Ninjs2FormatterTest(TestCase):
                 {
                     "name": "Gjerdrum",
                     "uri": "http://www.wikidata.org/entity/Q57084",
-                    "literal": "b564b1e1-1a99-324e-b643-88e5398305c6",
+                    "literal": "Q57084",
                     "county-dist": "Gjerdrum",
                     "state-prov": "Viken",
                 },
