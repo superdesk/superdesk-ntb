@@ -193,7 +193,9 @@ class NTBNITFFormatter(NITFFormatter):
 
     def _format_docdata_doc_id(self, article, docdata):
         etree.SubElement(
-            docdata, "doc-id", attrib={"regsrc": "NTB", "id-string": utils.get_doc_id(article)}
+            docdata,
+            "doc-id",
+            attrib={"regsrc": "NTB", "id-string": utils.get_doc_id(article)},
         )
 
     def _format_date_expire(self, article, docdata):
@@ -230,6 +232,7 @@ class NTBNITFFormatter(NITFFormatter):
         mapping = (
             ("state-prov", ("ntb_parent", "name")),
             ("county-dist", ("ntb_qcode", "qcode")),
+            ("id", ("wikidata", "altids")),
         )
         for place in article.get("place", []):
             if not place:
@@ -241,8 +244,13 @@ class NTBNITFFormatter(NITFFormatter):
             for attrib, keys in mapping:
                 for key in keys:
                     if data.get(key):
-                        evloc.attrib[attrib] = data[key]
-                        break
+                        if not data.get("wikidata") and key == "altids":
+                            evloc.attrib[attrib] = data.get("altids", {}).get(
+                                "wikidata"
+                            )
+                        else:
+                            evloc.attrib[attrib] = data[key]
+                            break
 
     def _format_pubdata(self, article, head):
         pub_date = article["versioncreated"].astimezone(tz).strftime("%Y%m%dT%H%M%S")
@@ -254,7 +262,6 @@ class NTBNITFFormatter(NITFFormatter):
         ] = pubdata  # needed to access pubdata when formatting body content
 
     def _format_subjects(self, article, tobject):
-
         # Call Function for mapping of Imatrics entities
         self._format_imatrics_entities(article, tobject)
 
@@ -395,7 +402,9 @@ class NTBNITFFormatter(NITFFormatter):
 
         # daily counter
         if app.config.get("NTB_IPTC_SEQUENCE"):
-            day_start = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+            day_start = datetime.now().replace(
+                hour=0, minute=0, second=0, microsecond=0
+            )
             pub_queue = get_resource_service("publish_queue")
             daily_count = (
                 pub_queue.find({"transmit_started_at": {"$gte": day_start}}).count() + 1
