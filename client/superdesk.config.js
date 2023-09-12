@@ -40,7 +40,6 @@ module.exports = function(grunt) {
                 publish: true,
                 publishAndContinue: true,
             },
-            useTansaProofing: true,
             editFeaturedImage: false,
             hideCreatePackage: true,
             customMonitoringWidget: true,
