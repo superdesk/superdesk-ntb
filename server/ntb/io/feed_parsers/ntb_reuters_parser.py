@@ -17,6 +17,7 @@ from superdesk.metadata.item import ITEM_TYPE, CONTENT_STATE
 import datetime
 from superdesk.utc import utc
 import re
+from lxml import html
 
 
 logger = logging.getLogger(__name__)
@@ -35,29 +36,28 @@ class NTBReutersFeedParser(FeedParser):
         return super().can_parse(article)
 
     def parse(self, content, provider=None):
-        data = content.get("data", {}).get("search", {}).get("items", [])
-        try:
-            parsed_items = []
-            for item in data:
+        data = content.get("data", {}).get("item", [])
+        if data:
+            try:
                 _item = {
-                    "guid": item.get("uri"),
-                    ITEM_TYPE: item.get("type"),
+                    "guid": data.get("uri"),
+                    ITEM_TYPE: data.get("type"),
                     "state": CONTENT_STATE.INGESTED,
-                    "headline": item.get("headLine"),
-                    "slugline": item.get("slug"),
-                    "versioncreated": self.datetime(item.get("versionCreated")),
-                    "firstcreated": self.datetime(item.get("firstCreated")),
-                    "language": item.get("language"),
-                    "subject": self.parse_subjects(item),
-                    "urgency": item.get("urgency", 0),
+                    "headline": data.get("headLine"),
+                    "versioncreated": self.datetime(data.get("versionCreated")),
+                    "firstcreated": self.datetime(data.get("firstCreated")),
+                    "language": data.get("language"),
+                    "subject": self.parse_subjects(data),
+                    "urgency": data.get("urgency", 0),
+                    "body_html": self.parse_bodyhtml(data),
+                    "byline": data.get("byLine"),
                 }
+                return _item
 
-                parsed_items.append(_item)
+            except Exception as ex:
+                raise ParserError.parseMessageError(ex, provider)
 
-            return parsed_items
-
-        except Exception as ex:
-            raise ParserError.parseMessageError(ex, provider)
+        return {}
 
     def datetime(self, string):
         try:
@@ -106,6 +106,15 @@ class NTBReutersFeedParser(FeedParser):
         return superdesk.get_resource_service("vocabularies").find_one(
             req=None, _id=_id
         )
+
+    def parse_bodyhtml(self, data):
+        if data.get("bodyXhtml"):
+            doc = html.fromstring(data.get("bodyXhtml"))
+            p_tags = doc.xpath("//p")
+            result = ""
+            for p in p_tags:
+                result += html.tostring(p).decode()
+            return result
 
 
 register_feed_parser(NTBReutersFeedParser.NAME, NTBReutersFeedParser())

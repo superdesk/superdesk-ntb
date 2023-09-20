@@ -25,6 +25,7 @@ module.exports = function(grunt) {
         shortTimeFormat: 'HH:mm, DD.MM.YYYY',
         shortDateFormat: 'HH:mm, DD.MM.YYYY',
         shortWeekFormat: 'HH:mm, DD.MM.YYYY',
+        startingDay: '1',
 
         i18n: 'no',
 
@@ -40,7 +41,6 @@ module.exports = function(grunt) {
                 publish: true,
                 publishAndContinue: true,
             },
-            useTansaProofing: true,
             editFeaturedImage: false,
             hideCreatePackage: true,
             customMonitoringWidget: true,
@@ -151,7 +151,7 @@ module.exports = function(grunt) {
         },
 
         planning_allow_freetext_location: true,
-        
+
 		iMatricsFields: {
 			entities: {
 				organisation: {

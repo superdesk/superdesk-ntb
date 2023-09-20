@@ -24,7 +24,6 @@ from superdesk.metadata.item import ITEM_TYPE, CONTENT_TYPE
 from superdesk.publish.formatters.nitf_formatter import NITFFormatter, EraseElement
 from superdesk.publish.publish_service import PublishService
 from superdesk.errors import FormatterError
-from superdesk.cache import cache
 from superdesk.text_utils import get_text
 
 from . import utils
@@ -32,20 +31,10 @@ from . import utils
 logger = logging.getLogger(__name__)
 tz = None
 
-EMBED_RE = re.compile(
-    r"<!-- EMBED START ([a-zA-Z]+ {id: \"(?P<id>.+?)\"}) -->.*"
-    r"<!-- EMBED END \1 -->",
-    re.DOTALL,
-)
+
 FILENAME_FORBIDDEN_RE = re.compile(r"[^a-zA-Z0-9._-]")
-STRIP_INVALID_CHARS_RE = re.compile("[\x00-\x08\x0B-\x0C\x0E-\x1F\x7F]")
 ENCODING = "iso-8859-1"
-LANGUAGE = "nb-NO"  # default language for ntb
 assert ENCODING != "unicode"  # use e.g. utf-8 for unicode
-
-
-def _get_language(article):
-    return article.get("language") or LANGUAGE
 
 
 def get_content_field(article, field):
@@ -62,6 +51,8 @@ class NTBNITFFormatter(NITFFormatter):
 
     XML_DECLARATION = '<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>'
     FORMAT_TYPE = "ntbnitf10"
+    type = FORMAT_TYPE
+    name = "NTB NITF 1.0"
 
     def __init__(self):
         NITFFormatter.__init__(self)
@@ -80,11 +71,6 @@ class NTBNITFFormatter(NITFFormatter):
             format_type == self.FORMAT_TYPE and article[ITEM_TYPE] == CONTENT_TYPE.TEXT
         )
 
-    def strip_invalid_chars(self, string):
-        if string is None:
-            string = ""
-        return STRIP_INVALID_CHARS_RE.sub("", string)
-
     def format(self, original_article, subscriber, codes=None, encoding="us-ascii"):
         article = deepcopy(original_article)
         self._populate_metadata(article)
@@ -92,7 +78,7 @@ class NTBNITFFormatter(NITFFormatter):
         if tz is None:
             # first time this method is launched
             # we set timezone and NTB specific filter
-            tz = pytz.timezone(superdesk.app.config["DEFAULT_TIMEZONE"])
+            tz = pytz.timezone(app.config.get("DEFAULT_TIMEZONE", "Europe/Oslo"))
         try:
             if article.get("body_html"):
                 article["body_html"] = article["body_html"].replace("<br>", "<br />")
@@ -101,7 +87,7 @@ class NTBNITFFormatter(NITFFormatter):
             )
             nitf = self.get_nitf(article, subscriber, pub_seq_num)
             try:
-                nitf.attrib["baselang"] = _get_language(article)
+                nitf.attrib["baselang"] = utils.get_language(article)
             except KeyError:
                 pass
 
@@ -207,7 +193,9 @@ class NTBNITFFormatter(NITFFormatter):
 
     def _format_docdata_doc_id(self, article, docdata):
         etree.SubElement(
-            docdata, "doc-id", attrib={"regsrc": "NTB", "id-string": utils.get_doc_id(article)}
+            docdata,
+            "doc-id",
+            attrib={"regsrc": "NTB", "id-string": utils.get_doc_id(article)},
         )
 
     def _format_date_expire(self, article, docdata):
@@ -244,6 +232,7 @@ class NTBNITFFormatter(NITFFormatter):
         mapping = (
             ("state-prov", ("ntb_parent", "name")),
             ("county-dist", ("ntb_qcode", "qcode")),
+            ("id", ("wikidata", "altids")),
         )
         for place in article.get("place", []):
             if not place:
@@ -255,8 +244,13 @@ class NTBNITFFormatter(NITFFormatter):
             for attrib, keys in mapping:
                 for key in keys:
                     if data.get(key):
-                        evloc.attrib[attrib] = data[key]
-                        break
+                        if not data.get("wikidata") and key == "altids":
+                            evloc.attrib[attrib] = data.get("altids", {}).get(
+                                "wikidata"
+                            )
+                        else:
+                            evloc.attrib[attrib] = data[key]
+                            break
 
     def _format_pubdata(self, article, head):
         pub_date = article["versioncreated"].astimezone(tz).strftime("%Y%m%dT%H%M%S")
@@ -268,7 +262,6 @@ class NTBNITFFormatter(NITFFormatter):
         ] = pubdata  # needed to access pubdata when formatting body content
 
     def _format_subjects(self, article, tobject):
-
         # Call Function for mapping of Imatrics entities
         self._format_imatrics_entities(article, tobject)
 
@@ -409,7 +402,9 @@ class NTBNITFFormatter(NITFFormatter):
 
         # daily counter
         if app.config.get("NTB_IPTC_SEQUENCE"):
-            day_start = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+            day_start = datetime.now().replace(
+                hour=0, minute=0, second=0, microsecond=0
+            )
             pub_queue = get_resource_service("publish_queue")
             daily_count = (
                 pub_queue.find({"transmit_started_at": {"$gte": day_start}}).count() + 1
@@ -448,11 +443,7 @@ class NTBNITFFormatter(NITFFormatter):
     def _format_body_head_distributor(self, article, body_head):
         distrib = etree.SubElement(body_head, "distributor")
         org = etree.SubElement(distrib, "org")
-        language = _get_language(article)
-        if language == "nb-NO":
-            org.text = "NTB"
-        elif language == "nn-NO":
-            org.text = "NPK"
+        org.text = utils.get_distributor(article)
 
     def _add_media(
         self,
@@ -503,48 +494,7 @@ class NTBNITFFormatter(NITFFormatter):
             abstract_txt = etree.tostring(abstract, encoding="unicode", method="text")
             p.text = abstract_txt
 
-        # media
-        media_data = []
-        try:
-            associations = article["associations"]
-        except KeyError:
-            pass
-        else:
-            feature_image = associations.get("featureimage")
-            if feature_image is not None:
-                feature_image["_featured"] = "image"
-                media_data.append(feature_image)
-            else:
-                feature_media = associations.get("featuremedia")
-                if feature_media is not None:
-                    feature_media["_featured"] = "media"
-                    media_data.append(feature_media)
-
-        def repl_embedded(match):
-            """Embedded in body_html handling"""
-            # this method do 2 important things:
-            # - it remove the embedded from body_html
-            # - it fill media_data with embedded data in order of appearance
-            id_ = match.group("id")
-            try:
-                data = associations[id_]
-            except KeyError:
-                logger.warning("Expected association {} not found!".format(id_))
-            else:
-                if data is None:
-                    logger.warning(
-                        "media data for association {} is empty, ignoring!".format(id_)
-                    )
-                else:
-                    media_data.append(data)
-            return ""
-
-        html = self.strip_invalid_chars(
-            EMBED_RE.sub(repl_embedded, article.get("body_html") or "")
-        )
-        # it is a request from SDNTB-388 to use normal space instead of non breaking spaces
-        # so we do this replace
-        html = html.replace("&nbsp;", " ")
+        html, media_data = utils.format_body_content(article)
 
         # at this point we have media data filled in right order
         # and no more embedded in html
@@ -625,7 +575,7 @@ class NTBNITFFormatter(NITFFormatter):
                     if type_ == "image" or type_ == "grafikk"
                     else "video/mpeg"
                 )
-            caption = self.strip_invalid_chars(data.get("description_text"))
+            caption = utils.strip_invalid_chars(data.get("description_text"))
             self._add_media(body_content, type_, mime_type, source, caption, featured)
         media_counter = len(media_data)
 

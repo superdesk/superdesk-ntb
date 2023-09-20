@@ -1,6 +1,12 @@
+import lxml.etree as etree
+
+from flask import g
 from typing import Dict, List
+from lxml.html import HTMLParser
 from superdesk import get_resource_service
+from superdesk.etree import clean_html, to_string
 from superdesk.publish.formatters.ninjs_formatter import NINJSFormatter
+from superdesk.text_utils import get_char_count, get_word_count
 
 from . import utils
 
@@ -20,6 +26,8 @@ def convert_dicts_to_lists(ninjs):
                 for key, value
                 in ninjs[field].items()
             ]
+        elif field in ninjs:
+            ninjs.pop(field)
 
 
 class NTBNINJSFormatter(NINJSFormatter):
@@ -57,14 +65,17 @@ class NTBNINJSFormatter(NINJSFormatter):
         if ninjs.get("description_text"):
             ninjs["descriptions"] = self.format_descriptions(ninjs)
 
-        if ninjs.get("body_html"):
-            ninjs["bodies"] = self.format_bodies(ninjs)
+        if article.get("body_html"):
+            ninjs["bodies"] = self.format_bodies(article)
 
         if ninjs.get("subject"):
             ninjs["subjects"] = self.format_subjects(ninjs)
 
         if ninjs.get("place"):
             ninjs["places"] = ninjs["place"]
+
+        if ninjs.get("guid"):
+            ninjs.setdefault("uri", ninjs["guid"])
 
         # removed items which mapped according to Ninjs v2 properties
         ninjs_properties = [
@@ -83,7 +94,6 @@ class NTBNINJSFormatter(NINJSFormatter):
             "copyrightnotice",
             "usageterms",
             "ednote",
-            "guid",
             "language",
             "descriptions",
             "bodies",
@@ -98,7 +108,6 @@ class NTBNINJSFormatter(NINJSFormatter):
             "by",
             "slugline",
             "located",
-            "renditions",
             "associations",
             "altids",
             "trustindicators",
@@ -106,6 +115,7 @@ class NTBNINJSFormatter(NINJSFormatter):
             "genre",
             "rightsinfo",
             "service",
+            "infosources",
         ]
 
         for key in list(ninjs.keys()):
@@ -122,13 +132,26 @@ class NTBNINJSFormatter(NINJSFormatter):
                 {"role": "DOC-ID", "value": utils.get_doc_id(article)},
             ])
 
+        if article.get("assignment_id"):
+            self._format_planning_ids(ninjs, article)
+
         ninjs["taglines"] = []
         if article.get("sign_off"):
             for tagline in article["sign_off"].split("/"):
                 ninjs["taglines"].append(tagline.strip())
 
+        if article.get("type") == "text":
+            ninjs["infosources"] = [
+                {"name": utils.get_distributor(article)},
+            ]
+
+        if article.get("byline"):
+            ninjs["by"] = article["byline"]
+
         if recursive:  # should only run at the end, so do this on top level item only
             convert_dicts_to_lists(ninjs)
+
+        ninjs["copyrightholder"] = "NTB"
 
         return ninjs
 
@@ -149,11 +172,11 @@ class NTBNINJSFormatter(NINJSFormatter):
 
             if place.get("altids") and place["altids"].get("wikidata"):
                 ninjs_place["uri"] = "http://www.wikidata.org/entity/{}".format(place["altids"]["wikidata"])
+                ninjs_place["literal"] = place["altids"]["wikidata"]
             places.append(ninjs_place)
         return places
 
     def _format_rendition(self, rendition):
-        print("IN", rendition)
         formatted = super()._format_rendition(rendition)
         if formatted.get("mimetype"):
             formatted["contenttype"] = formatted.pop("mimetype")
@@ -185,13 +208,21 @@ class NTBNINJSFormatter(NINJSFormatter):
     def format_descriptions(self, ninjs):
         return [{"value": ninjs.get("description_text"), "contenttype": "text/plain"}]
 
-    def format_bodies(self, ninjs):
+    def format_bodies(self, article):
+        html, _ = utils.format_body_content(article)
+        parser = HTMLParser(recover=True, remove_blank_text=True)
+        try:
+            html_tree = etree.fromstring(html, parser)
+        except Exception as e:
+            raise ValueError("Can't parse body_html content: {}".format(e))
+        html_tree_clean = clean_html(html_tree)
+        html = to_string(html_tree_clean, method="html", remove_root_div=True)
         return [
             {
-                "charcount": ninjs.get("charcount"),
-                "wordcount": ninjs.get("wordcount"),
-                "value": ninjs.get("body_html"),
-                "contenttype": "text/plain",
+                "charcount": get_char_count(html),
+                "wordcount": get_word_count(html),
+                "value": html,
+                "contenttype": "text/html",
             }
         ]
 
@@ -210,7 +241,21 @@ class NTBNINJSFormatter(NINJSFormatter):
 
     @property
     def places(self):
-        if self._places is None:
+        if getattr(g, "_places", None) is None:
             places = get_resource_service("vocabularies").get_items("place_custom")
-            self._places = {p["qcode"]: p for p in places}
-        return self._places
+            g._places = {p["qcode"]: p for p in places}
+        return getattr(g, "_places")
+
+    def _format_planning_ids(self, ninjs, article):
+        assignment = get_resource_service("assignments").find_one(req=None, _id=article["assignment_id"])
+        if assignment and assignment.get("planning_item"):
+            ninjs.setdefault("altids", []).append({
+                "role": "PLANNING-ID",
+                "value": assignment["planning_item"],
+            })
+            planning = get_resource_service("planning").find_one(req=None, _id=assignment["planning_item"])
+            if planning and planning.get("event_item"):
+                ninjs["altids"].append({
+                    "role": "EVENT-ID",
+                    "value": planning["event_item"],
+                })

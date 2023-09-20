@@ -6,7 +6,7 @@
         <service>newscalendar</service>
         <title>HÅNDBALL: 1. divisjon kvinner (16.00):</title>
         <priority>5</priority>
-        <time>2018-10-28T16:00:00.000+0100</time>
+        <time>2028-10-28T16:00:00.000+0100</time>
         <startDate>2018-10-28T16:00:00.000+0100</startDate>
         <stopDate>2018-10-28T19:30:00.000+0100</stopDate>
         <messageType></messageType>
@@ -40,7 +40,7 @@
         <service>newscalendar</service>
         <title>HÅNDBALL: 1. divisjon kvinner:</title>
         <priority>5</priority>
-        <time>2018-10-27T17:00:00.000+0200</time>
+        <time>2028-10-27T17:00:00.000+0200</time>
         <startDate>2018-10-27T17:00:00.000+0200</startDate>
         <stopDate>2018-10-27T18:30:00.000+0200</stopDate>
         <messageType></messageType>

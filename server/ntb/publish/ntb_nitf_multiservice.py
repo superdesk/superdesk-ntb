@@ -19,6 +19,8 @@ class NTBNITFMultiServiceFormatter(NTBNITFFormatter):
     """This NITF formatter generates single file with all services."""
 
     FORMAT_TYPE = 'ntbnitf'  # default ntb nitf formatter
+    type = FORMAT_TYPE
+    name = "NTB NITF Multi Service"
 
     def _format_service(self, article):
         try:
@@ -31,6 +33,8 @@ class NTBNITFMultiServiceFormatter(NTBNITFFormatter):
 class NTBNITFMultiServiceMediaFormatter(NTBNITFMultiServiceFormatter):
 
     FORMAT_TYPE = 'ntbnitfmedia'
+    type = FORMAT_TYPE
+    name = "NTB NITF Multi Service with media references"
 
     def _get_media_source(self, data):
         if data.get('type') == 'picture':
@@ -43,10 +47,6 @@ class NTBNITF2Mixin():
     def _format_slugline(self, article, tobject):
         """Avoid slugline in key-list."""
         pass
-
-    def _format_docdata(self, article, docdata):
-        super()._format_docdata(article, docdata)
-        self._format_imatrics_entities(article, docdata)
 
     def _format_imatrics_entities(self, article, docdata):
         imatrics_topics = [
@@ -79,10 +79,14 @@ class NTBNITF2Mixin():
 
 class NTBNITFMultiServiceFormatter20(NTBNITF2Mixin, NTBNITFMultiServiceFormatter):
     FORMAT_TYPE = "ntbnitf20"  # default ntb nitf formatter
+    type = FORMAT_TYPE
+    name = "NTB NITF 2.0 Multi Service"
 
 
 class NTBNITFMultiServiceMediaFormatter20(NTBNITF2Mixin, NTBNITFMultiServiceMediaFormatter):
     FORMAT_TYPE = "ntbnitfmedia20"
+    type = FORMAT_TYPE
+    name = "NTB NITF 2.0 Multi Service with media references"
 
 
 PublishService.register_file_extension(NTBNITFMultiServiceFormatter.FORMAT_TYPE, 'xml')

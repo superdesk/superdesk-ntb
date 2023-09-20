@@ -1,13 +1,29 @@
-import json
 import pathlib
 
+from flask import json
 from unittest import mock
 from ntb.publish.ntb_ninjs import NTBNINJSFormatter
 from superdesk.tests import TestCase
 from datetime import datetime
+from .ntb_nitf_test import TEST_BODY
 
 
 FAMILY_ID = "abcd"
+
+TEST_BODY_EXPECTED = """
+<p>This should not be lead</p>
+<p>line 1</p>
+<p>line 2</p>
+<p>line 3</p>
+<p>test encoding: –</p>
+
+<h3>intermediate line</h3>
+<p>this element should have a txt class</p>
+<p><a>test</a>NTBMEDIA TO REMOVE</p>
+""".strip()
+
+with open(pathlib.Path(__file__).parent.joinpath("fixtures", "text-item-with-table.json")) as f:
+    text_item_with_table = json.load(f)
 
 
 @mock.patch(
@@ -19,6 +35,7 @@ class Ninjs2FormatterTest(TestCase):
     article = {
         "_id": "5ba1224e0d6f13056bd82d50",
         "family_id": FAMILY_ID,
+        "assignment_id": "assignment-id",
         "rewrite_sequence": 3,
         "type": "text",
         "version": 1,
@@ -27,6 +44,7 @@ class Ninjs2FormatterTest(TestCase):
         "template": "5ba11fec0d6f1301ac3cbd15",
         "headline": "custom media field multi",
         "slugline": "test custom media2",
+        "byline": "byline",
         "guid": "123",
         "subject": [
             {
@@ -150,8 +168,8 @@ class Ninjs2FormatterTest(TestCase):
         "language": "nb-NO",
         "operation": "publish",
         "version_creator": "ObjectId(" "5640a5eef40235008465242b" ")",
-        "abstract": "<p>abstract thi sis</p>",
-        "body_html": "<p>Test body html field</p>",
+        "abstract": "<p>abstract this is</p>",
+        "body_html": TEST_BODY,
         "dateline": {
             "located": {
                 "dateline": "city",
@@ -211,22 +229,29 @@ class Ninjs2FormatterTest(TestCase):
     }
 
     def setUp(self):
+        super().setUp()
         self.formatter = NTBNINJSFormatter()
-
-    def test_format_type(self):
-        self.assertEqual("ntb_ninjs", self.formatter.format_type)
-
-    def test_format_item(self):
         with open(pathlib.Path(__file__).parent.parent.parent.parent.joinpath("data/vocabularies.json")) as json_file:
             json_cvs = json.load(json_file)
             for cv in json_cvs:
                 if cv.get("_id") == "place_custom":
                     self.app.data.insert("vocabularies", [cv])
-        seq, doc = self.formatter.format(self.article, {"name": "Test Subscriber"})[0]
-        ninjs = json.loads(doc)
+
+    def format(self, updates=None):
+        article = self.article.copy()
+        if updates:
+            article.update(updates)
+        _, doc = self.formatter.format(article, {"name": "Test Subscriber"})[0]
+        return json.loads(doc)
+
+    def test_format_type(self):
+        self.assertEqual("ntb_ninjs", self.formatter.format_type)
+
+    def test_format_item(self):
+        ninjs = self.format()
         assoc = ninjs.pop("associations")
         expected_item = {
-            "guid": "123",
+            "uri": "123",
             "version": "1",
             "type": "text",
             "versioncreated": "2022-08-09T13:38:58+0000",
@@ -270,14 +295,14 @@ class Ninjs2FormatterTest(TestCase):
                 {"value": "custom media field multi", "contenttype": "text/plain"}
             ],
             "descriptions": [
-                {"value": "abstract thi sis", "contenttype": "text/plain"}
+                {"value": "abstract this is", "contenttype": "text/plain"}
             ],
             "bodies": [
                 {
-                    "charcount": 20,
-                    "wordcount": 4,
-                    "value": "<p>Test body html field</p>",
-                    "contenttype": "text/plain",
+                    "charcount": 132,
+                    "wordcount": 25,
+                    "value": TEST_BODY_EXPECTED,
+                    "contenttype": "text/html",
                 }
             ],
             "subjects": [
@@ -298,7 +323,7 @@ class Ninjs2FormatterTest(TestCase):
                 {
                     "name": "Gjerdrum",
                     "uri": "http://www.wikidata.org/entity/Q57084",
-                    "literal": "b564b1e1-1a99-324e-b643-88e5398305c6",
+                    "literal": "Q57084",
                     "county-dist": "Gjerdrum",
                     "state-prov": "Viken",
                 },
@@ -318,6 +343,9 @@ class Ninjs2FormatterTest(TestCase):
             "service": [
                 {"name": "Omtaletjenesten", "code": "o"},
             ],
+            "infosources": [{"name": "NTB"}],
+            "copyrightholder": "NTB",
+            "by": "byline",
         }
 
         self.assertEqual(ninjs, expected_item)
@@ -330,16 +358,9 @@ class Ninjs2FormatterTest(TestCase):
             "descriptions": [
                 {"contenttype": "text/plain", "value": "test feature media"},
             ],
-            "guid": "test_id",
+            "uri": "test_id",
             "headlines": [
                 {"contenttype": "text/plain", "value": "feature headline"},
-            ],
-            "renditions": [
-                {
-                    "name": "original",
-                    "href": "http://scanpix.no/spWebApp/previewimage/sdl/preview_big/test_id.jpg",
-                    "contenttype": "image/jpeg",
-                },
             ],
             "pubstatus": "usable",
             "taglines": [],
@@ -349,4 +370,37 @@ class Ninjs2FormatterTest(TestCase):
             "subjects": [
                 {"name": "further education", "uri": "topics:05002000"},
             ],
+            "copyrightholder": "NTB",
         }])
+
+    def test_planning_ids(self):
+        self.app.data.insert("assignments", [
+            {"_id": "assignment-id", "coverage_item": self.article["guid"], "planning_item": "planning-id"},
+        ])
+        self.app.data.insert("planning", [
+            {"_id": "planning-id", "event_item": "event-id"},
+        ])
+
+        ninjs = self.format()
+
+        self.assertIn(
+            {"role": "PLANNING-ID", "value": "planning-id"},
+            ninjs["altids"],
+        )
+
+        self.assertIn(
+            {"role": "EVENT-ID", "value": "event-id"},
+            ninjs["altids"],
+        )
+
+    def test_empty_assocations_renditions(self):
+        ninjs = self.format({"associations": {"foo": None}})
+        assert "associations" not in ninjs, ninjs.get("associations")
+
+    def test_publish_table(self):
+        ninjs = self.format({
+            "fields_meta": text_item_with_table["fields_meta"],
+            "body_html": text_item_with_table["body_html"],
+        })
+        assert "<table>" in ninjs["bodies"][0]["value"]
+        assert text_item_with_table["body_html"].replace("&nbsp;", " ") == ninjs["bodies"][0]["value"]

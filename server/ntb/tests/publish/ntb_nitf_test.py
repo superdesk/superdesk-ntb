@@ -841,3 +841,4 @@ class NTBNITFFormatterTest(TestCase):
         evloc = self.nitf_xml_imatrics.find("head/docdata/evloc")
         self.assertEqual(evloc.get("county-dist"), "Gjerdrum")
         self.assertEqual(evloc.get("state-prov"), "Viken")
+        self.assertEqual(evloc.get("id"), "Q57084")

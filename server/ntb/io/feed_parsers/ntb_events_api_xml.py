@@ -8,7 +8,8 @@
 # AUTHORS and LICENSE files distributed with this source code, or
 # at https://www.sourcefabric.org/superdesk/license
 
-from typing import NamedTuple
+from datetime import datetime
+from typing import NamedTuple, Optional
 import json
 from eve.utils import ParsedRequest
 
@@ -38,6 +39,8 @@ class NTBEventsApiXMLFeedParser(XMLFeedParser):
     SUPPORTED_ROOT_TAGS = SupportedRootTags("result", "document")
 
     label = 'NTB Events API XML'
+
+    TZ = 'Europe/Oslo'
 
     def can_parse(self, xml):
         return xml.tag in (self.SUPPORTED_ROOT_TAGS.RESULT, self.SUPPORTED_ROOT_TAGS.DOCUMENT)
@@ -71,14 +74,14 @@ class NTBEventsApiXMLFeedParser(XMLFeedParser):
         self._prefetch_vocabularies_items()
 
         for document in documents:
-            item = {
+            item = {}
+            self._fill_ntb_id(document, item)
+            item.update({
                 ITEM_TYPE: CONTENT_TYPE.EVENT,
                 FORMAT: FORMATS.PRESERVED,
-                GUID_FIELD: generate_guid(type=GUID_NEWSML),
-                'firstcreated': utcnow(),
-                'versioncreated': utcnow()
-            }
-            self._fill_ntb_id(document, item)
+                GUID_FIELD: 'urn:ntb:events:{}'.format(item['ntb_id']) if item.get('ntb_id')
+                            else generate_guid(type=GUID_NEWSML),
+            })
             self._fill_name(document, item)
             self._fill_dates(document, item)
             if 'start' not in item['dates'] or 'end' not in item['dates']:
@@ -112,20 +115,31 @@ class NTBEventsApiXMLFeedParser(XMLFeedParser):
             item['name'] = title.text
 
     def _fill_dates(self, document, item):
-        tz = 'Europe/Oslo'
-        item['dates'] = {'tz': tz}
+        item['dates'] = {'tz': self.TZ}
 
         for tag in ('startDate', 'timeStart'):
-            _time = document.find(tag)
-            if _time is not None:
-                item['dates']['start'] = local_to_utc(tz, get_date(_time.text))
+            _datetime = self._parse_datetime(document, tag)
+            if _datetime:
+                item['dates']['start'] = _datetime
                 break
 
         for tag in ('stopDate', 'timeEnd'):
-            _time = document.find(tag)
-            if _time is not None:
-                item['dates']['end'] = local_to_utc(tz, get_date(_time.text))
+            _datetime = self._parse_datetime(document, tag)
+            if _datetime is not None:
+                item['dates']['end'] = _datetime
                 break
+
+        _datetime = self._parse_datetime(document, 'time')
+        if _datetime:
+            item['versioncreated'] = item['firstcreated'] = _datetime
+        else:
+            item['versioncreated'] = item['firstcreated'] = utcnow()
+
+    def _parse_datetime(self, document, tag: str) -> Optional[datetime]:
+        _time = document.find(tag)
+        if _time is not None and _time.text:
+            return local_to_utc(self.TZ, get_date(_time.text))
+        return None
 
     def _fill_definition_short(self, document, item):
         content = document.find('content')
