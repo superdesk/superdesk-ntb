@@ -26,9 +26,9 @@ blinker==1.4
     #   flask-mail
     #   raven
     #   superdesk-core
-boto3==1.28.51
+boto3==1.28.52
     # via superdesk-core
-botocore==1.31.51
+botocore==1.31.52
     # via
     #   boto3
     #   s3transfer
@@ -62,7 +62,6 @@ click==8.1.7
     #   click-plugins
     #   click-repl
     #   flask
-    #   superdesk-core
 click-didyoumean==0.3.0
     # via celery
 click-plugins==1.1.1
@@ -253,9 +252,9 @@ six==1.16.0
     #   flask-oidc-ex
     #   oauth2client
     #   python-dateutil
-superdesk-core @ git+https://github.com/superdesk/superdesk-core.git@develop
+superdesk-core @ git+https://github.com/superdesk/superdesk-core.git@hotfix/2.6.5
     # via -r requirements.in
-superdesk-planning @ git+https://github.com/superdesk/superdesk-planning.git@develop
+superdesk-planning @ git+https://github.com/superdesk/superdesk-planning.git@v2.6.2
     # via -r requirements.in
 typing-extensions==4.8.0
     # via superdesk-core
