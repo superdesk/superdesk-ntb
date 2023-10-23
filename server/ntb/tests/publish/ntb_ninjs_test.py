@@ -131,6 +131,17 @@ class Ninjs2FormatterTest(TestCase):
                 "name": "Global",
                 "qcode": "Global",
             },
+            {
+                'aliases': [],
+                'altids': {
+                    'imatrics': '34017822-d341-3826-ab94-71d226d639c4',
+                },
+                'name': 'Genève',
+                'original_source': None,
+                'qcode': '34017822-d341-3826-ab94-71d226d639c4',
+                'scheme': 'place_custom',
+                'source': 'imatrics',
+            },
         ],
         "object": [
             {
@@ -330,6 +341,10 @@ class Ninjs2FormatterTest(TestCase):
                 {
                     "name": "Global",
                     "literal": "Global",
+                },
+                {
+                    "name": 'Genève',
+                    "literal": '34017822-d341-3826-ab94-71d226d639c4',
                 },
             ],
             "taglines": [

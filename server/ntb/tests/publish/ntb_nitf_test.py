@@ -316,6 +316,17 @@ ARTICLE_WITH_IMATRICS_FIELDS = {
             "source": "imatrics",
             "original_source": "1013",
         },
+        {
+            'aliases': [],
+            'altids': {
+                'imatrics': '34017822-d341-3826-ab94-71d226d639c4',
+            },
+            'name': 'Genève',
+            'original_source': None,
+            'qcode': '34017822-d341-3826-ab94-71d226d639c4',
+            'scheme': 'place_custom',
+            'source': 'imatrics',
+        },
     ],
     "object": [
         {

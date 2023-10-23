@@ -244,11 +244,12 @@ class NTBNITFFormatter(NITFFormatter):
             for attrib, keys in mapping:
                 for key in keys:
                     if data.get(key):
-                        if not data.get("wikidata") and key == "altids":
+                        if not data.get("wikidata") and key == "altids" and data.get("altids").get("wikidata"):
                             evloc.attrib[attrib] = data.get("altids", {}).get(
                                 "wikidata"
                             )
-                        else:
+                            break
+                        elif isinstance(data.get(key), str):
                             evloc.attrib[attrib] = data[key]
                             break
 
