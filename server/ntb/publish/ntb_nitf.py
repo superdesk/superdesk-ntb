@@ -231,7 +231,7 @@ class NTBNITFFormatter(NITFFormatter):
     def _format_place(self, article, docdata):
         mapping = (
             ("state-prov", ("ntb_parent", "name")),
-            ("county-dist", ("ntb_qcode", "qcode")),
+            ("county-dist", ("ntb_qcode", )),
             ("id", ("wikidata", "altids")),
         )
         for place in article.get("place", []):
@@ -252,6 +252,8 @@ class NTBNITFFormatter(NITFFormatter):
                         elif isinstance(data.get(key), str):
                             evloc.attrib[attrib] = data[key]
                             break
+                else:
+                    evloc.attrib[attrib] = ""
 
     def _format_pubdata(self, article, head):
         pub_date = article["versioncreated"].astimezone(tz).strftime("%Y%m%dT%H%M%S")
