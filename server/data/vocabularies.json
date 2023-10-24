@@ -16,7 +16,7 @@
             "all": 1
         },
         "dependent": 0,
-        "init_version": 13,
+        "init_version": 12,
         "items": [
             {
                 "name": "kultur, underholdning og medier",
@@ -10904,94 +10904,6 @@
                 "parent": "20000337",
                 "iptc_subject": null,
                 "wikidata": "Q7489559",
-                "is_active": true
-            },
-            {
-                "qcode": "20001365",
-                "name": "selskapsrapportering",
-                "parent": "20000170",
-                "iptc_subject": null,
-                "wikidata": "Q5001933",
-                "is_active": true
-            },
-            {
-                "qcode": "20001366",
-                "name": "restrukturering",
-                "parent": "20000170",
-                "iptc_subject": null,
-                "wikidata": "Q1376796",
-                "is_active": true
-            },
-            {
-                "qcode": "20001367",
-                "name": "næringseiendom",
-                "parent": "20000235",
-                "iptc_subject": null,
-                "wikidata": "Q1520439",
-                "is_active": true
-            },
-            {
-                "qcode": "20001368",
-                "name": "boligeiendom",
-                "parent": "20000235",
-                "iptc_subject": null,
-                "wikidata": "Q1403389",
-                "is_active": true
-            },
-            {
-                "qcode": "20001369",
-                "name": "podkast",
-                "parent": "20000304",
-                "iptc_subject": null,
-                "wikidata": "Q20899",
-                "is_active": true
-            },
-            {
-                "qcode": "20001370",
-                "name": "finanstjenester",
-                "parent": "20000209",
-                "iptc_subject": null,
-                "wikidata": "Q837171",
-                "is_active": true
-            },
-            {
-                "qcode": "20001371",
-                "name": "selskapstjenester",
-                "parent": "20000209",
-                "iptc_subject": null,
-                "wikidata": "Q25351891",
-                "is_active": true
-            },
-            {
-                "qcode": "20001372",
-                "name": "pressen",
-                "parent": "20000304",
-                "iptc_subject": null,
-                "wikidata": "Q1193236",
-                "is_active": true
-            },
-            {
-                "qcode": "20001373",
-                "name": "inkludering og mangfold",
-                "parent": "14000000",
-                "iptc_subject": null,
-                "wikidata": "Q109801645",
-                "is_active": true
-            },
-            {
-                "qcode": "20001374",
-                "name": "sustainability",
-                "parent": "06000000",
-                "iptc_subject": null,
-                "wikidata": "Q219416",
-                "is_active": true
-            },
-            {
-                "qcode": "20001375",
-                "name": "profit sharing",
-                "parent": "20000518",
-                "iptc_subject": null,
-                "wikidata": "Q1419726",
                 "is_active": true
             }
         ]
