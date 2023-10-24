@@ -849,7 +849,12 @@ class NTBNITFFormatterTest(TestCase):
         self.formatter.format(article, {"name": "Test NTBNITF"})
 
     def test_place_imatrics(self):
-        evloc = self.nitf_xml_imatrics.find("head/docdata/evloc")
-        self.assertEqual(evloc.get("county-dist"), "Gjerdrum")
-        self.assertEqual(evloc.get("state-prov"), "Viken")
-        self.assertEqual(evloc.get("id"), "Q57084")
+        evloc = self.nitf_xml_imatrics.findall("head/docdata/evloc")
+
+        self.assertEqual(evloc[0].get("county-dist"), "Gjerdrum")
+        self.assertEqual(evloc[0].get("state-prov"), "Viken")
+        self.assertEqual(evloc[0].get("id"), "Q57084")
+
+        self.assertEqual(evloc[1].get("county-dist"), "")
+        self.assertEqual(evloc[1].get("state-prov"), "Genève")
+        self.assertEqual(evloc[1].get("id"), "")

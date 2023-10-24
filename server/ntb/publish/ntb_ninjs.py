@@ -159,8 +159,8 @@ class NTBNINJSFormatter(NINJSFormatter):
         places = []
         for place in article["place"]:
             ninjs_place = {
-                "name": place.get("name"),
-                "literal": place.get("qcode"),
+                "name": place.get("name") or "",
+                "literal": place.get("qcode") or "",
             }
 
             cv_place = self.places.get(place["qcode"])
