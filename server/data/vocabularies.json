@@ -16,7 +16,7 @@
             "all": 1
         },
         "dependent": 0,
-        "init_version": 14,
+        "init_version": 15,
         "items": [
             {
                 "name": "kultur, underholdning og medier",
@@ -563,7 +563,7 @@
                 "is_active": true
             },
             {
-                "name": "bombeangrep",
+                "name": "bombeattentat",
                 "qcode": "20000055",
                 "parent": "20000053",
                 "wikidata": "Q891854",
@@ -1485,7 +1485,7 @@
             {
                 "name": "regnskap og revisjon",
                 "qcode": "20000172",
-                "parent": "20000171",
+                "parent": "20001365",
                 "wikidata": null,
                 "iptc_subject": "04016001",
                 "is_active": true
@@ -1501,15 +1501,15 @@
             {
                 "name": "konkurs",
                 "qcode": "20000174",
-                "parent": "20000171",
+                "parent": "20000183",
                 "wikidata": "Q152074",
                 "iptc_subject": "04016007",
                 "is_active": true
             },
             {
-                "name": "gjenkjøp",
+                "name": "tilbakekjøp av aksjer",
                 "qcode": "20000175",
-                "parent": "20000183",
+                "parent": "20000396",
                 "wikidata": "Q939290",
                 "iptc_subject": "04016009",
                 "is_active": true
@@ -1517,23 +1517,23 @@
             {
                 "name": "kredittvurdering",
                 "qcode": "20000176",
-                "parent": "20000171",
+                "parent": "20001365",
                 "wikidata": "Q372765",
                 "iptc_subject": "04016050",
                 "is_active": true
             },
             {
-                "name": "kunngjøring av utbytte",
+                "name": "selskapsutbytte",
                 "qcode": "20000177",
-                "parent": "20000171",
+                "parent": "20000396",
                 "wikidata": "Q181201",
                 "iptc_subject": "04016015",
                 "is_active": true
             },
             {
-                "name": "resultat",
+                "name": "selskapsresultat",
                 "qcode": "20000178",
-                "parent": "20000171",
+                "parent": "20001365",
                 "wikidata": "Q5326940",
                 "iptc_subject": "04016018",
                 "is_active": true
@@ -1541,7 +1541,7 @@
             {
                 "name": "resultatprognose",
                 "qcode": "20000179",
-                "parent": "20000171",
+                "parent": "20001365",
                 "wikidata": "Q5449712",
                 "iptc_subject": "04016016",
                 "is_active": true
@@ -1549,7 +1549,7 @@
             {
                 "name": "finansregnskap",
                 "qcode": "20000180",
-                "parent": "20000171",
+                "parent": "20001365",
                 "wikidata": "Q192907",
                 "iptc_subject": "04016038",
                 "is_active": true
@@ -1557,7 +1557,7 @@
             {
                 "name": "fullmaktsinnsendelse",
                 "qcode": "20000181",
-                "parent": "20000180",
+                "parent": "20000199",
                 "wikidata": null,
                 "iptc_subject": "04016035",
                 "is_active": true
@@ -1565,7 +1565,7 @@
             {
                 "name": "konkurstruet selskap",
                 "qcode": "20000182",
-                "parent": "20000171",
+                "parent": "20000183",
                 "wikidata": "Q1785212",
                 "iptc_subject": "04016017",
                 "is_active": true
@@ -1573,13 +1573,13 @@
             {
                 "name": "selskapsfinansiering",
                 "qcode": "20000183",
-                "parent": "20000171",
+                "parent": "20000170",
                 "wikidata": "Q1134763",
                 "iptc_subject": "04016019",
                 "is_active": true
             },
             {
-                "name": "restrukturering",
+                "name": "kapitalinnhenting",
                 "qcode": "20000184",
                 "parent": "20000183",
                 "wikidata": "Q1376796",
@@ -1587,9 +1587,9 @@
                 "is_active": true
             },
             {
-                "name": "aksjonær",
+                "name": "aktivt eierskap",
                 "qcode": "20000185",
-                "parent": "20000171",
+                "parent": "20000199",
                 "wikidata": "Q381136",
                 "iptc_subject": "04016047",
                 "is_active": true
@@ -1597,7 +1597,7 @@
             {
                 "name": "børsmeldinger",
                 "qcode": "20000186",
-                "parent": "20000183",
+                "parent": "20000396",
                 "wikidata": null,
                 "iptc_subject": "04016041",
                 "is_active": true
@@ -1605,7 +1605,7 @@
             {
                 "name": "børsnotering",
                 "qcode": "20000187",
-                "parent": "20000183",
+                "parent": "20000396",
                 "wikidata": "Q185142",
                 "iptc_subject": "04016019",
                 "is_active": true
@@ -1637,7 +1637,7 @@
             {
                 "name": "aksjeopsjon",
                 "qcode": "20000191",
-                "parent": "20000188",
+                "parent": "20000394",
                 "wikidata": "Q187860",
                 "iptc_subject": "04016052",
                 "is_active": true
@@ -1653,7 +1653,7 @@
             {
                 "name": "generalforsamling",
                 "qcode": "20000193",
-                "parent": "20000192",
+                "parent": "20000199",
                 "wikidata": "Q1077012",
                 "iptc_subject": "04016002",
                 "is_active": true
@@ -1661,7 +1661,7 @@
             {
                 "name": "årsrapport",
                 "qcode": "20000194",
-                "parent": "20000192",
+                "parent": "20000199",
                 "wikidata": "Q699735",
                 "iptc_subject": "04016003",
                 "is_active": true
@@ -1669,7 +1669,7 @@
             {
                 "name": "styre",
                 "qcode": "20000195",
-                "parent": "20000192",
+                "parent": "20000199",
                 "wikidata": "Q188628",
                 "iptc_subject": "04016008",
                 "is_active": true
@@ -1685,7 +1685,7 @@
             {
                 "name": "spin-off-selskap",
                 "qcode": "20000197",
-                "parent": "20000192",
+                "parent": "20001366",
                 "wikidata": "Q1186164",
                 "iptc_subject": "04016040",
                 "is_active": true
@@ -1701,7 +1701,7 @@
             {
                 "name": "selskaps- og eierstyring",
                 "qcode": "20000199",
-                "parent": "20000192",
+                "parent": "20000170",
                 "wikidata": "Q2920921",
                 "iptc_subject": "04016027",
                 "is_active": true
@@ -1709,7 +1709,7 @@
             {
                 "name": "fellesforetak (joint venture)",
                 "qcode": "20000200",
-                "parent": "20000192",
+                "parent": "20001366",
                 "wikidata": "Q489209",
                 "iptc_subject": "04016023",
                 "is_active": true
@@ -1717,7 +1717,7 @@
             {
                 "name": "lånefinansiert oppkjøp",
                 "qcode": "20000201",
-                "parent": "20000192",
+                "parent": "20001366",
                 "wikidata": "Q1058381",
                 "iptc_subject": "04016024",
                 "is_active": true
@@ -1733,7 +1733,7 @@
             {
                 "name": "ledelsesoppkjøp",
                 "qcode": "20000203",
-                "parent": "20000192",
+                "parent": "20001366",
                 "wikidata": "Q1501578",
                 "iptc_subject": "04000000",
                 "is_active": true
@@ -1741,7 +1741,7 @@
             {
                 "name": "fusjoner og overtakelser",
                 "qcode": "20000204",
-                "parent": "20000192",
+                "parent": "20001366",
                 "wikidata": "Q731112",
                 "iptc_subject": "04016005",
                 "is_active": true
@@ -1779,7 +1779,7 @@
                 "is_active": true
             },
             {
-                "name": "økonomisk sektor",
+                "name": "produkter og tjenester",
                 "qcode": "20000209",
                 "parent": "04000000",
                 "wikidata": "Q3958441",
@@ -1813,7 +1813,7 @@
             {
                 "name": "fiskeri og havbruk",
                 "qcode": "20000213",
-                "parent": "20000210",
+                "parent": "20000209",
                 "wikidata": "Q635139",
                 "iptc_subject": "04001002",
                 "is_active": true
@@ -1821,7 +1821,7 @@
             {
                 "name": "skogbruk",
                 "qcode": "20000214",
-                "parent": "20000210",
+                "parent": "20000209",
                 "wikidata": "Q38112",
                 "iptc_subject": "04001003",
                 "is_active": true
@@ -1899,9 +1899,9 @@
                 "is_active": true
             },
             {
-                "name": "plastkjemikalier og syntetiske kjemikalier",
+                "name": "plast",
                 "qcode": "20000224",
-                "parent": "20000217",
+                "parent": "20000209",
                 "wikidata": null,
                 "iptc_subject": "04002007",
                 "is_active": true
@@ -1947,7 +1947,7 @@
                 "is_active": true
             },
             {
-                "name": "halvlederteknologi",
+                "name": "halvledere og elektriske komponenter",
                 "qcode": "20000230",
                 "parent": "20000225",
                 "wikidata": "Q11456",
@@ -2043,9 +2043,9 @@
                 "is_active": true
             },
             {
-                "name": "oppussing og ombygging",
+                "name": "bygningsvern",
                 "qcode": "20000242",
-                "parent": "20000235",
+                "parent": "20000044",
                 "wikidata": "Q2144402",
                 "iptc_subject": "04004006",
                 "is_active": true
@@ -2125,7 +2125,7 @@
             {
                 "name": "detaljhandel",
                 "qcode": "20000252",
-                "parent": "20000209",
+                "parent": "20001289",
                 "wikidata": "Q126793",
                 "iptc_subject": "04007005",
                 "is_active": true
@@ -2165,7 +2165,7 @@
             {
                 "name": "engroshandel",
                 "qcode": "20000255",
-                "parent": "20000243",
+                "parent": "20001289",
                 "wikidata": "Q220695",
                 "iptc_subject": "04007007",
                 "is_active": true
@@ -2179,7 +2179,7 @@
                 "is_active": true
             },
             {
-                "name": "alternativ energi",
+                "name": "fornybar energi",
                 "qcode": "20000257",
                 "parent": "20000256",
                 "wikidata": "Q4202245",
@@ -2203,9 +2203,9 @@
                 "is_active": true
             },
             {
-                "name": "kraftforsyning",
+                "name": "elektrisitet",
                 "qcode": "20000260",
-                "parent": "20000256",
+                "parent": "20001244",
                 "wikidata": "Q2316331",
                 "iptc_subject": "04005006",
                 "is_active": true
@@ -2301,7 +2301,7 @@
             {
                 "name": "bokføring og revisjon",
                 "qcode": "20000272",
-                "parent": "20000271",
+                "parent": "20001370",
                 "wikidata": "Q4116214",
                 "iptc_subject": "04006001",
                 "is_active": true
@@ -2309,7 +2309,7 @@
             {
                 "name": "auksjon",
                 "qcode": "20000273",
-                "parent": "20000271",
+                "parent": "20001289",
                 "wikidata": "Q177923",
                 "iptc_subject": "04006020",
                 "is_active": true
@@ -2317,7 +2317,7 @@
             {
                 "name": "bankvirksomhet",
                 "qcode": "20000274",
-                "parent": "20000271",
+                "parent": "20001370",
                 "wikidata": "Q3435731",
                 "iptc_subject": "04006002",
                 "is_active": true
@@ -2325,7 +2325,7 @@
             {
                 "name": "konsulentvirksomhet",
                 "qcode": "20000275",
-                "parent": "20000271",
+                "parent": "20001371",
                 "wikidata": "Q268626",
                 "iptc_subject": "04006003",
                 "is_active": true
@@ -2333,7 +2333,7 @@
             {
                 "name": "arbeidsformidling",
                 "qcode": "20000276",
-                "parent": "20000271",
+                "parent": "20001371",
                 "wikidata": "Q261362",
                 "iptc_subject": "04006004",
                 "is_active": true
@@ -2357,7 +2357,7 @@
             {
                 "name": "forsikring",
                 "qcode": "20000279",
-                "parent": "20000271",
+                "parent": "20001370",
                 "wikidata": "Q43183",
                 "iptc_subject": "04006006",
                 "is_active": true
@@ -2365,7 +2365,7 @@
             {
                 "name": "finansrådgivning",
                 "qcode": "20000280",
-                "parent": "20000271",
+                "parent": "20001370",
                 "wikidata": "Q557705",
                 "iptc_subject": "04006022",
                 "is_active": true
@@ -2373,7 +2373,7 @@
             {
                 "name": "renholdstjenester",
                 "qcode": "20000281",
-                "parent": "20000271",
+                "parent": "20001371",
                 "wikidata": "Q6735317",
                 "iptc_subject": "04006014",
                 "is_active": true
@@ -2381,7 +2381,7 @@
             {
                 "name": "juridisk bistand",
                 "qcode": "20000282",
-                "parent": "20000271",
+                "parent": "20001371",
                 "wikidata": "Q1494322",
                 "iptc_subject": "04006007",
                 "is_active": true
@@ -2389,7 +2389,7 @@
             {
                 "name": "markedsundersøkelser",
                 "qcode": "20000283",
-                "parent": "20000271",
+                "parent": "20000192",
                 "wikidata": "Q913709",
                 "iptc_subject": "04006008",
                 "is_active": true
@@ -2397,7 +2397,7 @@
             {
                 "name": "markedstrend",
                 "qcode": "20000284",
-                "parent": "20000271",
+                "parent": "20000192",
                 "wikidata": "Q1004322",
                 "iptc_subject": "04006011",
                 "is_active": true
@@ -2419,9 +2419,9 @@
                 "is_active": true
             },
             {
-                "name": "personlig investering",
+                "name": "sparerådgivning",
                 "qcode": "20000287",
-                "parent": "20000271",
+                "parent": "20001370",
                 "wikidata": "Q253613",
                 "iptc_subject": "04006010",
                 "is_active": true
@@ -2429,7 +2429,7 @@
             {
                 "name": "personlig pleie",
                 "qcode": "20000288",
-                "parent": "20000271",
+                "parent": "20001371",
                 "wikidata": null,
                 "iptc_subject": "04006013",
                 "is_active": true
@@ -2445,15 +2445,15 @@
             {
                 "name": "utleievirksomhet",
                 "qcode": "20000290",
-                "parent": "20000271",
+                "parent": "20001371",
                 "wikidata": null,
                 "iptc_subject": "04006016",
                 "is_active": true
             },
             {
-                "name": "fraktselskap",
+                "name": "frakt- og posttjenester",
                 "qcode": "20000291",
-                "parent": "20000271",
+                "parent": "20001371",
                 "wikidata": "Q1447463",
                 "iptc_subject": "04006012",
                 "is_active": true
@@ -2461,7 +2461,7 @@
             {
                 "name": "aksjemekling",
                 "qcode": "20000292",
-                "parent": "20000271",
+                "parent": "20001370",
                 "wikidata": "Q2073644",
                 "iptc_subject": "04006009",
                 "is_active": true
@@ -2469,7 +2469,7 @@
             {
                 "name": "bryllupstjenester",
                 "qcode": "20000293",
-                "parent": "20000271",
+                "parent": "20001371",
                 "wikidata": "Q25421835",
                 "iptc_subject": "04006017",
                 "is_active": true
@@ -2555,7 +2555,7 @@
                 "is_active": true
             },
             {
-                "name": "medier",
+                "name": "medie- og underholdningsbransjen",
                 "qcode": "20000304",
                 "parent": "20000209",
                 "wikidata": "Q56611639",
@@ -2571,7 +2571,7 @@
                 "is_active": true
             },
             {
-                "name": "forlagsbransjen",
+                "name": "bokbransjen",
                 "qcode": "20000306",
                 "parent": "20000304",
                 "wikidata": "Q56560668",
@@ -2579,7 +2579,7 @@
                 "is_active": true
             },
             {
-                "name": "filmindustri",
+                "name": "filmbransjen",
                 "qcode": "20000307",
                 "parent": "20000304",
                 "wikidata": "Q1415395",
@@ -2651,7 +2651,7 @@
                 "is_active": true
             },
             {
-                "name": "metallurgisk industri",
+                "name": "gruvedrift og metallurgisk industri",
                 "qcode": "20000316",
                 "parent": "20000209",
                 "wikidata": "Q11467",
@@ -2661,13 +2661,13 @@
             {
                 "name": "byggevarebransjen",
                 "qcode": "20000317",
-                "parent": "20000316",
+                "parent": "20000235",
                 "wikidata": "Q56887369",
                 "iptc_subject": "04012001",
                 "is_active": true
             },
             {
-                "name": "edelmetaller",
+                "name": "edelmetaller og sjeldne jordarter",
                 "qcode": "20000318",
                 "parent": "20000316",
                 "wikidata": "Q56573752",
@@ -2715,9 +2715,9 @@
                 "is_active": true
             },
             {
-                "name": "næringsmiddelindustri",
+                "name": "dagligvare",
                 "qcode": "20000324",
-                "parent": "20000322",
+                "parent": "20000243",
                 "wikidata": "Q540912",
                 "iptc_subject": "04013002",
                 "is_active": true
@@ -2725,7 +2725,7 @@
             {
                 "name": "møbelindustri",
                 "qcode": "20000325",
-                "parent": "20000322",
+                "parent": "20000243",
                 "wikidata": "Q12122106",
                 "iptc_subject": "04013003",
                 "is_active": true
@@ -2763,9 +2763,9 @@
                 "is_active": true
             },
             {
-                "name": "tobakk",
+                "name": "tobakk og nikotin",
                 "qcode": "20000330",
-                "parent": "20000322",
+                "parent": "20000243",
                 "wikidata": "Q907703",
                 "iptc_subject": "04013008",
                 "is_active": true
@@ -3235,7 +3235,7 @@
                 "is_active": true
             },
             {
-                "name": "råvaremarked",
+                "name": "myke råvarer",
                 "qcode": "20000389",
                 "parent": "20000386",
                 "wikidata": "Q396212",
@@ -3277,7 +3277,7 @@
             {
                 "name": "verdipapir",
                 "qcode": "20000394",
-                "parent": "20000385",
+                "parent": "20000183",
                 "wikidata": "Q169489",
                 "iptc_subject": "04009003",
                 "is_active": true
@@ -3285,15 +3285,15 @@
             {
                 "name": "derivater",
                 "qcode": "20000395",
-                "parent": "20000394",
+                "parent": "20000396",
                 "wikidata": "Q66295",
                 "iptc_subject": "04008029",
                 "is_active": true
             },
             {
-                "name": "aksjer",
+                "name": "aksjer og verdipapirer",
                 "qcode": "20000396",
-                "parent": "20000385",
+                "parent": "20000183",
                 "wikidata": "Q1196314",
                 "iptc_subject": "04008026",
                 "is_active": true
@@ -6043,7 +6043,7 @@
                 "is_active": true
             },
             {
-                "name": "juss",
+                "name": "rettsvitenskap",
                 "qcode": "20000749",
                 "parent": "20000742",
                 "wikidata": "Q4932206",
@@ -7115,7 +7115,7 @@
                 "is_active": true
             },
             {
-                "name": "klatring",
+                "name": "fjellklatring",
                 "qcode": "20000884",
                 "parent": "20000822",
                 "wikidata": "Q820236",
@@ -7131,7 +7131,7 @@
                 "is_active": true
             },
             {
-                "name": "fjellklatring",
+                "name": "alpinklatring",
                 "qcode": "20000886",
                 "parent": "20000884",
                 "wikidata": "Q36908",
@@ -8435,7 +8435,7 @@
                 "is_active": true
             },
             {
-                "name": "skyting",
+                "name": "skytesport",
                 "qcode": "20001049",
                 "parent": "20000822",
                 "wikidata": "Q206989",
@@ -8875,7 +8875,7 @@
                 "is_active": true
             },
             {
-                "name": "idrettsmedisin",
+                "name": "doping",
                 "qcode": "20001104",
                 "parent": "15000000",
                 "wikidata": "Q166376",
@@ -9043,7 +9043,7 @@
                 "is_active": true
             },
             {
-                "name": "idrettspolitikk",
+                "name": "Idrettsorganisasjoner",
                 "qcode": "20001125",
                 "parent": "15000000",
                 "wikidata": "Q4438121",
@@ -9083,7 +9083,7 @@
                 "is_active": true
             },
             {
-                "name": "farefarsel om vær",
+                "name": "farevarsel om vær",
                 "qcode": "20001131",
                 "parent": "17000000",
                 "wikidata": "Q7978253",
@@ -9117,7 +9117,7 @@
             {
                 "name": "kunstutstilling",
                 "qcode": "20001135",
-                "parent": "20000002",
+                "parent": "20000038",
                 "wikidata": "Q667276",
                 "iptc_subject": "01000000",
                 "is_active": true
@@ -9125,7 +9125,7 @@
             {
                 "name": "varemesse",
                 "qcode": "20001136",
-                "parent": "20000271",
+                "parent": "20001371",
                 "wikidata": "Q57305",
                 "iptc_subject": "04006000",
                 "is_active": true
@@ -9171,7 +9171,7 @@
                 "is_active": true
             },
             {
-                "name": "fjellklatring",
+                "name": "fjelltur og klatring",
                 "qcode": "20001142",
                 "parent": "20000560",
                 "wikidata": "Q3505012",
@@ -9323,9 +9323,9 @@
                 "is_active": true
             },
             {
-                "name": "kunsthåndverk",
+                "name": "brukshåndverk",
                 "qcode": "20001160",
-                "parent": "20000209",
+                "parent": "20000243",
                 "wikidata": "Q877729",
                 "iptc_subject": "04000000",
                 "is_active": true
@@ -9341,7 +9341,7 @@
             {
                 "name": "kapitalforvaltning",
                 "qcode": "20001162",
-                "parent": "20000271",
+                "parent": "20001370",
                 "wikidata": "Q873442",
                 "iptc_subject": "04006000",
                 "is_active": true
@@ -9349,7 +9349,7 @@
             {
                 "name": "kundebehandling",
                 "qcode": "20001163",
-                "parent": "20000271",
+                "parent": "20000192",
                 "wikidata": "Q485643",
                 "iptc_subject": "04006000",
                 "is_active": true
@@ -9357,7 +9357,7 @@
             {
                 "name": "betalingssystem",
                 "qcode": "20001164",
-                "parent": "20000271",
+                "parent": "20001371",
                 "wikidata": "Q986008",
                 "iptc_subject": "04006000",
                 "is_active": true
@@ -9365,7 +9365,7 @@
             {
                 "name": "folkefinansiering",
                 "qcode": "20001294",
-                "parent": "20000271",
+                "parent": "20000183",
                 "wikidata": "Q348303",
                 "iptc_subject": null,
                 "is_active": true
@@ -9389,7 +9389,7 @@
             {
                 "name": "medisinsk utstyr",
                 "qcode": "20001167",
-                "parent": "20000322",
+                "parent": "20001354",
                 "wikidata": "Q63383285",
                 "iptc_subject": "04013000",
                 "is_active": true
@@ -9397,7 +9397,7 @@
             {
                 "name": "kjæledyrprodukter og -tjenester",
                 "qcode": "20001168",
-                "parent": "20000322",
+                "parent": "20000243",
                 "wikidata": "Q85792903",
                 "iptc_subject": "04013000",
                 "is_active": true
@@ -9413,7 +9413,7 @@
             {
                 "name": "logistikk",
                 "qcode": "20001170",
-                "parent": "20000209",
+                "parent": "20000337",
                 "wikidata": "Q177777",
                 "iptc_subject": "04000000",
                 "is_active": true
@@ -9725,7 +9725,7 @@
             {
                 "name": "jordenergi",
                 "qcode": "20001208",
-                "parent": "20000256",
+                "parent": "20000257",
                 "wikidata": "Q3215493",
                 "iptc_subject": "04005000",
                 "is_active": true
@@ -9733,7 +9733,7 @@
             {
                 "name": "solenergi",
                 "qcode": "20001209",
-                "parent": "20000256",
+                "parent": "20000257",
                 "wikidata": "Q1483757",
                 "iptc_subject": "04005000",
                 "is_active": true
@@ -9741,7 +9741,7 @@
             {
                 "name": "vannkraft",
                 "qcode": "20001210",
-                "parent": "20000256",
+                "parent": "20000257",
                 "wikidata": "Q80638",
                 "iptc_subject": "04005000",
                 "is_active": true
@@ -9749,7 +9749,7 @@
             {
                 "name": "vindkraft",
                 "qcode": "20001211",
-                "parent": "20000256",
+                "parent": "20000257",
                 "wikidata": "Q43302",
                 "iptc_subject": "04005000",
                 "is_active": true
@@ -9901,7 +9901,7 @@
             {
                 "name": "bedriftens samfunnsansvar",
                 "qcode": "20001230",
-                "parent": "20000170",
+                "parent": "20000199",
                 "wikidata": "Q218600",
                 "iptc_subject": "04016000",
                 "is_active": true
@@ -10011,7 +10011,7 @@
                 "is_active": true
             },
             {
-                "name": "olje- og gassindustri",
+                "name": "olje og gass",
                 "qcode": "20001243",
                 "parent": "20000256",
                 "wikidata": "Q862571",
@@ -10381,7 +10381,7 @@
             {
                 "name": "salgskanaler",
                 "qcode": "20001289",
-                "parent": "20000243",
+                "parent": "20000209",
                 "wikidata": "Q6576947",
                 "iptc_subject": "04007000",
                 "is_active": true
@@ -10868,7 +10868,7 @@
             },
             {
                 "qcode": "20001360",
-                "name": "fraternal and community group",
+                "name": "frimurerordner og ordensselskaper",
                 "parent": "20000768",
                 "iptc_subject": null,
                 "wikidata": "Q996839",
@@ -10876,7 +10876,7 @@
             },
             {
                 "qcode": "20001361",
-                "name": "cyber warfare",
+                "name": "cyberkrigføring",
                 "parent": "16000000",
                 "iptc_subject": null,
                 "wikidata": "Q849340",
@@ -10884,7 +10884,7 @@
             },
             {
                 "qcode": "20001362",
-                "name": "public transport",
+                "name": "kollektivtransport",
                 "parent": "20000337",
                 "iptc_subject": null,
                 "wikidata": "Q178512",
@@ -10892,7 +10892,7 @@
             },
             {
                 "qcode": "20001363",
-                "name": "taxi and ride-hailing",
+                "name": "taxi",
                 "parent": "20000337",
                 "iptc_subject": null,
                 "wikidata": "Q82650",
@@ -10900,7 +10900,7 @@
             },
             {
                 "qcode": "20001364",
-                "name": "shared transport",
+                "name": "kjøretøydeling",
                 "parent": "20000337",
                 "iptc_subject": null,
                 "wikidata": "Q7489559",
