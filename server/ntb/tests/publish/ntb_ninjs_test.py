@@ -237,6 +237,9 @@ class Ninjs2FormatterTest(TestCase):
                 ],
             },
         },
+        "extra":{
+            "ntb_pub_name": "test ntb_pub_name",
+        }
     }
 
     def setUp(self):
@@ -361,6 +364,7 @@ class Ninjs2FormatterTest(TestCase):
             "infosources": [{"name": "NTB"}],
             "copyrightholder": "NTB",
             "by": "byline",
+            "NTBKilde": "test ntb_pub_name"
         }
 
         self.assertEqual(ninjs, expected_item)
