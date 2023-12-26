@@ -77,6 +77,9 @@ class NTBNINJSFormatter(NINJSFormatter):
         if ninjs.get("guid"):
             ninjs.setdefault("uri", ninjs["guid"])
 
+        if ninjs.get("extra", {}).get("ntb_pub_name"):
+            ninjs["NTBKilde"] = ninjs["extra"]["ntb_pub_name"]
+
         # removed items which mapped according to Ninjs v2 properties
         ninjs_properties = [
             "headlines",
@@ -116,6 +119,7 @@ class NTBNINJSFormatter(NINJSFormatter):
             "rightsinfo",
             "service",
             "infosources",
+            "NTBKilde",
         ]
 
         for key in list(ninjs.keys()):
