@@ -22,7 +22,9 @@ TEST_BODY_EXPECTED = """
 <p><a>test</a>NTBMEDIA TO REMOVE</p>
 """.strip()
 
-with open(pathlib.Path(__file__).parent.joinpath("fixtures", "text-item-with-table.json")) as f:
+with open(
+    pathlib.Path(__file__).parent.joinpath("fixtures", "text-item-with-table.json")
+) as f:
     text_item_with_table = json.load(f)
 
 
@@ -132,15 +134,15 @@ class Ninjs2FormatterTest(TestCase):
                 "qcode": "Global",
             },
             {
-                'aliases': [],
-                'altids': {
-                    'imatrics': '34017822-d341-3826-ab94-71d226d639c4',
+                "aliases": [],
+                "altids": {
+                    "imatrics": "34017822-d341-3826-ab94-71d226d639c4",
                 },
-                'name': 'Genève',
-                'original_source': None,
-                'qcode': '34017822-d341-3826-ab94-71d226d639c4',
-                'scheme': 'place_custom',
-                'source': 'imatrics',
+                "name": "Genève",
+                "original_source": None,
+                "qcode": "34017822-d341-3826-ab94-71d226d639c4",
+                "scheme": "place_custom",
+                "source": "imatrics",
             },
         ],
         "object": [
@@ -232,20 +234,24 @@ class Ninjs2FormatterTest(TestCase):
                         "parent": "05000000",
                         "scheme": None,
                         "name": "further education",
-                        "qcode": "05002000"
+                        "qcode": "05002000",
                     },
                 ],
             },
         },
-        "extra":{
+        "extra": {
             "ntb_pub_name": "test ntb_pub_name",
-        }
+        },
     }
 
     def setUp(self):
         super().setUp()
         self.formatter = NTBNINJSFormatter()
-        with open(pathlib.Path(__file__).parent.parent.parent.parent.joinpath("data/vocabularies.json")) as json_file:
+        with open(
+            pathlib.Path(__file__).parent.parent.parent.parent.joinpath(
+                "data/vocabularies.json"
+            )
+        ) as json_file:
             json_cvs = json.load(json_file)
             for cv in json_cvs:
                 if cv.get("_id") == "place_custom":
@@ -346,8 +352,8 @@ class Ninjs2FormatterTest(TestCase):
                     "literal": "Global",
                 },
                 {
-                    "name": 'Genève',
-                    "literal": '34017822-d341-3826-ab94-71d226d639c4',
+                    "name": "Genève",
+                    "literal": "34017822-d341-3826-ab94-71d226d639c4",
                 },
             ],
             "taglines": [
@@ -364,41 +370,56 @@ class Ninjs2FormatterTest(TestCase):
             "infosources": [{"name": "NTB"}],
             "copyrightholder": "NTB",
             "by": "byline",
-            "NTBKilde": "test ntb_pub_name"
+            "NTBKilde": "test ntb_pub_name",
         }
 
         self.assertEqual(ninjs, expected_item)
 
-        self.assertEqual(assoc, [{
-            "name": "featuremedia",
-            "altids": [
-                {"role": "GUID", "value": "test_id"},
+        self.assertEqual(
+            assoc,
+            [
+                {
+                    "name": "featuremedia",
+                    "altids": [
+                        {"role": "GUID", "value": "test_id"},
+                    ],
+                    "descriptions": [
+                        {"contenttype": "text/plain", "value": "test feature media"},
+                    ],
+                    "uri": "test_id",
+                    "headlines": [
+                        {"contenttype": "text/plain", "value": "feature headline"},
+                    ],
+                    "pubstatus": "usable",
+                    "taglines": [],
+                    "type": "picture",
+                    "version": "1",
+                    "versioncreated": "2023-03-01T12:10:00+0000",
+                    "subjects": [
+                        {"name": "further education", "uri": "topics:05002000"},
+                    ],
+                    "copyrightholder": "NTB",
+                }
             ],
-            "descriptions": [
-                {"contenttype": "text/plain", "value": "test feature media"},
-            ],
-            "uri": "test_id",
-            "headlines": [
-                {"contenttype": "text/plain", "value": "feature headline"},
-            ],
-            "pubstatus": "usable",
-            "taglines": [],
-            "type": "picture",
-            "version": "1",
-            "versioncreated": "2023-03-01T12:10:00+0000",
-            "subjects": [
-                {"name": "further education", "uri": "topics:05002000"},
-            ],
-            "copyrightholder": "NTB",
-        }])
+        )
 
     def test_planning_ids(self):
-        self.app.data.insert("assignments", [
-            {"_id": "assignment-id", "coverage_item": self.article["guid"], "planning_item": "planning-id"},
-        ])
-        self.app.data.insert("planning", [
-            {"_id": "planning-id", "event_item": "event-id"},
-        ])
+        self.app.data.insert(
+            "assignments",
+            [
+                {
+                    "_id": "assignment-id",
+                    "coverage_item": self.article["guid"],
+                    "planning_item": "planning-id",
+                },
+            ],
+        )
+        self.app.data.insert(
+            "planning",
+            [
+                {"_id": "planning-id", "event_item": "event-id"},
+            ],
+        )
 
         ninjs = self.format()
 
@@ -417,9 +438,14 @@ class Ninjs2FormatterTest(TestCase):
         assert "associations" not in ninjs, ninjs.get("associations")
 
     def test_publish_table(self):
-        ninjs = self.format({
-            "fields_meta": text_item_with_table["fields_meta"],
-            "body_html": text_item_with_table["body_html"],
-        })
+        ninjs = self.format(
+            {
+                "fields_meta": text_item_with_table["fields_meta"],
+                "body_html": text_item_with_table["body_html"],
+            }
+        )
         assert "<table>" in ninjs["bodies"][0]["value"]
-        assert text_item_with_table["body_html"].replace("&nbsp;", " ") == ninjs["bodies"][0]["value"]
+        assert (
+            text_item_with_table["body_html"].replace("&nbsp;", " ")
+            == ninjs["bodies"][0]["value"]
+        )
