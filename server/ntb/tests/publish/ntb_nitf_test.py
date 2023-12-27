@@ -318,15 +318,15 @@ ARTICLE_WITH_IMATRICS_FIELDS = {
             "original_source": "1013",
         },
         {
-            'aliases': [],
-            'altids': {
-                'imatrics': '34017822-d341-3826-ab94-71d226d639c4',
+            "aliases": [],
+            "altids": {
+                "imatrics": "34017822-d341-3826-ab94-71d226d639c4",
             },
-            'name': 'Genève',
-            'original_source': None,
-            'qcode': '34017822-d341-3826-ab94-71d226d639c4',
-            'scheme': 'place_custom',
-            'source': 'imatrics',
+            "name": "Genève",
+            "original_source": None,
+            "qcode": "34017822-d341-3826-ab94-71d226d639c4",
+            "scheme": "place_custom",
+            "source": "imatrics",
         },
     ],
     "object": [
@@ -707,7 +707,7 @@ class NTBNITFFormatterTest(TestCase):
         formatter_output = self.formatter.format(article, {"name": "Test NTBNITF"})
         doc = formatter_output[0]["encoded_item"]
         body_content = doc[
-            doc.find(b"<body.content>") - 4: doc.find(b"</body.content>") + 15
+            doc.find(b"<body.content>") - 4 : doc.find(b"</body.content>") + 15
         ]
         expected = (
             b"""\
