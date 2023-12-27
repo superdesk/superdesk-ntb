@@ -20,6 +20,8 @@ TEST_BODY_EXPECTED = """
 <h3>intermediate line</h3>
 <p>this element should have a txt class</p>
 <p><a>test</a>NTBMEDIA TO REMOVE</p>
+
+<p>(©MyCompany2023)</p>
 """.strip()
 
 with open(
@@ -319,8 +321,8 @@ class Ninjs2FormatterTest(TestCase):
             ],
             "bodies": [
                 {
-                    "charcount": 132,
-                    "wordcount": 25,
+                    "charcount": 148,
+                    "wordcount": 26,
                     "value": TEST_BODY_EXPECTED,
                     "contenttype": "text/html",
                 }

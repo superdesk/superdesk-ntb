@@ -51,6 +51,7 @@ following a general election in Madrid, Spain, July 19, 2016. REUTERS/Andrea Com
 </video>
 <figcaption>SCRIPT TO FOLLOW</figcaption>
 </figure><!-- EMBED END Video {id: "embedded10005446043"} -->
+<p>(©MyCompany2023)</p>
 """
 )
 ARTICLE = {
@@ -442,7 +443,7 @@ class NTBNITFFormatterTest(TestCase):
         pubdata = self.nitf_xml.find("head/pubdata")
         expected = NOW.astimezone(self.tz).strftime("%Y%m%dT%H%M%S")
         self.assertEqual(pubdata.get("date.publication"), expected)
-        self.assertEqual(pubdata.get("item-length"), "121")
+        self.assertEqual(pubdata.get("item-length"), "137")
         self.assertEqual(pubdata.get("unit-of-measure"), "character")
 
     def test_dateline(self):
