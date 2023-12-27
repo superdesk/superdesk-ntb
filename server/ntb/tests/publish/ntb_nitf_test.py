@@ -707,7 +707,7 @@ class NTBNITFFormatterTest(TestCase):
         formatter_output = self.formatter.format(article, {"name": "Test NTBNITF"})
         doc = formatter_output[0]["encoded_item"]
         body_content = doc[
-            doc.find(b"<body.content>") - 4 : doc.find(b"</body.content>") + 15
+            doc.find(b"<body.content>") - 4: doc.find(b"</body.content>") + 15
         ]
         expected = (
             b"""\
