@@ -51,6 +51,7 @@ following a general election in Madrid, Spain, July 19, 2016. REUTERS/Andrea Com
 </video>
 <figcaption>SCRIPT TO FOLLOW</figcaption>
 </figure><!-- EMBED END Video {id: "embedded10005446043"} -->
+<p>(©MyCompany2023)</p>
 """
 )
 ARTICLE = {
@@ -317,15 +318,15 @@ ARTICLE_WITH_IMATRICS_FIELDS = {
             "original_source": "1013",
         },
         {
-            'aliases': [],
-            'altids': {
-                'imatrics': '34017822-d341-3826-ab94-71d226d639c4',
+            "aliases": [],
+            "altids": {
+                "imatrics": "34017822-d341-3826-ab94-71d226d639c4",
             },
-            'name': 'Genève',
-            'original_source': None,
-            'qcode': '34017822-d341-3826-ab94-71d226d639c4',
-            'scheme': 'place_custom',
-            'source': 'imatrics',
+            "name": "Genève",
+            "original_source": None,
+            "qcode": "34017822-d341-3826-ab94-71d226d639c4",
+            "scheme": "place_custom",
+            "source": "imatrics",
         },
     ],
     "object": [
@@ -442,7 +443,7 @@ class NTBNITFFormatterTest(TestCase):
         pubdata = self.nitf_xml.find("head/pubdata")
         expected = NOW.astimezone(self.tz).strftime("%Y%m%dT%H%M%S")
         self.assertEqual(pubdata.get("date.publication"), expected)
-        self.assertEqual(pubdata.get("item-length"), "121")
+        self.assertEqual(pubdata.get("item-length"), "137")
         self.assertEqual(pubdata.get("unit-of-measure"), "character")
 
     def test_dateline(self):

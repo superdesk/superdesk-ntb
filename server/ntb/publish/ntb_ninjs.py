@@ -22,9 +22,7 @@ def convert_dicts_to_lists(ninjs):
     for field in ("renditions", "associations"):
         if ninjs.get(field):
             ninjs[field] = [
-                format_array_value(value, key)
-                for key, value
-                in ninjs[field].items()
+                format_array_value(value, key) for key, value in ninjs[field].items()
             ]
         elif field in ninjs:
             ninjs.pop(field)
@@ -77,6 +75,9 @@ class NTBNINJSFormatter(NINJSFormatter):
         if ninjs.get("guid"):
             ninjs.setdefault("uri", ninjs["guid"])
 
+        if ninjs.get("extra", {}).get("ntb_pub_name"):
+            ninjs["NTBKilde"] = ninjs["extra"]["ntb_pub_name"]
+
         # removed items which mapped according to Ninjs v2 properties
         ninjs_properties = [
             "headlines",
@@ -116,6 +117,7 @@ class NTBNINJSFormatter(NINJSFormatter):
             "rightsinfo",
             "service",
             "infosources",
+            "NTBKilde",
         ]
 
         for key in list(ninjs.keys()):
@@ -127,10 +129,12 @@ class NTBNINJSFormatter(NINJSFormatter):
         ]
 
         if article.get("family_id"):
-            ninjs["altids"].extend([
-                {"role": "NTB-ID", "value": utils.get_ntb_id(article)},
-                {"role": "DOC-ID", "value": utils.get_doc_id(article)},
-            ])
+            ninjs["altids"].extend(
+                [
+                    {"role": "NTB-ID", "value": utils.get_ntb_id(article)},
+                    {"role": "DOC-ID", "value": utils.get_doc_id(article)},
+                ]
+            )
 
         if article.get("assignment_id"):
             self._format_planning_ids(ninjs, article)
@@ -171,7 +175,9 @@ class NTBNINJSFormatter(NINJSFormatter):
                     ninjs_place["state-prov"] = cv_place["ntb_parent"]
 
             if place.get("altids") and place["altids"].get("wikidata"):
-                ninjs_place["uri"] = "http://www.wikidata.org/entity/{}".format(place["altids"]["wikidata"])
+                ninjs_place["uri"] = "http://www.wikidata.org/entity/{}".format(
+                    place["altids"]["wikidata"]
+                )
                 ninjs_place["literal"] = place["altids"]["wikidata"]
             places.append(ninjs_place)
         return places
@@ -247,15 +253,23 @@ class NTBNINJSFormatter(NINJSFormatter):
         return getattr(g, "_places")
 
     def _format_planning_ids(self, ninjs, article):
-        assignment = get_resource_service("assignments").find_one(req=None, _id=article["assignment_id"])
+        assignment = get_resource_service("assignments").find_one(
+            req=None, _id=article["assignment_id"]
+        )
         if assignment and assignment.get("planning_item"):
-            ninjs.setdefault("altids", []).append({
-                "role": "PLANNING-ID",
-                "value": assignment["planning_item"],
-            })
-            planning = get_resource_service("planning").find_one(req=None, _id=assignment["planning_item"])
+            ninjs.setdefault("altids", []).append(
+                {
+                    "role": "PLANNING-ID",
+                    "value": assignment["planning_item"],
+                }
+            )
+            planning = get_resource_service("planning").find_one(
+                req=None, _id=assignment["planning_item"]
+            )
             if planning and planning.get("event_item"):
-                ninjs["altids"].append({
-                    "role": "EVENT-ID",
-                    "value": planning["event_item"],
-                })
+                ninjs["altids"].append(
+                    {
+                        "role": "EVENT-ID",
+                        "value": planning["event_item"],
+                    }
+                )
