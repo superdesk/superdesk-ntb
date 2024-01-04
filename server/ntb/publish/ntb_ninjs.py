@@ -64,6 +64,9 @@ class NTBNINJSFormatter(NINJSFormatter):
             ninjs["descriptions"] = self.format_descriptions(ninjs)
 
         if article.get("body_html"):
+            body_footer = article.get('body_footer', '').strip()
+            if body_footer:
+                article['body_html'] += body_footer
             ninjs["bodies"] = self.format_bodies(article)
 
         if ninjs.get("subject"):

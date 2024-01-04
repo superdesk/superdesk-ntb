@@ -22,6 +22,7 @@ TEST_BODY_EXPECTED = """
 <p><a>test</a>NTBMEDIA TO REMOVE</p>
 
 <p>(©MyCompany2023)</p>
+<p>footer this is</p>
 """.strip()
 
 with open(
@@ -185,6 +186,7 @@ class Ninjs2FormatterTest(TestCase):
         "version_creator": "ObjectId(" "5640a5eef40235008465242b" ")",
         "abstract": "<p>abstract this is</p>",
         "body_html": TEST_BODY,
+        "body_footer": "<p>footer this is</p>",
         "dateline": {
             "located": {
                 "dateline": "city",
@@ -321,8 +323,8 @@ class Ninjs2FormatterTest(TestCase):
             ],
             "bodies": [
                 {
-                    "charcount": 148,
-                    "wordcount": 26,
+                    "charcount": 162,
+                    "wordcount": 29,
                     "value": TEST_BODY_EXPECTED,
                     "contenttype": "text/html",
                 }
@@ -444,6 +446,7 @@ class Ninjs2FormatterTest(TestCase):
             {
                 "fields_meta": text_item_with_table["fields_meta"],
                 "body_html": text_item_with_table["body_html"],
+                "body_footer": "",
             }
         )
         assert "<table>" in ninjs["bodies"][0]["value"]

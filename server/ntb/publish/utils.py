@@ -1,9 +1,5 @@
-
 import re
 import logging
-import superdesk.etree as sd_etree
-
-from lxml import etree
 from typing import Dict, List, Optional, Tuple
 
 
