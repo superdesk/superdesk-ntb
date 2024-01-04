@@ -89,11 +89,6 @@ def format_body_content(article) -> Tuple[str, List[Dict]]:
         EMBED_RE.sub(repl_embedded, article.get("body_html") or "")
     )
 
-    # SDNTB-861
-    if article.get("body_footer"):
-        html += strip_invalid_chars(
-            EMBED_RE.sub(repl_embedded, article["body_footer"] or "")
-        )
     # it is a request from SDNTB-388 to use normal space instead of non breaking spaces
     # so we do this replace
     html = html.replace("&nbsp;", " ")
