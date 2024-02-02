@@ -4,7 +4,7 @@
         "superdesk-planning": "github:superdesk/superdesk-planning#hotfix/2.6.3"
     },
     "devDependencies": {
-        "@superdesk/build-tools": "^1.0.14"
+        "@superdesk/build-tools": "^2.0.1"
     },
     "scripts": {
         "build": "npx @superdesk/build-tools build-root-repo ./",
