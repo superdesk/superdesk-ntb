@@ -98,7 +98,7 @@ eve-elastic==7.3.2
     # via superdesk-core
 events==0.3
     # via eve
-feedgen==0.7.0
+feedgen==1.0.0
     # via -r requirements.in
 feedparser==6.0.11
     # via superdesk-core
