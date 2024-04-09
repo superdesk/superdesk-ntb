@@ -150,6 +150,8 @@ module.exports = function(grunt) {
             }
         },
 
+        linksBlankTarget: true,
+
         planning_allow_freetext_location: true,
 
 		iMatricsFields: {
