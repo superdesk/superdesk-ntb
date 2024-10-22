@@ -1,6 +1,6 @@
 gunicorn
 honcho
-feedgen==0.7.0
+feedgen==1.0.0
 openpyxl==3.0.7
 
 git+https://github.com/superdesk/superdesk-core.git@hotfix/2.6.8#egg=superdesk-core
