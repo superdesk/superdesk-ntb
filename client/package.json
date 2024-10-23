@@ -2,7 +2,7 @@
     "dependencies": {
         "superdesk-core": "github:superdesk/superdesk-client-core#hotfix/2.6.3",
         "superdesk-planning": "github:superdesk/superdesk-planning#release/2.6",
-        "superdesk-ui-framework": "~3.0.79"
+        "superdesk-ui-framework": "~3.1.23"
     },
     "devDependencies": {
         "@superdesk/build-tools": "^1.0.19"
