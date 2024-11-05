@@ -9,7 +9,11 @@ from flask import current_app as app
 
 
 def nob_NO_translate_macro(item, **kwargs):
-    preference_params = {k: True for k in get_user_preference_params()}
+    preference_params = (
+        {k: True for k in get_user_preference_params()}
+        if get_user_preference_params()
+        else {}
+    )
 
     token = app.config.get("OMSETT_API_TOKEN", "")
 
@@ -36,7 +40,7 @@ def nob_NO_translate_macro(item, **kwargs):
         "fileType": "html",
     }
 
-    r = requests.post("https://nynorsk.cloud/translate", data=data, timeout=(10, 30))
+    r = requests.post("https://nynorsk.cloud/translate", json=data, timeout=(10, 30))
 
     if r.status_code == 200:
         item.update(r.json())
