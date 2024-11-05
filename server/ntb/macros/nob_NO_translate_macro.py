@@ -43,7 +43,8 @@ def nob_NO_translate_macro(item, **kwargs):
     r = requests.post("https://nynorsk.cloud/translate", json=data, timeout=(10, 30))
 
     if r.status_code == 200:
-        item.update(r.json())
+        response = r.json()
+        item.update(response["document"])
     return item
 
 
