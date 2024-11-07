@@ -30,8 +30,18 @@ def nob_NO_translate_macro(item, **kwargs):
             "description_html",
             "description_text",
             "evolvedfrom",
+            "ednote",
         )
     }
+
+    # extract associations description_text from the item associations structure.
+    associations_desc_flat = {
+        f"associations_desc_{editor}": assoc["description_text"]
+        for editor, assoc in item.get("associations", {}).items()
+        if "description_text" in assoc
+    }
+
+    payload.update(associations_desc_flat)
 
     data = {
         "token": token,
@@ -45,6 +55,14 @@ def nob_NO_translate_macro(item, **kwargs):
     if r.status_code == 200:
         response = r.json()
         item.update(response["document"])
+
+        # map translated `description_text` fields back to the associations.
+        for editor in item.get("associations", {}):
+            flat_key = f"associations_desc_{editor}"
+            if flat_key in response["document"]:
+                item["associations"][editor]["description_text"] = response["document"][
+                    flat_key
+                ]
     return item
 
 
