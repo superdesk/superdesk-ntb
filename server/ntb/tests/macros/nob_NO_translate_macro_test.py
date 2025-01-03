@@ -25,7 +25,9 @@ class TranslateMacroTestCase(TestCase):
     user_preferences = {
         "user_preferences": {
             "macro_config": {
-                "fields": {"Formval nynorskrobot": "headline,description_text"}
+                "fields": {
+                    "Formval nynorskrobot": " headline , description_text , body_html , "
+                }
             }
         }
     }

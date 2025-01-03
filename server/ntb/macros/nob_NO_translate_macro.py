@@ -70,7 +70,7 @@ def get_user_preference_params():
     user = get_user()
     user_macro_preferences = user.get("user_preferences", {}).get("macro_config", {})
     field_param = user_macro_preferences.get("fields").get("Formval nynorskrobot", "")
-    return field_param.split(",")
+    return [field.strip() for field in field_param.split(",") if field.strip()]
 
 
 name = "Bokmal to Nynorsk Translate Macro"
