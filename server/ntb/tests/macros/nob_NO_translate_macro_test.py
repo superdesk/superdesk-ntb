@@ -26,7 +26,7 @@ class TranslateMacroTestCase(TestCase):
         "user_preferences": {
             "macro_config": {
                 "fields": {
-                    "Formval nynorskrobot": " headline , description_text , body_html , "
+                    "Formval nynorskrobot": " headline , description_text , , body_html , "
                 }
             }
         }
@@ -67,3 +67,8 @@ class TranslateMacroTestCase(TestCase):
             item["associations"]["editor_1"]["description_text"],
             "Kva synest du om Noreg",
         )
+
+        # assert params SDNTB-879
+
+        params = nob_NO_translate_macro.get_user_preference_params()
+        self.assertEqual(params, ["headline", "description_text", "body_html"])
