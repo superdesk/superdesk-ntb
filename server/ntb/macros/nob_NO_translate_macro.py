@@ -63,19 +63,16 @@ def nob_NO_translate_macro(item, **kwargs):
         response = r.json()
         item.update(response["document"])
 
-        # restore exempted text by removing `<span lang="nb">` tags
         for field, value in item.items():
             if isinstance(value, str):
-                item[field] = re.sub(r"<span lang=\"nb\">(.*?)</span>", r"\1", value)
+                item[field] = clean_exempted_text(value)
 
         # map translated `description_text` fields back to the associations.
         for editor in item.get("associations", {}):
             flat_key = f"associations_desc_{editor}"
             if flat_key in response["document"]:
-                item["associations"][editor]["description_text"] = re.sub(
-                    r"<span lang=\"nb\">(.*?)</span>",
-                    r"\1",
-                    response["document"][flat_key],
+                item["associations"][editor]["description_text"] = clean_exempted_text(
+                    response["document"][flat_key]
                 )
     return item
 
@@ -85,6 +82,13 @@ def get_user_preference_params():
     user_macro_preferences = user.get("user_preferences", {}).get("macro_config", {})
     field_param = user_macro_preferences.get("fields").get("Formval nynorskrobot", "")
     return [field.strip() for field in field_param.split(",") if field.strip()]
+
+
+def clean_exempted_text(text):
+    """Helper function to clean text by removing <span lang="nb"> tags."""
+    if isinstance(text, str):
+        return re.sub(r'<span lang="nb">(.*?)</span>', r"«\1»", text)
+    return text
 
 
 name = "Bokmal to Nynorsk Translate Macro"

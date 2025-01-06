@@ -109,14 +109,14 @@ class TranslateMacroTestCase(TestCase):
 
         nob_NO_translate_macro.callback(item)
 
-        self.assertEqual(item["headline"], "Bekrefter ny sesong av Forræder")
+        self.assertEqual(item["headline"], "Bekrefter ny sesong av «Forræder»")
         self.assertEqual(
             item["body_html"],
-            "<p>Dette er en tekst med Forræder nevnt flere ganger.</p>",
+            "<p>Dette er en tekst med «Forræder» nevnt flere ganger.</p>",
         )
         self.assertEqual(
             item["associations"]["editor_1"]["description_text"],
-            "Forræder nevnt flere ganger",
+            "«Forræder» nevnt flere ganger",
         )
 
     @patch("ntb.macros.nob_NO_translate_macro.get_user", return_value=user_preferences)
