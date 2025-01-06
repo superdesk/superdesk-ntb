@@ -1,3 +1,8 @@
+"""
+nb-NO to nn-NO Metadata Macro will perform the following changes to current content item:
+- change the language to nn-NO
+"""
+
 import re
 import requests
 from apps.auth import get_user
