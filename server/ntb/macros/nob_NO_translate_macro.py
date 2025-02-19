@@ -39,7 +39,7 @@ def nob_NO_translate_macro(item, **kwargs):
     associations_desc_flat = {
         f"associations_desc_{editor}": assoc["description_text"]
         for editor, assoc in item.get("associations", {}).items()
-        if "description_text" in assoc
+        if assoc and isinstance(assoc, dict) and "description_text" in assoc
     }
 
     payload.update(associations_desc_flat)

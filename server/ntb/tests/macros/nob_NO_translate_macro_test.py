@@ -17,7 +17,8 @@ class TranslateMacroTestCase(TestCase):
             "editor_1": {
                 "guid": "9e7ba4b4-69a6-4f45-be96-1b0f26a6f89b",
                 "description_text": "Hva synes du om Norge",
-            }
+            },
+            "editor_2": None,
         },
         "state": CONTENT_STATE.INGESTED,
     }
