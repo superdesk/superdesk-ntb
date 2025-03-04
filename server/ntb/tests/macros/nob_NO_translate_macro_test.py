@@ -135,6 +135,6 @@ class TranslateMacroTestCase(TestCase):
         self.assertEqual(item["body_html"], self.item["body_html"])
 
     @patch("ntb.macros.nob_NO_translate_macro.get_user", return_value={})
-    def test_api_failure_handling(self, mock_get_user):
+    def test_user_prefrences_is_none(self, mock_get_user):
         params = nob_NO_translate_macro.get_user_preference_params()
         self.assertEqual(params, [])
