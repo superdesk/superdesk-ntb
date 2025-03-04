@@ -80,6 +80,10 @@ def nob_NO_translate_macro(item, **kwargs):
 def get_user_preference_params():
     user = get_user()
     user_macro_preferences = user.get("user_preferences", {}).get("macro_config", {})
+
+    if not user_macro_preferences:
+        return []
+
     field_param = user_macro_preferences.get("fields").get("Formval nynorskrobot", "")
     return [field.strip() for field in field_param.split(",") if field.strip()]
 
