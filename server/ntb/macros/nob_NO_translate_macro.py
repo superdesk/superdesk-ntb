@@ -84,9 +84,9 @@ def get_user_preference_params():
     if not user_macro_preferences:
         return []
 
-    field_param = user_macro_preferences.get("fields", {}).get(
-        "Formval nynorskrobot", ""
-    )
+    fields = user_macro_preferences.get("fields") or {}
+    field_param = fields.get("Formval nynorskrobot", "")
+
     return [field.strip() for field in field_param.split(",") if field.strip()]
 
 
