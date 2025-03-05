@@ -3,7 +3,6 @@ nb-NO to nn-NO Metadata Macro will perform the following changes to current cont
 - change the language to nn-NO
 """
 
-import re
 import requests
 from apps.auth import get_user
 from flask import current_app as app
@@ -44,17 +43,11 @@ def nob_NO_translate_macro(item, **kwargs):
 
     payload.update(associations_desc_flat)
 
-    # exempt text within `«` and `»`
-    for field, value in payload.items():
-        if isinstance(value, str):
-            payload[field] = re.sub(r"«(.*?)»", r'<span lang="nb">\1</span>', value)
-
     data = {
         "token": token,
         "document": payload,
         "prefs": preference_params,
         "fileType": "html",
-        "lang_translate_parameter": None,
     }
 
     r = requests.post("https://nynorsk.cloud/translate", json=data, timeout=(10, 30))
@@ -63,17 +56,13 @@ def nob_NO_translate_macro(item, **kwargs):
         response = r.json()
         item.update(response["document"])
 
-        for field, value in item.items():
-            if isinstance(value, str):
-                item[field] = clean_exempted_text(value)
-
         # map translated `description_text` fields back to the associations.
         for editor in item.get("associations", {}):
             flat_key = f"associations_desc_{editor}"
             if flat_key in response["document"]:
-                item["associations"][editor]["description_text"] = clean_exempted_text(
-                    response["document"][flat_key]
-                )
+                item["associations"][editor]["description_text"] = response["document"][
+                    flat_key
+                ]
     return item
 
 
@@ -88,13 +77,6 @@ def get_user_preference_params():
     field_param = fields.get("Formval nynorskrobot", "")
 
     return [field.strip() for field in field_param.split(",") if field.strip()]
-
-
-def clean_exempted_text(text):
-    """Helper function to clean text by removing <span lang="nb"> tags."""
-    if isinstance(text, str):
-        return re.sub(r'<span lang="nb">(.*?)</span>', r"«\1»", text)
-    return text
 
 
 name = "Bokmal to Nynorsk Translate Macro"
