@@ -50,7 +50,7 @@ def nob_NO_translate_macro(item, **kwargs):
         "fileType": "html",
     }
 
-    r = requests.post("https://nynorsk.cloud/translate", json=data, timeout=(120, 30))
+    r = requests.post("https://nynorsk.cloud/translate", json=data, timeout=(300, 300))
 
     if r.status_code == 200:
         response = r.json()
