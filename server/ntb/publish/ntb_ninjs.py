@@ -48,6 +48,14 @@ class NTBNINJSFormatter(NINJSFormatter):
     def _transform_to_ninjs(self, article, subscriber, recursive=True):
         ninjs = super()._transform_to_ninjs(article, subscriber, recursive)
 
+        if ninjs.get("associations"):
+            for key, assoc in ninjs["associations"].items():
+                original_assoc = article.get("associations", {}).get(key)
+                if original_assoc and original_assoc.get("renditions"):
+                    assoc["renditions"] = self._get_renditions(original_assoc)
+                elif assoc.get("href"):
+                    assoc["renditions"] = self._generate_renditions(assoc)
+
         imatrics_fields = {
             "people": "person",
             "organisations": "organisation",
@@ -64,9 +72,9 @@ class NTBNINJSFormatter(NINJSFormatter):
             ninjs["descriptions"] = self.format_descriptions(ninjs)
 
         if article.get("body_html"):
-            body_footer = article.get('body_footer', '').strip()
+            body_footer = article.get("body_footer", "").strip()
             if body_footer:
-                article['body_html'] += body_footer
+                article["body_html"] += body_footer
             ninjs["bodies"] = self.format_bodies(article)
 
         if ninjs.get("subject"):
