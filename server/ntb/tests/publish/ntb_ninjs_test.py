@@ -403,6 +403,21 @@ class Ninjs2FormatterTest(TestCase):
                         {"name": "further education", "uri": "topics:05002000"},
                     ],
                     "copyrightholder": "NTB",
+                    "renditions": [
+                        {
+                            "href": "http://preview.scanpix.no/thumbs/tb/4/33/test_id.jpg",
+                            "name": "thumbnail",
+                        },
+                        {
+                            "href": "http://scanpix.no/spWebApp/previewimage/sdl/preview/test_id.jpg",
+                            "name": "viewImage",
+                        },
+                        {
+                            "href": "http://scanpix.no/spWebApp/previewimage/sdl/preview_big/test_id.jpg",
+                            "contenttype": "image/jpeg",
+                            "name": "original",
+                        },
+                    ],
                 }
             ],
         )
