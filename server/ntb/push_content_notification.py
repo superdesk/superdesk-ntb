@@ -1,4 +1,3 @@
-
 import enum
 import logging
 
@@ -24,9 +23,9 @@ def should_send_notification(updated, original) -> bool:
     updated_task = updated.get("task") or {}
     original_task = original.get("task") or {}
     return (
-        updated.get("state") != original.get("state") or
-        updated_task.get("desk") != original_task.get("desk") or
-        updated_task.get("stage") != original_task.get("stage")
+        updated.get("state") != original.get("state")
+        or updated_task.get("desk") != original_task.get("desk")
+        or updated_task.get("stage") != original_task.get("stage")
     )
 
 

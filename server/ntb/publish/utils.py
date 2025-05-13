@@ -11,7 +11,7 @@ EMBED_RE = re.compile(
     re.DOTALL,
 )
 
-STRIP_INVALID_CHARS_RE = re.compile("[\x00-\x08\x0B-\x0C\x0E-\x1F\x7F]")
+STRIP_INVALID_CHARS_RE = re.compile("[\x00-\x08\x0b-\x0c\x0e-\x1f\x7f]")
 
 logger = logging.getLogger(__name__)
 

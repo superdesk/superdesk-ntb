@@ -20,7 +20,9 @@ class NTBNITFCustomFeedParser(NITFFeedParser):
     def get_place(self, xml):
         places = []
         qcodes = []
-        voc_places = superdesk.get_resource_service("vocabularies").find_one(req=None, _id="place_custom")["items"]
+        voc_places = superdesk.get_resource_service("vocabularies").find_one(
+            req=None, _id="place_custom"
+        )["items"]
 
         for elem in xml.findall("head/docdata/evloc"):
             qcode = elem.attrib.get("county-dist")

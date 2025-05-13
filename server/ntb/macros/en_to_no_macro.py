@@ -8,26 +8,26 @@ En to NO Metadata Macro will perform the following changes to current content it
 
 
 def en_to_no_metadata_macro(item, **kwargs):
-    item['byline'] = '(NPK-NTB)'
-    item['sign_off'] = 'npk@npk.no'
-    item['body_footer'] = '(©NPK)'
-    item['language'] = 'nn-NO'
-    item['anpa_category'] = [
+    item["byline"] = "(NPK-NTB)"
+    item["sign_off"] = "npk@npk.no"
+    item["body_footer"] = "(©NPK)"
+    item["language"] = "nn-NO"
+    item["anpa_category"] = [
         {
-            'qcode': 's',
-            'selection_type': 'single selection',
-            'name': 'NPKSisteNytt',
-            'language': 'nn-NO',
-            'scheme': None
+            "qcode": "s",
+            "selection_type": "single selection",
+            "name": "NPKSisteNytt",
+            "language": "nn-NO",
+            "scheme": None,
         }
     ]
     return item
 
 
-name = 'EN to NO Metadata Macro'
-label = 'EN to NO Metadata Macro'
+name = "EN to NO Metadata Macro"
+label = "EN to NO Metadata Macro"
 callback = en_to_no_metadata_macro
-access_type = 'backend'
-action_type = 'direct'
-from_languages = ['en']
-to_languages = ['nn-NO', 'nb-NO']
+access_type = "backend"
+action_type = "direct"
+from_languages = ["en"]
+to_languages = ["nn-NO", "nb-NO"]

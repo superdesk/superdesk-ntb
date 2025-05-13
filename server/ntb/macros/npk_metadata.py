@@ -8,24 +8,24 @@ NPKSisteNytt Metadata Macro will perform the following changes to current conten
 
 
 def npk_metadata_macro(item, **kwargs):
-    item['byline'] = 'NPK-' + item.get('byline', '')
-    item['sign_off'] = 'npk@npk.no'
-    item['body_footer'] = '(©NPK)'
-    item['language'] = 'nn-NO'
-    item['anpa_category'] = [
+    item["byline"] = "NPK-" + item.get("byline", "")
+    item["sign_off"] = "npk@npk.no"
+    item["body_footer"] = "(©NPK)"
+    item["language"] = "nn-NO"
+    item["anpa_category"] = [
         {
-            'qcode': 's',
-            'selection_type': 'single selection',
-            'name': 'NPKSisteNytt',
-            'language': 'nn-NO',
-            'scheme': None
+            "qcode": "s",
+            "selection_type": "single selection",
+            "name": "NPKSisteNytt",
+            "language": "nn-NO",
+            "scheme": None,
         }
     ]
     return item
 
 
-name = 'NPKSisteNytt Metadata Macro'
-label = 'NPKSisteNytt Metadata Macro'
+name = "NPKSisteNytt Metadata Macro"
+label = "NPKSisteNytt Metadata Macro"
 callback = npk_metadata_macro
-access_type = 'frontend'
-action_type = 'direct'
+access_type = "frontend"
+action_type = "direct"

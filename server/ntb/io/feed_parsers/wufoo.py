@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 DATE_FORMAT = "%Y-%m-%d"
 DATETIME_FORMAT = DATE_FORMAT + " %H:%M:%S"
 FORM_HASH = "q1hpdwg91h6ubl1"
-TIMEZONE = 'Europe/Oslo'  # timezone is actually user timezone, so we're guessing here
+TIMEZONE = "Europe/Oslo"  # timezone is actually user timezone, so we're guessing here
 
 FIELDS_MAP = {
     "author": "Field1",
@@ -119,7 +119,11 @@ class WufooFeedParser(FeedParser):
             try:
                 items.append(self.parse_article(entry))
             except Exception as e:
-                logger.error(u"Can't parse Wufoo submission {id}: {reason}".format(id=entry["EntryId"], reason=e))
+                logger.error(
+                    "Can't parse Wufoo submission {id}: {reason}".format(
+                        id=entry["EntryId"], reason=e
+                    )
+                )
             update["last_ingested_id"] = entry["EntryId"]
 
         return items
@@ -142,23 +146,33 @@ class WufooFeedParser(FeedParser):
         try:
             photo_url = article["photo"].split()[1][1:-1]
             if not photo_url.startswith("http"):
-                logging.error(u"invalid photo format: {}".format(article["photo"]))
+                logging.error("invalid photo format: {}".format(article["photo"]))
                 raise ValueError
         except (IndexError, ValueError):
             photo_url = None
 
-        item["headline"] = "{age} år {jubilee_date}: {title} {name}, {address}, {zip} {city}{country}".format(
-            age=age + 1,
-            jubilee_date=self.strftime(jubilee_date, "%d. " + NO_MONTHS[jubilee_date.month - 1]),
-            title=article["title"],
-            name=article["name"],
-            address=address,
-            zip=article["zip"],
-            city=article["city"],
-            country=", {}".format(article["country"]) if article["country"] not in ("Norge", "Noreg") else "",
+        item["headline"] = (
+            "{age} år {jubilee_date}: {title} {name}, {address}, {zip} {city}{country}".format(
+                age=age + 1,
+                jubilee_date=self.strftime(
+                    jubilee_date, "%d. " + NO_MONTHS[jubilee_date.month - 1]
+                ),
+                title=article["title"],
+                name=article["name"],
+                address=address,
+                zip=article["zip"],
+                city=article["city"],
+                country=(
+                    ", {}".format(article["country"])
+                    if article["country"] not in ("Norge", "Noreg")
+                    else ""
+                ),
+            )
         )
         item["slugline"] = "FØDSELSDAG-" + self.strftime(jubilee_date, "%y%m%d")
-        item["anpa_category"] = [{"name": "Omtaletjenesten", "qcode": "o", "language": "nb-NO"}]
+        item["anpa_category"] = [
+            {"name": "Omtaletjenesten", "qcode": "o", "language": "nb-NO"}
+        ]
         category = "Jubilantomtaler"
         item["subject"] = [{"qcode": category, "name": category, "scheme": "category"}]
         genre = "Nyheter"
@@ -166,7 +180,11 @@ class WufooFeedParser(FeedParser):
         xhtml = [html.escape(article["biography"]).replace("\n", "<br/>\n")]
         if photo_url is not None:
             label = "photo"
-            xhtml.append('<a href="{url}">{label}</a>'.format(url=html.escape(photo_url), label=label))
+            xhtml.append(
+                '<a href="{url}">{label}</a>'.format(
+                    url=html.escape(photo_url), label=label
+                )
+            )
         item["body_html"] = "<p>{}</p>".format("\n<br/>\n".join(xhtml))
         item["ednote"] = (
             "Kilder: \n"

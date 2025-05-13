@@ -21,30 +21,24 @@ def setup_providers(context):
     app = context.app
     context.providers = {}
     context.ingest_items = ingest_items
-    with app.test_request_context(app.config['URL_PREFIX']):
+    with app.test_request_context(app.config["URL_PREFIX"]):
         path_to_fixtures = os.path.join(
-            os.path.dirname(os.path.dirname(__file__)),
-            'fixtures',
-            'ntb_events_file'
+            os.path.dirname(os.path.dirname(__file__)), "fixtures", "ntb_events_file"
         )
         providers = [
             {
-                'name': 'ntbevent',
-                'source': 'Event Ingest',
-                'feeding_service': 'event_file',
-                'feed_parser': 'ntb_event_xml',
-                'is_closed': False,
-                'critical_errors': {
-                    '2005': True
-                },
-                'config': {
-                    'path': path_to_fixtures
-                },
+                "name": "ntbevent",
+                "source": "Event Ingest",
+                "feeding_service": "event_file",
+                "feed_parser": "ntb_event_xml",
+                "is_closed": False,
+                "critical_errors": {"2005": True},
+                "config": {"path": path_to_fixtures},
                 "content_types": ["event"],
             },
         ]
-        result = get_resource_service('ingest_providers').post(providers)
-        context.providers['ntbevent'] = result[0]
+        result = get_resource_service("ingest_providers").post(providers)
+        context.providers["ntbevent"] = result[0]
 
 
 class NTBEventsFileFeedingServiceTestCase(TestCase):
@@ -57,7 +51,8 @@ class NTBEventsFileFeedingServiceTestCase(TestCase):
         return parser.parse(document)
 
     def test_ingest_update_same_event(self):
-        xml = ET.fromstring("""<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+        xml = ET.fromstring(
+            """<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
             <document>
             <guid>NTB-123456</guid>
             <time>2026-08-10T15:02:02</time>
@@ -94,29 +89,46 @@ class NTBEventsFileFeedingServiceTestCase(TestCase):
             <caption></caption>
             </media>
             </mediaList>
-            </document>""")
+            </document>"""
+        )
 
-        with self.app.test_request_context(self.app.config['URL_PREFIX']):
+        with self.app.test_request_context(self.app.config["URL_PREFIX"]):
             # ingest event
-            events = self.get_parsed_documents(registered_feed_parsers.get('ntb_event_xml'), xml)
-            provider = get_resource_service('ingest_providers').find_one(req=None, _id=self.providers.get('ntbevent'))
-            self.ingest_items(events, provider, get_feeding_service('event_file'))
-            ingested_event = get_resource_service('events').find_one(req=None, _id='NTB-123456')
-            self.assertTrue(ingested_event['_id'], 'NTB-123456')
-            self.assertTrue(ingested_event['name'], 'Original Content')
-            self.assertTrue(ingested_event['dates']['start'], '2016-09-05T09:00:00')
-            self.assertTrue(ingested_event['dates']['end'], '2016-09-05T16:00:00')
-            self.assertTrue(ingested_event['_planning_schedule'][0]['scheduled'], '2016-09-05T09:00:00')
+            events = self.get_parsed_documents(
+                registered_feed_parsers.get("ntb_event_xml"), xml
+            )
+            provider = get_resource_service("ingest_providers").find_one(
+                req=None, _id=self.providers.get("ntbevent")
+            )
+            self.ingest_items(events, provider, get_feeding_service("event_file"))
+            ingested_event = get_resource_service("events").find_one(
+                req=None, _id="NTB-123456"
+            )
+            self.assertTrue(ingested_event["_id"], "NTB-123456")
+            self.assertTrue(ingested_event["name"], "Original Content")
+            self.assertTrue(ingested_event["dates"]["start"], "2016-09-05T09:00:00")
+            self.assertTrue(ingested_event["dates"]["end"], "2016-09-05T16:00:00")
+            self.assertTrue(
+                ingested_event["_planning_schedule"][0]["scheduled"],
+                "2016-09-05T09:00:00",
+            )
 
             # ingest updated event
-            events = self.get_parsed_documents(registered_feed_parsers.get('ntb_event_xml'), xml)
-            events[0]['dates']['start'] = '2016-09-06T10:00:00'
-            events[0]['dates']['end'] = '2016-09-06T14:00:00'
-            events[0]['name'] = 'Updated Content'
-            self.ingest_items(events, provider, get_feeding_service('event_file'))
-            ingested_event = get_resource_service('events').find_one(req=None, _id='NTB-123456')
-            self.assertTrue(ingested_event['_id'], 'NTB-123456')
-            self.assertTrue(ingested_event['name'], 'Updated Content')
-            self.assertTrue(ingested_event['dates']['start'], '2016-09-05T09:00:00')
-            self.assertTrue(ingested_event['dates']['end'], '2016-09-05T16:00:00')
-            self.assertTrue(ingested_event['_planning_schedule'][0]['scheduled'], '2016-09-16T16:00:00')
+            events = self.get_parsed_documents(
+                registered_feed_parsers.get("ntb_event_xml"), xml
+            )
+            events[0]["dates"]["start"] = "2016-09-06T10:00:00"
+            events[0]["dates"]["end"] = "2016-09-06T14:00:00"
+            events[0]["name"] = "Updated Content"
+            self.ingest_items(events, provider, get_feeding_service("event_file"))
+            ingested_event = get_resource_service("events").find_one(
+                req=None, _id="NTB-123456"
+            )
+            self.assertTrue(ingested_event["_id"], "NTB-123456")
+            self.assertTrue(ingested_event["name"], "Updated Content")
+            self.assertTrue(ingested_event["dates"]["start"], "2016-09-05T09:00:00")
+            self.assertTrue(ingested_event["dates"]["end"], "2016-09-05T16:00:00")
+            self.assertTrue(
+                ingested_event["_planning_schedule"][0]["scheduled"],
+                "2016-09-16T16:00:00",
+            )

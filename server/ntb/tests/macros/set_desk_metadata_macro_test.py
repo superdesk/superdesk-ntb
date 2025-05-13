@@ -1,4 +1,3 @@
-
 from superdesk.tests import TestCase
 from superdesk.metadata.item import CONTENT_STATE
 
@@ -29,9 +28,7 @@ class SetDeskMetadataMacroTestCase(TestCase):
                 {"name": "sports", "qcode": "sports", "scheme": "subject_custom"},
                 {"name": "cat", "qcode": "cat", "scheme": "category"},
             ],
-            "anpa_category": [
-                {"name": "test", "qcode": "t", "language": "en"}
-            ],
+            "anpa_category": [{"name": "test", "qcode": "t", "language": "en"}],
         },
     }
 
@@ -41,13 +38,15 @@ class SetDeskMetadataMacroTestCase(TestCase):
         self.templates = [self.template]
         self.app.data.insert("content_templates", self.templates)
 
-        self.desks = [{
-            "name": "Sports",
-            "default_content_template": self.templates[0]['_id'],
-        }]
+        self.desks = [
+            {
+                "name": "Sports",
+                "default_content_template": self.templates[0]["_id"],
+            }
+        ]
 
         self.app.data.insert("desks", self.desks)
-        self.template.pop('_etag')  # avoid later update error
+        self.template.pop("_etag")  # avoid later update error
 
     def test_replace_if_present_in_template(self):
         item = self.item.copy()
@@ -58,11 +57,18 @@ class SetDeskMetadataMacroTestCase(TestCase):
         self.assertEqual(["fin", "cat"], [s["name"] for s in item["subject"]])
 
     def test_reset_if_not_present_in_template(self):
-        self.app.data.update("content_templates", self.template["_id"], {"data": {
-            "genre": [],
-            "anpa_category": [],
-            "subject": [],
-        }}, self.template)
+        self.app.data.update(
+            "content_templates",
+            self.template["_id"],
+            {
+                "data": {
+                    "genre": [],
+                    "anpa_category": [],
+                    "subject": [],
+                }
+            },
+            self.template,
+        )
 
         item = self.item.copy()
         set_desk_metadata_macro.callback(item, desk=self.desks[0])

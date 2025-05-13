@@ -9,21 +9,16 @@
 
 from superdesk.commands.data_updates import BaseDataUpdate
 
-SCHEMA = {
-    "name": {},
-    "qcode": {},
-    "service": {"type": "object"}
-}
+SCHEMA = {"name": {}, "qcode": {}, "service": {"type": "object"}}
 
 
 class DataUpdate(BaseDataUpdate):
 
-    resource = 'vocabularies'
+    resource = "vocabularies"
 
     def forwards(self, mongodb_collection, mongodb_database):
         mongodb_collection.update_many(
-            {'_id': {'$in': ['genre_custom', 'category']}},
-            {'$set': {'schema': SCHEMA}}
+            {"_id": {"$in": ["genre_custom", "category"]}}, {"$set": {"schema": SCHEMA}}
         )
 
     def backwards(self, mongodb_collection, mongodb_database):

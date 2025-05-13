@@ -20,6 +20,7 @@ app = get_app(init_elastic=True)
 manager = Manager(app)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import ntb.commands  # noqa
+
     manager.run(superdesk.COMMANDS)

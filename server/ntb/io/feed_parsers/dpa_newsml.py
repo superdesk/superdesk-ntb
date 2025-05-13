@@ -19,8 +19,10 @@ import dateutil.parser
 import logging
 
 logger = logging.getLogger(__name__)
-NS = {'xhtml': 'http://www.w3.org/1999/xhtml',
-      'iptc': 'http://iptc.org/std/nar/2006-10-01/'}
+NS = {
+    "xhtml": "http://www.w3.org/1999/xhtml",
+    "iptc": "http://iptc.org/std/nar/2006-10-01/",
+}
 
 
 class DPANewsMLFeedParser(NewsMLTwoFeedParser):
@@ -28,43 +30,49 @@ class DPANewsMLFeedParser(NewsMLTwoFeedParser):
     Feed Parser which can parse DPA variant of NewsML
     """
 
-    NAME = 'dpanewsml'
+    NAME = "dpanewsml"
     label = "NTB DPA NewsML"
 
     def can_parse(self, xml):
-        return xml.tag.endswith('newsMessage')
+        return xml.tag.endswith("newsMessage")
 
     def parse(self, xml, provider=None):
         self.root = xml
         items = []
         try:
-            for item_set in xml.findall(self.qname('itemSet')):
+            for item_set in xml.findall(self.qname("itemSet")):
                 for item_tree in item_set:
                     self.item_tree = item_tree
                     item = self.parse_item(item_tree)
                     try:
-                        published = item_tree.xpath('.//xhtml:body/xhtml:header/'
-                                                    'xhtml:time[@class="publicationDate"]/@data-datetime',
-                                                    namespaces=NS)[0]
+                        published = item_tree.xpath(
+                            ".//xhtml:body/xhtml:header/"
+                            'xhtml:time[@class="publicationDate"]/@data-datetime',
+                            namespaces=NS,
+                        )[0]
                     except IndexError:
-                        item['firstcreated'] = item['versioncreated']
+                        item["firstcreated"] = item["versioncreated"]
                     else:
-                        item['firstcreated'] = dateutil.parser.parse(published)
+                        item["firstcreated"] = dateutil.parser.parse(published)
                     items.append(item)
                     # SDNTB-463 requires that slugline is removed
-                    del item['slugline']
-                    sport = bool(item_tree.xpath('.//iptc:subject[@type="dpatype:category" and @qcode="dpacat:sp"]',
-                                                 namespaces=NS))
+                    del item["slugline"]
+                    sport = bool(
+                        item_tree.xpath(
+                            './/iptc:subject[@type="dpatype:category" and @qcode="dpacat:sp"]',
+                            namespaces=NS,
+                        )
+                    )
                     cat = utils.SPORT_CATEGORY if sport else utils.DEFAULT_CATEGORY
-                    category = {'qcode': cat, 'name': cat, 'scheme': 'category'}
-                    item['subject'] = utils.filter_missing_subjects(item.get('subject'))
-                    item['subject'].append(category)
+                    category = {"qcode": cat, "name": cat, "scheme": "category"}
+                    item["subject"] = utils.filter_missing_subjects(item.get("subject"))
+                    item["subject"].append(category)
 
-                    urgency = item.get('urgency', None)
+                    urgency = item.get("urgency", None)
                     if urgency == 2:
-                        item['urgency'] = 3
+                        item["urgency"] = 3
                     elif urgency == 4:
-                        item['urgency'] = 5
+                        item["urgency"] = 5
 
                     utils.set_default_service(item)
             return items
@@ -78,19 +86,23 @@ class DPANewsMLFeedParser(NewsMLTwoFeedParser):
         :return: dict
         """
         data = {}
-        header = tree.find(self.qname('header'))
-        data['sent'] = dateutil.parser.parse(header.find(self.qname('sent')).text)
+        header = tree.find(self.qname("header"))
+        data["sent"] = dateutil.parser.parse(header.find(self.qname("sent")).text)
         return data
 
     def parse_inline_content(self, tree, item):
         try:
-            body_elt = tree.xpath('//xhtml:body//xhtml:section[contains(@class,"main")]', namespaces=NS)[0]
+            body_elt = tree.xpath(
+                '//xhtml:body//xhtml:section[contains(@class,"main")]', namespaces=NS
+            )[0]
         except IndexError:
-            body_elt = tree.xpath('//xhtml:body', namespaces=NS)[0]
+            body_elt = tree.xpath("//xhtml:body", namespaces=NS)[0]
 
         try:
-            notepad = self.item_tree.xpath('.//iptc:edNote[@role="dpaednoterole:notepad"]//xhtml:section',
-                                           namespaces=NS)[0]
+            notepad = self.item_tree.xpath(
+                './/iptc:edNote[@role="dpaednoterole:notepad"]//xhtml:section',
+                namespaces=NS,
+            )[0]
             for elem in notepad:
                 body_elt.append(elem)
         except IndexError:
@@ -99,27 +111,27 @@ class DPANewsMLFeedParser(NewsMLTwoFeedParser):
         body_elt = sd_etree.clean_html(body_elt)
 
         content = dict()
-        content['contenttype'] = tree.attrib['contenttype']
+        content["contenttype"] = tree.attrib["contenttype"]
         if len(body_elt) > 0:
-            content['content'] = sd_etree.to_string(body_elt, method="html")
+            content["content"] = sd_etree.to_string(body_elt, method="html")
         elif body_elt.text:
-            content['content'] = '<pre>' + body_elt.text + '</pre>'
-            content['format'] = CONTENT_TYPE.PREFORMATTED
+            content["content"] = "<pre>" + body_elt.text + "</pre>"
+            content["format"] = CONTENT_TYPE.PREFORMATTED
         return content
 
     def parse_item_meta(self, tree, item):
         super().parse_item_meta(tree, item)
-        meta = tree.find(self.qname('itemMeta'))
+        meta = tree.find(self.qname("itemMeta"))
 
         ED_NOTE_ROLES = (
-            'dpaednoterole:correctionshort',
-            'dpaednoterole:correction',
-            'dpaednoterole:editorialnote',
+            "dpaednoterole:correctionshort",
+            "dpaednoterole:correction",
+            "dpaednoterole:editorialnote",
         )
 
-        for ednote in meta.findall(self.qname('edNote')):
-            if ednote.attrib.get('role') in ED_NOTE_ROLES:
-                item['ednote'] = ednote.text.strip()
+        for ednote in meta.findall(self.qname("edNote")):
+            if ednote.attrib.get("role") in ED_NOTE_ROLES:
+                item["ednote"] = ednote.text.strip()
                 break
 
 

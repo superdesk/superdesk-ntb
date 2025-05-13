@@ -1,4 +1,3 @@
-
 import superdesk
 
 CV_ID = "place_custom"
@@ -20,7 +19,7 @@ def get_item_place(item, places):
     ]
 
 
-class UpdatePlacesScript():
+class UpdatePlacesScript:
 
     def __init__(self):
         self._places = None

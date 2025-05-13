@@ -10,30 +10,26 @@
 
 from superdesk.metadata.item import CONTENT_TYPE
 from . import feed_parsers  # noqa
-from . import feeding_services # noqa
+from . import feeding_services  # noqa
 
 
 def remove_ntbid_hook(response):
-    for item in response['_items']:
-        if 'ntb_id' in item and item.get('type') == CONTENT_TYPE.EVENT:
-            del item['ntb_id']
+    for item in response["_items"]:
+        if "ntb_id" in item and item.get("type") == CONTENT_TYPE.EVENT:
+            del item["ntb_id"]
 
 
 def init_app(app):
     enhance_events_schema = {
-        'ntb_id': {
-            'type': 'string',
-            'required': False,
-            'unique': True
-        }
+        "ntb_id": {"type": "string", "required": False, "unique": True}
     }
-    enhance_events_projection = {
-        'ntb_id': 1
-    }
+    enhance_events_projection = {"ntb_id": 1}
 
     try:
-        app.config['DOMAIN']['events']['schema'].update(enhance_events_schema)
-        app.config['DOMAIN']['events']['datasource']['projection'].update(enhance_events_projection)
+        app.config["DOMAIN"]["events"]["schema"].update(enhance_events_schema)
+        app.config["DOMAIN"]["events"]["datasource"]["projection"].update(
+            enhance_events_projection
+        )
     except KeyError:
         pass  # events not defined in tests
 

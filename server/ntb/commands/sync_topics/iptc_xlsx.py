@@ -8,7 +8,9 @@ from openpyxl.workbook.workbook import Workbook, ReadOnlyWorksheet
 from .common import CVItem, CVItemFromIPTC, extract_code_from_string
 
 
-def get_cv_items_from_iptc_xlsx(existing_topics: Dict[str, CVItem], filename: str) -> List[CVItemFromIPTC]:
+def get_cv_items_from_iptc_xlsx(
+    existing_topics: Dict[str, CVItem], filename: str
+) -> List[CVItemFromIPTC]:
     """Get MediaTopic CV items from an IPTC xlsx file"""
 
     spreadsheet = MediaTopicsSpreadsheet()
@@ -37,7 +39,7 @@ class MediaTopicsSpreadsheet:
         self.workbook = load_workbook(filename, read_only=True)
         self.worksheet = self.workbook.active
 
-    def set_header_indices(self):
+    def set_header_indices(self) -> None:
         """Iterates over sheet headers and sets the indices for the required columns"""
 
         self.name_columns = {}
@@ -45,7 +47,7 @@ class MediaTopicsSpreadsheet:
         self.wikidata_index = -1
 
         index: int = 0
-        for cell in self.worksheet['2']:
+        for cell in self.worksheet["2"]:
             value: str = cell.value
 
             if value.startswith("Name ("):
@@ -68,12 +70,13 @@ class MediaTopicsSpreadsheet:
         self._parent_qcode_stack = deque()
         self._parent_qcode_index = 0
         for row in self.worksheet.iter_rows(min_row=3):
-            self.rows.append(self.convert_row_to_cv([
-                cell.value
-                for cell in row
-            ], existing_topics))
+            self.rows.append(
+                self.convert_row_to_cv([cell.value for cell in row], existing_topics)
+            )
 
-    def convert_row_to_cv(self, row: List[str], existing_topics: Dict[str, CVItem]) -> CVItemFromIPTC:
+    def convert_row_to_cv(
+        self, row: List[str], existing_topics: Dict[str, CVItem]
+    ) -> CVItemFromIPTC:
         """Converts a MediaTopic from IPTC xlsx format to Superdesk CV format"""
 
         qcode = row[1][7:].strip()  # remove ``medtop:`` from the qcode
@@ -104,7 +107,7 @@ class MediaTopicsSpreadsheet:
             wikidata=extract_code_from_string(row[self.wikidata_index]),
             is_active=original.get("is_active", True) if original else True,
             _existing=original,
-            _missing_translation=not (norwegian_index and row[norwegian_index])
+            _missing_translation=not (norwegian_index and row[norwegian_index]),
         )
 
     def _get_parent_qcode_for_row(self, row: List[str], qcode: str):

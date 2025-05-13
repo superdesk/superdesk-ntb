@@ -25,8 +25,7 @@ class IPTCTopicJSON(TypedDict):
 
 
 def get_cv_items_from_iptc_json(
-    existing_topics: Dict[str, CVItem],
-    filename: Optional[str] = None
+    existing_topics: Dict[str, CVItem], filename: Optional[str] = None
 ) -> List[CVItemFromIPTC]:
     """Get MediaTopics CV items from an IPTC json file"""
 
@@ -53,7 +52,9 @@ def _load_topics_json(filename: Optional[str] = None) -> List[IPTCTopicJSON]:
     return data.get("conceptSet") or []
 
 
-def _convert_iptc_to_cv(entry: IPTCTopicJSON, existing_topics: Dict[str, CVItem]) -> CVItemFromIPTC:
+def _convert_iptc_to_cv(
+    entry: IPTCTopicJSON, existing_topics: Dict[str, CVItem]
+) -> CVItemFromIPTC:
     """Converts a MediaTopic from IPTC JSON format to Superdesk CV format"""
 
     entry.setdefault("prefLabel", {})
@@ -62,11 +63,14 @@ def _convert_iptc_to_cv(entry: IPTCTopicJSON, existing_topics: Dict[str, CVItem]
     entry.setdefault("closeMatch", [])
 
     def get_name() -> str:
-        return entry["prefLabel"].get("no") or \
-            entry["prefLabel"].get("no-NB") or \
-            entry["prefLabel"].get("en") or \
-            entry["prefLabel"].get("en-US") or \
-            entry["prefLabel"].get("en-GB") or ""
+        return (
+            entry["prefLabel"].get("no")
+            or entry["prefLabel"].get("no-NB")
+            or entry["prefLabel"].get("en")
+            or entry["prefLabel"].get("en-US")
+            or entry["prefLabel"].get("en-GB")
+            or ""
+        )
 
     def get_parent() -> Optional[str]:
         try:
@@ -93,5 +97,5 @@ def _convert_iptc_to_cv(entry: IPTCTopicJSON, existing_topics: Dict[str, CVItem]
         wikidata=get_closest_match("wikidata"),
         is_active=original.get("is_active", True) if original else True,
         _existing=original,
-        _missing_translation=not entry["prefLabel"].get("no")
+        _missing_translation=not entry["prefLabel"].get("no"),
     )

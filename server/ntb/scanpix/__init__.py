@@ -18,21 +18,22 @@ from apps.io.search_ingest import SearchIngestService, SearchIngestResource
 # instances are hardcoded as they are also hardcoded in the backend
 # FIXME: need to be refactored with SD-4448
 instances = {
-    'ntbtema': 'Alle bilder',
-    'ntbkultur': 'Kulturbilder',
-    'desk': 'Nyhetsbilder',
-    'npk': 'NPK-bilder'}
+    "ntbtema": "Alle bilder",
+    "ntbkultur": "Kulturbilder",
+    "desk": "Nyhetsbilder",
+    "npk": "NPK-bilder",
+}
 
 
 def init_app(app):
     for instance_name in instances:
-        name = 'scanpix({})'.format(instance_name)
+        name = "scanpix({})".format(instance_name)
         scanpix = ScanpixDatalayer(app)
         service = SearchIngestService(datasource=None, backend=scanpix, source=name)
         SearchIngestResource(endpoint_name=name, app=app, service=service)
-        intrinsic_privilege(resource_name=name, method=['GET', 'POST'])
+        intrinsic_privilege(resource_name=name, method=["GET", "POST"])
 
 
 for instance_name, instance_label in instances.items():
-    name = 'scanpix({})'.format(instance_name)
+    name = "scanpix({})".format(instance_name)
     register_search_provider(name=name, fetch_endpoint=name, label=instance_label)

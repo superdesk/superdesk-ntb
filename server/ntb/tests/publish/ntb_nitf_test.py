@@ -553,9 +553,9 @@ class NTBNITFFormatterTest(TestCase):
         article = copy.deepcopy(self.article)
         article["abstract"] = ""
         del article["associations"]
-        article[
-            "body_html"
-        ] = "<pref:h1><other_pref:body.content><t:t/>toto</other_pref:body.content></pref:h1>"
+        article["body_html"] = (
+            "<pref:h1><other_pref:body.content><t:t/>toto</other_pref:body.content></pref:h1>"
+        )
         expected = (
             '<body.content><p lede="true" class="lead"/>toto<p class="txt">footer text</p><media media-type="image" cla'
             'ss="prs"><media-reference mime-type="image/jpeg" alternate-text="http://www.ntbinfo.no/" source="https://w'
@@ -707,7 +707,7 @@ class NTBNITFFormatterTest(TestCase):
         formatter_output = self.formatter.format(article, {"name": "Test NTBNITF"})
         doc = formatter_output[0]["encoded_item"]
         body_content = doc[
-            doc.find(b"<body.content>") - 4: doc.find(b"</body.content>") + 15
+            doc.find(b"<body.content>") - 4 : doc.find(b"</body.content>") + 15
         ]
         expected = (
             b"""\

@@ -12,21 +12,25 @@ from superdesk.commands.data_updates import BaseDataUpdate
 
 class DataUpdate(BaseDataUpdate):
 
-    resource = 'vocabularies'
+    resource = "vocabularies"
 
     def forwards(self, mongodb_collection, mongodb_database):
-        print(mongodb_collection.update(
-            {'_id': 'category'},
-            {'$unset': {
-                'schema_field': 1,
-            }}
-        ))
+        print(
+            mongodb_collection.update(
+                {"_id": "category"},
+                {
+                    "$unset": {
+                        "schema_field": 1,
+                    }
+                },
+            )
+        )
 
         # fix any content type using wrong schema
-        for doc in mongodb_database['content_types'].find({}):
-            if '' in doc.get('schema', {}):
-                doc['schema'].pop('')
-                mongodb_database['content_types'].replace_one({'_id': doc['_id']}, doc)
+        for doc in mongodb_database["content_types"].find({}):
+            if "" in doc.get("schema", {}):
+                doc["schema"].pop("")
+                mongodb_database["content_types"].replace_one({"_id": doc["_id"]}, doc)
 
     def backwards(self, mongodb_collection, mongodb_database):
         pass

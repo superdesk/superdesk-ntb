@@ -28,52 +28,53 @@ class SolitaFeedParser(XMLFeedParser):
 
     _subjects_map = None
 
-    NAME = 'solita'
+    NAME = "solita"
     label = "Solita"
 
     def __init__(self):
         super().__init__()
 
         self.default_mapping = {
-            'guid': {
-                'xpath': './@id',
-                'filter': lambda i: "solita-{}-{}".format(self.provider['_id'], i)
+            "guid": {
+                "xpath": "./@id",
+                "filter": lambda i: "solita-{}-{}".format(self.provider["_id"], i),
             },
-            'headline': 'title',
-            'slugline': {
-                'xpath': './@id',
-                'filter': lambda i: "PRM-NTB-{}".format(i)
+            "headline": "title",
+            "slugline": {"xpath": "./@id", "filter": lambda i: "PRM-NTB-{}".format(i)},
+            "abstract": "leadtext",
+            "body_html": {"callback_with_item": self.get_body},
+            "firstpublished": {
+                "xpath": "publicationDate/text()",
+                "filter": dateutil.parser.parse,
             },
-            'abstract': 'leadtext',
-            'body_html': {'callback_with_item': self.get_body},
-            'firstpublished': {
-                'xpath': 'publicationDate/text()',
-                'filter': dateutil.parser.parse
+            "original_source": "publisher/@id",
+            "name": {
+                "xpath": "publisher/name",
+                "key_hook": lambda item, name: item.setdefault("extra", {}).__setitem__(
+                    "ntb_pub_name", name
+                ),
             },
-            'original_source': 'publisher/@id',
-            'name': {
-                'xpath': 'publisher/name',
-                'key_hook': lambda item, name: item.setdefault('extra', {}).__setitem__('ntb_pub_name', name),
-            }
-
-
         }
 
     def can_parse(self, xml):
-        return xml.tag.endswith('release')
+        return xml.tag.endswith("release")
 
     def parse(self, xml, provider=None):
         self.provider = provider
         item = {
             ITEM_TYPE: CONTENT_TYPE.TEXT,  # set the default type.
-            'versioncreated': utcnow(),
-            'anpa_category': [{"name": "Formidlingstjenester", "qcode": "r"}],
-            'genre': [{"name": "Fulltekstmeldinger", "qcode": "Fulltekstmeldinger", "scheme": "genre_custom"}],
-            'subject': [{'qcode': 'PRM-NTB',
-                         'name': 'PRM-NTB',
-                         'scheme': 'category'}],
-            'urgency': 6,
-            'ednote': '*** Dette er en pressemelding formidlet av NTB pva. andre ***'
+            "versioncreated": utcnow(),
+            "anpa_category": [{"name": "Formidlingstjenester", "qcode": "r"}],
+            "genre": [
+                {
+                    "name": "Fulltekstmeldinger",
+                    "qcode": "Fulltekstmeldinger",
+                    "scheme": "genre_custom",
+                }
+            ],
+            "subject": [{"qcode": "PRM-NTB", "name": "PRM-NTB", "scheme": "category"}],
+            "urgency": 6,
+            "ednote": "*** Dette er en pressemelding formidlet av NTB pva. andre ***",
         }
 
         try:
@@ -84,66 +85,75 @@ class SolitaFeedParser(XMLFeedParser):
 
     def get_body(self, root_elt, item):
         """This method generate the body according to NTB requirements and add images to associations"""
-        body_list = [unescape(root_elt.find('body').text)]
+        body_list = [unescape(root_elt.find("body").text)]
 
         # images
         images = []
         ntb_media = []
-        for image_elt in root_elt.xpath('images/image'):
-            image_id = e(image_elt.get('id'))
-            url = image_elt.findtext('url', '')
+        for image_elt in root_elt.xpath("images/image"):
+            image_id = e(image_elt.get("id"))
+            url = image_elt.findtext("url", "")
             e_url = e(url)
-            caption = image_elt.findtext('caption') or e_url
+            caption = image_elt.findtext("caption") or e_url
             mime_type = mimetypes.guess_type(url, strict=False)[0]
-            images.append('<a href="{url}">{caption}</a>'.format(url=e_url, caption=e(caption)))
-            ntb_media.append({
-                "id": image_id,
-                "url": url,
-                "mime_type": mime_type,
-                "description_text": caption,
-            })
+            images.append(
+                '<a href="{url}">{caption}</a>'.format(url=e_url, caption=e(caption))
+            )
+            ntb_media.append(
+                {
+                    "id": image_id,
+                    "url": url,
+                    "mime_type": mime_type,
+                    "description_text": caption,
+                }
+            )
         if images:
             body_list.extend(['<p class="ntb-media">', "<br>".join(images), "</p>"])
             item.setdefault("extra", {}).setdefault("ntb_media", []).extend(ntb_media)
 
         # contacts
-        contacts = root_elt.xpath('contacts/contact')
-        contacts_as_text = root_elt.xpath('contactsAsText/text()')
+        contacts = root_elt.xpath("contacts/contact")
+        contacts_as_text = root_elt.xpath("contactsAsText/text()")
         if contacts or contacts_as_text:
-            body_list.append('<h2>Kontakter</h2>')
+            body_list.append("<h2>Kontakter</h2>")
             for contact_elt in contacts:
                 body_list.append(
-                    '<p><name>{name}</name><br>'
-                    '<title>{title}</title><br>'
-                    '<phone>{phone}</phone><br>'
-                    '<email>{email}</email>'
-                    '</p>'.format(
-                        name=e(contact_elt.findtext('name', '')),
-                        title=e(contact_elt.findtext('title', '')),
-                        phone=e(contact_elt.findtext('phone', '')),
-                        email=e(contact_elt.findtext('email', '')),
-                    ))
+                    "<p><name>{name}</name><br>"
+                    "<title>{title}</title><br>"
+                    "<phone>{phone}</phone><br>"
+                    "<email>{email}</email>"
+                    "</p>".format(
+                        name=e(contact_elt.findtext("name", "")),
+                        title=e(contact_elt.findtext("title", "")),
+                        phone=e(contact_elt.findtext("phone", "")),
+                        email=e(contact_elt.findtext("email", "")),
+                    )
+                )
             for contact_txt in contacts_as_text:
-                body_list.append('<p>{contact}</p>'.format(contact=e(contact_txt)))
+                body_list.append("<p>{contact}</p>".format(contact=e(contact_txt)))
 
         # documents
         documents = []
-        for document_elt in root_elt.xpath('documents/document'):
-            url = e(document_elt.findtext('url', ''))
-            documents.append('<a href="{url}">{caption}</a>'.format(
-                url=url,
-                caption=e(document_elt.findtext('title') or url)))
+        for document_elt in root_elt.xpath("documents/document"):
+            url = e(document_elt.findtext("url", ""))
+            documents.append(
+                '<a href="{url}">{caption}</a>'.format(
+                    url=url, caption=e(document_elt.findtext("title") or url)
+                )
+            )
         if documents:
             body_list.extend(["<h2>Dokumenter</h2><p>", "<br>".join(documents), "</p>"])
 
         # longurl
         body_list.append(
             '<p>Se saken i sin helhet:<br><a href="{longurl}">'
-            '{longurl}</a></p>'.format(
+            "{longurl}</a></p>".format(
                 # name=e(root_elt.findtext('publisher/name', '')),
-                longurl=e(root_elt.findtext('longurl', ''))))
+                longurl=e(root_elt.findtext("longurl", ""))
+            )
+        )
 
-        item['body_html'] = '\n'.join(body_list)
+        item["body_html"] = "\n".join(body_list)
 
 
 register_feed_parser(SolitaFeedParser.NAME, SolitaFeedParser())

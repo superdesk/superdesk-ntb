@@ -1,5 +1,6 @@
 -r requirements.txt
 
+black==25.1.0
 flake8
 nose
 pep8

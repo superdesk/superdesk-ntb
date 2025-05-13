@@ -15,7 +15,10 @@ from eve.utils import ParsedRequest
 
 import superdesk
 from superdesk.utc import utcnow
-from superdesk.io.registry import register_feeding_service, register_feeding_service_parser
+from superdesk.io.registry import (
+    register_feeding_service,
+    register_feeding_service_parser,
+)
 from superdesk.io.feeding_services.http_base_service import HTTPFeedingServiceBase
 from superdesk.errors import IngestApiError, SuperdeskIngestError
 from superdesk.metadata.item import GUID_FIELD
@@ -27,7 +30,7 @@ class NTBEventsApiFeedingService(HTTPFeedingServiceBase):
     Feeding Service class which can read events from NTB API using HTTP
     """
 
-    NAME = 'ntb_events_api'
+    NAME = "ntb_events_api"
     ERRORS = [
         SuperdeskIngestError.notConfiguredError().get_error_description(),
         IngestApiError.apiTimeoutError().get_error_description(),
@@ -37,13 +40,17 @@ class NTBEventsApiFeedingService(HTTPFeedingServiceBase):
     EVENTS_PER_REQUEST = 25
     HTTP_TIMEOUT = 20
 
-    label = 'NTB Events API'
+    label = "NTB Events API"
     fields = [
         {
-            'id': 'url', 'type': 'text', 'label': 'Feed URL',
-            'placeholder': 'Feed URL', 'required': True
-        }] + HTTPFeedingServiceBase.AUTH_FIELDS
-    service = 'events'
+            "id": "url",
+            "type": "text",
+            "label": "Feed URL",
+            "placeholder": "Feed URL",
+            "required": True,
+        }
+    ] + HTTPFeedingServiceBase.AUTH_FIELDS
+    service = "events"
 
     def _update(self, provider, update):
         """
@@ -57,8 +64,8 @@ class NTBEventsApiFeedingService(HTTPFeedingServiceBase):
         """
         all_items = OrderedDict()
         self._provider = provider
-        provider_private = self._provider.get('private', {})
-        offset = provider_private.get('search', {}).get('offset', 0)
+        provider_private = self._provider.get("private", {})
+        offset = provider_private.get("search", {}).get("offset", 0)
 
         for _ in range(self.REQUESTS_PER_UPDATE):
             response = self._send_request(offset + len(all_items))
@@ -71,17 +78,13 @@ class NTBEventsApiFeedingService(HTTPFeedingServiceBase):
                 break
 
         if all_items:
-            update['private'] = {
-                'search': {
-                    'offset': offset + len(all_items)
-                }
-            }
+            update["private"] = {"search": {"offset": offset + len(all_items)}}
             all_items = self._filter_items(all_items)
         else:
-            update['is_closed'] = True
-            update['last_closed'] = {
-                'closed_at': utcnow(),
-                'message': 'Ingesting was finished.'
+            update["is_closed"] = True
+            update["last_closed"] = {
+                "closed_at": utcnow(),
+                "message": "Ingesting was finished.",
             }
 
         return [all_items]
@@ -101,10 +104,10 @@ class NTBEventsApiFeedingService(HTTPFeedingServiceBase):
         :raises IngestApiError.apiNotFoundError
         """
         payload = {
-            'search.offset': offset,
-            'search.showNumResults': self.EVENTS_PER_REQUEST
+            "search.offset": offset,
+            "search.showNumResults": self.EVENTS_PER_REQUEST,
         }
-        url = self._provider['config']['url'].strip()
+        url = self._provider["config"]["url"].strip()
 
         return self.get_url(url, params=payload)
 
@@ -117,9 +120,7 @@ class NTBEventsApiFeedingService(HTTPFeedingServiceBase):
         :return: a list of events
         """
         parser = self.get_feed_parser(self._provider, article=xml)
-        return OrderedDict(
-            (item['ntb_id'], item) for item in parser.parse(xml)
-        )
+        return OrderedDict((item["ntb_id"], item) for item in parser.parse(xml))
 
     def _filter_items(self, items):
         """
@@ -131,27 +132,22 @@ class NTBEventsApiFeedingService(HTTPFeedingServiceBase):
         """
 
         req = ParsedRequest()
-        req.projection = json.dumps({'ntb_id': 1, 'guid': 1, ITEM_STATE: 1})
+        req.projection = json.dumps({"ntb_id": 1, "guid": 1, ITEM_STATE: 1})
         req.max_results = len(items)
 
-        existing_items = superdesk.get_resource_service('events').get_from_mongo(
-            req,
-            {
-                'ntb_id': {
-                    '$in': [ntb_id for ntb_id in items.keys()]
-                }
-            }
+        existing_items = superdesk.get_resource_service("events").get_from_mongo(
+            req, {"ntb_id": {"$in": [ntb_id for ntb_id in items.keys()]}}
         )
         for existing_item in existing_items:
             if existing_item.get(ITEM_STATE) == WORKFLOW_STATE.INGESTED:
                 # update event
-                items[existing_item['ntb_id']][GUID_FIELD] = existing_item[GUID_FIELD]
+                items[existing_item["ntb_id"]][GUID_FIELD] = existing_item[GUID_FIELD]
             else:
                 # remove event when it has a state different from 'ingested'
-                del items[existing_item['ntb_id']]
+                del items[existing_item["ntb_id"]]
 
         return [items[i] for i in items.keys()]
 
 
 register_feeding_service(NTBEventsApiFeedingService)
-register_feeding_service_parser(NTBEventsApiFeedingService.NAME, 'ntb_events_api_xml')
+register_feeding_service_parser(NTBEventsApiFeedingService.NAME, "ntb_events_api_xml")

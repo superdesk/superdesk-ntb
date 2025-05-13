@@ -15,23 +15,23 @@ from superdesk.publish.publish_service import PublishService
 class NTBNITFMultiFileFormatter(NTBNITFFormatter):
     """This formatter version generates 1 file for each service."""
 
-    FORMAT_TYPE = 'ntbnitfmultifile'
+    FORMAT_TYPE = "ntbnitfmultifile"
     type = FORMAT_TYPE
     name = "NTB NITF Multi File"
 
     def format(self, original_article, subscriber, codes=None, encoding="us-ascii"):
         """For every service create a article nitf format."""
-        if len(original_article.get('anpa_category', [])) <= 1:
+        if len(original_article.get("anpa_category", [])) <= 1:
             return super().format(original_article, subscriber, codes, encoding)
 
         article = original_article.copy()
         articles = []
 
-        for service in original_article['anpa_category']:
-            article['anpa_category'] = [service]
+        for service in original_article["anpa_category"]:
+            article["anpa_category"] = [service]
             articles += super().format(article, subscriber, codes, encoding)
 
         return articles
 
 
-PublishService.register_file_extension(NTBNITFMultiFileFormatter.FORMAT_TYPE, 'xml')
+PublishService.register_file_extension(NTBNITFMultiFileFormatter.FORMAT_TYPE, "xml")

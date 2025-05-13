@@ -19,7 +19,9 @@ from app import get_app
 _app = get_app()
 celery = _app.celery
 
-log_address = (_app.config['LOG_SERVER_ADDRESS'], _app.config['LOG_SERVER_PORT'])
-logging.basicConfig(handlers=[logging.StreamHandler(), SysLogHandler(address=log_address)])
+log_address = (_app.config["LOG_SERVER_ADDRESS"], _app.config["LOG_SERVER_PORT"])
+logging.basicConfig(
+    handlers=[logging.StreamHandler(), SysLogHandler(address=log_address)]
+)
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)

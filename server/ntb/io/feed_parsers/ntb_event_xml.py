@@ -16,7 +16,14 @@ from datetime import datetime
 from superdesk.errors import ParserError
 from superdesk.io.feed_parsers import XMLFeedParser
 from superdesk.io.registry import register_feed_parser
-from superdesk.metadata.item import ITEM_TYPE, CONTENT_TYPE, GUID_FIELD, GUID_NEWSML, FORMAT, FORMATS
+from superdesk.metadata.item import (
+    ITEM_TYPE,
+    CONTENT_TYPE,
+    GUID_FIELD,
+    GUID_NEWSML,
+    FORMAT,
+    FORMATS,
+)
 from superdesk.metadata.utils import generate_guid
 from superdesk.utc import utcnow
 
@@ -30,16 +37,16 @@ class NTBEventXMLFeedParser(XMLFeedParser):
     the firstcreated and versioncreated times are localised.
     """
 
-    NAME = 'ntb_event_xml'
+    NAME = "ntb_event_xml"
 
-    label = 'NTB Event XML'
+    label = "NTB Event XML"
 
     def can_parse(self, xml):
-        return xml.tag.endswith('document')
+        return xml.tag.endswith("document")
 
     def parse_email(self, content, content_type, provider):
-        if content_type != 'text/xml':
-            raise ParserError.parseMessageError('Not supported content type.')
+        if content_type != "text/xml":
+            raise ParserError.parseMessageError("Not supported content type.")
 
         content.seek(0)
         xml = ET.parse(content)
@@ -62,37 +69,38 @@ class NTBEventXMLFeedParser(XMLFeedParser):
         items = []
         try:
             # parse xml file, only expecting one event per file
-            if not ET.iselement(xml.find('guid')):
+            if not ET.iselement(xml.find("guid")):
                 guid = generate_guid(type=GUID_NEWSML)
             else:
-                guid = xml.find('guid').text
+                guid = xml.find("guid").text
 
             item = {
                 ITEM_TYPE: CONTENT_TYPE.EVENT,
                 GUID_FIELD: guid,
-                FORMAT: FORMATS.PRESERVED
+                FORMAT: FORMATS.PRESERVED,
             }
-            item['name'] = xml.find('title').text
-            item['definition_short'] = xml.find('title').text
-            item['definition_long'] = xml.find('content').text
-            item['dates'] = {
-                'start': self.parse_datetime(xml.find('timeStart').text),
-                'end': self.parse_datetime(xml.find('timeEnd').text),
-                'tz': ''
+            item["name"] = xml.find("title").text
+            item["definition_short"] = xml.find("title").text
+            item["definition_long"] = xml.find("content").text
+            item["dates"] = {
+                "start": self.parse_datetime(xml.find("timeStart").text),
+                "end": self.parse_datetime(xml.find("timeEnd").text),
+                "tz": "",
             }
             # add location
-            item['location'] = [{
-                'name': xml.find('location').text,
-                'qcode': '',
-                'geo': ''
-            }]
-            if ET.iselement(xml.find('geo')):
-                geo = xml.find('geo')
-                item['location'][0]['geo'] = '%s, %s' % (geo.find('latitude').text, geo.find('longitude').text)
+            item["location"] = [
+                {"name": xml.find("location").text, "qcode": "", "geo": ""}
+            ]
+            if ET.iselement(xml.find("geo")):
+                geo = xml.find("geo")
+                item["location"][0]["geo"] = "%s, %s" % (
+                    geo.find("latitude").text,
+                    geo.find("longitude").text,
+                )
             # IMPORTANT: firstcreated must be less than 2 days past
             # we must preserve the original event created and updated in some other fields
-            item['firstcreated'] = utcnow()
-            item['versioncreated'] = utcnow()
+            item["firstcreated"] = utcnow()
+            item["versioncreated"] = utcnow()
             items.append(item)
 
             return items

@@ -20,7 +20,7 @@ PROVIDER = {
         "username": "user",
         "password": "password",
         "feed_parser": "ninjs",
-        "field_aliases": []
+        "field_aliases": [],
     },
 }
 
@@ -35,18 +35,26 @@ class NewsworthyTestCase(TestCase):
                 "place": [{"name": "\u00c5l kommune", "code": "\u00c5l"}],
                 "pubstatus": "usable",
                 "renditions": {},
-                "subject": [{"name": "F\u00f6retagskonkurser", "code": "norway-brreg-liquidations"}],
+                "subject": [
+                    {
+                        "name": "F\u00f6retagskonkurser",
+                        "code": "norway-brreg-liquidations",
+                    }
+                ],
                 "versioncreated": "2019-03-12T12:10:52Z",
                 "type": "text",
                 "body_html": (
-                    '<p>Under förra veckan öppnades ett företagskonkurser i Ål. </p>Bolaget heter [object Object].<fig'
+                    "<p>Under förra veckan öppnades ett företagskonkurser i Ål. </p>Bolaget heter [object Object].<fig"
                     'ure><figcaption>Konkursöppningar i Ål mellan 2019-03-04 och 2019-03-10</figcaption><table class="'
                     'table responsive"><thead><tr><th scope="col">Företag</th><th scope="col">Antal ansatte</th><th sc'
                     'ope="col">Stiftelsedato</th><th scope="col">Kommune</th></tr></thead><tbody><tr><th scope="row">S'
                     'PORTSGUTTA AS</th><td class="value" data-title="Antal ansatte">9</td><td class="value" data-title'
                     '="Stiftelsedato">2015-09-30</td><td class="value" data-title="Kommune">Ål</td></tr></tbody></tabl'
-                    'e></figure>NoneNone'),
-                "organisation": [{"name": "Br\u00f8nn\u00f8ysundregistrene", "code": "norway-brreg"}],
+                    "e></figure>NoneNone"
+                ),
+                "organisation": [
+                    {"name": "Br\u00f8nn\u00f8ysundregistrene", "code": "norway-brreg"}
+                ],
             },
             "hook": {
                 "resource": "Newslead",
@@ -57,48 +65,71 @@ class NewsworthyTestCase(TestCase):
             },
         }
         self.provider = {
-            'config': {'username': 'toto', 'password': 'pass', 'secret': 'secret'},
-            '_id': '123'}
+            "config": {"username": "toto", "password": "pass", "secret": "secret"},
+            "_id": "123",
+        }
         super().setUp()
 
-    @mock.patch.object(newsworthy, 'request')
-    @mock.patch.object(newsworthy, 'superdesk')
+    @mock.patch.object(newsworthy, "request")
+    @mock.patch.object(newsworthy, "superdesk")
     def test_feeding_service_auth(self, superdesk, request):
         """Check that a Newsworthy feed is correctly authenticated and set the right data in NewsworthyWebhookService"""
         service = superdesk.get_resource_service.return_value
         service.get.return_value = [self.provider]
         request.json = self.data
-        request.args = {'checksum': 'b449eb093124d7aed7811d8a1d13f962'}
-        request.authorization.get.side_effect = lambda k: {'username': 'toto',
-                                                           'password': 'pass'}[k]
+        request.args = {"checksum": "b449eb093124d7aed7811d8a1d13f962"}
+        request.authorization.get.side_effect = lambda k: {
+            "username": "toto",
+            "password": "pass",
+        }[k]
 
-        self.assertTrue(newsworthy.NewsworthyFeedingServiceAuth().authorized([], 'newsworthy', 'POST'))
-        self.assertEqual(newsworthy.NewsworthyWebhookService.requests_map, {request: [self.provider]})
+        self.assertTrue(
+            newsworthy.NewsworthyFeedingServiceAuth().authorized(
+                [], "newsworthy", "POST"
+            )
+        )
+        self.assertEqual(
+            newsworthy.NewsworthyWebhookService.requests_map, {request: [self.provider]}
+        )
 
-    @mock.patch.object(newsworthy, 'request')
-    @mock.patch.object(newsworthy, 'superdesk')
+    @mock.patch.object(newsworthy, "request")
+    @mock.patch.object(newsworthy, "superdesk")
     def test_bad_password(self, superdesk, request):
         """Check that feeding service is not validating on bad password"""
         service = superdesk.get_resource_service.return_value
         service.get.return_value = [self.provider]
         request.json = self.data
-        request.args = {'checksum': 'b449eb093124d7aed7811d8a1d13f962'}
-        request.authorization.get.side_effect = lambda k: {'username': 'wrong',
-                                                           'password': 'password'}[k]
+        request.args = {"checksum": "b449eb093124d7aed7811d8a1d13f962"}
+        request.authorization.get.side_effect = lambda k: {
+            "username": "wrong",
+            "password": "password",
+        }[k]
 
-        self.assertFalse(newsworthy.NewsworthyFeedingServiceAuth().authorized([], 'newsworthy', 'POST'))
+        self.assertFalse(
+            newsworthy.NewsworthyFeedingServiceAuth().authorized(
+                [], "newsworthy", "POST"
+            )
+        )
 
-    @skipIf(sys.version_info[:2] <= (3, 5), "Python 3.5 and below don't verify checksum")
-    @mock.patch.object(newsworthy, 'request')
-    @mock.patch.object(newsworthy, 'superdesk')
+    @skipIf(
+        sys.version_info[:2] <= (3, 5), "Python 3.5 and below don't verify checksum"
+    )
+    @mock.patch.object(newsworthy, "request")
+    @mock.patch.object(newsworthy, "superdesk")
     def test_bad_checksum(self, superdesk, request):
         """Check that feeding service is not validating on bad checksum"""
         service = superdesk.get_resource_service.return_value
         service.get.return_value = [self.provider]
         request.json = self.data
-        request.authorization.get.side_effect = lambda k: {'username': 'toto',
-                                                           'password': 'pass'}[k]
+        request.authorization.get.side_effect = lambda k: {
+            "username": "toto",
+            "password": "pass",
+        }[k]
         # this checksum is wrong on purpose
-        request.args = {'checksum': 'd41d8cd98f00b204e9800998ecf8427e'}
+        request.args = {"checksum": "d41d8cd98f00b204e9800998ecf8427e"}
 
-        self.assertFalse(newsworthy.NewsworthyFeedingServiceAuth().authorized([], 'newsworthy', 'POST'))
+        self.assertFalse(
+            newsworthy.NewsworthyFeedingServiceAuth().authorized(
+                [], "newsworthy", "POST"
+            )
+        )

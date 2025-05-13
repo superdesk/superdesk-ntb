@@ -1,4 +1,3 @@
-
 import bson
 import bson.errors
 import superdesk
@@ -7,7 +6,7 @@ from .update_topics import UpdateTopicsScript
 from .update_places import UpdatePlacesScript
 
 
-RESOURCES = ('events', 'planning', 'archive', 'published', 'archived')
+RESOURCES = ("events", "planning", "archive", "published", "archived")
 
 SCRIPTS = [
     ("topics", UpdateTopicsScript()),
@@ -26,8 +25,10 @@ class UpdateItemsCommand(superdesk.Command):
     """Update Items"""
 
     option_list = [
-        superdesk.Option('--resource', '-r', dest='resources', action='append', choices=RESOURCES),
-        superdesk.Option('--last', '-l'),
+        superdesk.Option(
+            "--resource", "-r", dest="resources", action="append", choices=RESOURCES
+        ),
+        superdesk.Option("--last", "-l"),
     ]
 
     def run(self, resources=None, last=None):
@@ -44,7 +45,7 @@ class UpdateItemsCommand(superdesk.Command):
                     print("skip resource {resource}".format(resource=resource))
                     continue
                 print("continue from {last}".format(last=last))
-                last_id = get_id(last_item['_id'])
+                last_id = get_id(last_item["_id"])
 
             query = {}
             while True:
@@ -55,7 +56,7 @@ class UpdateItemsCommand(superdesk.Command):
                     print("done.")
                     break
                 for item in items:
-                    _id = get_id(item['_id'])
+                    _id = get_id(item["_id"])
                     if _id == last_id:
                         print("error: processing {_id} again".format(_id=last_id))
                         raise ValueError("Invalid id.")

@@ -10,10 +10,16 @@
 
 import os
 import superdesk
-from superdesk.tests.environment import before_feature, before_step, after_scenario  # noqa
+from superdesk.tests.environment import (
+    before_feature,
+    before_step,
+    after_scenario,
+)  # noqa
 from superdesk.tests import set_placeholder
 from superdesk.tests.environment import setup_before_all
-from superdesk.tests.environment import setup_before_scenario as setup_before_scenario_core
+from superdesk.tests.environment import (
+    setup_before_scenario as setup_before_scenario_core,
+)
 from superdesk.io.commands.update_ingest import ingest_items
 from apps.prepopulate.app_populate import AppPopulateCommand
 from planning.events import init_app as init_events_app
@@ -28,28 +34,32 @@ def setup_ntb_event_api_provider(context):
     context.providers = {}
     context.ingest_items = ingest_items
     path_to_fixtures = os.path.join(
-        os.path.abspath(os.path.dirname(ntb.__file__)), 'tests', 'io', 'fixtures', 'ntb_events_api'
+        os.path.abspath(os.path.dirname(ntb.__file__)),
+        "tests",
+        "io",
+        "fixtures",
+        "ntb_events_api",
     )
     providers = [
         {
-            'name': 'ntb-events-api',
-            'source': 'local fixture',
-            'feeding_service': 'ntb_events_api',
-            'feed_parser': 'ntb_events_api_xml',
-            'is_closed': False,
-            'config': {
-                'fixtures_path': path_to_fixtures,
-                'url': 'https://fake.com/ntb/api/x1/search/full',
-                'username': 'fake-user',
-                'password': 'fake-password'
-            }
+            "name": "ntb-events-api",
+            "source": "local fixture",
+            "feeding_service": "ntb_events_api",
+            "feed_parser": "ntb_events_api_xml",
+            "is_closed": False,
+            "config": {
+                "fixtures_path": path_to_fixtures,
+                "url": "https://fake.com/ntb/api/x1/search/full",
+                "username": "fake-user",
+                "password": "fake-password",
+            },
         }
     ]
 
-    with app.test_request_context(app.config['URL_PREFIX']):
-        result = superdesk.get_resource_service('ingest_providers').post(providers)
-        context.providers['ntb'] = result[0]
-        set_placeholder(context, 'PROVIDER_ID', str(result[0]))
+    with app.test_request_context(app.config["URL_PREFIX"]):
+        result = superdesk.get_resource_service("ingest_providers").post(providers)
+        context.providers["ntb"] = result[0]
+        set_placeholder(context, "PROVIDER_ID", str(result[0]))
 
 
 def setup_ntb_event_file_provider(context):
@@ -57,31 +67,35 @@ def setup_ntb_event_file_provider(context):
     context.providers = {}
     context.ingest_items = ingest_items
     path_to_fixtures = os.path.join(
-        os.path.abspath(os.path.dirname(ntb.__file__)), 'tests', 'io', 'fixtures', 'ntb_events_file'
+        os.path.abspath(os.path.dirname(ntb.__file__)),
+        "tests",
+        "io",
+        "fixtures",
+        "ntb_events_file",
     )
     providers = [
         {
-            'name': 'ntb-events-file',
-            'source': 'ntb',
-            'feeding_service': 'event_file',
-            'feed_parser': 'ntb_event_xml',
-            'is_closed': False,
-            'config': {
-                'path': path_to_fixtures
-            }
+            "name": "ntb-events-file",
+            "source": "ntb",
+            "feeding_service": "event_file",
+            "feed_parser": "ntb_event_xml",
+            "is_closed": False,
+            "config": {"path": path_to_fixtures},
         }
     ]
 
-    with app.test_request_context(app.config['URL_PREFIX']):
-        result = superdesk.get_resource_service('ingest_providers').post(providers)
-        context.providers['ntb'] = result[0]
+    with app.test_request_context(app.config["URL_PREFIX"]):
+        result = superdesk.get_resource_service("ingest_providers").post(providers)
+        context.providers["ntb"] = result[0]
 
 
 def setup_ntb_vocabulary(context):
     with context.app.app_context():
         # prepopulate vocabularies
         voc_file = os.path.join(
-            os.path.abspath(os.path.dirname(os.path.dirname(ntb.__file__))), 'data', 'vocabularies.json'
+            os.path.abspath(os.path.dirname(os.path.dirname(ntb.__file__))),
+            "data",
+            "vocabularies.json",
         )
         AppPopulateCommand().run(voc_file)
 
@@ -99,25 +113,25 @@ def setup_before_scenario(context, scenario, config, app_factory):
 
 def before_all(context):
     config = {
-        'INSTALLED_APPS': INSTALLED_APPS,
-        'ELASTICSEARCH_FORCE_REFRESH': True,
+        "INSTALLED_APPS": INSTALLED_APPS,
+        "ELASTICSEARCH_FORCE_REFRESH": True,
     }
     setup_before_all(context, config, app_factory=get_app)
 
 
 def before_scenario(context, scenario):
     config = {
-        'INSTALLED_APPS': INSTALLED_APPS,
-        'ELASTICSEARCH_FORCE_REFRESH': True,
+        "INSTALLED_APPS": INSTALLED_APPS,
+        "ELASTICSEARCH_FORCE_REFRESH": True,
     }
     setup_before_scenario(context, scenario, config, app_factory=get_app)
 
-    if scenario.status != 'skipped':
-        if 'ntb_event_api_provider' in scenario.tags:
+    if scenario.status != "skipped":
+        if "ntb_event_api_provider" in scenario.tags:
             setup_ntb_event_api_provider(context)
 
-        if 'ntb_vocabulary' in scenario.tags:
+        if "ntb_vocabulary" in scenario.tags:
             setup_ntb_vocabulary(context)
 
-        if 'events_ingest' in scenario.tags:
+        if "events_ingest" in scenario.tags:
             setup_ntb_event_file_provider(context)

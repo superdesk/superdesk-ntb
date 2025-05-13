@@ -15,7 +15,7 @@ from . import utils
 import logging
 
 logger = logging.getLogger(__name__)
-IPTC_NS = 'http://iptc.org/std/nar/2006-10-01/'
+IPTC_NS = "http://iptc.org/std/nar/2006-10-01/"
 
 
 class NTBSTTNewsMLFeedParser(STTNewsMLFeedParser):
@@ -23,23 +23,27 @@ class NTBSTTNewsMLFeedParser(STTNewsMLFeedParser):
     Feed Parser which can parse STT variant of NewsML
     """
 
-    NAME = 'ntb_sttnewsml'
+    NAME = "ntb_sttnewsml"
     label = "NTB STT NewsML"
 
     def can_parse(self, xml):
-        return xml.tag.endswith('newsItem')
+        return xml.tag.endswith("newsItem")
 
     def parse(self, xml, provider=None):
         try:
             item = super().parse(xml, provider)[0]
             # SDNTB-462 requires that slugline is removed
-            del item['slugline']
-            sport = bool(self.root.xpath('//iptc:subject[@type="cpnat:abstract" and @qcode="sttsubj:15000000"]',
-                                         namespaces={'iptc': IPTC_NS}))
+            del item["slugline"]
+            sport = bool(
+                self.root.xpath(
+                    '//iptc:subject[@type="cpnat:abstract" and @qcode="sttsubj:15000000"]',
+                    namespaces={"iptc": IPTC_NS},
+                )
+            )
             cat = utils.SPORT_CATEGORY if sport else utils.DEFAULT_CATEGORY
-            category = {'qcode': cat, 'name': cat, 'scheme': 'category'}
-            item['subject'] = utils.filter_missing_subjects(item.get('subject'))
-            item['subject'].append(category)
+            category = {"qcode": cat, "name": cat, "scheme": "category"}
+            item["subject"] = utils.filter_missing_subjects(item.get("subject"))
+            item["subject"].append(category)
             utils.set_default_service(item)
             return [item]
         except Exception as ex:

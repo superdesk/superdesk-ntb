@@ -11,6 +11,7 @@
 from superdesk.publish.publish_service import PublishService, set_publish_service
 from xml.etree import ElementTree as ET
 import logging
+
 logger = logging.getLogger(__name__)
 
 
@@ -22,13 +23,13 @@ class NTBPublishService(PublishService):
         # we reparse formatted item to get filename from <meta name="filename"> element
         # this way we are sure that we have the exact same filename
         try:
-            xml = ET.fromstring(item['formatted_item'])
+            xml = ET.fromstring(item["formatted_item"])
         except (KeyError, ET.ParseError) as e:
             filename = None
             logger.error("Error on parsing, can't get filename: {}".format(e))
         else:
             try:
-                filename = xml.find('head/meta[@name="filename"]').attrib['content']
+                filename = xml.find('head/meta[@name="filename"]').attrib["content"]
             except AttributeError:
                 filename = None
         if not filename:

@@ -22,7 +22,11 @@ from superdesk.upload import url_for_media
 
 from superdesk.errors import SuperdeskApiError, ProviderError
 from superdesk.media.media_operations import process_file_from_stream, decode_metadata
-from superdesk.media.renditions import generate_renditions, delete_file_on_error, get_renditions_spec
+from superdesk.media.renditions import (
+    generate_renditions,
+    delete_file_on_error,
+    get_renditions_spec,
+)
 from superdesk.metadata.item import ITEM_TYPE, CONTENT_TYPE
 from superdesk.utc import utcnow, get_date, local_to_utc
 import mimetypes
@@ -31,25 +35,33 @@ import mimetypes
 # scanpix preview size to use (if available) for superdesk rendition
 # preview sizes are in order of preference, first found is used
 REND2PREV = {
-    'thumbnail': ('generated_jpg', 'thumbnail', 'thumbnail_big'),
-    'viewImage': ('preview', 'thumbnail_big', 'thumbnail', 'preview_big'),
-    'baseImage': ('mp4_preview', 'mp4_thumbnail', 'preview_big', 'preview', 'thumbnail_big', 'thumbnail')}
-logger = logging.getLogger('ntb:scanpix')
+    "thumbnail": ("generated_jpg", "thumbnail", "thumbnail_big"),
+    "viewImage": ("preview", "thumbnail_big", "thumbnail", "preview_big"),
+    "baseImage": (
+        "mp4_preview",
+        "mp4_thumbnail",
+        "preview_big",
+        "preview",
+        "thumbnail_big",
+        "thumbnail",
+    ),
+}
+logger = logging.getLogger("ntb:scanpix")
 # Default timezone used to convert datetimes from scanpix api results to utc
-SCANPIX_TZ = 'Europe/Oslo'
+SCANPIX_TZ = "Europe/Oslo"
 
 
 def extract_params(query, names):
     if isinstance(names, str):
         names = [names]
-    findall = re.findall(r'([\w]+):\(([-\w\s*]+)\)', query)
+    findall = re.findall(r"([\w]+):\(([-\w\s*]+)\)", query)
     params = {name: value for (name, value) in findall if name in names}
     for name, value in findall:
-        query = query.replace('%s:(%s)' % (name, value), '')
+        query = query.replace("%s:(%s)" % (name, value), "")
     query = query.strip()
 
     if query:
-        params['q'] = query
+        params["q"] = query
     return params
 
 
@@ -59,12 +71,12 @@ class ScanpixDatalayer(DataLayer):
         self._password = password
 
     def init_app(self, app):
-        app.config.setdefault('SCANPIX_SEARCH_URL', 'http://api.scanpix.no/v2')
+        app.config.setdefault("SCANPIX_SEARCH_URL", "http://api.scanpix.no/v2")
         self._app = app
         self._user = None
         self._password = None
         self._headers = {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
         }
 
     def fetch_file(self, url):
@@ -86,97 +98,98 @@ class ScanpixDatalayer(DataLayer):
         :param lookup:
         :return:
         """
-        url = self._app.config['SCANPIX_SEARCH_URL'] + '/search'
-        data = {
-            'mainGroup': 'any'
-        }
+        url = self._app.config["SCANPIX_SEARCH_URL"] + "/search"
+        data = {"mainGroup": "any"}
 
-        if 'query' in req['query']['filtered']:
-            query = req['query']['filtered']['query']['query_string']['query'] \
-                .replace('slugline:', 'keywords:') \
-                .replace('description:', 'caption:')
+        if "query" in req["query"]["filtered"]:
+            query = (
+                req["query"]["filtered"]["query"]["query_string"]["query"]
+                .replace("slugline:", "keywords:")
+                .replace("description:", "caption:")
+            )
 
             # Black & White
             try:
-                bw = bool(int(extract_params(query, 'bw')['bw']))
+                bw = bool(int(extract_params(query, "bw")["bw"]))
             except KeyError:
                 pass
             else:
                 if bw:
-                    data['saturation'] = {'max': 1}
+                    data["saturation"] = {"max": 1}
 
             # Clear Edge
             try:
-                clear_edge = bool(int(extract_params(query, 'clear_edge')['clear_edge']))
+                clear_edge = bool(
+                    int(extract_params(query, "clear_edge")["clear_edge"])
+                )
             except KeyError:
                 pass
             else:
                 if clear_edge:
-                    data['clearEdge'] = True
+                    data["clearEdge"] = True
 
-            text_params = extract_params(query, ('headline', 'keywords', 'caption', 'text'))
+            text_params = extract_params(
+                query, ("headline", "keywords", "caption", "text")
+            )
             # combine all possible text params to use the q field.
-            data['searchString'] = ' '.join(text_params.values())
+            data["searchString"] = " ".join(text_params.values())
 
             try:
-                ids = extract_params(query, 'id')['id'].split()
+                ids = extract_params(query, "id")["id"].split()
             except KeyError:
                 pass
             else:
-                data['refPtrs'] = ids
+                data["refPtrs"] = ids
 
         # subscription
-        data['subscription'] = 'subscription'  # this is requested as a default value
+        data["subscription"] = "subscription"  # this is requested as a default value
 
         # data['subscription'] is always equal to 'subscription', but we keep the test in case
         # of the behaviour is changed again in the future.
-        if 'ntbtema' in resource and data['subscription'] == 'subscription':
+        if "ntbtema" in resource and data["subscription"] == "subscription":
             # small hack for SDNTB-250
-            data['subscription'] = 'punchcard'
+            data["subscription"] = "punchcard"
 
-        for criterion in req.get('post_filter', {}).get('and', {}):
-            if 'range' in criterion:
+        for criterion in req.get("post_filter", {}).get("and", {}):
+            if "range" in criterion:
                 start = None
                 end = None
-                filter_data = criterion.get('range', {})
+                filter_data = criterion.get("range", {})
 
-                if 'firstcreated' in filter_data:
-                    created = criterion['range']['firstcreated']
-                    if 'gte' in created:
-                        start = created['gte'][0:10]
-                    if 'lte' in created:
-                        end = created['lte'][0:10]
+                if "firstcreated" in filter_data:
+                    created = criterion["range"]["firstcreated"]
+                    if "gte" in created:
+                        start = created["gte"][0:10]
+                    if "lte" in created:
+                        end = created["lte"][0:10]
 
                 # if there is a special start and no end it's one of the date buttons
                 if start and not end:
-                    if start == 'now-24H':
-                        data['timeLimit'] = 'last24'
-                    if start == 'now-1w':
-                        data['timeLimit'] = 'lastweek'
-                    if start == 'now-1M':
-                        data['timeLimit'] = 'lastmonth'
+                    if start == "now-24H":
+                        data["timeLimit"] = "last24"
+                    if start == "now-1w":
+                        data["timeLimit"] = "lastweek"
+                    if start == "now-1M":
+                        data["timeLimit"] = "lastmonth"
                 elif start or end:
-                    data['archived'] = {
-                        'min': '',
-                        'max': ''
-                    }
+                    data["archived"] = {"min": "", "max": ""}
                     if start:
-                        data['archived']['min'] = start
+                        data["archived"]["min"] = start
                     if end:
-                        data['archived']['max'] = end
+                        data["archived"]["max"] = end
 
-            if 'terms' in criterion:
-                if 'type' in criterion.get('terms', {}):
-                    type_ = criterion['terms']['type']
+            if "terms" in criterion:
+                if "type" in criterion.get("terms", {}):
+                    type_ = criterion["terms"]["type"]
                     if type_ == CONTENT_TYPE.VIDEO:
-                        data['mainGroup'] = 'video'
+                        data["mainGroup"] = "video"
 
-        offset, limit = int(req.get('from', '0')), max(10, int(req.get('size', '25')))
-        data['offset'] = offset
-        data['showNumResults'] = limit
+        offset, limit = int(req.get("from", "0")), max(10, int(req.get("size", "25")))
+        data["offset"] = offset
+        data["showNumResults"] = limit
         r = self._request(url, data, resource)
         hits = self._parse_hits(r.json())
-        return ElasticCursor(docs=hits['docs'], hits={'hits': hits})
+        return ElasticCursor(docs=hits["docs"], hits={"hits": hits})
 
     def _request(self, url, data, resource):
         """Perform GET request to given url.
@@ -186,96 +199,110 @@ class ScanpixDatalayer(DataLayer):
         :param url
         :param data
         """
-        r = requests.post(url, data=json.dumps(data), headers=self._headers, auth=(self._user, self._password))
+        r = requests.post(
+            url,
+            data=json.dumps(data),
+            headers=self._headers,
+            auth=(self._user, self._password),
+        )
 
         if r.status_code < 200 or r.status_code >= 300:
-            logger.error('error fetching url=%s status=%s content=%s' % (url, r.status_code, r.content or ''))
-            raise ProviderError.externalProviderError("Scanpix request can't be performed", provider={'name': resource})
+            logger.error(
+                "error fetching url=%s status=%s content=%s"
+                % (url, r.status_code, r.content or "")
+            )
+            raise ProviderError.externalProviderError(
+                "Scanpix request can't be performed", provider={"name": resource}
+            )
         return r
 
     def _parse_doc(self, doc):
         new_doc = {}
-        new_doc['_id'] = doc['refPtr']
-        new_doc['guid'] = doc['refPtr']
+        new_doc["_id"] = doc["refPtr"]
+        new_doc["guid"] = doc["refPtr"]
         try:
-            new_doc['description_text'] = doc['caption']
+            new_doc["description_text"] = doc["caption"]
         except KeyError:
             pass
         try:
-            new_doc['headline'] = doc['headline']
+            new_doc["headline"] = doc["headline"]
         except KeyError:
             pass
         try:
-            new_doc['original_source'] = new_doc['source'] = doc['credit']
+            new_doc["original_source"] = new_doc["source"] = doc["credit"]
         except KeyError:
             pass
-        new_doc['versioncreated'] = new_doc['firstcreated'] = self._datetime(
-            local_to_utc(SCANPIX_TZ, get_date(doc['archivedTime']))
+        new_doc["versioncreated"] = new_doc["firstcreated"] = self._datetime(
+            local_to_utc(SCANPIX_TZ, get_date(doc["archivedTime"]))
         )
-        new_doc['pubstatus'] = 'usable'
+        new_doc["pubstatus"] = "usable"
         # This must match the action
-        new_doc['_type'] = 'externalsource'
+        new_doc["_type"] = "externalsource"
         # entry that the client can use to identify the fetch endpoint
-        new_doc['fetch_endpoint'] = 'scanpix'
+        new_doc["fetch_endpoint"] = "scanpix"
 
         # mimetype is not directly found in Scanpix API
         # so we use original filename to guess it
-        mimetype = mimetypes.guess_type("_{}".format(splitext(doc.get('originalFileName', ''))[1]))[0]
+        mimetype = mimetypes.guess_type(
+            "_{}".format(splitext(doc.get("originalFileName", ""))[1])
+        )[0]
         if mimetype is None:
             # nothing found with filename, we try out luck with fileFormat and hires
             try:
-                format_ = doc.get('fileFormat')
+                format_ = doc.get("fileFormat")
                 if format_:
                     format_ = format_.split()[0]
-                    mimetype = mimetypes.guess_type('_.{}'.format(format_))[0]
+                    mimetype = mimetypes.guess_type("_.{}".format(format_))[0]
                 else:
-                    hires = doc.get('hires')[0]
-                    mimetype = hires.get('mimeType')
+                    hires = doc.get("hires")[0]
+                    mimetype = hires.get("mimeType")
             except (KeyError, IndexError):
                 mimetype = None
         if mimetype is not None:
-            new_doc['mimetype'] = mimetype
+            new_doc["mimetype"] = mimetype
 
-        main_group = doc['mainGroup']
-        if main_group == 'video':
+        main_group = doc["mainGroup"]
+        if main_group == "video":
             new_doc[ITEM_TYPE] = CONTENT_TYPE.VIDEO
-        elif main_group == 'graphic':
+        elif main_group == "graphic":
             new_doc[ITEM_TYPE] = CONTENT_TYPE.GRAPHIC
-            new_doc['mimetype'] = 'image/jpeg'
+            new_doc["mimetype"] = "image/jpeg"
         else:
             new_doc[ITEM_TYPE] = CONTENT_TYPE.PICTURE
 
         try:
-            doc_previews = doc['previews']
+            doc_previews = doc["previews"]
         except KeyError:
-            logger.warning('no preview found for item {}'.format(new_doc['_id']))
+            logger.warning("no preview found for item {}".format(new_doc["_id"]))
         else:
             # we look for best available scanpix preview
-            available_previews = [p['type'] for p in doc_previews]
-            renditions = new_doc['renditions'] = {}
+            available_previews = [p["type"] for p in doc_previews]
+            renditions = new_doc["renditions"] = {}
             for rend, previews in REND2PREV.items():
                 for prev in previews:
                     if prev in available_previews:
                         idx = available_previews.index(prev)
-                        renditions[rend] = {"href": doc_previews[idx]['url']}
+                        renditions[rend] = {"href": doc_previews[idx]["url"]}
                         break
 
-        new_doc['byline'] = doc['byline']
-        new_doc.setdefault('extra', {})
-        new_doc['extra'].update({
-            'main_group': doc['mainGroup'],
-            'width': doc.get('hiresWidth'),
-            'height': doc.get('hiresHeight'),
-            'filename': doc.get('originalFileName'),
-        })
+        new_doc["byline"] = doc["byline"]
+        new_doc.setdefault("extra", {})
+        new_doc["extra"].update(
+            {
+                "main_group": doc["mainGroup"],
+                "width": doc.get("hiresWidth"),
+                "height": doc.get("hiresHeight"),
+                "filename": doc.get("originalFileName"),
+            }
+        )
 
         doc.clear()
         doc.update(new_doc)
 
     def _parse_hits(self, hits):
-        hits['docs'] = hits.pop('data')
-        hits['total'] = hits.pop('numResults')
-        for doc in hits['docs']:
+        hits["docs"] = hits.pop("data")
+        hits["total"] = hits.pop("numResults")
+        for doc in hits["docs"]:
             self._parse_doc(doc)
         return hits
 
@@ -295,45 +322,54 @@ class ScanpixDatalayer(DataLayer):
         # XXX: preview is used here instead of paid download
         #      see SDNTB-15
         data = {}
-        url = self._app.config['SCANPIX_SEARCH_URL'] + '/search'
-        data['refPtrs'] = [_id]
+        url = self._app.config["SCANPIX_SEARCH_URL"] + "/search"
+        data["refPtrs"] = [_id]
         r = self._request(url, data, resource)
-        doc = r.json()['data'][0]
+        doc = r.json()["data"][0]
         self._parse_doc(doc)
 
-        url = doc['renditions']['baseImage']['href']
+        url = doc["renditions"]["baseImage"]["href"]
         # if MIME type can't be guessed, we default to jpeg
-        mime_type = mimetypes.guess_type(url)[0] or 'image/jpeg'
+        mime_type = mimetypes.guess_type(url)[0] or "image/jpeg"
 
         r = self._request(url, data, resource)
         out = BytesIO(r.content)
         file_name, content_type, metadata = process_file_from_stream(out, mime_type)
 
-        logger.debug('Going to save media file with %s ' % file_name)
+        logger.debug("Going to save media file with %s " % file_name)
         out.seek(0)
         try:
-            file_id = self._app.media.put(out, filename=file_name, content_type=content_type, metadata=None)
+            file_id = self._app.media.put(
+                out, filename=file_name, content_type=content_type, metadata=None
+            )
         except Exception as e:
             logger.exception(e)
-            raise SuperdeskApiError.internalError('Media saving failed')
+            raise SuperdeskApiError.internalError("Media saving failed")
         else:
             try:
                 inserted = [file_id]
-                doc['mimetype'] = content_type
-                doc['filemeta'] = decode_metadata(metadata)
+                doc["mimetype"] = content_type
+                doc["filemeta"] = decode_metadata(metadata)
                 # set the version created to now to bring it to the top of the desk, images can be quite old
-                doc['versioncreated'] = utcnow()
-                file_type = content_type.split('/')[0]
+                doc["versioncreated"] = utcnow()
+                file_type = content_type.split("/")[0]
                 rendition_spec = get_renditions_spec()
-                renditions = generate_renditions(out, file_id, inserted, file_type,
-                                                 content_type, rendition_spec,
-                                                 url_for_media, insert_metadata=False)
-                doc['renditions'] = renditions
+                renditions = generate_renditions(
+                    out,
+                    file_id,
+                    inserted,
+                    file_type,
+                    content_type,
+                    rendition_spec,
+                    url_for_media,
+                    insert_metadata=False,
+                )
+                doc["renditions"] = renditions
             except (IndexError, KeyError, json.JSONDecodeError) as e:
                 logger.exception("Internal error: {}".format(e))
                 delete_file_on_error(doc, file_id)
 
-                raise SuperdeskApiError.internalError('Generating renditions failed')
+                raise SuperdeskApiError.internalError("Generating renditions failed")
         return doc
 
     def find_list_of_ids(self, resource, ids, client_projection=None):

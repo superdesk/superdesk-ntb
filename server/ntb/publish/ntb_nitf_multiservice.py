@@ -18,31 +18,33 @@ imatrics_entities = ["organisation", "person", "event"]
 class NTBNITFMultiServiceFormatter(NTBNITFFormatter):
     """This NITF formatter generates single file with all services."""
 
-    FORMAT_TYPE = 'ntbnitf'  # default ntb nitf formatter
+    FORMAT_TYPE = "ntbnitf"  # default ntb nitf formatter
     type = FORMAT_TYPE
     name = "NTB NITF Multi Service"
 
     def _format_service(self, article):
         try:
-            service_names = ", ".join(service.get("name", "") for service in article['anpa_category'])
+            service_names = ", ".join(
+                service.get("name", "") for service in article["anpa_category"]
+            )
             return service_names
-        except (KeyError):
+        except KeyError:
             pass
 
 
 class NTBNITFMultiServiceMediaFormatter(NTBNITFMultiServiceFormatter):
 
-    FORMAT_TYPE = 'ntbnitfmedia'
+    FORMAT_TYPE = "ntbnitfmedia"
     type = FORMAT_TYPE
     name = "NTB NITF Multi Service with media references"
 
     def _get_media_source(self, data):
-        if data.get('type') == 'picture':
+        if data.get("type") == "picture":
             return self._get_original_href(data)
         return super()._get_media_source(data)
 
 
-class NTBNITF2Mixin():
+class NTBNITF2Mixin:
 
     def _format_slugline(self, article, tobject):
         """Avoid slugline in key-list."""
@@ -83,13 +85,21 @@ class NTBNITFMultiServiceFormatter20(NTBNITF2Mixin, NTBNITFMultiServiceFormatter
     name = "NTB NITF 2.0 Multi Service"
 
 
-class NTBNITFMultiServiceMediaFormatter20(NTBNITF2Mixin, NTBNITFMultiServiceMediaFormatter):
+class NTBNITFMultiServiceMediaFormatter20(
+    NTBNITF2Mixin, NTBNITFMultiServiceMediaFormatter
+):
     FORMAT_TYPE = "ntbnitfmedia20"
     type = FORMAT_TYPE
     name = "NTB NITF 2.0 Multi Service with media references"
 
 
-PublishService.register_file_extension(NTBNITFMultiServiceFormatter.FORMAT_TYPE, 'xml')
-PublishService.register_file_extension(NTBNITFMultiServiceMediaFormatter.FORMAT_TYPE, 'xml')
-PublishService.register_file_extension(NTBNITFMultiServiceFormatter20.FORMAT_TYPE, "xml")
-PublishService.register_file_extension(NTBNITFMultiServiceMediaFormatter20.FORMAT_TYPE, "xml")
+PublishService.register_file_extension(NTBNITFMultiServiceFormatter.FORMAT_TYPE, "xml")
+PublishService.register_file_extension(
+    NTBNITFMultiServiceMediaFormatter.FORMAT_TYPE, "xml"
+)
+PublishService.register_file_extension(
+    NTBNITFMultiServiceFormatter20.FORMAT_TYPE, "xml"
+)
+PublishService.register_file_extension(
+    NTBNITFMultiServiceMediaFormatter20.FORMAT_TYPE, "xml"
+)

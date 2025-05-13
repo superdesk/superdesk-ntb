@@ -88,14 +88,14 @@ class SyncTopicsCommand(superdesk.Command):
             dest="format_json",
             action="store_true",
             required=False,
-            help="Standardise the format of the vocabularies.json file"
+            help="Standardise the format of the vocabularies.json file",
         ),
         superdesk.Option(
             "--output",
             "-o",
             dest="output",
             required=False,
-            help="Changes the output file where changes are written. Useful for development."
+            help="Changes the output file where changes are written. Useful for development.",
         ),
         superdesk.Option(
             "--source-format",
@@ -104,7 +104,7 @@ class SyncTopicsCommand(superdesk.Command):
             required=False,
             default="json",
             choices=["json", "xlsx"],
-            help="Specify the format of the local file (JSON or XLSX Spreadsheet)"
+            help="Specify the format of the local file (JSON or XLSX Spreadsheet)",
         ),
         superdesk.Option(
             "--override",
@@ -112,8 +112,8 @@ class SyncTopicsCommand(superdesk.Command):
             dest="override_fields",
             required=False,
             help="Specify the fields to override (if a value already exists), as a comma separated list. "
-                 "Use `--override _all` to override all values"
-        )
+            "Use `--override _all` to override all values",
+        ),
     ]
 
     def run(
@@ -127,7 +127,9 @@ class SyncTopicsCommand(superdesk.Command):
         if format_json:
             self._run_standardise_vocabs(output)
         else:
-            self._run_synchronise_vocabs(filename, output, source_format, override_fields)
+            self._run_synchronise_vocabs(
+                filename, output, source_format, override_fields
+            )
 
     def _run_standardise_vocabs(self, output: Optional[str] = None):
         """Standardise the JSON format of the vocabularies.json file
@@ -136,7 +138,9 @@ class SyncTopicsCommand(superdesk.Command):
         as ``json.dumps`` may differ from human created changes.
         """
 
-        logger.info("Standardising the format of vocabularies.json file (skipping sync)")
+        logger.info(
+            "Standardising the format of vocabularies.json file (skipping sync)"
+        )
 
         vocabularies_json = self._load_vocabularies_json()
         self._format_json(vocabularies_json, output)
@@ -146,7 +150,7 @@ class SyncTopicsCommand(superdesk.Command):
         filename: Optional[str] = None,
         output: Optional[str] = None,
         source_format: str = "json",
-        override_fields: Optional[str] = None
+        override_fields: Optional[str] = None,
     ):
         """Synchronise the Media Topics vocab from IPTC"""
 
@@ -155,9 +159,13 @@ class SyncTopicsCommand(superdesk.Command):
         # Load existing and updated MediaTopics
         vocabularies_json = self._load_vocabularies_json()
         existing_topics = self._get_existing_topics_from_cv(vocabularies_json)
-        updated_topics = self._get_updated_topics_from_iptc(existing_topics, filename, source_format)
+        updated_topics = self._get_updated_topics_from_iptc(
+            existing_topics, filename, source_format
+        )
 
-        self._update_vocabularies_json(vocabularies_json, updated_topics, override_fields)
+        self._update_vocabularies_json(
+            vocabularies_json, updated_topics, override_fields
+        )
         generate_topics_report(updated_topics)
         self._write_changes_to_vocabularies_json(vocabularies_json, output)
 
@@ -174,33 +182,28 @@ class SyncTopicsCommand(superdesk.Command):
             logger.exception("Failed to load vocabularies.json file")
             sys.exit(1)
 
-    def _format_json(self, vocabularies_json: VocabFileJson, output: Optional[str] = None):
+    def _format_json(
+        self, vocabularies_json: VocabFileJson, output: Optional[str] = None
+    ):
         """Write the json data back to the vocabularies.json file"""
 
         try:
             file_path = output or self._get_vocabularies_json_path()
             with open(file_path, "w") as f:
-                f.write(
-                    json.dumps(
-                        vocabularies_json,
-                        ensure_ascii=False,
-                        indent=4
-                    )
-                )
+                f.write(json.dumps(vocabularies_json, ensure_ascii=False, indent=4))
                 f.write("\r\n")
         except IOError:
             logger.exception("Failed to write changes to vocabularies.json file")
             sys.exit(1)
 
-    def _get_existing_topics_from_cv(self, vocabularies_json: VocabFileJson) -> Dict[str, CVItem]:
+    def _get_existing_topics_from_cv(
+        self, vocabularies_json: VocabFileJson
+    ) -> Dict[str, CVItem]:
         """Returns dictionary of MediaTopics from vocabularies.json"""
 
         for vocab in vocabularies_json:
             if vocab.get("_id") == "topics":
-                return {
-                    topic["qcode"]: topic
-                    for topic in vocab.get("items") or []
-                }
+                return {topic["qcode"]: topic for topic in vocab.get("items") or []}
 
         return {}
 
@@ -208,7 +211,7 @@ class SyncTopicsCommand(superdesk.Command):
         self,
         existing_topics: Dict[str, CVItem],
         filename: Optional[str] = None,
-        source_format: str = "json"
+        source_format: str = "json",
     ) -> List[CVItemFromIPTC]:
         """Get MediaTopics in CV format from IPTC format"""
 
@@ -224,15 +227,12 @@ class SyncTopicsCommand(superdesk.Command):
         self,
         vocabularies_json: VocabFileJson,
         updated_topics: List[CVItemFromIPTC],
-        override_fields: Optional[str] = None
+        override_fields: Optional[str] = None,
     ):
         """Updates the vocabularies json data with the synchronised Media Topics"""
 
         # Map the IPTC Media Topics by ``qcode`` for easier retrieval by qcode
-        updated_topics_by_id = {
-            topic["qcode"]: topic
-            for topic in updated_topics
-        }
+        updated_topics_by_id = {topic["qcode"]: topic for topic in updated_topics}
 
         if override_fields == "_all":
             override_fields = "name,parent,iptc_subject,wikidata"
@@ -263,32 +263,26 @@ class SyncTopicsCommand(superdesk.Command):
             # default to being enabled
             for qcode, item in updated_topics_by_id.items():
                 if not item["_existing"]:
-                    vocab["items"].append({
-                        "qcode": item["qcode"],
-                        "name": item["name"],
-                        "parent": item["parent"],
-                        "iptc_subject": item["iptc_subject"],
-                        "wikidata": item["wikidata"],
-                        "is_active": True
-                    })
+                    vocab["items"].append(
+                        {
+                            "qcode": item["qcode"],
+                            "name": item["name"],
+                            "parent": item["parent"],
+                            "iptc_subject": item["iptc_subject"],
+                            "wikidata": item["wikidata"],
+                            "is_active": True,
+                        }
+                    )
 
     def _write_changes_to_vocabularies_json(
-        self,
-        vocabularies_json: VocabFileJson,
-        output: Optional[str] = None
+        self, vocabularies_json: VocabFileJson, output: Optional[str] = None
     ):
         """Writes the updated vocabularies json to file"""
 
         try:
             file_path = output or self._get_vocabularies_json_path()
             with open(file_path, "w") as f:
-                f.write(
-                    json.dumps(
-                        vocabularies_json,
-                        ensure_ascii=False,
-                        indent=4
-                    )
-                )
+                f.write(json.dumps(vocabularies_json, ensure_ascii=False, indent=4))
                 f.write("\r\n")
         except IOError:
             logger.exception("Failed to update vocabularies.json file")

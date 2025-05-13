@@ -21,14 +21,14 @@ class RitzauFeedParser(BaseRitzauFeedParser):
 
     _subjects_map = None
 
-    NAME = 'ntb_ritzau'
+    NAME = "ntb_ritzau"
     label = "NTB Ritzau feed"
 
     def parse(self, xml, provider=None):
         item = super().parse(xml, provider)
         try:
-            category = utils.ingest_category_from_subject(item.get('subject'))
-            item.setdefault('subject', []).append(category)
+            category = utils.ingest_category_from_subject(item.get("subject"))
+            item.setdefault("subject", []).append(category)
             utils.set_default_service(item)
         except Exception as ex:
             raise ParserError.parseMessageError(ex, provider)

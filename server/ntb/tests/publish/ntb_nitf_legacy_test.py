@@ -30,15 +30,21 @@ class NTBNITFMultiFileFormatterTest(NTBNITFFormatterTest):
     def setUp(self):
         super().setUp()
         article_legacy = copy.deepcopy(ARTICLE)
-        article_legacy['anpa_category'] = [{'name': 'service1'}, {'name': 'service2'}, {'name': 'service3'}]
+        article_legacy["anpa_category"] = [
+            {"name": "service1"},
+            {"name": "service2"},
+            {"name": "service3"},
+        ]
         self.formatter = NTBNITFMultiFileFormatter()
         self.base_formatter = Formatter()
-        self.tz = pytz.timezone(self.app.config['DEFAULT_TIMEZONE'])
+        self.tz = pytz.timezone(self.app.config["DEFAULT_TIMEZONE"])
         # formatting is done once for all tests to save time
         # as long as used attributes are not modified, it's fine
         self.article = article_legacy
-        self.formatter_output = self.formatter.format(self.article, {'name': 'Test NTBNITF'})
-        self.docs = [formatter['encoded_item'] for formatter in self.formatter_output]
+        self.formatter_output = self.formatter.format(
+            self.article, {"name": "Test NTBNITF"}
+        )
+        self.docs = [formatter["encoded_item"] for formatter in self.formatter_output]
         self.nitf_xmls = [etree.fromstring(doc) for doc in self.docs]
         self.nitf_xml = self.nitf_xmls[0]
 
@@ -46,26 +52,32 @@ class NTBNITFMultiFileFormatterTest(NTBNITFFormatterTest):
         self.assertEqual(len(self.nitf_xmls), 3)
 
     def test_slugline(self):
-        du_key = self.nitf_xmls[0].find('head/docdata/du-key')
-        self.assertEqual(du_key.get('key'), 'this is the slugline ----')
+        du_key = self.nitf_xmls[0].find("head/docdata/du-key")
+        self.assertEqual(du_key.get("key"), "this is the slugline ----")
 
-        du_key = self.nitf_xmls[1].find('head/docdata/du-key')
-        self.assertEqual(du_key.get('key'), 'this is the slugline ----')
+        du_key = self.nitf_xmls[1].find("head/docdata/du-key")
+        self.assertEqual(du_key.get("key"), "this is the slugline ----")
 
     def test_doc_id(self):
-        doc_id = self.nitf_xmls[0].find('head/docdata/doc-id')
-        self.assertEqual(doc_id.get('regsrc'), 'NTB')
-        self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(ITEM_ID, 1))
+        doc_id = self.nitf_xmls[0].find("head/docdata/doc-id")
+        self.assertEqual(doc_id.get("regsrc"), "NTB")
+        self.assertEqual(doc_id.get("id-string"), "NTB{}_{:02}".format(ITEM_ID, 1))
 
-        doc_id = self.nitf_xmls[1].find('head/docdata/doc-id')
-        self.assertEqual(doc_id.get('regsrc'), 'NTB')
-        self.assertEqual(doc_id.get('id-string'), 'NTB{}_{:02}'.format(ITEM_ID, 1))
+        doc_id = self.nitf_xmls[1].find("head/docdata/doc-id")
+        self.assertEqual(doc_id.get("regsrc"), "NTB")
+        self.assertEqual(doc_id.get("id-string"), "NTB{}_{:02}".format(ITEM_ID, 1))
 
     def test_filename(self):
         filename = self.nitf_xmls[0].find('head/meta[@name="filename"]')
         datetime = NOW.astimezone(self.tz).strftime("%Y-%m-%d_%H-%M-%S")
-        self.assertEqual(filename.get('content'), datetime + "_service1_Forskning_ny1-this-is-the-slugline-----.xml")
+        self.assertEqual(
+            filename.get("content"),
+            datetime + "_service1_Forskning_ny1-this-is-the-slugline-----.xml",
+        )
 
         filename = self.nitf_xmls[1].find('head/meta[@name="filename"]')
         datetime = NOW.astimezone(self.tz).strftime("%Y-%m-%d_%H-%M-%S")
-        self.assertEqual(filename.get('content'), datetime + "_service2_Forskning_ny1-this-is-the-slugline-----.xml")
+        self.assertEqual(
+            filename.get("content"),
+            datetime + "_service2_Forskning_ny1-this-is-the-slugline-----.xml",
+        )

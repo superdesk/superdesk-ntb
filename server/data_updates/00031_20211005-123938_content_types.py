@@ -14,9 +14,9 @@ from copy import deepcopy
 
 class DataUpdate(BaseDataUpdate):
 
-    resource = 'content_types'
+    resource = "content_types"
 
-    SUBJECT = 'subject_custom'
+    SUBJECT = "subject_custom"
 
     def forwards(self, mongodb_collection, mongodb_database):
         """Remove subject field from content profiles"""
@@ -47,13 +47,22 @@ class DataUpdate(BaseDataUpdate):
                 if self.SUBJECT in allowed_list:
                     allowed_list.remove(self.SUBJECT)
 
-            if original_editor != content_type["editor"] or original_schema != content_type["schema"]:
-                print("Subject is removed from the content profile:", content_type.get("label"))
+            if (
+                original_editor != content_type["editor"]
+                or original_schema != content_type["schema"]
+            ):
+                print(
+                    "Subject is removed from the content profile:",
+                    content_type.get("label"),
+                )
                 mongodb_collection.update(
-                    {"_id": content_type.get(config.ID_FIELD)}, {"$set": {
-                        "editor": content_type["editor"],
-                        "schema": content_type["schema"]
-                    }}
+                    {"_id": content_type.get(config.ID_FIELD)},
+                    {
+                        "$set": {
+                            "editor": content_type["editor"],
+                            "schema": content_type["schema"],
+                        }
+                    },
                 )
 
     def backwards(self, mongodb_collection, mongodb_database):

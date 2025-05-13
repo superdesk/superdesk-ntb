@@ -14,7 +14,7 @@ from superdesk.ws import create_server
 from app import get_app
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = get_app()
 
     create_server(app.config)

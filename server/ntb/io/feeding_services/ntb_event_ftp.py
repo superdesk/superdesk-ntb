@@ -9,7 +9,10 @@
 # at https://www.sourcefabric.org/superdesk/license
 
 from superdesk.io.feeding_services import FTPFeedingService
-from superdesk.io.registry import register_feeding_service, register_feeding_service_parser
+from superdesk.io.registry import (
+    register_feeding_service,
+    register_feeding_service_parser,
+)
 
 
 class NTBEventsFTPFeedingService(FTPFeedingService):
@@ -17,13 +20,13 @@ class NTBEventsFTPFeedingService(FTPFeedingService):
     Feeding Service class which can read events from NTB via FTP
     """
 
-    NAME = 'ntb_events_ftp'
-    label = 'NTB Events FTP'
-    service = 'events'
+    NAME = "ntb_events_ftp"
+    label = "NTB Events FTP"
+    service = "events"
 
 
 register_feeding_service(NTBEventsFTPFeedingService)
-register_feeding_service_parser(NTBEventsFTPFeedingService.NAME, 'ntb_events_api_xml')
-register_feeding_service_parser(NTBEventsFTPFeedingService.NAME, 'ntb_event_xml')
-register_feeding_service_parser(NTBEventsFTPFeedingService.NAME, 'ics20')
-register_feeding_service_parser(NTBEventsFTPFeedingService.NAME, 'ntb_nifs')
+register_feeding_service_parser(NTBEventsFTPFeedingService.NAME, "ntb_events_api_xml")
+register_feeding_service_parser(NTBEventsFTPFeedingService.NAME, "ntb_event_xml")
+register_feeding_service_parser(NTBEventsFTPFeedingService.NAME, "ics20")
+register_feeding_service_parser(NTBEventsFTPFeedingService.NAME, "ntb_nifs")

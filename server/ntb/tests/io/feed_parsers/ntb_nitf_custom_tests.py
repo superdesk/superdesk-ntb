@@ -14,7 +14,7 @@ from . import XMLParserTestCase
 
 class NTBNITFCustomTestCase(XMLParserTestCase):
 
-    filename = 'nitf_test.xml'
+    filename = "nitf_test.xml"
     parser = NTBNITFCustomFeedParser()
 
     def test_dateline(self):

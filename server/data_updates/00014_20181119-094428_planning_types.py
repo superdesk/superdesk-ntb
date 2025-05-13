@@ -12,21 +12,20 @@ from superdesk.commands.data_updates import BaseDataUpdate
 
 class DataUpdate(BaseDataUpdate):
 
-    resource = 'planning_types'
+    resource = "planning_types"
 
     def forwards(self, mongodb_collection, mongodb_database):
-        print(mongodb_collection.update(
-            {'_id': 'planning'},
-            {'$set': {
-                "schema.files": {
-                    "required": False,
-                    "type": "list"
+        print(
+            mongodb_collection.update(
+                {"_id": "planning"},
+                {
+                    "$set": {
+                        "schema.files": {"required": False, "type": "list"},
+                        "editor.files": {"enabled": True},
+                    }
                 },
-                "editor.files": {
-                    "enabled": True
-                }
-            }}
-        ))
+            )
+        )
 
     def backwards(self, mongodb_collection, mongodb_database):
         pass

@@ -231,7 +231,7 @@ class NTBNITFFormatter(NITFFormatter):
     def _format_place(self, article, docdata):
         mapping = (
             ("state-prov", ("ntb_parent", "name")),
-            ("county-dist", ("ntb_qcode", )),
+            ("county-dist", ("ntb_qcode",)),
             ("id", ("wikidata", "altids")),
         )
         for place in article.get("place", []):
@@ -244,7 +244,11 @@ class NTBNITFFormatter(NITFFormatter):
             for attrib, keys in mapping:
                 for key in keys:
                     if data.get(key):
-                        if not data.get("wikidata") and key == "altids" and data.get("altids").get("wikidata"):
+                        if (
+                            not data.get("wikidata")
+                            and key == "altids"
+                            and data.get("altids").get("wikidata")
+                        ):
                             evloc.attrib[attrib] = data.get("altids", {}).get(
                                 "wikidata"
                             )
@@ -260,9 +264,9 @@ class NTBNITFFormatter(NITFFormatter):
         pubdata = etree.SubElement(
             head, "pubdata", attrib={"date.publication": pub_date}
         )
-        article[
-            "pubdata"
-        ] = pubdata  # needed to access pubdata when formatting body content
+        article["pubdata"] = (
+            pubdata  # needed to access pubdata when formatting body content
+        )
 
     def _format_subjects(self, article, tobject):
         # Call Function for mapping of Imatrics entities
@@ -284,11 +288,11 @@ class NTBNITFFormatter(NITFFormatter):
                 tobject,
                 "tobject.subject",
                 {
-                    "tobject.subject.refnum": "medtop:{}".format(
-                        subject.get("qcode", "")
-                    )
-                    if subject.get("scheme") == ntb.MEDIATOPICS_CV
-                    else subject.get("qcode", ""),
+                    "tobject.subject.refnum": (
+                        "medtop:{}".format(subject.get("qcode", ""))
+                        if subject.get("scheme") == ntb.MEDIATOPICS_CV
+                        else subject.get("qcode", "")
+                    ),
                     name_key: subject.get("name", ""),
                 },
                 None,
@@ -315,9 +319,11 @@ class NTBNITFFormatter(NITFFormatter):
                     {
                         "tobject.subject.refnum": "{}:{}".format(
                             field,
-                            altids.get("wikidata")
-                            if altids and altids.get("wikidata")
-                            else data.get("qcode"),
+                            (
+                                altids.get("wikidata")
+                                if altids and altids.get("wikidata")
+                                else data.get("qcode")
+                            ),
                         ),
                         name_key: data.get("name"),
                     },
