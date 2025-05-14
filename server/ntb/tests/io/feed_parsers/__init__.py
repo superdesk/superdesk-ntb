@@ -1,5 +1,5 @@
 import os
-import settings
+from ntb.io.feed_parsers import ntb_nitf
 
 from superdesk import config
 from superdesk.tests import TestCase
@@ -22,10 +22,7 @@ class XMLParserTestCase(TestCase):
         )
         AppPopulateCommand().run(voc_file)
 
-        # settings are needed in order to get into account NITF_MAPPING
-        for key in dir(settings):
-            if key.isupper():
-                setattr(config, key, getattr(settings, key))
+        setattr(config, "NITF_MAPPING", ntb_nitf.NITF_MAPPING)
 
         self._run_parse()
 
