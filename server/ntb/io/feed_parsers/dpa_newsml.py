@@ -135,4 +135,4 @@ class DPANewsMLFeedParser(NewsMLTwoFeedParser):
                 break
 
 
-register_feed_parser(DPANewsMLFeedParser.NAME, DPANewsMLFeedParser())
+register_feed_parser(DPANewsMLFeedParser.NAME, DPANewsMLFeedParser(), override=True)
