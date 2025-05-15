@@ -11,7 +11,7 @@ responses==0.25.7
 
 mypy==1.15.0
 mypy-extensions==1.1.0
-types-requests<2.32
+types-requests<2.33
 types-pytz<2026
 types-Flask<2
 types-python-dateutil<3.0
