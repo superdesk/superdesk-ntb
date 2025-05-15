@@ -12,23 +12,23 @@ arrow==1.3.0
     #   superdesk-core
 async-timeout==5.0.1
     # via redis
-authlib==0.14.3
+authlib==1.4.1
     # via superdesk-core
 babel==2.17.0
     # via flask-babel
-bcrypt==4.1.3
+bcrypt==4.2.1
     # via superdesk-core
 billiard==4.2.1
     # via celery
-blinker==1.8.2
+blinker==1.9.0
     # via
     #   elastic-apm
     #   flask-mail
-    #   raven
+    #   sentry-sdk
     #   superdesk-core
-boto3==1.38.15
+boto3==1.38.16
     # via superdesk-core
-botocore==1.38.15
+botocore==1.38.16
     # via
     #   boto3
     #   s3transfer
@@ -45,6 +45,7 @@ certifi==2025.4.26
     #   elastic-apm
     #   elasticsearch
     #   requests
+    #   sentry-sdk
 cffi==1.17.1
     # via cryptography
 chardet==5.2.0
@@ -69,7 +70,7 @@ click-plugins==1.1.1
     # via celery
 click-repl==0.3.0
     # via celery
-croniter==3.0.4
+croniter==6.0.0
     # via superdesk-core
 cryptography==44.0.3
     # via
@@ -83,13 +84,13 @@ ecs-logging==2.2.0
     # via elastic-apm
 elastic-apm[flask]==6.23.0
     # via superdesk-core
-elasticsearch==7.13.4
+elasticsearch==7.17.12
     # via
     #   eve-elastic
     #   superdesk-core
 et-xmlfile==2.0.0
     # via openpyxl
-eve==2.1.0
+eve==2.2.0
     # via superdesk-core
 eve-elastic==7.4.3
     # via superdesk-core
@@ -106,7 +107,7 @@ flask==1.1.2
     #   flask-mail
     #   flask-oidc-ex
     #   flask-script
-    #   raven
+    #   sentry-sdk
     #   superdesk-core
 flask-babel==2.0.0
     # via superdesk-core
@@ -122,7 +123,7 @@ gunicorn==23.0.0
     # via -r requirements.in
 hachoir==3.3.0
     # via superdesk-core
-hermescache==1.0.0
+hermescache==1.1.0
     # via superdesk-core
 honcho==2.0.0
     # via -r requirements.in
@@ -156,18 +157,19 @@ kombu==5.4.2
     #   superdesk-core
 ldap3==2.9.1
     # via superdesk-core
-lxml==5.2.2
+lxml==5.3.2
     # via
     #   draftjs-exporter
     #   feedgen
     #   lxml-html-clean
     #   superdesk-core
     #   xmlsec
-lxml-html-clean==0.2.2
+lxml-html-clean==0.4.2
     # via superdesk-core
 markupsafe==2.0.1
     # via
     #   jinja2
+    #   sentry-sdk
     #   superdesk-core
 mongolock @ git+https://github.com/superdesk/mongolock.git@v1
     # via superdesk-core
@@ -181,7 +183,7 @@ orderly-set==5.4.1
     # via deepdiff
 packaging==25.0
     # via gunicorn
-pillow==10.4.0
+pillow==11.1.0
     # via
     #   reportlab
     #   superdesk-core
@@ -197,7 +199,7 @@ pyasn1-modules==0.4.2
     # via oauth2client
 pycparser==2.22
     # via cffi
-pyjwt==2.8.0
+pyjwt==2.10.1
     # via superdesk-core
 pymemcache==4.0.0
     # via superdesk-core
@@ -233,13 +235,11 @@ pytz==2025.2
     #   tzlocal
 pyyaml==6.0.2
     # via superdesk-core
-raven[flask]==6.10.0
-    # via superdesk-core
-redis==5.0.8
+redis==5.2.1
     # via
     #   celery
     #   superdesk-core
-regex==2024.7.24
+regex==2024.11.6
     # via superdesk-core
 reportlab==4.2.5
     # via superdesk-core
@@ -254,6 +254,8 @@ rsa==4.9.1
     # via oauth2client
 s3transfer==0.12.0
     # via boto3
+sentry-sdk[flask]==2.28.0
+    # via superdesk-core
 sgmllib3k==1.0.0
     # via feedparser
 simplejson==3.20.1
@@ -263,16 +265,14 @@ six==1.17.0
     #   flask-oidc-ex
     #   oauth2client
     #   python-dateutil
-superdesk-core @ git+https://github.com/superdesk/superdesk-core.git@release/2.8
+superdesk-core @ git+https://github.com/superdesk/superdesk-core.git@release/2.9
     # via -r requirements.in
-superdesk-planning @ git+https://github.com/superdesk/superdesk-planning.git@release/2.8
+superdesk-planning @ git+https://github.com/superdesk/superdesk-planning.git@release/2.9
     # via -r requirements.in
 types-python-dateutil==2.9.0.20241206
     # via arrow
 typing-extensions==4.13.2
-    # via
-    #   jwcrypto
-    #   superdesk-core
+    # via jwcrypto
 tzdata==2025.2
     # via
     #   celery
@@ -287,6 +287,7 @@ urllib3==1.26.20
     #   elastic-apm
     #   elasticsearch
     #   requests
+    #   sentry-sdk
     #   superdesk-core
 vine==5.1.0
     # via
@@ -295,7 +296,7 @@ vine==5.1.0
     #   kombu
 wcwidth==0.2.13
     # via prompt-toolkit
-websockets==10.3
+websockets==15.0.1
     # via superdesk-core
 werkzeug==1.0.1
     # via
