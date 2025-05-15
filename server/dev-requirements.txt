@@ -1,18 +1,17 @@
 -r requirements.txt
 
 black==25.1.0
-flake8
-nose
-pep8
-pyflakes
-httmock
-wooper
-responses
+flake8==7.2.0
+pep8==1.7.1
+pyflakes==3.3.2
+pytest==8.3.5
+httmock==1.4.0
+wooper==0.4.4
+responses==0.25.7
 
-mypy
-mypy-extensions
-types-requests
-types-pytz
-typing-extensions
-types-Flask
-types-python-dateutil
+mypy==1.15.0
+mypy-extensions==1.1.0
+types-requests<2.32
+types-pytz<2026
+types-Flask<2
+types-python-dateutil<3.0
