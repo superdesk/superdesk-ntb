@@ -1,11 +1,11 @@
 import superdesk
+
 from superdesk.io.feed_parsers.nitf import NITFFeedParser
 from superdesk.io.registry import register_feed_parser
 from superdesk.errors import ParserError
 from superdesk.text_utils import get_word_count
 from superdesk.metadata.item import CONTENT_TYPE, ITEM_TYPE
-
-SETTINGS_MAPPING_PARAM = "NITF_MAPPING"
+from ntb.io.feed_parsers.ntb_nitf import NITF_MAPPING
 
 
 class NTBNITFCustomFeedParser(NITFFeedParser):
@@ -42,7 +42,7 @@ class NTBNITFCustomFeedParser(NITFFeedParser):
             ITEM_TYPE: CONTENT_TYPE.TEXT,  # set the default type.
         }
         try:
-            self.do_mapping(item, xml, SETTINGS_MAPPING_PARAM)
+            self.do_mapping(item, xml, NITF_MAPPING)
             elem = xml.find("body/body.head/dateline")
             if elem is not None:
                 city = elem.text if elem.text else elem.attrib.get("location")

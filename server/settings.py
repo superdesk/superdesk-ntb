@@ -13,8 +13,6 @@
 import os
 import json
 
-from ntb.io.feed_parsers import ntb_nitf
-from ntb.io.feed_parsers import stt_newsml  # NOQA
 from content_api.app.settings import CONTENTAPI_INSTALLED_APPS
 from superdesk.default_settings import (
     HTML_TAGS_WHITELIST as _HTML_TAGS_WHITELIST,
@@ -160,8 +158,6 @@ LANGUAGES = [
     {"language": "de", "label": "German", "source": False, "destination": False},
 ]
 
-# NTB NITF specific behaviour
-NITF_MAPPING = ntb_nitf.NITF_MAPPING
 
 ENABLE_PROFILING = False
 
