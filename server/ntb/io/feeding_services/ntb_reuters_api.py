@@ -148,7 +148,7 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
             response = self.session.post(
                 url or provider["config"].get("url"),
                 headers=headers,
-                data=data,
+                json=data,
                 timeout=timeout,
             )
         except requests.exceptions.Timeout as exception:
@@ -180,7 +180,6 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
             raise IngestApiError.apiParseError(exception, self.provider)
 
     def _generate_auth_token(self, provider):
-        # get_Token...
         auth_url = provider["config"].get("auth_url", None)
         body = {
             "client_id": provider["config"].get("client_id", ""),
@@ -188,7 +187,7 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
             "grant_type": "client_credentials",
             "audience": provider["config"].get("audience", ""),
         }
-        response = self.session.post(auth_url, data=body, timeout=30)
+        response = self.session.post(auth_url, json=body, timeout=30)
 
         try:
             response.raise_for_status()
