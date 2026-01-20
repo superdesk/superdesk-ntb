@@ -8,6 +8,7 @@
 # AUTHORS and LICENSE files distributed with this source code, or
 # at https://www.sourcefabric.org/superdesk/license
 
+from typing import Union
 import superdesk
 import logging
 import datetime
@@ -79,33 +80,25 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
         },
     ]
 
-    session = None
+    def __init__(self):
+        super().__init__()
+        self.session = requests.Session()
 
     def _update(self, provider, update):
         items = []
         self.provider = provider
-        self.session = requests.Session()
         parser = self.get_feed_parser(provider)
-        provider_config = self.provider.get("config")
-
-        if not provider_config.get("token") or self.is_token_expired(provider_config):
-            self.auth(provider, provider_config)
-
-        headers = {
-            "Authorization": f'Bearer {provider_config.get("token")}',
-            "Content-Type": "application/json",
-        }
+        provider_config = self.provider.setdefault("config", {})
+        provider_config.setdefault("url", "https://api.reutersconnect.com/content/graphql")
+        provider_config.setdefault("auth_url", "https://auth.thomsonreuters.com/oauth/token")
 
         cursor = ""
         default_last_updated = datetime.datetime.utcnow() - datetime.timedelta(hours=1)
-        data = {}
         while True:
             try:
                 variables = {
                     "cursor": cursor,
-                    "dateRange": provider.get(
-                        "last_updated", default_last_updated
-                    ).strftime("%Y.%m.%d.%H.%M.%S"),
+                    "dateRange": provider.get("last_updated", default_last_updated).strftime("%Y.%m.%d.%H.%M.%S"),
                 }
                 if provider_config.get("query", ""):
                     variables["query"] = provider_config["query"]
@@ -113,38 +106,18 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
                 if provider_config.get("channel", ""):
                     variables["channel"] = provider_config["channel"]
 
-                response = self.session.post(
-                    provider_config.get("url"),
-                    headers=headers,
-                    data=json.dumps(
-                        {
-                            "query": self.get_query(provider_config),
-                            "variables": variables,
-                        }
-                    ),
-                    timeout=30,
+                data = self.post_url(
+                    provider, data={"query": self.get_query(provider_config), "variables": variables}
                 )
-                response.raise_for_status()
-                data = response.json()
 
                 for id in self.get_items_id(data):
                     detailed_query = self.get_detailed_query(id)
-                    response = self.session.post(
-                        provider_config.get("url"),
-                        headers=headers,
-                        data=json.dumps({"query": detailed_query}),
-                        timeout=30,
-                    )
-                    response.raise_for_status()
-                    detailed_data = response.json()
+                    detailed_data = self.post_url(provider, data={"query": detailed_query})
                     items.append(parser.parse(detailed_data, provider))
 
-            except requests.exceptions.HTTPError as e:
-                if e.response.status_code == 401:
-                    self.auth(provider, provider_config)
-                else:
-                    logger.error(e)
-                    return
+            except Exception as e:
+                logger.exception(e)
+                raise IngestApiError.apiGeneralError(e, provider=provider)
 
             val = data.get("data", {}).get("search", {})
             if val:
@@ -160,54 +133,76 @@ class NTBReutersHTTPFeedingService(HTTPFeedingService):
         else:
             yield [items]
 
-    def auth(self, provider, provider_config):
-        provider_config.setdefault(
-            "url", "https://api.reutersconnect.com/content/graphql"
-        )
-        provider_config.setdefault(
-            "auth_url", "https://auth.thomsonreuters.com/oauth/token"
-        )
+    def post_url(
+        self, provider: dict, url: Union[str, None] = None, data: Union[dict, None] = None, timeout: int = 30
+    ) -> dict:
+        provider_had_token = True if provider.get("tokens") else False
+        auth_token = self._get_auth_token(provider, update=True)
 
+        headers = {
+            "Authorization": f'Bearer {auth_token}',
+            "Content-Type": "application/json",
+        }
+
+        try:
+            response = self.session.post(
+                url or provider["config"].get("url"),
+                headers=headers,
+                data=data,
+                timeout=timeout,
+            )
+        except requests.exceptions.Timeout as exception:
+            raise IngestApiError.apiTimeoutError(exception, self.provider)
+        except requests.exceptions.ConnectionError as exception:
+            raise IngestApiError.apiConnectionError(exception, self.provider)
+        except requests.exceptions.RequestException as exception:
+            raise IngestApiError.apiRequestError(exception, self.provider)
+        except Exception as exception:
+            raise IngestApiError.apiGeneralError(exception, self.provider)
+
+        if not response.ok:
+            exc = Exception(response.reason)
+            if response.status_code in (401, 403):
+                if provider_had_token:
+                    # We had a token stored already, but it's not working.
+                    # Generate a new one
+                    provider.pop("tokens", None)
+                    return self.post_url(provider, url, data, timeout)
+                raise IngestApiError.apiAuthError(exc, self.provider)
+            elif response.status_code == 404:
+                raise IngestApiError.apiNotFoundError(exc, self.provider)
+            else:
+                raise IngestApiError.apiGeneralError(exc, self.provider)
+
+        try:
+            return response.json()
+        except Exception as exception:
+            raise IngestApiError.apiParseError(exception, self.provider)
+
+    def _generate_auth_token(self, provider):
         # get_Token...
-        auth_url = provider_config.get("auth_url", None)
+        auth_url = provider["config"].get("auth_url", None)
         body = {
-            "client_id": provider_config.get("client_id", ""),
-            "client_secret": provider_config.get("client_secret", ""),
+            "client_id": provider["config"].get("client_id", ""),
+            "client_secret": provider["config"].get("client_secret", ""),
             "grant_type": "client_credentials",
-            "audience": provider_config.get("audience", ""),
+            "audience": provider["config"].get("audience", ""),
         }
         response = self.session.post(auth_url, data=body, timeout=30)
-        response.raise_for_status()
-        if response.status_code == 200:
+
+        try:
+            response.raise_for_status()
             data = response.json()
-            if "token" in provider_config:
-                provider_config["token"] = data.get("access_token")
-            else:
-                provider_config.setdefault("token", data.get("access_token"))
-            if "expires_at" in provider_config:
-                provider_config["expires_at"] = int(
-                    datetime.datetime.now().timestamp()
-                ) + int(data.get("expires_in"))
-            else:
-                provider_config.setdefault(
-                    "expires_at",
-                    int(datetime.datetime.now().timestamp())
-                    + int(data.get("expires_in")),
-                )
-            superdesk.get_resource_service("ingest_providers").update(
-                provider.get("_id"), provider_config, provider
-            )
-        else:
-            raise IngestApiError.apiAuthError()
+            access_token = data.get("access_token")
 
-    def is_token_expired(self, provider_config):
-        """
-        Check whether the token has expired.
-        """
-        current_time = datetime.datetime.now(datetime.timezone.utc).timestamp()
-        expires_at = provider_config.get("expires_at", datetime.datetime.min)
+            if not access_token:
+                raise IngestApiError.apiAuthError(provider=provider)
 
-        return current_time >= expires_at
+            return access_token
+        except Exception as exc:
+            err = IngestApiError.apiAuthError(exc, provider=provider)
+            self.close_provider(provider, err, force=True)
+            raise err
 
     def get_query(self, provider_config):
         query_params = {
