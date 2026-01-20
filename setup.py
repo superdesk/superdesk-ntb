@@ -11,14 +11,18 @@
 
 
 from setuptools import setup, find_packages
-from pip.req import parse_requirements
-from pip.download import PipSession
 import os
 
 SOURCE_FOLDER = 'server'
 LONG_DESCRIPTION = open(os.path.join(SOURCE_FOLDER, 'README.md')).read()
-REQUIREMENTS = [str(ir.req) for ir in parse_requirements('server/requirements.txt', session=PipSession())
-                if not (getattr(ir, 'link', False) or getattr(ir, 'url', False))]
+
+with open("server/requirements.txt", "r") as r:
+    # Continue to use requirements.txt
+    # but replace superdesk-core with setuptools equivalent syntax
+    # This is so we don't have to update customer repos
+    REQUIREMENTS = [
+        line.rsplit("\n", 1)[0] for line in r.readlines() if line.rsplit("\n", 1)[0] and not line.startswith("#")
+    ]
 
 setup(
     name='Superdesk-Server',
