@@ -60,8 +60,7 @@ class NTBTTNINJSFeedParser(NINJSFeedParser):
         return item
 
     def datetime(self, string):
-        dt = parse(string).replace(tzinfo=utc)
-        return local_to_utc(TIMEZONE, dt)
+        return parse(string).replace(tzinfo=utc)
 
     def sanitise_ntb_tt_html(self, html):
         if not html:

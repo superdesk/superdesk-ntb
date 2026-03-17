@@ -6,7 +6,7 @@
     "mimetype": "text/html",
     "representationtype": "complete",
     "profile": "PUBL",
-    "versioncreated": "2020-07-02T22:04:47+02:00",
+    "versioncreated": "2020-07-02T20:04:47Z",
     "job": "574716",
     "pubstatus": "usable",
     "copyrightholder": "TT",
@@ -197,6 +197,6 @@
             "scheme": "http://tt.se/spec/product/1.0"
         }
     ],
-    "datetime": "2020-07-02T22:04:47+02:00",
+    "datetime": "2020-07-02T20:04:47Z",
     "sector": "SPT"
 }
